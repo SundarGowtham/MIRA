@@ -44,16 +44,29 @@ import dotenv
 
 dotenv.load_dotenv()
 
-
 # ---------------------------------------------------------------------------
 # CONFIG
 # ---------------------------------------------------------------------------
 
-SMOKE = False   # Set False for full run
+SMOKE = False  # Set False for full run
+
+# Robocrys data is only needed for the future structure-text alignment
+# module (week 2). It's the slowest step (~3 hours per-material API calls)
+# and is NOT needed for the validator, SFT, or GRPO training. Skip it
+# until we actually need it.
+SKIP_ROBOCRYS = True
+
+# Phase diagram caps to bound runtime. Doped/multi-additive synthesis
+# records produce chemsystems with 6-8 elements where PD construction
+# can take minutes per system. The chemistry of those systems is not
+# meaningfully different from their parent (e.g. doped BaTiO3 has the
+# same thermodynamics as undoped BaTiO3 for our purposes), so we skip.
+PD_MAX_ELEMENTS  = 5     # skip chemsystems with more than this many elements
+PD_TIMEOUT_SECS  = 60    # skip individual PD builds taking longer than this
 
 PROJECT_ROOT = Path(__file__).parent
-DATA_RAW   = PROJECT_ROOT / "data" / "raw"
-DATA_CACHE = PROJECT_ROOT / "data" / "cache"
+DATA_RAW   = PROJECT_ROOT / "data2" / "raw"
+DATA_CACHE = PROJECT_ROOT / "data2" / "cache"
 
 SMOKE_SAMPLE_SIZE = 20
 
@@ -76,6 +89,32 @@ def ensure_dirs() -> None:
 
 def log(msg: str) -> None:
     print(f"[{time.strftime('%H:%M:%S')}] {msg}", flush=True)
+
+
+def with_retry(max_attempts: int = 5, base_delay: float = 2.0):
+    """
+    Decorator: retry on transient network/API failures with
+    exponential backoff. Gives up after max_attempts.
+
+    Use on any function that wraps an MP API call.
+    """
+    def decorator(fn):
+        def wrapper(*args, **kwargs):
+            for attempt in range(1, max_attempts + 1):
+                try:
+                    return fn(*args, **kwargs)
+                except KeyboardInterrupt:
+                    raise   # always pass through Ctrl+C
+                except Exception as e:
+                    if attempt == max_attempts:
+                        log(f"  RETRY EXHAUSTED after {max_attempts} attempts: {e}")
+                        raise
+                    delay = base_delay * (2 ** (attempt - 1))
+                    log(f"  retry {attempt}/{max_attempts} after {delay:.0f}s: {e}")
+                    time.sleep(delay)
+            return None  # unreachable
+        return wrapper
+    return decorator
 
 
 def synthesis_doc_to_dict(doc) -> dict[str, Any]:
@@ -300,42 +339,69 @@ def pull_robocrys_descriptions(mpr, summary_records: list[dict]) -> list[dict]:
     """
     Pull natural language descriptions for our target materials.
 
-    The robocrys endpoint doesn't accept `material_ids=` as a filter.
-    Two supported approaches:
-      1. Bulk fetch all robocrys docs, filter client-side (slow but works)
-      2. Per-material lookup via mpr.materials.robocrys.get_data_by_id()
+    Writes incrementally to a JSONL file so a kill mid-run doesn't lose
+    progress. On resume, skips materials whose IDs are already in the file.
 
-    For the smoke run we use approach #2 (cheap, only ~10 materials).
-    For the full run we use approach #1 once and reuse the cached file.
-
-    Robocrys data is for the future RAG/alignment module, NOT for the
-    validator or SFT data. Failures here are non-fatal — we log and skip.
+    SKIPPED entirely when SKIP_ROBOCRYS = True. Robocrys is only needed
+    for the structure-text alignment module (week 2 of the project),
+    not for the validator, SFT, or GRPO training.
     """
     log("Step 3: pulling robocrys descriptions...")
-    out_path = DATA_RAW / "robocrys.json"
-    if out_path.exists():
-        log(f"  cached → loading {out_path}")
-        return loadfn(out_path)
 
-    material_ids = [r["material_id"] for r in summary_records]
-    if not material_ids:
-        log("  no material IDs — skipping")
-        dumpfn([], out_path)
+    if SKIP_ROBOCRYS:
+        log("  SKIP_ROBOCRYS = True — skipping (run separately later)")
+        # Write empty file so downstream code doesn't break
+        out_path_json = DATA_RAW / "robocrys.json"
+        if not out_path_json.exists():
+            dumpfn([], out_path_json)
         return []
 
-    records = []
+    # We use JSONL for durability — one record per line, appended as we go.
+    # The legacy JSON array file is built ONCE at the end from the JSONL.
+    out_path_jsonl = DATA_RAW / "robocrys.jsonl"
+    out_path_json  = DATA_RAW / "robocrys.json"
 
-    if SMOKE or len(material_ids) < 100:
-        # Per-material lookup — cheap when we have few targets.
-        # Different mp-api versions have different method signatures, so
-        # try a few patterns before giving up on each material.
-        log(f"  fetching {len(material_ids)} descriptions individually...")
-        for mid in material_ids:
+    # If the consolidated JSON exists, we already finished a previous run
+    if out_path_json.exists():
+        log(f"  cached → loading {out_path_json}")
+        return loadfn(out_path_json)
+
+    # Resume: read whatever JSONL we have so far
+    seen_ids: set[str] = set()
+    records: list[dict] = []
+    if out_path_jsonl.exists():
+        with out_path_jsonl.open() as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    rec = json.loads(line)
+                    seen_ids.add(rec["material_id"])
+                    records.append(rec)
+                except Exception:
+                    pass
+        log(f"  resuming: {len(seen_ids)} descriptions already cached")
+
+    material_ids = [r["material_id"] for r in summary_records]
+    todo = [mid for mid in material_ids if mid not in seen_ids]
+
+    if not todo:
+        log(f"  all {len(material_ids)} already cached")
+        # Consolidate to canonical JSON for downstream code
+        dumpfn(records, out_path_json)
+        return records
+
+    log(f"  fetching {len(todo)} of {len(material_ids)} descriptions "
+        f"({len(seen_ids)} already cached)...")
+
+    # Open in append mode so each fetched description is durable immediately
+    fetched_this_run = 0
+    with out_path_jsonl.open("a") as out_f:
+        for i, mid in enumerate(todo, 1):
             doc = None
             try:
-                # Newer API: search by material_id field via the keyword search
                 results = mpr.materials.robocrys.search(keywords=[mid])
-                # Filter to exact match (search may return fuzzy hits)
                 for r in results:
                     if str(r.material_id) == mid:
                         doc = r
@@ -344,7 +410,6 @@ def pull_robocrys_descriptions(mpr, summary_records: list[dict]) -> list[dict]:
                 pass
 
             if doc is None:
-                # Older API fallback
                 try:
                     doc = mpr.materials.robocrys.get_data_by_id(mid)
                 except Exception:
@@ -353,30 +418,23 @@ def pull_robocrys_descriptions(mpr, summary_records: list[dict]) -> list[dict]:
             if doc is not None:
                 desc = getattr(doc, "description", None)
                 if desc:
-                    records.append({
+                    rec = {
                         "material_id": str(doc.material_id),
                         "description": desc,
-                    })
-    else:
-        # Full run — bulk fetch all robocrys docs and filter client-side.
-        # This is one big query but only happens once (cached after).
-        log("  bulk fetching all robocrys descriptions (one-time)...")
-        try:
-            all_docs = mpr.materials.robocrys.search(keywords=[""])
-            wanted = set(material_ids)
-            for doc in all_docs:
-                if str(doc.material_id) in wanted:
-                    desc = getattr(doc, "description", None)
-                    if desc:
-                        records.append({
-                            "material_id": str(doc.material_id),
-                            "description": desc,
-                        })
-        except Exception as e:
-            log(f"  bulk fetch failed ({e}) — robocrys data will be empty")
+                    }
+                    out_f.write(json.dumps(rec) + "\n")
+                    out_f.flush()       # force OS write — survives kill
+                    records.append(rec)
+                    fetched_this_run += 1
 
-    dumpfn(records, out_path)
-    log(f"  saved → {out_path} ({len(records)} non-empty descriptions)")
+            # Progress log every 100 to give live visibility
+            if i % 100 == 0:
+                log(f"  [{i}/{len(todo)}] fetched (total cached: "
+                    f"{len(seen_ids) + fetched_this_run})")
+
+    # Final consolidation to JSON for downstream consumers
+    dumpfn(records, out_path_json)
+    log(f"  saved → {out_path_json} ({len(records)} non-empty descriptions)")
     return records
 
 
@@ -483,6 +541,16 @@ def build_phase_diagram_cache(
 
     log(f"  {len(chemsys_set)} unique chemsystems "
         f"({skipped} records skipped: templated/invalid)")
+
+    # Apply element-count cap — skip chemsystems with too many elements
+    chemsys_filtered = [
+        cs for cs in chemsys_set
+        if len(cs.split("-")) <= PD_MAX_ELEMENTS
+    ]
+    n_capped = len(chemsys_set) - len(chemsys_filtered)
+    log(f"  filtered to {len(chemsys_filtered)} chemsystems "
+        f"(≤{PD_MAX_ELEMENTS} elements; {n_capped} excluded)")
+    chemsys_set = set(chemsys_filtered)
     if SMOKE:
         chemsys_list = sorted(chemsys_set)[:SMOKE_SAMPLE_SIZE]
         log(f"  SMOKE: truncated to {len(chemsys_list)}")
@@ -492,27 +560,79 @@ def build_phase_diagram_cache(
     scheme = MaterialsProjectDFTMixingScheme()
     phase_diagrams: dict[str, PhaseDiagram] = {}
 
-    for i, chemsys in enumerate(chemsys_list, 1):
+    # Resume from existing partial cache if present
+    partial_path = DATA_CACHE / "phase_diagrams.partial.pkl"
+    if partial_path.exists():
+        with partial_path.open("rb") as f:
+            phase_diagrams = pickle.load(f)
+        log(f"  resuming from partial cache: {len(phase_diagrams)} PDs already built")
+
+    # Per-chemsys timeout via SIGALRM — skips slow PDs gracefully.
+    # Only works on Unix, which is fine since we're on a Linux server.
+    import signal as _sig
+
+    class _TimeoutError(Exception):
+        pass
+
+    def _timeout_handler(signum, frame):
+        raise _TimeoutError("PD build exceeded timeout")
+
+    # Per-chemsys fetch + PD construction with retry
+    @with_retry(max_attempts=4, base_delay=5.0)
+    def fetch_and_build(chemsys: str):
+        elements = chemsys.split("-")
+        entries = mpr.get_entries_in_chemsys(
+            elements=elements,
+            additional_criteria={
+                "thermo_types": ["GGA_GGA+U", "R2SCAN"]
+            },
+        )
+        entries = scheme.process_entries(entries)
+        if not entries:
+            return None
+        # Wrap the actual hull computation in a timeout
+        _sig.signal(_sig.SIGALRM, _timeout_handler)
+        _sig.alarm(PD_TIMEOUT_SECS)
         try:
-            elements = chemsys.split("-")
-            entries = mpr.get_entries_in_chemsys(
-                elements=elements,
-                additional_criteria={
-                    "thermo_types": ["GGA_GGA+U", "R2SCAN"]
-                },
-            )
-            entries = scheme.process_entries(entries)
-            if entries:
-                phase_diagrams[chemsys] = PhaseDiagram(entries)
-                log(f"  [{i}/{len(chemsys_list)}] {chemsys}: "
-                    f"{len(entries)} entries → PD built")
-            else:
+            pd = PhaseDiagram(entries)
+        finally:
+            _sig.alarm(0)   # always cancel
+        return pd, len(entries)
+
+    # Save checkpoint every N successful PDs (full run only — smoke is fast)
+    CHECKPOINT_EVERY = 25
+    builds_since_checkpoint = 0
+
+    for i, chemsys in enumerate(chemsys_list, 1):
+        if chemsys in phase_diagrams:
+            continue   # already built (resumed run)
+        try:
+            result = fetch_and_build(chemsys)
+            if result is None:
                 log(f"  [{i}/{len(chemsys_list)}] {chemsys}: no entries")
+                continue
+            pd, n_entries = result
+            phase_diagrams[chemsys] = pd
+            builds_since_checkpoint += 1
+            log(f"  [{i}/{len(chemsys_list)}] {chemsys}: "
+                f"{n_entries} entries → PD built")
+
+            if builds_since_checkpoint >= CHECKPOINT_EVERY:
+                with partial_path.open("wb") as f:
+                    pickle.dump(phase_diagrams, f)
+                log(f"  checkpoint saved: {len(phase_diagrams)} PDs")
+                builds_since_checkpoint = 0
+        except _TimeoutError:
+            log(f"  [{i}/{len(chemsys_list)}] {chemsys}: TIMEOUT "
+                f"(>{PD_TIMEOUT_SECS}s) — skipped")
         except Exception as e:
-            log(f"  [{i}/{len(chemsys_list)}] {chemsys}: SKIP ({e})")
+            log(f"  [{i}/{len(chemsys_list)}] {chemsys}: SKIP after retries ({e})")
 
     with out_path.open("wb") as f:
         pickle.dump(phase_diagrams, f)
+    # Remove partial cache once final cache is written
+    if partial_path.exists():
+        partial_path.unlink()
     log(f"  saved → {out_path} ({len(phase_diagrams)} PDs cached)")
     return phase_diagrams
 
