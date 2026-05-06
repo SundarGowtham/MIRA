@@ -15,9 +15,9 @@ class SFTExperiment(Experiment):
     def hyperparams(self) -> dict:
         if self.cfg.smoke:
             return dict(epochs=1, batch_size=1, lr=5e-5, accum=1,
-                        max_seq_len=1024, limit=8)
+                        max_seq_len=1024, limit=8, weight_decay=0.01, warmup_ratio=0.1, max_grad_norm=1.0, logging_steps=5, eval_steps=5)
         return dict(epochs=3, batch_size=4, lr=2e-4, accum=8,
-                    max_seq_len=2048, limit=None)
+                    max_seq_len=2048, limit=None, weight_decay=0.01, warmup_ratio=0.1, max_grad_norm=1.0, logging_steps=25, eval_steps=100)
 
     def run(self) -> Path:
         h = self.hyperparams()
@@ -29,7 +29,8 @@ class SFTExperiment(Experiment):
         )
 
         train_ds = build_sft_dataset(self.cfg.data_dir / "sft_train.jsonl", tok, h["limit"])
-        val_ds   = build_sft_dataset(self.cfg.data_dir / "sft_val.jsonl", tok)
+        val_limit = h["limit"] * 2 if h["limit"] else None
+        val_ds   = build_sft_dataset(self.cfg.data_dir / "sft_val.jsonl", tok, val_limit)
         print(f"[{self.run_name}] train={len(train_ds)} val={len(val_ds)}")
 
         sample_prompts = self._sample_prompts(tok)
@@ -42,16 +43,18 @@ class SFTExperiment(Experiment):
             gradient_accumulation_steps=h["accum"],
             learning_rate=h["lr"],
             lr_scheduler_type="cosine",
-            warmup_ratio=0.1,
-            weight_decay=0.01,
-            max_grad_norm=1.0,
-            logging_steps=5 if self.cfg.smoke else 25,
-            eval_strategy="epoch",
+            warmup_ratio=h["warmup_ratio"],
+            weight_decay=h["weight_decay"],
+            max_grad_norm=h["max_grad_norm"],
+            logging_steps=h["logging_steps"],
+            # eval_strategy="epoch",
+            eval_strategy="steps",
+            eval_steps=h["eval_steps"],
             save_strategy="epoch",
             save_total_limit=2,
             bf16=not self.cfg.smoke,
             gradient_checkpointing=not self.cfg.smoke,
-            max_seq_length=h["max_seq_len"],
+            max_length=h["max_seq_len"],
             packing=False,
             dataset_text_field="text",
             report_to=["wandb"] if os.environ.get("WANDB_API_KEY") else "none",
@@ -64,9 +67,12 @@ class SFTExperiment(Experiment):
             callbacks.append(SampleCompletionCallback(sample_prompts, tok))
 
         trainer = SFTTrainer(
-            model=model, args=sft_config,
-            train_dataset=train_ds, eval_dataset=val_ds,
-            processing_class=tok, callbacks=callbacks,
+            model=model, 
+            args=sft_config,
+            train_dataset=train_ds, 
+            eval_dataset=val_ds,
+            processing_class=tok, 
+            callbacks=callbacks,
         )
         trainer.train()
         trainer.save_model(str(self.final_dir))
