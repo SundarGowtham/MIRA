@@ -21,3 +21,8 @@ data*/
 
 *.log
 
+misc
+
+runs
+
+wandb
