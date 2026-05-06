@@ -22,7 +22,10 @@ from typing import Any
 
 import numpy as np
 import torch
+import dotenv
 
+
+dotenv.load_dotenv()
 
 @dataclass
 class ExperimentConfig:
