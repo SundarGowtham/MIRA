@@ -25,13 +25,18 @@ def load_model(model_name: str, adapter: str, smoke: bool):
         )
         model = AutoModelForCausalLM.from_pretrained(
             model_name, quantization_config=bnb,
-            device_map="auto", torch_dtype=torch.bfloat16,
+            device_map="auto", 
+            dtype=torch.bfloat16, 
+            
+            # torch_dtype=torch.bfloat16,
         )
         model = prepare_model_for_kbit_training(model)
     else:
         dtype = torch.float32 if smoke else torch.bfloat16
         model = AutoModelForCausalLM.from_pretrained(
-            model_name, torch_dtype=dtype,
+            model_name, 
+            dtype=dtype,
+            # torch_dtype=dtype,
             device_map="auto" if not smoke else None,
         )
     return model
