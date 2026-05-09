@@ -19,7 +19,7 @@ class GRPOExperiment(Experiment):
                         num_generations=4, max_prompt_len=512,
                         max_completion_len=256, limit=8, kl_beta=0.04)
         return dict(epochs=2, batch_size=2, lr=5e-6, accum=4,
-                    num_generations=8, max_prompt_len=1024,
+                    num_generations=4, max_prompt_len=1024,
                     max_completion_len=512, limit=None, kl_beta=0.04)
 
     def run(self) -> Path:
@@ -37,7 +37,8 @@ class GRPOExperiment(Experiment):
 
         validator = load_validator(
             formula_set_path=Path("data/cache/mp_formula_set.pkl"),
-            pd_cache_path=Path("data/cache/phase_diagrams.pkl"),
+            # pd_cache_path=Path("data/cache/phase_diagrams.pkl"),
+            pd_cache_path=None,
         )
         reward_fn = make_reward_fn(validator)
 
@@ -55,7 +56,7 @@ class GRPOExperiment(Experiment):
             save_total_limit=2,
             bf16=not self.cfg.smoke,
             gradient_checkpointing=not self.cfg.smoke,
-            max_prompt_length=h["max_prompt_len"],
+            # max_prompt_length=h["max_prompt_len"],
             max_completion_length=h["max_completion_len"],
             num_generations=h["num_generations"],
             temperature=0.9,
@@ -64,6 +65,8 @@ class GRPOExperiment(Experiment):
             report_to=["wandb"] if os.environ.get("WANDB_API_KEY") else "none",
             run_name=self.run_name,
             seed=self.cfg.seed,
+            optim="adamw_8bit",
+            remove_unused_columns=False,
         )
 
         trainer = GRPOTrainer(

@@ -27,8 +27,7 @@ def load_model(model_name: str, adapter: str, smoke: bool):
             model_name, quantization_config=bnb,
             device_map="auto", 
             dtype=torch.bfloat16, 
-            
-            # torch_dtype=torch.bfloat16,
+            attn_implementation="sdpa",
         )
         model = prepare_model_for_kbit_training(model)
     else:
@@ -36,16 +35,18 @@ def load_model(model_name: str, adapter: str, smoke: bool):
         model = AutoModelForCausalLM.from_pretrained(
             model_name, 
             dtype=dtype,
-            # torch_dtype=dtype,
             device_map="auto" if not smoke else None,
+            attn_implementation="sdpa"
         )
     return model
 
 
 def attach_lora(model, r: int = 16, alpha: int = 32, dropout: float = 0.05):
     cfg = LoraConfig(
-        r=r, lora_alpha=alpha, lora_dropout=dropout,
-        bias="none", task_type="CAUSAL_LM",
+        r=r, lora_alpha=alpha, 
+        lora_dropout=dropout,
+        bias="none", 
+        task_type="CAUSAL_LM",
         target_modules=LORA_TARGETS,
     )
     return get_peft_model(model, cfg)
