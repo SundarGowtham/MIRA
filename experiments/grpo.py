@@ -70,6 +70,7 @@ class GRPOExperiment(Experiment):
             seed=self.cfg.seed,
             optim="adamw_8bit",
             remove_unused_columns=False,
+            # epsilon_high=5.0
         )
 
         trainer = GRPOTrainer(

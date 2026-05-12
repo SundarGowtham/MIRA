@@ -79,7 +79,10 @@ def make_reward_fn(validator: SynthesisValidator):
             try:
                 route = parse_completion(completion, target)
                 r, _ = validator.validate(route, target)
-                rewards.append(r)
+
+                adjusted = r - 0.30
+                # rewards.append(r)
+                rewards.append(max(adjusted, 0.0))
             except Exception:
                 rewards.append(0.0)
         return rewards
