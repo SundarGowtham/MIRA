@@ -139,26 +139,49 @@ RESPONSE_SCHEMA = SynthesisResponse.model_json_schema()
 # Prompts
 # ---------------------------------------------------------------------------
 
-SYSTEM_MSG = """You are a senior materials chemist specializing in solid-state synthesis.
+SYSTEM_MSG = """You are a working materials chemist designing solid-state synthesis routes.
 
-For each target compound, you provide:
-- Rigorous chemistry reasoning (stoichiometry, oxidation states, precursor justification, balanced reaction, conditions)
-- A list of precursor compounds with the stoichiometric coefficients that balance the equation
-- An ordered list of synthesis operations (mixing before heating, with appropriate temperatures and atmospheres)
+CRITICAL FORMATTING RULE — read this first:
+You output JSON. Chemical formulas and oxidation states MUST use plain ASCII characters only.
+- WRITE: Cu2Nb8O21, BaTiO3, Na2CO3, TiO2, Cs2Ti5O11
+- DO NOT WRITE: Cu₂Nb₈O₂₁, BaTiO₃, Na₂CO₃ (Unicode subscripts)
+- WRITE: Cu2+, Ti4+, O2-, Nb5+
+- DO NOT WRITE: Cu²⁺, Ti⁴⁺, O²⁻, Nb⁵⁺ (Unicode superscripts)
+- WRITE: → as -> or simply "yields"
+- DO NOT WRITE: arrows, bullets (•, ‣), em-dashes (—), or other special characters
 
-Use real, commercially available precursor compounds (binary oxides, carbonates, nitrates, sulfides, hydroxides, etc.).
-Coefficients MUST be the actual molar ratios needed to balance the synthesis equation — NEVER a default of 1.0 for every precursor."""
+Subscripts/superscripts inside JSON strings cause downstream parsing to fail. Use ASCII consistently throughout the reasoning, the precursors, and the operations.
 
-CLOSED_BOOK_USER = """Design a solid-state synthesis route for: {target}{context}
+For every target compound, your `reasoning` field MUST address ALL of the following, in order:
 
-Provide thorough chemistry reasoning, then the precursors with balanced coefficients, then the ordered operations."""
+(1) STOICHIOMETRY: Decompose the target formula into its elements and oxidation states. State each cation's required oxidation state explicitly.
 
-OPEN_BOOK_USER = """The following solid-state synthesis route was reported in the published literature for {target}{context}.
+(2) PRECURSOR CHOICE: For each element in the target, name the chosen precursor and justify why it is preferred over alternatives (cost, stability, decomposition behavior, oxidation state match). Use real reagents (binary oxides, carbonates, nitrates, hydroxides, sulfides — NOT elemental metals unless required).
 
-VERIFIED PRECURSORS: {precursor_summary}
-VERIFIED OPERATIONS: {operations_summary}
+(3) BALANCED EQUATION: Write the explicit balanced reaction equation including any gaseous byproducts (CO2, H2O, NOx). State the integer molar coefficients that satisfy element conservation. THESE coefficients are what you place in the `amount` field — NEVER default to 1.0 for every precursor.
 
-Explain the chemistry that justifies this exact route — the precursor choices, the balanced reaction, why the temperatures/atmosphere are appropriate. Then emit precursors and operations matching the verified route."""
+(4) CONDITIONS: Justify the calcination/sintering temperature in relation to precursor decomposition temperatures and target phase formation. Justify the atmosphere (air for typical oxides, inert for sulfides/nitrides, reducing for low-oxidation-state cations). Justify hold times.
+
+After reasoning, emit the precursors with their balanced-equation coefficients and the ordered operations. Operations sequence: StartingSynthesis (first), then mixing/drying/shaping as needed, then HeatingOperation for the high-temperature step.
+
+EXAMPLE for BaTiO3:
+- Reasoning would identify Ba2+, Ti4+, O2-; choose BaCO3 (decomposes cleanly above ~900C releasing CO2) and TiO2 (already in the +4 state); write BaCO3 + TiO2 -> BaTiO3 + CO2 (coefficients 1, 1, 1, 1); justify 1200C/4h/air based on the carbonate decomposition profile and perovskite formation temperature.
+- Precursors: BaCO3 amount=1.0, TiO2 amount=1.0
+- Operations: StartingSynthesis, MixingOperation (media=ethanol), HeatingOperation (T=1200, t=4, atmosphere=air)
+"""
+
+CLOSED_BOOK_USER = """Target: {target}{context}
+
+Write the four reasoning sections (STOICHIOMETRY, PRECURSOR CHOICE, BALANCED EQUATION, CONDITIONS), then emit the precursors with their stoichiometric coefficients and the ordered operations."""
+
+OPEN_BOOK_USER = """Target: {target}{context}
+
+A published solid-state synthesis route exists for this target:
+
+PRECURSORS: {precursor_summary}
+OPERATIONS: {operations_summary}
+
+Write the four reasoning sections (STOICHIOMETRY, PRECURSOR CHOICE, BALANCED EQUATION, CONDITIONS) that justify this exact route. In your output `precursors` and `operations` fields, emit the verified route — match the precursor formulas/amounts and operation sequence given above."""
 
 
 # ---------------------------------------------------------------------------
@@ -240,6 +263,42 @@ def summarize_mp_operations(operations: list[dict]) -> str:
 # Conversion: SynthesisResponse → validator's PredictedRoute / JSONL fields
 # ---------------------------------------------------------------------------
 
+def mp_precursors_to_predicted_schema(mp_precursors: list[dict]) -> list[dict]:
+    """Convert MP precursor records into the {formula, amount} schema used in
+    the predicted_precursors field. MP records have 'formula' + 'elements'
+    + sometimes 'amount'; we strip the elements field and default amount to
+    1.0 if absent (MP doesn't always carry stoich coefficients).
+    """
+    out = []
+    for p in mp_precursors:
+        out.append({
+            "formula": p.get("formula", ""),
+            "amount": float(p.get("amount", 1.0)),
+        })
+    return out
+
+
+def mp_operations_to_predicted_schema(mp_operations: list[dict]) -> list[dict]:
+    """Convert MP operation records into the schema used in
+    predicted_operations. MP nests temperatures as [[1000.0]] etc.; we flatten.
+    """
+    out = []
+    for op in mp_operations:
+        temps = op.get("heating_temperature") or []
+        flat_temps = [t for sub in temps for t in (sub if isinstance(sub, list) else [sub])]
+        times = op.get("heating_time") or []
+        flat_times = [t for sub in times for t in (sub if isinstance(sub, list) else [sub])]
+        atm = op.get("heating_atmosphere") or []
+        out.append({
+            "type": op.get("type", "Unknown"),
+            "heating_temperature": flat_temps,
+            "heating_time": flat_times,
+            "heating_atmosphere": atm,
+            "media": op.get("mixing_media") or "",
+        })
+    return out
+
+
 def to_predicted_route(target: str, resp: SynthesisResponse):
     from validator import (
         PredictedRoute, PredictedPrecursor, PredictedOperation, PredictedConditions
@@ -286,9 +345,35 @@ def serialize_response(resp: SynthesisResponse) -> tuple[list[dict], list[dict]]
 # Robust parse: gpt-oss can sometimes append junk after the closing }
 # ---------------------------------------------------------------------------
 
+# Unicode subscript and superscript translations. gpt-oss has a strong
+# habit of emitting these despite prompt instructions, and they cause
+# vLLM strict mode FSM crashes and downstream parsing pain. We normalize
+# everywhere we ingest model output.
+_UNICODE_SUBS = str.maketrans({
+    "\u2080": "0", "\u2081": "1", "\u2082": "2", "\u2083": "3", "\u2084": "4",
+    "\u2085": "5", "\u2086": "6", "\u2087": "7", "\u2088": "8", "\u2089": "9",
+    "\u2070": "0", "\u00b9": "1", "\u00b2": "2", "\u00b3": "3", "\u2074": "4",
+    "\u2075": "5", "\u2076": "6", "\u2077": "7", "\u2078": "8", "\u2079": "9",
+    "\u207a": "+", "\u207b": "-",
+    "\u2192": "->", "\u27f6": "->", "\u21f6": "->",
+    "\u2013": "-", "\u2014": "-",  # en/em dash
+    "\u2022": "*", "\u2023": "*", "\u2043": "-",  # bullets
+    "\u00b0": "",  # degree sign (we already handle "°C" => just "C")
+    "\u202f": " ",  # narrow no-break space
+    "\u00a0": " ",  # non-breaking space
+})
+
+
+def normalize_text(s: str) -> str:
+    """ASCII-fy Unicode subscripts/superscripts/arrows/bullets in model output."""
+    return s.translate(_UNICODE_SUBS) if s else s
+
+
 def parse_response(text: str) -> SynthesisResponse | None:
     if not text:
         return None
+    # Normalize Unicode artifacts that gpt-oss emits despite prompt rules
+    text = normalize_text(text)
     try:
         return SynthesisResponse.model_validate_json(text)
     except (ValidationError, ValueError):
@@ -317,6 +402,14 @@ async def chat_completion(
     top_p: float,
     timeout: float,
 ) -> str:
+    """Constrained JSON output via response_format=json_schema.
+
+    NOTE: strict=False intentionally. With strict=True, vLLM aborts generation
+    mid-stream when gpt-oss emits Unicode subscript characters (₂, ₈, etc.)
+    inside JSON string fields — the FSM enters states it can't continue from
+    and we get truncated/empty responses. The system prompt below forbids
+    Unicode subscripts, and our Pydantic parser handles the rest robustly.
+    """
     resp = await client.chat.completions.create(
         model=SV_MODEL,
         messages=[
@@ -327,9 +420,13 @@ async def chat_completion(
         temperature=temperature,
         top_p=top_p,
         timeout=timeout,
-        extra_body={
-            "guided_json": RESPONSE_SCHEMA,
-            "guided_decoding_backend": "xgrammar",
+        response_format={
+            "type": "json_schema",
+            "json_schema": {
+                "name": "SynthesisResponse",
+                "schema": RESPONSE_SCHEMA,
+                "strict": False,
+            },
         },
     )
     return resp.choices[0].message.content or ""
@@ -361,16 +458,26 @@ async def process_record(
     mp_operations = rec.get("operations", []) or []
 
     # Pass 1: closed-book
+    # Empty responses from gpt-oss under strict json_schema appear to be a
+    # gpt-oss + Harmony interaction issue. Retry once at slightly higher
+    # temperature, which sometimes breaks the model out of the empty-emit
+    # mode without compromising reasoning quality.
     closed_user = CLOSED_BOOK_USER.format(target=target, context=ctx)
-    async with sem:
-        try:
-            closed_raw = await chat_completion(
-                client, SYSTEM_MSG, closed_user,
-                max_tokens, temperature, top_p, timeout,
-            )
-        except Exception as e:
-            log(f"  [idx={record_idx} {target}] closed-book error: {type(e).__name__}: {e}")
-            return None
+    closed_raw = ""
+    for attempt_temp in (temperature, min(temperature + 0.3, 0.9)):
+        async with sem:
+            try:
+                closed_raw = await chat_completion(
+                    client, SYSTEM_MSG, closed_user,
+                    max_tokens, attempt_temp, top_p, timeout,
+                )
+            except Exception as e:
+                log(f"  [idx={record_idx} {target}] closed-book error: {type(e).__name__}: {e}")
+                return None
+        if closed_raw:
+            break  # got something, stop retrying
+        # else: empty response, retry at higher temp
+        log(f"  [idx={record_idx} {target}] empty closed-book at temp={attempt_temp}, retrying...")
 
     closed_resp = parse_response(closed_raw)
     if closed_resp is None:
@@ -403,22 +510,27 @@ async def process_record(
             "generator": "ray-gpt-oss-20b-guided",
         }
 
-    # Pass 2: open-book fallback
+    # Pass 2: open-book fallback (with same empty-response retry)
     open_user = OPEN_BOOK_USER.format(
         target=target,
         context=ctx,
         precursor_summary=summarize_mp_precursors(mp_precursors),
         operations_summary=summarize_mp_operations(mp_operations),
     )
-    async with sem:
-        try:
-            open_raw = await chat_completion(
-                client, SYSTEM_MSG, open_user,
-                max_tokens, temperature, top_p, timeout,
-            )
-        except Exception as e:
-            log(f"  [idx={record_idx} {target}] open-book error: {type(e).__name__}: {e}")
-            return None
+    open_raw = ""
+    for attempt_temp in (temperature, min(temperature + 0.3, 0.9)):
+        async with sem:
+            try:
+                open_raw = await chat_completion(
+                    client, SYSTEM_MSG, open_user,
+                    max_tokens, attempt_temp, top_p, timeout,
+                )
+            except Exception as e:
+                log(f"  [idx={record_idx} {target}] open-book error: {type(e).__name__}: {e}")
+                return None
+        if open_raw:
+            break
+        log(f"  [idx={record_idx} {target}] empty open-book at temp={attempt_temp}, retrying...")
 
     open_resp = parse_response(open_raw)
     if open_resp is None:
@@ -430,8 +542,8 @@ async def process_record(
         "mp_record_idx": record_idx,
         "thinking": f"<think>\n{open_resp.reasoning}\n</think>",
         "reasoning_raw": open_resp.reasoning,
-        "predicted_precursors": mp_precursors,
-        "predicted_operations": mp_operations,
+        "predicted_precursors": mp_precursors_to_predicted_schema(mp_precursors),
+        "predicted_operations": mp_operations_to_predicted_schema(mp_operations),
         "validator_score": None,
         "validator_breakdown": None,
         "mp_precursors": mp_precursors,
@@ -456,7 +568,10 @@ def parse_args():
                    help="With guided_json, empty outputs are impossible, so we can "
                         "use the real threshold (not the 0.45 floor).")
     p.add_argument("--concurrency", type=int, default=16)
-    p.add_argument("--max-tokens", type=int, default=2048)
+    p.add_argument("--max-tokens", type=int, default=3072,
+                   help="Bumped from 2048 — gpt-oss reasoning is long, and strict "
+                        "json_schema mode aborts to empty content if generation "
+                        "doesn't fit the schema in the token budget.")
     p.add_argument("--temperature", type=float, default=0.4,
                    help="Lowered from 0.7 — for structured output we want reliability.")
     p.add_argument("--top-p", type=float, default=0.95)
@@ -533,7 +648,7 @@ async def amain():
         return
 
     log(f"Ray endpoint: {CHAT_API_BASE_URL}  model={SV_MODEL}")
-    log(f"Mode: guided_json  fields: {list(SynthesisResponse.model_fields.keys())}")
+    log(f"Mode: response_format=json_schema (strict)  fields: {list(SynthesisResponse.model_fields.keys())}")
     log(f"Concurrency: {args.concurrency}  max_tokens={args.max_tokens}  "
         f"threshold={args.validator_threshold}  temp={args.temperature}")
 
