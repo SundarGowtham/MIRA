@@ -133,6 +133,7 @@ def filter_records(records: list[dict]) -> tuple[list[dict], dict[str, int]]:
 PROMPT_TEMPLATE = """
 <role>
 You are a materials chemist designing a solid-state synthesis route.
+Reason step-by-step about the chemistry before proposing the route.
 </role>
 
 <target material>
@@ -140,9 +141,12 @@ TARGET MATERIAL: {target}{target_context}
 </target material>
 
 <objective>
-Propose a synthesis route. Output the route in the following structured format:
+First, reason about the target's composition and oxidation states, identify
+suitable precursors, and balance the reaction stoichiometry. Then output the
+final route in the structured format below.
 </objective>
 
+<output format>
 <precursors>
 - formula | amount
 - ...
@@ -152,9 +156,10 @@ Propose a synthesis route. Output the route in the following structured format:
 1. operation_type | conditions
 2. ...
 </operations>
+</output format>
 
-Use real, commercially available precursor compounds. Operations must be in physically valid order (mixing before heating). Specify temperatures in Celsius."""
-
+Use real, commercially available precursor compounds. Operations must be in
+physically valid order (mixing before heating). Specify temperatures in Celsius."""
 
 def format_target_context(
     target_formula: str,
@@ -240,7 +245,11 @@ def format_operations(operations: list[dict]) -> str:
     return "\n".join(lines)
 
 
-COMPLETION_TEMPLATE = """<precursors>
+COMPLETION_TEMPLATE = """<think>
+{reasoning}
+</think>
+
+<precursors>
 {precursors}
 </precursors>
 
