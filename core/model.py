@@ -25,15 +25,26 @@ def load_model(model_name: str, adapter: str, smoke: bool):
         )
         model = AutoModelForCausalLM.from_pretrained(
             model_name, quantization_config=bnb,
-            device_map="auto", 
-            dtype=torch.bfloat16, 
+            device_map="auto",
+            dtype=torch.bfloat16,
             attn_implementation="sdpa",
         )
         model = prepare_model_for_kbit_training(model)
+        # prepare_model_for_kbit_training upcasts lm_head and LayerNorms to
+        # fp32 for "training stability". On Qwen3 (vocab≈152k), this produces
+        # fp32 logits — 2.5 GB per forward at batch=4 seq=1024, plus another
+        # 2.5 GB for SFTTrainer's .contiguous() copy in compute_loss. That's
+        # the OOM source. Cast them back to bf16; bf16 has ample numerical
+        # precision for fine-tuning and matches the rest of the forward pass.
+        for module_name, module in model.named_modules():
+            if "lm_head" in module_name or "embed_tokens" in module_name:
+                module.to(torch.bfloat16)
+            elif "norm" in module_name.lower():
+                module.to(torch.bfloat16)
     else:
         dtype = torch.float32 if smoke else torch.bfloat16
         model = AutoModelForCausalLM.from_pretrained(
-            model_name, 
+            model_name,
             dtype=dtype,
             device_map="auto" if not smoke else None,
             attn_implementation="sdpa"
@@ -43,13 +54,25 @@ def load_model(model_name: str, adapter: str, smoke: bool):
 
 def attach_lora(model, r: int = 16, alpha: int = 32, dropout: float = 0.05):
     cfg = LoraConfig(
-        r=r, lora_alpha=alpha, 
+        r=r, lora_alpha=alpha,
         lora_dropout=dropout,
-        bias="none", 
+        bias="none",
         task_type="CAUSAL_LM",
         target_modules=LORA_TARGETS,
     )
-    return get_peft_model(model, cfg)
+    model = get_peft_model(model, cfg)
+    # PEFT initializes LoRA adapter weights in fp32 by default. On a 4-bit
+    # quantized base, this causes the LoRA-wrapped linear projections to
+    # output fp32, including the final lm_head — which blows up memory on
+    # long-vocab models like Qwen3 (vocab≈152k):
+    #   logits at fp32, batch=4, seq=1024 → 2.49 GB per forward
+    #   logits at bf16, same shape       → 1.24 GB
+    # plus the .contiguous() copy in compute_loss is also fp32 → another 2.49 GB
+    # Casting LoRA params to bf16 keeps the whole forward in bf16.
+    for name, p in model.named_parameters():
+        if p.requires_grad and "lora_" in name.lower():
+            p.data = p.data.to(torch.bfloat16)
+    return model
 
 
 def load_with_adapter(model_name: str, adapter: str, smoke: bool, init_from: str | None = None):
@@ -61,6 +84,11 @@ def load_with_adapter(model_name: str, adapter: str, smoke: bool, init_from: str
     if adapter in ("lora", "qlora"):
         if init_from and init_from != "base":
             model = PeftModel.from_pretrained(model, init_from, is_trainable=True)
+            # Same fix applies when loading an existing adapter checkpoint:
+            # PeftModel.from_pretrained may also instantiate LoRA params in fp32.
+            for name, p in model.named_parameters():
+                if p.requires_grad and "lora_" in name.lower():
+                    p.data = p.data.to(torch.bfloat16)
         else:
             model = attach_lora(model)
     return model, tok
