@@ -28,13 +28,13 @@ def parse_args():
     p.add_argument("--model", type=str, default=None)
     p.add_argument("--data-dir", type=Path, default=Path("data/processed"))
     p.add_argument("--output-root", type=Path, default=Path("runs"))
-    p.add_argument("--init-from", type=str, default=None,
-                   help="Checkpoint to resume from (path or 'base' for pretrained)")
-    p.add_argument("--sft-checkpoint", type=str, default=None,
-                   help="For sft-grpo: path to SFT checkpoint to start GRPO from")
+    p.add_argument("--init-from", type=str, default=None, help="Checkpoint to resume from (path or 'base' for pretrained)")
+    p.add_argument("--sft-checkpoint", type=str, default=None, help="For sft-grpo: path to SFT checkpoint to start GRPO from")
     p.add_argument("--seed", type=int, default=42)
-    p.add_argument("--tag", type=str, default=None,
-                   help="Optional run name suffix for W&B")
+    p.add_argument("--tag", type=str, default=None, help="Optional run name suffix for W&B")
+    p.add_argument("--data-prefix", default=None,help="Filename prefix for data files (default: 'sft'). E.g. --data-prefix sft_v2 uses sft_v2_train.jsonl etc.")
+
+
     return p.parse_args()
 
 
