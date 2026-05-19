@@ -42,6 +42,11 @@ from typing import Literal
 from openai import AsyncOpenAI
 from pydantic import BaseModel, Field, ValidationError
 
+import dotenv
+import os
+
+
+dotenv.load_dotenv()
 
 PROJECT_ROOT = Path(__file__).parent
 DATA_RAW = PROJECT_ROOT / "data" / "raw"
@@ -49,11 +54,11 @@ DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
 DATA_CACHE = PROJECT_ROOT / "data" / "cache"
 
 
-# SV Ray cluster config
-CHAT_BASE_URL = "http://10.0.10.51:8124"
+# SV Ray cluster config for the 120b model
+CHAT_BASE_URL = os.environ.get("BIG_MODEL_URL")
 CHAT_API_BASE_URL = f"{CHAT_BASE_URL}/v1"
 SV_API_KEY = "sv-openai-api-key"
-SV_MODEL = "openai/gpt-oss-20b"
+SV_MODEL = "openai/gpt-oss-120b"
 
 
 def log(msg: str) -> None:
@@ -563,7 +568,7 @@ def parse_args():
     p.add_argument("--records", type=Path, default=DATA_RAW / "synthesis.json")
     p.add_argument("--summary", type=Path, default=DATA_RAW / "summary.json")
     p.add_argument("--formula-set", type=Path, default=DATA_CACHE / "mp_formula_set.pkl")
-    p.add_argument("--output", type=Path, default=DATA_PROCESSED / "reasoning_traces.jsonl")
+    p.add_argument("--output", type=Path, default=DATA_PROCESSED / "reasoning_traces_120B.jsonl")
     p.add_argument("--validator-threshold", type=float, default=0.65,
                    help="With guided_json, empty outputs are impossible, so we can "
                         "use the real threshold (not the 0.45 floor).")

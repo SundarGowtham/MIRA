@@ -12,11 +12,10 @@ speedup on a single GPU. Critical implementation details:
   - Skips already-evaluated examples on resume
 
 Usage:
-    python evaluate_batched.py --checkpoint runs/sft-qlora-qwen/final
-    python evaluate_batched.py --checkpoint runs/grpo-qlora-stage2-stage2-grpo/checkpoint-600 \
-        --model Qwen/Qwen3-8B --tag sft-grpo-600 --skip-thermo
-    python evaluate_batched.py --checkpoint base --model Qwen/Qwen3-8B \
-        --tag base --skip-thermo --batch-size 16
+    python evaluate_batched.py --checkpoint runs/sft-qlora-sft-v2-qwen/final \\
+        --model Qwen/Qwen3-8B --data-prefix sft_v2 --tag sft-v2 --skip-thermo
+    python evaluate_batched.py --checkpoint base --model Qwen/Qwen3-8B \\
+        --data-prefix sft_v2 --tag base --skip-thermo --batch-size 16
 """
 
 from __future__ import annotations
@@ -42,10 +41,15 @@ def parse_args():
     p.add_argument("--model", default=None, help="Base model name (required for base or LoRA)")
     p.add_argument("--data-dir", type=Path, default=Path("data/processed"))
     p.add_argument("--cache-dir", type=Path, default=Path("data/cache"))
+    p.add_argument("--data-prefix", default="sft",
+                   help="Filename prefix for data files. E.g. --data-prefix sft_v2 "
+                        "loads sft_v2_test.jsonl. Default 'sft' is back-compat.")
     p.add_argument("--split", default="test", choices=["train", "val", "test"])
     p.add_argument("--limit", type=int, default=None)
     p.add_argument("--batch-size", type=int, default=8, help="Prompts per batch (8 fits comfortably on 3090, try 16 on A100)")
-    p.add_argument("--max-new-tokens", type=int, default=512)
+    p.add_argument("--max-new-tokens", type=int, default=1024,
+                   help="Bumped from 512 — sft_v2 completions reach ~983 tokens "
+                        "(reasoning + structured output).")
     p.add_argument("--temperature", type=float, default=0.7)
     p.add_argument("--top-p", type=float, default=0.9)
     p.add_argument("--skip-thermo", action="store_true")
@@ -208,6 +212,7 @@ def write_results(args, records, agg, out_path):
     payload = {
         "checkpoint": args.checkpoint,
         "model": args.model,
+        "data_prefix": args.data_prefix,
         "split": args.split,
         "batch_size": args.batch_size,
         "max_new_tokens": args.max_new_tokens,
@@ -237,7 +242,13 @@ def main():
         pd_cache_path=None if args.skip_thermo else args.cache_dir / "phase_diagrams.pkl",
     )
 
-    eval_path = args.data_dir / f"sft_{args.split}.jsonl"
+    eval_path = args.data_dir / f"{args.data_prefix}_{args.split}.jsonl"
+    if not eval_path.exists():
+        raise FileNotFoundError(
+            f"Eval data not found at {eval_path}. "
+            f"Check --data-prefix (currently '{args.data_prefix}') and --split "
+            f"(currently '{args.split}')."
+        )
     examples = load_jsonl(eval_path)
     if args.limit:
         examples = examples[: args.limit]
