@@ -68,11 +68,7 @@ def load_validator(formula_set_path: Path, pd_cache_path: Path | None = None):
 
 
 def make_reward_fn(validator: SynthesisValidator):
-    """
-    Returns a TRL-compatible reward function:
-        f(completions: list[str], **kwargs) → list[float]
-    kwargs includes 'target_formula' from the dataset columns.
-    """
+
     def reward_fn(completions, target_formula, **kwargs):
         rewards = []
         for completion, target in zip(completions, target_formula):

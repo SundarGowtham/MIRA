@@ -1,7 +1,6 @@
 """
 data_pull.py
 ------------
-Fetch and cache all data needed for MIRA training.
 
 Run modes:
     SMOKE = True   → pulls 20 synthesis records, builds tiny cache
@@ -60,7 +59,7 @@ SKIP_ROBOCRYS = True
 # records produce chemsystems with 6-8 elements where PD construction
 # can take minutes per system. The chemistry of those systems is not
 # meaningfully different from their parent (e.g. doped BaTiO3 has the
-# same thermodynamics as undoped BaTiO3 for our purposes), so we skip.
+# same thermodynamics as undoped BaTiO3), so we skip.
 PD_MAX_ELEMENTS  = 5     # skip chemsystems with more than this many elements
 PD_TIMEOUT_SECS  = 60    # skip individual PD builds taking longer than this
 
