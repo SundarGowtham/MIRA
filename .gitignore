@@ -30,3 +30,8 @@ wandb
 eval_results
 
 analysis
+
+
+logs
+
+debug_raw
