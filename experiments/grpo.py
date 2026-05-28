@@ -13,27 +13,41 @@ from core.observability import GradientStatsCallback
 class GRPOExperiment(Experiment):
     name = "grpo"
 
+    @property
+    def data_prefix(self) -> str:
+        prefix = getattr(self.args, "data_prefix", None)
+        return prefix if prefix else "sft"
+
     def hyperparams(self) -> dict:
         if self.cfg.smoke:
-            return dict(epochs=1, batch_size=1, lr=1e-5, accum=1,
-                        num_generations=4, max_prompt_len=512,
+            return dict(epochs=1, batch_size=2, lr=1e-5, accum=1,
+                        num_generations=2, max_prompt_len=512,
                         max_completion_len=256, limit=8, kl_beta=0.04)
-        return dict(epochs=2, batch_size=2, lr=5e-6, accum=4,
+        return dict(epochs=2, batch_size=4, lr=5e-6, accum=2,
                     num_generations=4, max_prompt_len=1024,
                     max_completion_len=512, limit=None, kl_beta=0.04)
 
     def run(self) -> Path:
         h = self.hyperparams()
-        self.init_wandb(extra_config=h)
+        self.init_wandb(extra_config={**h, "data_prefix": self.data_prefix})
 
         model, tok = load_with_adapter(
             self.cfg.model, self.cfg.adapter, self.cfg.smoke,
             init_from=self.args.init_from,
         )
 
-        train_ds = build_grpo_dataset(self.cfg.data_dir / "sft_train.jsonl", tok, h["limit"])
-        val_ds   = build_grpo_dataset(self.cfg.data_dir / "sft_val.jsonl", tok)
-        print(f"[{self.run_name}] train={len(train_ds)} val={len(val_ds)}")
+        train_path = self.cfg.data_dir / f"{self.data_prefix}_train.jsonl"
+        val_path   = self.cfg.data_dir / f"{self.data_prefix}_val.jsonl"
+        if not train_path.exists():
+            raise FileNotFoundError(
+                f"Training data not found at {train_path}. "
+                f"Pass --data-prefix sft_v2 to use SFT-v2 data."
+            )
+
+        train_ds = build_grpo_dataset(train_path, tok, h["limit"])
+        val_ds   = build_grpo_dataset(val_path, tok)
+        print(f"[{self.run_name}] data_prefix={self.data_prefix} "
+              f"train={len(train_ds)} val={len(val_ds)}")
 
         validator = load_validator(
             formula_set_path=Path("data/cache/mp_formula_set.pkl"),
@@ -54,7 +68,7 @@ class GRPOExperiment(Experiment):
             logging_steps=5 if self.cfg.smoke else 25,
             # save_strategy="epoch",
             save_strategy="steps",
-            save_steps=200,
+            save_steps=100,
             save_total_limit=3,
             # save_total_limit=2,
             bf16=not self.cfg.smoke,
@@ -62,6 +76,7 @@ class GRPOExperiment(Experiment):
             # max_prompt_length=h["max_prompt_len"],
             max_completion_length=h["max_completion_len"],
             num_generations=h["num_generations"],
+            generation_batch_size=h["num_generations"],
             temperature=0.9,
             top_p=0.95,
             beta=h["kl_beta"],
@@ -70,6 +85,7 @@ class GRPOExperiment(Experiment):
             seed=self.cfg.seed,
             optim="adamw_8bit",
             remove_unused_columns=False,
+            
             # epsilon_high=5.0
         )
 
@@ -80,7 +96,12 @@ class GRPOExperiment(Experiment):
             processing_class=tok,
             callbacks=[GradientStatsCallback(log_every=25 if not self.cfg.smoke else 5)],
         )
-        trainer.train()
+
+        # If init_from points to a checkpoint directory, tell the trainer to resume states
+        resume_path = self.args.init_from if (self.args.init_from and "checkpoint" in self.args.init_from) else None
+
+        trainer.train(resume_from_checkpoint=resume_path)
+        
         trainer.save_model(str(self.final_dir))
         tok.save_pretrained(str(self.final_dir))
         print(f"[{self.run_name}] saved → {self.final_dir}")
