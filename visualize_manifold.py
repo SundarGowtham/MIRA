@@ -13,6 +13,14 @@ import matplotlib.pyplot as plt
 
 import plotly.graph_objects as go
 
+import pandas as pd
+import plotly.express as px
+
+
+import json
+import re
+from collections import defaultdict
+
 
 def main():
     parser = argparse.ArgumentParser(description="MIRA Manifold Visualization (Headless)")
@@ -27,6 +35,12 @@ def main():
         type=str, 
         default=".",
         help="Directory to save the output files."
+    )
+    parser.add_argument(
+        "--datasetpath", 
+        type=Path,
+        default=None,
+        help="path to sft dataset"
     )
     args = parser.parse_args()
 
@@ -63,105 +77,202 @@ def main():
 
     model.eval()
 
-    # =====================================================================
-    # DATA COLLECTION
-    # =====================================================================
-    prompts = [
-        "A standard solid state synthesis route requires heating to 1000 C.",
-        "Another completely different text but we just want to track sequence position.",
-        "To synthesize this material, mix the precursors thoroughly in an agate mortar.",
-        "Calcination should be performed in an alumina crucible under ambient air.",
-        "The mixture was heated at a ramp rate of 5 C per minute up to target.",
-        "Sintering at high temperature ensures optimal phase purity and density.",
-    ]
+    # # =====================================================================
+    # # DATA COLLECTION (MIRA SFT_V2 DATASET)
+    # # =====================================================================
 
-    print(f"Running forward passes across {len(prompts)} strings...")
-    layer_to_inspect = -1 
-    max_seq_len = 15
+    
 
-    all_hidden_states = []
+    # # Dictionary: {1000: [tensor, tensor], 1300: [tensor, tensor, ...]}
+    # temp_activations = defaultdict(list)
+    
+    # # Regex to capture exactly the number inside T=...°C
+    # temp_pattern = re.compile(r'T=(\d{3,4})°C') 
+    
+    
+    # data_path = args.datasetpath
+    # if not data_path.exists():
+    #     print(f"Error: Could not find {data_path}. Run this from project root.")
+    #     return
+
+    # print(f"Parsing {data_path} for temperature manifolds...")
+
+
+    # # How many prompts to process (< 500 is enough)
+    # layer_to_inspect = -1
+    # MAX_PROMPTS = 300 
+    # processed_count = 0
+
+    # with open(data_path, 'r') as f:
+    #     for line in f:
+    #         if processed_count >= MAX_PROMPTS:
+    #             break
+                
+    #         record = json.loads(line)
+    #         # Feed the model the exact context it saw during training
+    #         text = record["prompt"] + record["completion"]
+            
+    #         match = temp_pattern.search(text)
+    #         if not match:
+    #             continue # Skip routes without a HeatingOperation
+                
+    #         temp_val = int(match.group(1))
+            
+    #         # Find the character index where the number starts
+    #         char_start = match.start(1)
+            
+    #         # HACK: Tokenize the text exactly up to the start of the number.
+    #         # The length of this prefix tells us the token index of the temperature!
+    #         prefix_tokens = tok.encode(text[:char_start], add_special_tokens=False)
+    #         target_idx = len(prefix_tokens)
+            
+    #         # Run the forward pass
+    #         inputs = tok(text, return_tensors="pt").to(model.device)
+            
+    #         with torch.no_grad():
+    #             outputs = model(**inputs)
+                
+    #         # Extract the activation from the final layer at the exact temperature token
+    #         layer_activations = outputs.hidden_states[layer_to_inspect][0]
+            
+    #         # Safety check to ensure we don't index out of bounds
+    #         if target_idx < layer_activations.shape[0]:
+    #             specific_activation = layer_activations[target_idx].cpu().float().numpy()
+    #             temp_activations[temp_val].append(specific_activation)
+    #             processed_count += 1
+                
+    #             if processed_count % 50 == 0:
+    #                 print(f"Processed {processed_count} temperature vectors...")
+
+    # print(f"Extracted {processed_count} valid temperature vectors across {len(temp_activations)} unique temperatures.")
+
+    # # Average them and prepare for PCA
+    # ordered_temps = sorted(temp_activations.keys())
+    # mean_activations = []
+    # labels = []
+
+    # for t in ordered_temps:
+    #     # We only plot temperatures that have at least 2 examples to ensure we 
+    #     # are plotting the concept of the temperature, not the noise of a specific prompt
+    #     if len(temp_activations[t]) >= 2:
+    #         mean_vec = np.mean(temp_activations[t], axis=0)
+    #         mean_activations.append(mean_vec)
+    #         labels.append(t) # Save the actual temperature integer for coloring the plot
+
+    # mean_activations = np.array(mean_activations)
+
+
+    # =====================================================================
+    # DATA COLLECTION (ALL LAYERS - STERILE PROBES)
+    # =====================================================================
+    print("Running sterile temperature probes across ALL layers...")
+
+    temperatures = list(range(500, 1501, 10))
+    base_prompt = "<think> The target material requires a standard solid-state route. We will mix the precursors and heat them in a furnace. </think>\n<operations>\n1. HeatingOperation | T="
+
+    num_layers = len(model.config.encoder_layers) if hasattr(model.config, 'encoder_layers') else model.config.num_hidden_layers + 1
+    temp_layer_acts = {l: [] for l in range(num_layers)}
+    labels = []
 
     with torch.no_grad():
-        for text in prompts:
+        for t in temperatures:
+            text = f"{base_prompt}{t}°C"
             inputs = tok(text, return_tensors="pt").to(model.device)
             outputs = model(**inputs)
             
-            layer_activations = outputs.hidden_states[layer_to_inspect][0] 
+            for l, hidden_state in enumerate(outputs.hidden_states):
+                # THE FIX: Extract the vector at the absolute LAST token (-1).
+                # At this point, causal attention has processed the entire integer.
+                vec = hidden_state[0, -1].cpu().float().numpy()
+                temp_layer_acts[l].append(vec)
             
-            if layer_activations.shape[0] >= max_seq_len:
-                all_hidden_states.append(layer_activations[:max_seq_len].cpu().float().numpy())
+            labels.append(t)
 
-    activations_np = np.array(all_hidden_states)
-    mean_activations = activations_np.mean(axis=0)
 
+    
     # =====================================================================
-    # NATIVE PYTORCH PCA
+    # NATIVE PYTORCH PCA (GLOBAL FIXED AXES) (LOOPING OVER ALL LAYERS)
     # =====================================================================
-    print("Computing PCA dimensions natively via low-rank SVD...")
-    X = torch.tensor(mean_activations, dtype=torch.float32)
-    X_centered = X - X.mean(dim=0, keepdim=True)
-    U, S, V = torch.pca_lowrank(X_centered, q=3)
-    pca_result = torch.matmul(X_centered, V[:, :3]).numpy()
 
-    # Calculate total variance explained
-    var_explained = (S**2).sum() / (torch.var(X_centered, dim=0, correction=0).sum() * (X.shape[0] - 1))
-    print(f"Projected shape: {pca_result.shape}")
-    print(f"Estimated Explained Variance: {var_explained.item() * 100:.2f}%")
+    print("Computing a GLOBAL PCA coordinate system to lock the axes...")
+    
+    # Combine all vectors to find the universal principal components
+    all_vecs = []
+    for l in range(num_layers):
+        all_vecs.extend(temp_layer_acts[l])
+        
+    X_global = torch.tensor(np.array(all_vecs), dtype=torch.float32)
+    X_global_centered = X_global - X_global.mean(dim=0, keepdim=True)
+    U, S, V = torch.pca_lowrank(X_global_centered, q=3)
+
+    print("Projecting each layer into the fixed global space...")
+    all_records = []
+    global_max = 0
+
+    for l in range(num_layers):
+        if len(temp_layer_acts[l]) == 0:
+            continue
+            
+        X_layer = torch.tensor(np.array(temp_layer_acts[l]), dtype=torch.float32)
+        X_layer_centered = X_layer - X_layer.mean(dim=0, keepdim=True)
+        
+        # Project using the fixed GLOBAL right-singular vectors (V)
+        pca_result = torch.matmul(X_layer_centered, V[:, :3]).numpy()
+        
+        # Track the absolute maximum coordinate to build a perfect bounding box later
+        layer_max = np.max(np.abs(pca_result))
+        if layer_max > global_max:
+            global_max = layer_max
+
+        for i, t in enumerate(labels):
+            all_records.append({
+                "Layer": l,
+                "Temperature": t,
+                "PC1": pca_result[i, 0],
+                "PC2": pca_result[i, 1],
+                "PC3": pca_result[i, 2]
+            })
+
+    df = pd.DataFrame(all_records)
+    
+    # Pad the bounding box by 10% so the manifold doesn't touch the walls
+    bbox = float(global_max * 1.1)
+
 
     # =====================================================================
     # EXPORT FILES
     # =====================================================================
-    # Extract the checkpoint name to label the output files cleanly
     ckpt_name = Path(args.data_dir).name if args.data_dir else "base_model"
     
-    # --- ADD DIRECTORY CREATION AND PATH MAPPING ---
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     
-    csv_path = out_dir / f"mira_manifold_{ckpt_name}.csv"
-    png_path = out_dir / f"mira_manifold_{ckpt_name}.png"
-    html_path = out_dir / f"mira_manifold_{ckpt_name}.html"
+    html_path = out_dir / f"mira_manifold_evolution_{ckpt_name}.html"
 
-    print(f"Exporting raw coordinates to {csv_path}...")
-    with open(csv_path, mode='w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(["Token_Index", "PC1", "PC2", "PC3"])
-        for i, row in enumerate(pca_result):
-            writer.writerow([i, row[0], row[1], row[2]])
-
-    print(f"Rendering static image to {png_path}...")
-    fig = plt.figure(figsize=(10, 8))
-    ax = fig.add_subplot(111, projection='3d')
-
-    scatter = ax.scatter(pca_result[:, 0], pca_result[:, 1], pca_result[:, 2], 
-                         c=range(max_seq_len), cmap='viridis', s=50, depthshade=True)
-    ax.plot(pca_result[:, 0], pca_result[:, 1], pca_result[:, 2], color='gray', alpha=0.5)
-
-    ax.set_title(f"MIRA Topology (Layer {layer_to_inspect}) - {ckpt_name}")
-    ax.set_xlabel('PC 1')
-    ax.set_ylabel('PC 2')
-    ax.set_zlabel('PC 3')
-    fig.colorbar(scatter, label='Token Sequence Position', shrink=0.5)
-
-    plt.savefig(png_path, dpi=300, bbox_inches='tight')
-    plt.close(fig)
-
-    print(f"Generating interactive Plotly file to {html_path}...")
-    fig_plotly = go.Figure(data=[go.Scatter3d(
-        x=pca_result[:, 0], y=pca_result[:, 1], z=pca_result[:, 2],
-        mode='lines+markers',
-        marker=dict(size=7, color=list(range(max_seq_len)), colorscale='Viridis', opacity=0.9),
-        line=dict(color='rgba(50, 50, 150, 0.6)', width=3)
-    )])
-
-    fig_plotly.update_layout(
-        title=f"MIRA Topology (Layer {layer_to_inspect}) - {ckpt_name}",
-        scene=dict(xaxis_title='PC1', yaxis_title='PC2', zaxis_title='PC3'),
-        template="plotly_white"
+    print(f"Generating interactive layer-by-layer animation to {html_path}...")
+    
+    fig_plotly = px.scatter_3d(
+        df, 
+        x='PC1', y='PC2', z='PC3',
+        color='Temperature',
+        animation_frame='Layer',
+        title=f"MIRA Temperature Concept Evolution - {ckpt_name}",
+        color_continuous_scale='Viridis',
+        # Apply the mathematically locked bounding box
+        range_x=[-bbox, bbox], range_y=[-bbox, bbox], range_z=[-bbox, bbox]
     )
+    
+    # THE FIX: mode='lines+markers' connects the dots sequentially!
+    fig_plotly.update_traces(
+        mode='lines+markers',
+        marker=dict(size=5, opacity=0.9),
+        line=dict(width=4)
+    )
+    
+    fig_plotly.update_layout(template="plotly_white")
     fig_plotly.write_html(html_path)
 
-    print("\nDONE. All files saved to current directory.")
+    print(f"\nDONE. Saved animation to {html_path}")
 
 if __name__ == "__main__":
     main()
