@@ -183,175 +183,103 @@ RXN_ENERGY_UNFAVORABLE =  0.150   # > this = zero credit (clearly uphill)
 class ThermoChecker:
     """
     Precomputed phase-diagram cache for thermodynamic favorability checks.
-
-    Building PhaseDiagrams from the MP API is expensive (~1-3s per chemsys
-    + entries fetch). For training we precompute one PhaseDiagram per
-    unique chemsys in the dataset, cache to disk, and load at validator init.
-
-    The check answers: "Given precursors P_i with stoichiometric amounts a_i,
-    does the reaction Σ a_i * P_i → target have ΔE ≤ 0 per atom?"
-    Uses MP's mixed and corrected energies via the convex hull of the
-    union chemsys.
-
-    Cache structure:
-        {chemsys_string: PhaseDiagram}
-
-    where chemsys_string is e.g. "Ba-O-Ti" (alphabetized, hyphen-joined).
+    Supports sharded lazy-loading from pd_index.json to minimize RAM overhead.
     """
 
-    def __init__(self, phase_diagrams: dict[str, "PhaseDiagram"]):
+    def __init__(self, phase_diagrams: dict[str, "PhaseDiagram"], pd_index: dict = None, project_root: Path = None):
         self.phase_diagrams = phase_diagrams
+        self.pd_index = pd_index or {}
+        self.project_root = project_root
 
     @classmethod
-    def from_cache(cls, cache_path: str | Path) -> "ThermoChecker":
-        """Load a precomputed PD cache from disk (pickle)."""
-        path = Path(cache_path)
-        with path.open("rb") as f:
-            phase_diagrams = pickle.load(f)
-        return cls(phase_diagrams)
+    def from_sharded_cache(cls, index_path: str | Path, project_root: Path) -> "ThermoChecker":
+        import json
+        path = Path(index_path)
+        if not path.exists():
+            return cls(phase_diagrams={}, pd_index={}, project_root=project_root)
+            
+        with path.open("r") as f:
+            pd_index = json.load(f)
+        return cls(phase_diagrams={}, pd_index=pd_index, project_root=project_root)
 
-    @classmethod
-    def build_cache(
-        cls,
-        target_formulas: list[str],
-        api_key: Optional[str] = None,
-        save_path: Optional[str | Path] = None,
-    ) -> "ThermoChecker":
-        """
-        Build PD cache from MP API for a set of target formulas.
-
-        For each target, computes the union chemsys with reasonable
-        precursors and builds one PhaseDiagram per unique chemsys.
-        Use this once during data preparation, not at training time.
-
-        Args:
-            target_formulas: list of target material formulas
-            api_key: MP API key (None reads from env MP_API_KEY)
-            save_path: optional path to pickle the resulting cache
-
-        Returns:
-            ThermoChecker instance
-        """
-        # Heavy imports only here, not at module load
-        from mp_api.client import MPRester
-        from pymatgen.analysis.phase_diagram import PhaseDiagram
-        from pymatgen.entries.mixing_scheme import MaterialsProjectDFTMixingScheme
-
-        # Group targets by chemsys (one PD per unique chemsys is enough)
-        chemsys_set = set()
-        for formula in target_formulas:
-            try:
-                els = sorted(
-                    str(el) for el in Composition(formula).elements
-                )
-                chemsys_set.add("-".join(els))
-            except Exception:
-                continue
-
-        phase_diagrams: dict[str, "PhaseDiagram"] = {}
-        scheme = MaterialsProjectDFTMixingScheme()
-
-        with MPRester(api_key) as mpr:
-            for chemsys in sorted(chemsys_set):
+    def _get_pd(self, chemsys: str):
+        """Lazy-loads a phase diagram shard if it isn't already in memory."""
+        if chemsys in self.phase_diagrams:
+            return self.phase_diagrams[chemsys]
+            
+        if self.pd_index and chemsys in self.pd_index and self.project_root:
+            shard_path = self.project_root / self.pd_index[chemsys]
+            if shard_path.exists():
                 try:
-                    elements = chemsys.split("-")
-                    entries = mpr.get_entries_in_chemsys(
-                        elements=elements,
-                        additional_criteria={
-                            "thermo_types": ["GGA_GGA+U", "R2SCAN"]
-                        },
-                    )
-                    # Re-apply mixing scheme locally — corrections from the
-                    # API are scoped to each material's "home" chemsys, not
-                    # the union we need for reaction energy.
-                    entries = scheme.process_entries(entries)
-                    if entries:
-                        phase_diagrams[chemsys] = PhaseDiagram(entries)
-                except Exception as e:
-                    # Network or data issue — skip this chemsys
-                    print(f"[ThermoChecker] skip {chemsys}: {e}")
-
-        if save_path is not None:
-            with Path(save_path).open("wb") as f:
-                pickle.dump(phase_diagrams, f)
-
-        return cls(phase_diagrams)
+                    with shard_path.open("rb") as f:
+                        pd = pickle.load(f)
+                    self.phase_diagrams[chemsys] = pd
+                    return pd
+                except Exception:
+                    pass
+        return None
 
     def reaction_energy_per_atom(
         self,
-        precursors: list[tuple[str, float]],   # [(formula, amount), ...]
+        precursors: list[tuple[str, float]],   
         target_formula: str,
     ) -> Optional[float]:
-        """
-        Compute ΔE/atom in eV for the reaction:
-            Σ a_i * P_i → 1 * target
-
-        Returns None if any species is missing from MP entries or the
-        chemsys has no PD cached. None means "can't evaluate", not zero.
-        """
         try:
             target_comp = Composition(target_formula)
             target_els = {str(el) for el in target_comp.elements}
 
-            # Union chemsys = elements in any precursor or the target
             all_els = set(target_els)
             for formula, _ in precursors:
                 for el in Composition(formula).elements:
                     all_els.add(str(el))
             chemsys = "-".join(sorted(all_els))
 
-            pd = self.phase_diagrams.get(chemsys)
-            if pd is None:
+            pd = self._get_pd(chemsys)
+            if pd is None and self.pd_index:
                 # Fall back: try a cached PD whose chemsys is a superset
-                for cs, candidate_pd in self.phase_diagrams.items():
+                for cs in self.pd_index.keys():
                     cs_els = set(cs.split("-"))
                     if all_els.issubset(cs_els):
-                        pd = candidate_pd
-                        break
+                        pd = self._get_pd(cs)
+                        if pd is not None:
+                            break
             if pd is None:
                 return None
 
             def get_entry_energy(formula: str) -> Optional[float]:
-                """Total corrected energy (eV) for the given formula unit."""
                 comp = Composition(formula)
                 matching = [
                     e for e in pd.all_entries
                     if e.composition.reduced_formula == comp.reduced_formula
                 ]
-                if not matching:
-                    return None
+                if not matching: return None
                 best = min(matching, key=lambda e: e.energy_per_atom)
-                # Scale to the requested formula amount
                 scale = comp.num_atoms / best.composition.num_atoms
                 return best.energy * scale
 
             target_energy = get_entry_energy(target_formula)
-            if target_energy is None:
-                return None
+            if target_energy is None: return None
 
             precursor_energy_total = 0.0
             for formula, amount in precursors:
                 e = get_entry_energy(formula)
-                if e is None:
-                    return None
+                if e is None: return None
                 precursor_energy_total += amount * e
 
-            # ΔE = E(target) - Σ a_i * E(precursor_i)
-            # Normalized per atom in target product
             delta_E = target_energy - precursor_energy_total
             n_atoms_target = target_comp.num_atoms
-            if n_atoms_target == 0:
-                return None
+            if n_atoms_target == 0: return None
             return delta_E / n_atoms_target
 
         except Exception:
             return None
 
     def __contains__(self, chemsys: str) -> bool:
-        return chemsys in self.phase_diagrams
+        return chemsys in self.phase_diagrams or chemsys in self.pd_index
 
     def __len__(self) -> int:
-        return len(self.phase_diagrams)
+        return len(self.phase_diagrams) + len(self.pd_index)
+
 
 
 # ---------------------------------------------------------------------------

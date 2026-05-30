@@ -2,7 +2,8 @@
 generate_traces_openrouter.py
 -----------------------------
 Async pipeline to generate chemistry reasoning traces using DeepSeek-R1 via OpenRouter.
-Uses a worker pool architecture to prevent disk I/O and memory deadlocks.
+Uses a worker pool architecture to prevent disk I/O deadlocks.
+Incorporates Thermo-Aware SynthesisValidator and Closed/Open-Book Fallback logic.
 """
 
 import os
@@ -10,23 +11,32 @@ import json
 import asyncio
 import aiohttp
 import pickle
+import logging
 from pathlib import Path
+from typing import Literal
 from tqdm import tqdm
+from pydantic import BaseModel, Field, ValidationError
 from pymatgen.core import Composition
 import dotenv
 import aiofiles
 from aiohttp import ClientTimeout
 
-TIMEOUT = ClientTimeout(
-    total=300,       # 5 min total — R1 can be slow on long traces
-    connect=10,      # fail fast if we can't even connect
-    sock_read=120    # reset if we stop receiving bytes for 2 min
+# Import your validator classes
+from validator import (
+    SynthesisValidator, 
+    ThermoChecker, 
+    PredictedRoute, 
+    PredictedPrecursor, 
+    PredictedOperation, 
+    PredictedConditions
 )
 
+TIMEOUT = ClientTimeout(
+    total=300,       # 5 min total — R1 can be slow on long traces
+    connect=10,      
+    sock_read=120    
+)
 
-
-import logging
-# --- DEEP LOGGING SETUP ---
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s.%(msecs)03d | %(levelname)-7s | %(message)s',
@@ -34,19 +44,75 @@ logging.basicConfig(
 )
 logger = logging.getLogger("TRACER")
 
-
 dotenv.load_dotenv()
 
 # --- CONFIGURATION ---
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
-MODEL_ID = "deepseek/deepseek-r1-0528" 
-NUM_WORKERS = 15                  # Number of concurrent API streams
+MODEL_ID = "deepseek/deepseek-r1" 
+NUM_WORKERS = 15                  
+VALIDATOR_THRESHOLD = 0.65
 
 PROJECT_ROOT = Path(__file__).parent
-SYNTHESIS_FILE = PROJECT_ROOT / "data" / "raw" / "synthesis.json"
-PD_INDEX_FILE = PROJECT_ROOT / "data" / "cache" / "pd_index.json"
+DATA_RAW = PROJECT_ROOT / "data" / "raw"
+DATA_CACHE = PROJECT_ROOT / "data" / "cache"
+
+SYNTHESIS_FILE = DATA_RAW / "synthesis.json"
+SUMMARY_FILE = DATA_RAW / "summary.json"
+PD_INDEX_FILE = DATA_CACHE / "pd_index.json"
+FORMULA_SET_FILE = DATA_CACHE / "mp_formula_set.pkl"
 OUTPUT_FILE = PROJECT_ROOT / "data" / "processed" / "synthesis_with_traces.jsonl"
 
+# --- PYDANTIC SCHEMAS ---
+class PrecursorSchema(BaseModel):
+    formula: str
+    amount: float
+
+class OperationSchema(BaseModel):
+    type: str
+    temperature_c: float
+    time_h: float
+    atmosphere: str
+    media: str
+
+class RouteSchema(BaseModel):
+    precursors: list[PrecursorSchema]
+    operations: list[OperationSchema]
+
+# --- PROMPTS ---
+SYSTEM_MSG = """You are a working materials chemist designing solid-state synthesis routes.
+
+For every target compound, your internal reasoning MUST address:
+1. STOICHIOMETRY: Oxidation states and balancing.
+2. PRECURSOR CHOICE: Justify reagents.
+3. BALANCED EQUATION: Explicit molar coefficients.
+4. CONDITIONS: Justify temps/times/atmosphere based on thermodynamics.
+
+You must output your final answer as a pure JSON object matching this schema:
+{
+  "precursors": [{"formula": "str", "amount": float}],
+  "operations": [{"type": "str", "temperature_c": float, "time_h": float, "atmosphere": "str", "media": "str"}]
+}
+Do not include markdown formatting or backticks in the final output. Just the JSON object."""
+
+CLOSED_BOOK_USER = """Target: {target}{context}
+
+Thermodynamic Context (Phase Stability Data):
+{stability_data}
+
+Provide your synthesis route as a JSON object."""
+
+OPEN_BOOK_USER = """Target: {target}{context}
+
+A published solid-state synthesis route exists for this target:
+PRECURSORS: {precursor_summary}
+OPERATIONS: {operations_summary}
+
+Thermodynamic Context (Phase Stability Data):
+{stability_data}
+
+Provide your synthesis route as a JSON object that closely follows this published route."""
+
+# --- HELPER FUNCTIONS ---
 def get_chemsys(formula: str) -> str | None:
     try:
         els = sorted(str(el) for el in Composition(formula).elements)
@@ -54,38 +120,64 @@ def get_chemsys(formula: str) -> str | None:
     except Exception:
         return None
 
-async def build_prompt(target: str, precursors: list, pd_shard_path: str | None) -> str:
-    precursor_formulas = [p.get("formula") for p in precursors if p.get("formula")]
+def summarize_mp_precursors(precursors: list[dict]) -> str:
+    parts = [f"{p.get('formula', '')} (amount={p.get('amount', 1.0)})" for p in precursors]
+    return ", ".join(parts) if parts else "(none)"
+
+def summarize_mp_operations(operations: list[dict]) -> str:
+    parts = []
+    for i, op in enumerate(operations, 1):
+        parts.append(f"{i}. {op.get('type', 'Unknown')}")
+    return " | ".join(parts) if parts else "(none)"
+
+def extract_json(text: str) -> dict | None:
+    """Aggressively extract JSON from the LLM content output."""
+    try:
+        # Strip markdown code blocks if the model ignored instructions
+        if "```json" in text:
+            text = text.split("```json")[1].split("```")[0]
+        elif "```" in text:
+            text = text.split("```")[1].split("```")[0]
+        return json.loads(text.strip())
+    except Exception:
+        return None
+
+def convert_to_predicted_route(target: str, data: dict) -> PredictedRoute | None:
+    try:
+        schema = RouteSchema(**data)
+        precs = [PredictedPrecursor(formula=p.formula, amount=p.amount) for p in schema.precursors]
+        ops = []
+        for op in schema.operations:
+            ops.append(PredictedOperation(
+                type=op.type,
+                conditions=PredictedConditions(
+                    heating_temperature=[op.temperature_c] if op.temperature_c > 0 else [],
+                    heating_time=[op.time_h] if op.time_h > 0 else [],
+                    heating_atmosphere=[op.atmosphere] if op.atmosphere else [],
+                    mixing_media=op.media if op.media else None
+                )
+            ))
+        return PredictedRoute(target_formula=target, precursors=precs, operations=ops)
+    except Exception:
+        return None
+
+async def get_stability_data(target: str, pd_index: dict) -> str:
+    chemsys = get_chemsys(target)
+    pd_shard_path = pd_index.get(chemsys) if chemsys else None
     
     stability_data = "No phase diagram data computed for this system."
-    if pd_shard_path and os.path.exists(pd_shard_path):
+    if pd_shard_path and Path(pd_shard_path).exists():
         try:
             async with aiofiles.open(pd_shard_path, "rb") as f:
-                raw_bytes = await f.read()
-                pd = pickle.loads(raw_bytes)
+                pd = pickle.loads(await f.read())
                 stable_phases = [entry.composition.reduced_formula for entry in pd.stable_entries]
                 stability_data = f"Known stable phases in this system: {', '.join(stable_phases)}"
         except Exception:
             pass
+    return stability_data
 
-    prompt = f"""You are an expert materials scientist. 
-Given the target formula: {target}
-And the available precursors: {precursor_formulas}
-
-Thermodynamic Context (Phase Stability Data):
-{stability_data}
-
-Think step-by-step to derive the exact stoichiometric coefficients required to synthesize the target from the precursors.
-In your thinking process:
-1. Break down the target composition elements.
-2. Cross-reference the stability data to ensure your balanced equation doesn't favor an unintended stable side-phase.
-3. Balance the mass equations carefully.
-
-Output only your reasoning process. End your reasoning by explicitly stating the final balanced chemical equation."""
-    return prompt
-
-async def worker(queue: asyncio.Queue, session: aiohttp.ClientSession, pd_index: dict, pbar: tqdm, f_out: any, file_lock: asyncio.Lock):
-    """Worker loop that processes items from the queue sequentially."""
+# --- WORKER LOOP ---
+async def worker(queue: asyncio.Queue, session: aiohttp.ClientSession, pd_index: dict, validator: SynthesisValidator, pbar: tqdm, f_out: any, file_lock: asyncio.Lock):
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "HTTP-Referer": "https://github.com/mira-project",
@@ -101,47 +193,106 @@ async def worker(queue: asyncio.Queue, session: aiohttp.ClientSession, pd_index:
 
         target = record.get("target_formula")
         precursors = record.get("precursors", [])
+        operations = record.get("operations", [])
+        ctx = "" # Add your summary context logic here if needed
         
-        chemsys = get_chemsys(target) if target else None
-        pd_shard_path = pd_index.get(chemsys) if chemsys else None
+        stability_data = await get_stability_data(target, pd_index)
 
-        # Fixed: File I/O happens safely inside the controlled worker scope
-        prompt = await build_prompt(target, precursors, pd_shard_path)
+        async def fetch_llm(prompt: str) -> tuple[str, str] | None:
+            """Helper to hit OpenRouter and return (reasoning, final_json)."""
+            payload = {
+                "model": MODEL_ID,
+                "messages": [
+                    {"role": "system", "content": SYSTEM_MSG},
+                    {"role": "user", "content": prompt}
+                ],
+                "include_reasoning": True,
+                "temperature": 0.6,
+            }
+            for attempt in range(3):
+                try:
+                    async with session.post("https://openrouter.ai/api/v1/chat/completions", json=payload, headers=headers, timeout=TIMEOUT) as response:
+                        if response.status == 200:
+                            data = await response.json()
+                            if "choices" in data and data["choices"]:
+                                msg = data["choices"][0].get("message", {})
+                                return msg.get("reasoning", ""), msg.get("content", "")
+                        elif response.status == 429:
+                            await asyncio.sleep(5 * (attempt + 1))
+                        else:
+                            break
+                except Exception as e:
+                    logger.debug(f"API attempt failed: {e}")
+                    await asyncio.sleep(2)
+            return None
 
-        payload = {
-            "model": MODEL_ID,
-            "messages": [{"role": "user", "content": prompt}],
-            "include_reasoning": True,
-            "temperature": 0.6,
-        }
+        # ==========================================
+        # PASS 1: CLOSED-BOOK ATTEMPT
+        # ==========================================
+        closed_prompt = CLOSED_BOOK_USER.format(target=target, context=ctx, stability_data=stability_data)
+        llm_resp = await fetch_llm(closed_prompt)
+        
+        final_result = None
+        closed_score = 0.0
 
-        result = None
-        for attempt in range(3):
-            try:
-                async with session.post("https://openrouter.ai/api/v1/chat/completions", json=payload, headers=headers, timeout=TIMEOUT) as response:
-                    if response.status == 200:
-                        data = await response.json()
-                        message = data["choices"][0]["message"]
-                        result = {
+        if llm_resp:
+            reasoning, content = llm_resp
+            json_data = extract_json(content)
+            if json_data:
+                route = convert_to_predicted_route(target, json_data)
+                if route:
+                    closed_score, closed_breakdown = validator.validate(route, target)
+                    if closed_score >= VALIDATOR_THRESHOLD:
+                        final_result = {
                             "target": target,
-                            "precursors": precursors,
-                            "reasoning_trace": message.get("reasoning", ""),
-                            "final_answer": message.get("content", ""),
-                            "prompt_used": prompt
+                            "thinking": f"<think>\n{reasoning}\n</think>",
+                            "reasoning_raw": reasoning,
+                            "predicted_route": json_data,
+                            "validator_score": closed_score,
+                            "validator_breakdown": closed_breakdown,
+                            "passed_validator": True,
+                            "used_fallback": False,
+                            "generator": MODEL_ID
                         }
-                        break
-                    elif response.status == 429:
-                        await asyncio.sleep(5 * (attempt + 1))
-                    else:
-                        break
-            except Exception as e:
-                logger.warning(f"Attempt {attempt+1} failed for {target}: {type(e).__name__}: {e}")
-                await asyncio.sleep(2)
 
-        if result:
-            # Thread-safe async file append using a lock
+        # ==========================================
+        # PASS 2: OPEN-BOOK FALLBACK
+        # ==========================================
+        if not final_result:
+            open_prompt = OPEN_BOOK_USER.format(
+                target=target, 
+                context=ctx, 
+                precursor_summary=summarize_mp_precursors(precursors),
+                operations_summary=summarize_mp_operations(operations),
+                stability_data=stability_data
+            )
+            llm_resp = await fetch_llm(open_prompt)
+            
+            if llm_resp:
+                reasoning, content = llm_resp
+                json_data = extract_json(content)
+                if json_data:
+                    route = convert_to_predicted_route(target, json_data)
+                    open_score, open_breakdown = 0.0, {"error": 1.0}
+                    if route:
+                        open_score, open_breakdown = validator.validate(route, target)
+                    
+                    final_result = {
+                        "target": target,
+                        "thinking": f"<think>\n{reasoning}\n</think>",
+                        "reasoning_raw": reasoning,
+                        "predicted_route": json_data,
+                        "validator_score": open_score,
+                        "validator_breakdown": open_breakdown,
+                        "passed_validator": open_score >= VALIDATOR_THRESHOLD,
+                        "used_fallback": True,
+                        "generator": MODEL_ID
+                    }
+
+        # Save to disk if either pass succeeded in generating valid JSON
+        if final_result:
             async with file_lock:
-                await f_out.write(json.dumps(result) + "\n")
+                await f_out.write(json.dumps(final_result) + "\n")
                 await f_out.flush()
 
         pbar.update(1)
@@ -152,12 +303,19 @@ async def main():
         print("ERROR: Please set OPENROUTER_API_KEY environment variable.")
         return
 
-    print("Loading data...")
+    print("Loading data files...")
     async with aiofiles.open(SYNTHESIS_FILE, "r") as f:
         records = json.loads(await f.read())
-        
     async with aiofiles.open(PD_INDEX_FILE, "r") as f:
         pd_index = json.loads(await f.read())
+        
+    print("Initializing Sharded Thermo-Validator...")
+    with open(FORMULA_SET_FILE, "rb") as f:
+        mp_formula_set = pickle.load(f)
+        
+    # The new lazy-loading ThermoChecker from the updated validator.py
+    thermo_checker = ThermoChecker.from_sharded_cache(PD_INDEX_FILE, PROJECT_ROOT)
+    validator = SynthesisValidator(mp_formula_set=mp_formula_set, thermo_checker=thermo_checker)
 
     OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
@@ -175,15 +333,11 @@ async def main():
     print(f"Total records: {len(records)} | Already completed: {len(completed_targets)} | Pending: {len(pending_records)}")
 
     if not pending_records:
-        print("All records processed!")
         return
 
-    # Populate the queue
     queue = asyncio.Queue()
     for r in pending_records:
         queue.put_nowait(r)
-    
-    # Add sentinel values to cleanly shut down workers when done
     for _ in range(NUM_WORKERS):
         queue.put_nowait(None)
 
@@ -192,9 +346,8 @@ async def main():
 
     async with aiohttp.ClientSession() as session:
         async with aiofiles.open(OUTPUT_FILE, "a") as f_out:
-            # Spawn exactly NUM_WORKERS tasks
             workers = [
-                asyncio.create_task(worker(queue, session, pd_index, pbar, f_out, file_lock))
+                asyncio.create_task(worker(queue, session, pd_index, validator, pbar, f_out, file_lock))
                 for _ in range(NUM_WORKERS)
             ]
             await asyncio.gather(*workers)
