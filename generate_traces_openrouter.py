@@ -14,12 +14,15 @@ import pickle
 import logging
 from pathlib import Path
 from typing import Literal
+from pymatgen.analysis.phase_diagram import PhaseDiagram
 from tqdm import tqdm
 from pydantic import BaseModel, Field, ValidationError
 from pymatgen.core import Composition
 import dotenv
 import aiofiles
 from aiohttp import ClientTimeout
+from rich import print as rprint
+# from pymatgen import analysis.phase_diagram.PhaseDiagram
 
 # Import your validator classes
 from validator import (
@@ -48,7 +51,7 @@ dotenv.load_dotenv()
 
 # --- CONFIGURATION ---
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
-MODEL_ID = "deepseek/deepseek-r1" 
+MODEL_ID = "deepseek/deepseek-v4-pro" 
 NUM_WORKERS = 15                  
 VALIDATOR_THRESHOLD = 0.65
 
@@ -77,6 +80,7 @@ class OperationSchema(BaseModel):
 class RouteSchema(BaseModel):
     precursors: list[PrecursorSchema]
     operations: list[OperationSchema]
+    thermodynamic_checks: list[str] = Field(default_factory=list)
 
 # --- PROMPTS ---
 SYSTEM_MSG = """You are a working materials chemist designing solid-state synthesis routes.
@@ -90,7 +94,8 @@ For every target compound, your internal reasoning MUST address:
 You must output your final answer as a pure JSON object matching this schema:
 {
   "precursors": [{"formula": "str", "amount": float}],
-  "operations": [{"type": "str", "temperature_c": float, "time_h": float, "atmosphere": "str", "media": "str"}]
+  "operations": [{"type": "str", "temperature_c": float, "time_h": float, "atmosphere": "str", "media": "str"}],
+  "thermodynamic_checks": ["str"]
 }
 Do not include markdown formatting or backticks in the final output. Just the JSON object."""
 
@@ -165,16 +170,63 @@ async def get_stability_data(target: str, pd_index: dict) -> str:
     chemsys = get_chemsys(target)
     pd_shard_path = pd_index.get(chemsys) if chemsys else None
     
-    stability_data = "No phase diagram data computed for this system."
-    if pd_shard_path and Path(pd_shard_path).exists():
+    if not pd_shard_path or not Path(pd_shard_path).exists():
+        return "No phase diagram data computed for this system."
+        
+    try:
+        async with aiofiles.open(pd_shard_path, "rb") as f:
+            pd: PhaseDiagram = pickle.loads(await f.read())
+            
+        target_comp = Composition(target)
+        
+        # 1. TARGET-SPECIFIC DECOMPOSITION ANALYSIS (Fixed for fractional formulas)
         try:
-            async with aiofiles.open(pd_shard_path, "rb") as f:
-                pd = pickle.loads(await f.read())
-                stable_phases = [entry.composition.reduced_formula for entry in pd.stable_entries]
-                stability_data = f"Known stable phases in this system: {', '.join(stable_phases)}"
-        except Exception:
-            pass
-    return stability_data
+            # Normalizing to fractional composition prevents QHull spatial errors
+            decomp, e_above = pd.get_decomp_and_e_above_hull(target_comp.fractional_composition)
+            if e_above <= 0.001: 
+                target_status = f"TARGET STATUS: {target} is THERMODYNAMICALLY STABLE (on the convex hull)."
+            else:
+                decomp_str = " + ".join([f"{amt:.3f} {entry.composition.reduced_formula}" for entry, amt in decomp.items()])
+                target_status = (
+                    f"TARGET STATUS: {target} is METASTABLE (+{e_above:.3f} eV/atom above hull).\n"
+                    f"WARNING: It will spontaneously decompose into: {decomp_str}"
+                )
+        except Exception as e:
+            target_status = f"TARGET STATUS: Could not compute specific stability for {target} (Likely complex solid-solution)."
+
+        # 2. GENERAL STABLE PHASES
+        stable_lines = []
+        for entry in pd.stable_entries:
+            form_e = pd.get_form_energy_per_atom(entry)
+            formula = entry.composition.reduced_formula
+            stable_lines.append(f"{formula} (ΔEf={form_e:.2f})")
+            
+        # 3. DANGEROUS COMPETING PHASES (Fixed to Deduplicate Polymorphs)
+        competing_dict = {}
+        for entry in pd.unstable_entries:
+            e_above = pd.get_e_above_hull(entry)
+            if e_above < 0.05:  # 50 meV/atom threshold
+                formula = entry.composition.reduced_formula
+                # If we haven't seen this formula, or this polymorph is more dangerous (lower e_above), save it
+                if formula not in competing_dict or e_above < competing_dict[formula]:
+                    competing_dict[formula] = e_above
+
+        # Format the deduplicated dictionary back into a list
+        competing_lines = [f"{form} (+{e:.3f} above hull)" for form, e in competing_dict.items()]
+
+        # 4. CONSTRUCT THE FINAL RAG STRING
+        stability_data = (
+            "--- THERMODYNAMIC PHASE COMPETITION ---\n"
+            f"{target_status}\n\n"
+            "SYSTEM STABLE PHASES (Formation Energy in eV/atom):\n"
+            f"  {', '.join(stable_lines)}\n\n"
+            "DANGEROUS METASTABLE SIDE-PHASES (Energy above hull in eV/atom):\n"
+            f"  {', '.join(competing_lines) if competing_lines else 'None within 50 meV/atom threshold.'}"
+        )
+        return stability_data
+        
+    except Exception as e:
+        return f"[Error reading phase diagram: {e}]"
 
 # --- WORKER LOOP ---
 async def worker(queue: asyncio.Queue, session: aiohttp.ClientSession, pd_index: dict, validator: SynthesisValidator, pbar: tqdm, f_out: any, file_lock: asyncio.Lock):
@@ -248,10 +300,13 @@ async def worker(queue: asyncio.Queue, session: aiohttp.ClientSession, pd_index:
                             "thinking": f"<think>\n{reasoning}\n</think>",
                             "reasoning_raw": reasoning,
                             "predicted_route": json_data,
+                            "thermodynamic_checks": json_data.get("thermodynamic_checks", []),
                             "validator_score": closed_score,
                             "validator_breakdown": closed_breakdown,
                             "passed_validator": True,
                             "used_fallback": False,
+                            "prompt": closed_prompt,
+                            "stability_data": stability_data,
                             "generator": MODEL_ID
                         }
 
@@ -282,10 +337,13 @@ async def worker(queue: asyncio.Queue, session: aiohttp.ClientSession, pd_index:
                         "thinking": f"<think>\n{reasoning}\n</think>",
                         "reasoning_raw": reasoning,
                         "predicted_route": json_data,
+                        "thermodynamic_checks": json_data.get("thermodynamic_checks", []),
                         "validator_score": open_score,
                         "validator_breakdown": open_breakdown,
                         "passed_validator": open_score >= VALIDATOR_THRESHOLD,
                         "used_fallback": True,
+                        "prompt": open_prompt,
+                        "stability_data": stability_data,
                         "generator": MODEL_ID
                     }
 

@@ -32,7 +32,7 @@ from __future__ import annotations
 import pickle
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Optional, TYPE_CHECKING
+from typing import Literal, Optional, TYPE_CHECKING
 
 from pymatgen.core import Composition
 
@@ -52,6 +52,7 @@ class PredictedConditions:
     heating_time: list[float] = field(default_factory=list)          # hours
     heating_atmosphere: list[str] = field(default_factory=list)
     mixing_media: Optional[str] = None
+    atmosphere: Optional[Literal["Ar", "N2", "vacuum", "air"]] = None
 
 
 @dataclass
