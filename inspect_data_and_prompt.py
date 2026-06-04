@@ -11,6 +11,7 @@ from pymatgen.analysis.phase_diagram import PhaseDiagram
 from tqdm import tqdm
 from pydantic import BaseModel, Field, ValidationError
 from pymatgen.core import Composition
+from pymatgen.entries.computed_entries import ComputedEntry
 import dotenv
 import aiofiles
 from aiohttp import ClientTimeout
@@ -112,6 +113,18 @@ def get_chemsys(formula: str) -> str | None:
     except Exception:
         return None
 
+
+def best_pd_entry(pd: PhaseDiagram, formula: str):
+    """Lowest-energy PD entry matching formula's reduced composition (MP polymorph)."""
+    try:
+        target_red = Composition(formula).reduced_formula
+    except Exception:
+        return None
+    matches = [e for e in pd.all_entries if e.composition.reduced_formula == target_red]
+    if not matches:
+        return None
+    return min(matches, key=lambda e: e.energy_per_atom)
+
 def summarize_mp_precursors(precursors: list[dict]) -> str:
     parts = [f"{p.get('formula', '')} (amount={p.get('amount', 1.0)})" for p in precursors]
     return ", ".join(parts) if parts else "(none)"
@@ -166,7 +179,6 @@ async def get_stability_data(target: str, pd_index: dict) -> str:
             pd: PhaseDiagram = pickle.loads(await f.read())
             
         target_comp = Composition(target)
-        
         # 1. TARGET-SPECIFIC DECOMPOSITION ANALYSIS (Fixed for fractional formulas)
         try:
             # Normalizing to fractional composition prevents QHull spatial errors
@@ -315,15 +327,132 @@ async def main1():
     precursors = record.get("precursors", [])
     operations = record.get("operations", [])
 
-    # rprint(record)
+    chemsys = get_chemsys(target)
+    pd_shard_path = pd_index.get(chemsys) if chemsys else None
+    
+    if not pd_shard_path or not Path(pd_shard_path).exists():
+        return "No phase diagram data computed for this system."
+        
+    try:
+        async with aiofiles.open(pd_shard_path, "rb") as f:
+            pd: PhaseDiagram = pickle.loads(await f.read())
+            
+        # target_comp = Composition(target)
+        target_entry = best_pd_entry(pd, target)
+        target_comp = Composition("La0.5Sr0.5FeO3")
+
+        rprint("+"*30)
+        rprint("get_composition_chempots")
+        rprint(pd.get_composition_chempots(target_comp))
+        rprint("+"*30)
+        rprint("get_all_chempots")
+        rprint(pd.get_all_chempots(target_comp))
+        rprint("+"*30)
+        # rprint("get_decomposition")
+        # rprint(pd.get_decomposition(target_comp))
+        # rprint("+"*30)
+        # rprint("get_all_chempots")
+        # rprint(pd.get_all_chempots(target_comp))
+        # rprint("+"*30)
+        # rprint("get_decomp_and_hull_energy_per_atom")
+        # rprint(pd.get_decomp_and_hull_energy_per_atom(target_comp))
+        # rprint("+"*30)
+        # rprint("get_hull_energy")
+        # rprint(pd.get_hull_energy(target_comp))
+        # rprint("+"*30)
+        # rprint("get_hull_energy_per_atom")
+        # rprint(pd.get_hull_energy_per_atom(target_comp))
+        # rprint("+"*30)
+        # rprint("get_reference_energy")
+        # rprint(pd.get_reference_energy(target_comp))
+        # rprint("+"*30)
+        # rprint("get_reference_energy_per_atom")
+        # rprint(pd.get_reference_energy_per_atom(target_comp))
+        # rprint("+"*30)
+        # rprint("pd_coords")
+        # rprint(pd.pd_coords(target_comp))
+
+        # rprint("+"*30)
+        # rprint("DANGEROUS COMPETING PHASES (Fixed to Deduplicate Polymorphs)")
+        # competing_dict = {}
+        # get_phase_separation_energy_dict_dangerous = {}
+        # for entry in pd.unstable_entries:
+        #     e_above = pd.get_e_above_hull(entry)
+        #     pse = pd.get_phase_separation_energy(entry)
+        #     get_phase_separation_energy_dict_dangerous[entry.composition.reduced_formula] = pse
+        #     if e_above < 0.05:  # 50 meV/atom threshold
+        #         formula = entry.composition.reduced_formula
+        #         # If we haven't seen this formula, or this polymorph is more dangerous (lower e_above), save it
+        #         if formula not in competing_dict or e_above < competing_dict[formula]:
+        #             competing_dict[formula] = e_above
+
+        # # Format the deduplicated dictionary back into a list
+        # competing_lines = [f"{form} (+{e:.3f} above hull)" for form, e in competing_dict.items()]
+        # rprint(competing_lines)
+        # rprint("+"*30)
+
+        # # Phase separation needs a PDEntry (composition + energy), not Composition alone.
+        # if target_entry is None:
+        #     rprint(
+        #         f"[yellow]No MP entry for {target} ({target_comp.reduced_formula}) in this PD shard.[/yellow]\n"
+        #         "Phase separation needs a PDEntry. Below: synthetic ComputedEntry at hull energy + 50 meV/atom."
+        #     )
+        #     _, hull_e_per_atom = pd.get_decomp_and_hull_energy_per_atom(target_comp)
+        #     synthetic = ComputedEntry(
+        #         target_comp,
+        #         (hull_e_per_atom + 0.05) * target_comp.num_atoms,
+        #     )
+        #     rprint("+"*30)
+        #     rprint("get_decomp_and_phase_separation_energy")
+        #     rprint(f"Synthetic entry @ {synthetic.energy_per_atom:.4f} eV/atom")
+        #     rprint(pd.get_decomp_and_phase_separation_energy(synthetic))
+        #     rprint("+"*30)
+        #     rprint("get_e_above_hull")
+        #     rprint(pd.get_e_above_hull(synthetic))
+        #     rprint("+"*30)
+        #     rprint("get_equilibrium_reaction_energy")
+        #     rprint(pd.get_equilibrium_reaction_energy(synthetic))
+        #     rprint("+"*30)
+        #     rprint("get_form_energy")
+        #     rprint(pd.get_form_energy(synthetic))
+        #     rprint("+"*30)
+        #     rprint("get_form_energy_per_atom")
+        #     rprint(pd.get_form_energy_per_atom(synthetic))
+        #     rprint("+"*30)
+        #     rprint("get_phase_separation_energy")
+        #     rprint(pd.get_phase_separation_energy(synthetic))
+        #     rprint("+"*30)
+            
+
+        # else:
+        #     rprint(f"Using PD entry: {target_entry.composition} @ {target_entry.energy_per_atom:.4f} eV/atom")
+        #     rprint(pd.get_decomp_and_phase_separation_energy(target_entry))
+
+        rprint("+"*30)
+
+
+        ## IDK HOW TO USE HTE BELOW ONES
+        # rprint(pd.get_transition_chempots())
+        # rprint(pd.getmu_vertices_stability_phase())
+        # rprint(pd.numerical_tol)
+
+
+
+    except Exception as e:
+        rprint(f"[red]Error reading phase diagram:[/red] {e!r}")
+        return
+
 
     print("-"*100)
+    print("-"*100)
+    print("-"*100)
 
-    stability_data = await get_stability_data(target, pd_index)
-    ctx = ""
-    closed_prompt = CLOSED_BOOK_USER.format(target=target, context=ctx, stability_data=stability_data)
+    # stability_data = await get_stability_data(target, pd_index)
+    # rprint(stability_data)
+    # ctx = ""
+    # closed_prompt = CLOSED_BOOK_USER.format(target=target, context=ctx, stability_data=stability_data)
 
-    rprint(f"{SYSTEM_MSG}\n{closed_prompt}")
+    # rprint(f"{SYSTEM_MSG}\n{closed_prompt}")
 
 
 
@@ -331,34 +460,3 @@ async def main1():
 
 if __name__ == "__main__":
     asyncio.run(main1())
-
-
-
-        # rprint(pd.dim)
-        # rprint(pd.formation_energy_tol)
-        # rprint(pd.get_all_chempots())
-        # rprint(pd.get_chempot_range_map())
-        # rprint(pd.get_chempot_range_stability_phase())
-        # rprint(pd.get_composition_chempots())
-        # rprint(pd.get_critical_compositions())
-        # rprint(pd.get_decomp_and_e_above_hull())
-        # rprint(pd.get_decomp_and_hull_energy_per_atom())
-        # rprint(pd.get_decomp_and_phase_separation_energy())
-        # rprint(pd.get_decomposition())
-        # rprint(pd.get_e_above_hull())
-        # rprint(pd.get_element_profile())
-        # rprint(pd.get_equilibrium_reaction_energy())
-        # rprint(pd.get_form_energy())
-        # rprint(pd.get_form_energy_per_atom())
-        # rprint(pd.get_hull_energy())
-        # rprint(pd.get_hull_energy_per_atom())
-        # rprint(pd.get_phase_separation_energy())
-        # rprint(pd.get_plot())
-        # rprint(pd.get_reference_energy())
-        # rprint(pd.get_reference_energy_per_atom())
-        # rprint(pd.get_transition_chempots())
-        # rprint(pd.getmu_vertices_stability_phase())
-        # rprint(pd.numerical_tol)
-        # rprint(pd.pd_coords())
-        # rprint(pd.stable_entries)
-        # rprint(pd.unstable_entries)
