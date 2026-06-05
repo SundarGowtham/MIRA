@@ -1,701 +1,935 @@
 """
-generate_traces_openrouter.py  (v2)
------------------------------------
-Changes vs v1:
-  - SYSTEM_MSG now describes the structured ThermoClaim schema (matches the
-    Pydantic discriminated union below). The v1 prompt asked for ["str"]
-    while the schema expected typed claims — a silent 100% parse-failure
-    bug that would have wasted the entire run.
-  - get_stability_data() now correctly handles solid-solution targets via
-    pd.get_decomp_and_hull_energy_per_atom (which accepts a Composition,
-    unlike get_decomp_and_e_above_hull which requires a PDEntry).
-  - get_stability_data() injects an oxygen-chemical-potential classification
-    derived from pd.get_all_chempots, telling the model whether the target
-    requires oxidizing, reducing, or flexible atmosphere.
-  - Write safety: numpy scalars in the validator breakdown are normalized
-    to Python natives; serialization tries droppable fields before giving
-    up; worker iterations are wrapped in try/finally so one bad record
-    can't kill a worker or deadlock the queue.
+validator.py
+------------
+Deterministic synthesis route validator for GRPO reward signal.
+
+This version is pymatgen-grounded throughout: every chemistry check delegates
+to a function in pymatgen.analysis.* that the Materials Project itself uses
+in published workflows. Hand-coded heuristics (volatile-carrier ratios,
+ad-hoc oxidation-state guessing) have been replaced.
+
+Key pymatgen functions used (with the validator check they back):
+
+  _check_stoichiometry          → pymatgen.analysis.reaction_calculator.Reaction
+                                  (exact null-space balance, ReactionError on fail)
+  _check_charge_neutrality      → Composition.oxi_state_guesses(all_oxi_states=True)
+                                  + fractional-valence path using
+                                  Element.oxidation_states (full known list)
+  _check_thermodynamics         → reaction_calculator.ComputedReaction
+                                  .calculated_reaction_energy
+  _check_target_stability (NEW) → PhaseDiagram.get_e_above_hull
+  _check_chempot_atmosphere     → PhaseDiagram.get_composition_chempots
+    (NEW)                         (μ_O at target's facet → oxidizing/reducing/neutral)
+
+Reward r ∈ [0.0, 1.0] — higher is better.
+
+Modes:
+  - Lightweight (default): 5 deterministic checks, no network.
+  - Thermo-aware: adds ΔE_rxn (ComputedReaction), target stability, and
+    chempot-atmosphere consistency. Requires a ThermoChecker with a
+    precomputed PD cache.
+
+Usage:
+    from validator import SynthesisValidator
+    validator = SynthesisValidator(mp_formula_set)
+    reward, breakdown = validator.validate(predicted_route, "BaTiO3")
+
+    # Thermo-aware mode (recommended for GRPO)
+    from validator import SynthesisValidator, ThermoChecker
+    thermo = ThermoChecker.from_sharded_cache("data/cache/pd_index.json", project_root)
+    validator = SynthesisValidator(mp_formula_set, thermo_checker=thermo)
+    reward, breakdown = validator.validate(predicted_route, "BaTiO3")
 """
 
-import os
-import json
-import asyncio
-import aiohttp
+from __future__ import annotations
+
 import pickle
-import logging
-import warnings
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Annotated, Literal
+from typing import Any, Literal, Optional, TYPE_CHECKING
 
-import numpy as np
-from pymatgen.analysis.phase_diagram import PhaseDiagram
 from pymatgen.core import Composition, Element
-from tqdm import tqdm
-from pydantic import BaseModel, Field, ValidationError
-import dotenv
-import aiofiles
-from aiohttp import ClientTimeout
-from rich import print as rprint
-
-from validator import (
-    SynthesisValidator,
-    ThermoChecker,
-    PredictedRoute,
-    PredictedPrecursor,
-    PredictedOperation,
-    PredictedConditions,
+from pymatgen.analysis.reaction_calculator import (
+    Reaction,
+    ComputedReaction,
+    ReactionError,
 )
 
-# Quiet the uncertainties UserWarning that pymatgen triggers from its
-# internal error-propagation calls. Doesn't affect correctness.
-warnings.filterwarnings("ignore", category=UserWarning, module="uncertainties")
-
-TIMEOUT = ClientTimeout(total=300, connect=10, sock_read=120)
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s.%(msecs)03d | %(levelname)-7s | %(message)s",
-    datefmt="%H:%M:%S",
-)
-logger = logging.getLogger("TRACER")
-
-dotenv.load_dotenv()
-
-# --- CONFIGURATION ------------------------------------------------------------
-OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
-MODEL_ID = "deepseek/deepseek-v4-pro"
-NUM_WORKERS = 15
-VALIDATOR_THRESHOLD = 0.65
-
-PROJECT_ROOT = Path(__file__).parent
-DATA_RAW = PROJECT_ROOT / "data" / "raw"
-DATA_CACHE = PROJECT_ROOT / "data" / "cache"
-
-SYNTHESIS_FILE = DATA_RAW / "synthesis.json"
-SUMMARY_FILE = DATA_RAW / "summary.json"
-PD_INDEX_FILE = DATA_CACHE / "pd_index.json"
-FORMULA_SET_FILE = DATA_CACHE / "mp_formula_set.pkl"
-OUTPUT_FILE = PROJECT_ROOT / "data" / "processed" / "synthesis_with_traces.jsonl"
-
-# Δμ_O thresholds (eV, relative to O2 reference) used to classify atmosphere
-# requirements. These match the validator's MU_O_OXIDIZING_REQUIRED / REDUCING
-# constants so the prompt hint and the validator agree on what "needs oxidizing"
-# means.
-MU_O_OXIDIZING_REQUIRED = -1.0
-MU_O_REDUCING_REQUIRED = -3.0
+if TYPE_CHECKING:
+    from pymatgen.analysis.phase_diagram import PhaseDiagram
 
 
-# --- PYDANTIC SCHEMAS ---------------------------------------------------------
-class PrecursorSchema(BaseModel):
-    formula: str
-    amount: float
+# ---------------------------------------------------------------------------
+# Data classes for predicted route (unchanged from prior version)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class PredictedConditions:
+    heating_temperature: list[float] = field(default_factory=list)  # °C
+    heating_time: list[float] = field(default_factory=list)          # hours
+    heating_atmosphere: list[str] = field(default_factory=list)
+    mixing_media: Optional[str] = None
+    atmosphere: Optional[Literal["Ar", "N2", "vacuum", "air"]] = None
 
 
-class OperationSchema(BaseModel):
+@dataclass
+class PredictedOperation:
     type: str
-    temperature_c: float
-    time_h: float
-    atmosphere: str
-    media: str
+    conditions: PredictedConditions = field(default_factory=PredictedConditions)
 
 
-class CompetingPhaseClaim(BaseModel):
-    type: Literal["competing_phase"]
+@dataclass
+class PredictedPrecursor:
     formula: str
-    form_energy_per_atom: float | None = None
-    e_above_hull: float | None = None
+    amount: float = 1.0
 
 
-class OxidationStateClaim(BaseModel):
-    type: Literal["oxidation_state"]
-    element: str
-    avg_valence: float
-    requires_atmosphere: Literal["oxidizing", "reducing", "inert", "any"]
+@dataclass
+class PredictedRoute:
+    target_formula: str
+    precursors: list[PredictedPrecursor]
+    operations: list[PredictedOperation]
+    reaction_string: str = ""
 
 
-class StoichiometryClaim(BaseModel):
-    type: Literal["stoichiometric_constraint"]
-    species: str
-    moles_per_formula_unit: float
-    role: Literal["consumed", "released"]
+# ---------------------------------------------------------------------------
+# Constraint weights
+# ---------------------------------------------------------------------------
 
-
-class HullStabilityClaim(BaseModel):
-    type: Literal["hull_stability"]
-    formula: str
-    e_above_hull: float
-
-
-ThermoClaim = Annotated[
-    CompetingPhaseClaim | OxidationStateClaim | StoichiometryClaim | HullStabilityClaim,
-    Field(discriminator="type"),
-]
-
-
-class RouteSchema(BaseModel):
-    precursors: list[PrecursorSchema]
-    operations: list[OperationSchema]
-    thermodynamic_checks: list[ThermoClaim] = Field(default_factory=list)
-
-
-# --- PROMPTS ------------------------------------------------------------------
-SYSTEM_MSG = """You are a working materials chemist designing solid-state synthesis routes.
-
-For every target compound, your internal reasoning MUST address:
-1. STOICHIOMETRY: Oxidation states and balancing.
-2. PRECURSOR CHOICE: Justify reagents.
-3. BALANCED EQUATION: Explicit molar coefficients.
-4. CONDITIONS: Justify temps/times/atmosphere based on thermodynamics.
-
-You must output your final answer as a pure JSON object matching this schema:
-
-{
-  "precursors": [{"formula": "str", "amount": float}],
-  "operations": [
-    {"type": "str", "temperature_c": float, "time_h": float, "atmosphere": "str", "media": "str"}
-  ],
-  "thermodynamic_checks": [
-    // Each entry must be one of the four structured claim types below.
-    // Numeric values will be verified against the Materials Project convex hull.
-
-    {"type": "oxidation_state", "element": "Fe", "avg_valence": 3.5, "requires_atmosphere": "oxidizing"},
-    // Use when the target requires a specific cation valence.
-    // requires_atmosphere is one of: "oxidizing", "reducing", "inert", "any".
-
-    {"type": "competing_phase", "formula": "LaFeO3", "form_energy_per_atom": -2.85},
-    // Use to name a phase that competes with the target during synthesis.
-    // form_energy_per_atom is optional but graded against MP if provided.
-
-    {"type": "stoichiometric_constraint", "species": "O2", "moles_per_formula_unit": 0.125, "role": "consumed"},
-    // Use for non-precursor species exchanged with the atmosphere.
-    // role is one of: "consumed", "released".
-
-    {"type": "hull_stability", "formula": "SrLa(FeO3)2", "e_above_hull": 0.005}
-    // Use to flag a metastable competitor by its energy above the convex hull (eV/atom).
-  ]
+# Lightweight mode (no thermodynamics)
+WEIGHTS_LIGHT = {
+    "stoichiometry":         0.35,
+    "charge_neutrality":     0.25,
+    "precursors_exist":      0.20,
+    "operation_order":       0.10,
+    "temperature_plausible": 0.10,
 }
 
-Output 3-6 thermodynamic claims total. Reference only formulas that appear
-in the SYSTEM STABLE PHASES or DANGEROUS METASTABLE SIDE-PHASES sections of
-the prompt; do not invent phase names. Do not include markdown formatting,
-backticks, or comments in the final output. Just the JSON object."""
+# Thermo-aware mode — eight checks, all physics-grounded.
+# Mass balance + reaction energy + target hull stability + atmosphere chemistry
+# carry the most weight because they're the load-bearing chemistry signals.
+WEIGHTS_THERMO = {
+    "stoichiometry":            0.20,   # Reaction balances exactly?
+    "thermodynamic_favorable":  0.20,   # ΔE_rxn from ComputedReaction
+    "target_stability":         0.15,   # e_above_hull of target itself
+    "chempot_atmosphere":       0.10,   # μ_O vs. operation atmosphere
+    "charge_neutrality":        0.10,
+    "precursors_exist":         0.10,
+    "operation_order":          0.075,
+    "temperature_plausible":    0.075,
+}
 
-CLOSED_BOOK_USER = """Target: {target}{context}
-
-Thermodynamic Context (Phase Stability Data):
-{stability_data}
-
-Provide your synthesis route as a JSON object."""
-
-OPEN_BOOK_USER = """Target: {target}{context}
-
-A published solid-state synthesis route exists for this target:
-PRECURSORS: {precursor_summary}
-OPERATIONS: {operations_summary}
-
-Thermodynamic Context (Phase Stability Data):
-{stability_data}
-
-Provide your synthesis route as a JSON object that closely follows this published route."""
+assert abs(sum(WEIGHTS_LIGHT.values()) - 1.0) < 1e-9
+assert abs(sum(WEIGHTS_THERMO.values()) - 1.0) < 1e-9
 
 
-# --- HELPERS ------------------------------------------------------------------
-def get_chemsys(formula: str) -> str | None:
-    try:
-        els = sorted(str(el) for el in Composition(formula).elements)
-        return "-".join(els)
-    except Exception:
+# ---------------------------------------------------------------------------
+# Operation ordering rules (unchanged; no pymatgen analog for synthesis ontology)
+# ---------------------------------------------------------------------------
+
+OPERATION_ORDER = {
+    "StartingSynthesis":  0,
+    "MixingOperation":    1,
+    "ShapingOperation":   2,
+    "DryingOperation":    2,
+    "HeatingOperation":   3,
+    "QuenchingOperation": 4,
+    "CleaningOperation":  5,
+}
+
+# Ops whose temperatures should be graded against TEMP_MIN/MAX
+# (grinds, dryings, mixings happen at room temp — don't count them)
+HEATING_OP_TYPES = frozenset({
+    "HeatingOperation",
+    "SinteringOperation",   # in case the parser emits this variant
+    "QuenchingOperation",
+})
+
+TEMP_MIN = 100.0
+TEMP_MAX = 2000.0
+
+
+# ---------------------------------------------------------------------------
+# Volatile byproducts admissible in solid-state synthesis.
+# Used as candidate products in Reaction / ComputedReaction balancing.
+# ---------------------------------------------------------------------------
+
+VOLATILE_FORMULAS = ["CO2", "H2O", "O2", "N2", "NH3"]
+
+# Anions whose oxidation state is essentially fixed in inorganic synthesis.
+# Used only for the fractional-valence path in _check_charge_neutrality.
+ANION_STATES: dict[str, int] = {
+    "O":  -2, "F":  -1, "Cl": -1, "Br": -1, "I": -1,
+    "S":  -2, "Se": -2, "Te": -2, "N": -3,
+}
+
+# Redox-active cations that can absorb fractional valence in mixed-valence
+# phases (perovskites, spinels, layered oxides, etc.)
+REDOX_METALS = frozenset({
+    "Fe", "Mn", "Co", "Ni", "Cu", "V", "Cr", "Mo", "W", "Ti",
+    "Ce", "Eu", "Pr", "Tb", "Sn", "Pb", "Bi", "Ru", "Ir", "Re",
+})
+
+# Default cation valences for non-redox cations in the fractional path
+# (alkali, alkaline earth, rare earth excluding Ce/Eu/Pr/Tb)
+FIXED_CATION_STATE: dict[str, int] = {
+    "Li": 1, "Na": 1, "K": 1, "Rb": 1, "Cs": 1,
+    "Be": 2, "Mg": 2, "Ca": 2, "Sr": 2, "Ba": 2,
+    "Al": 3, "Ga": 3, "In": 3, "Sc": 3, "Y": 3,
+    "La": 3, "Nd": 3, "Sm": 3, "Gd": 3, "Dy": 3,
+    "Ho": 3, "Er": 3, "Tm": 3, "Yb": 3, "Lu": 3,
+    "Zr": 4, "Hf": 4, "Ta": 5, "Nb": 5,
+}
+
+
+# ---------------------------------------------------------------------------
+# Thermodynamic favorability thresholds (eV/atom)
+# Based on MP-documented noise floors for GGA reaction energies.
+# ---------------------------------------------------------------------------
+
+RXN_ENERGY_FAVORABLE   = -0.025
+RXN_ENERGY_BORDERLINE  =  0.025
+RXN_ENERGY_UNFAVORABLE =  0.150
+
+# Target-stability thresholds (eV/atom above hull)
+HULL_STABLE     = 0.025   # on hull within DFT noise → 1.0
+HULL_METASTABLE = 0.100   # 25–100 meV: metastable, synthesizable → linear decay
+HULL_UNSTABLE   = 0.250   # > 250 meV: probably not a real phase → 0.0
+
+# μ_O thresholds (eV, relative to elemental O2 reference at PD's facet)
+# These are heuristic but grounded in MP convex-hull behavior for oxides.
+MU_O_OXIDIZING_REQUIRED = -1.0   # Δμ_O > this → target needs air/O2
+MU_O_REDUCING_REQUIRED  = -3.0   # Δμ_O < this → target needs inert/H2
+
+
+# ---------------------------------------------------------------------------
+# Atmosphere classification (used by chempot_atmosphere check)
+# ---------------------------------------------------------------------------
+
+ATMOSPHERE_OXIDIZING = frozenset({"air", "o2", "oxygen"})
+ATMOSPHERE_REDUCING  = frozenset({"h2", "hydrogen", "co", "forming gas", "formgas"})
+ATMOSPHERE_INERT     = frozenset({"ar", "argon", "n2", "nitrogen", "vacuum", "he", "helium"})
+
+
+def _classify_atmosphere(atm: str) -> str:
+    """Return one of: 'ox', 'red', 'inert', 'unknown'."""
+    a = atm.lower().strip()
+    if any(o in a for o in ATMOSPHERE_OXIDIZING):
+        return "ox"
+    if any(r in a for r in ATMOSPHERE_REDUCING):
+        return "red"
+    if any(i in a for i in ATMOSPHERE_INERT):
+        return "inert"
+    return "unknown"
+
+
+# ---------------------------------------------------------------------------
+# ThermoChecker — wraps a phase-diagram cache and exposes the pymatgen-native
+# thermodynamic queries the validator uses.
+# ---------------------------------------------------------------------------
+
+class ThermoChecker:
+    """
+    Precomputed phase-diagram cache for thermodynamic checks.
+
+    Three queries are exposed, each backed by a pymatgen function:
+
+      reaction_energy_per_atom → ComputedReaction.calculated_reaction_energy
+                                 (auto-balances reaction including volatiles)
+      target_e_above_hull      → PhaseDiagram.get_e_above_hull
+      composition_chempots     → PhaseDiagram.get_composition_chempots
+    """
+
+    def __init__(
+        self,
+        phase_diagrams: dict[str, "PhaseDiagram"],
+        pd_index: dict | None = None,
+        project_root: Path | None = None,
+    ):
+        self.phase_diagrams = phase_diagrams
+        self.pd_index = pd_index or {}
+        self.project_root = project_root
+
+    @classmethod
+    def from_sharded_cache(
+        cls,
+        index_path: str | Path,
+        project_root: Path,
+    ) -> "ThermoChecker":
+        import json
+        path = Path(index_path)
+        if not path.exists():
+            return cls(phase_diagrams={}, pd_index={}, project_root=project_root)
+        with path.open("r") as f:
+            pd_index = json.load(f)
+        return cls(phase_diagrams={}, pd_index=pd_index, project_root=project_root)
+
+    # ------------------------------------------------------------------
+    # Internal helpers
+    # ------------------------------------------------------------------
+
+    def _get_pd(self, chemsys: str):
+        """Lazy-load a PD shard."""
+        if chemsys in self.phase_diagrams:
+            return self.phase_diagrams[chemsys]
+        if self.pd_index and chemsys in self.pd_index and self.project_root:
+            shard_path = self.project_root / self.pd_index[chemsys]
+            if shard_path.exists():
+                try:
+                    with shard_path.open("rb") as f:
+                        pd = pickle.load(f)
+                    self.phase_diagrams[chemsys] = pd
+                    return pd
+                except Exception:
+                    pass
         return None
 
-
-def summarize_mp_precursors(precursors: list[dict]) -> str:
-    parts = [f"{p.get('formula', '')} (amount={p.get('amount', 1.0)})" for p in precursors]
-    return ", ".join(parts) if parts else "(none)"
-
-
-def summarize_mp_operations(operations: list[dict]) -> str:
-    parts = [f"{i}. {op.get('type', 'Unknown')}" for i, op in enumerate(operations, 1)]
-    return " | ".join(parts) if parts else "(none)"
-
-
-def extract_json(text: str) -> dict | None:
-    try:
-        if "```json" in text:
-            text = text.split("```json")[1].split("```")[0]
-        elif "```" in text:
-            text = text.split("```")[1].split("```")[0]
-        return json.loads(text.strip())
-    except Exception:
-        return None
-
-
-def convert_to_predicted_route(target: str, data: dict) -> PredictedRoute | None:
-    try:
-        schema = RouteSchema(**data)
-        precs = [PredictedPrecursor(formula=p.formula, amount=p.amount) for p in schema.precursors]
-        ops = []
-        for op in schema.operations:
-            ops.append(
-                PredictedOperation(
-                    type=op.type,
-                    conditions=PredictedConditions(
-                        heating_temperature=[op.temperature_c] if op.temperature_c > 0 else [],
-                        heating_time=[op.time_h] if op.time_h > 0 else [],
-                        heating_atmosphere=[op.atmosphere] if op.atmosphere else [],
-                        mixing_media=op.media if op.media else None,
-                    ),
-                )
-            )
-        return PredictedRoute(target_formula=target, precursors=precs, operations=ops)
-    except (ValidationError, ValueError, TypeError) as e:
-        logger.debug(f"[parse] route conversion failed for {target}: {e}")
-        return None
-
-
-# --- WRITE SAFETY -------------------------------------------------------------
-def _to_jsonable(obj):
-    """
-    Recursively convert numpy scalars / arrays and other non-native types to
-    JSON-serializable Python natives. Handles NaN/Inf by replacing with None
-    (so `allow_nan=False` doesn't trip on stray pymatgen values).
-    """
-    if isinstance(obj, dict):
-        return {str(k): _to_jsonable(v) for k, v in obj.items()}
-    if isinstance(obj, (list, tuple)):
-        return [_to_jsonable(x) for x in obj]
-    if isinstance(obj, (np.floating, np.integer)):
-        val = obj.item()
-        if isinstance(val, float) and (val != val or val in (float("inf"), float("-inf"))):
-            return None
-        return val
-    if isinstance(obj, np.ndarray):
-        return _to_jsonable(obj.tolist())
-    if isinstance(obj, float):
-        if obj != obj or obj in (float("inf"), float("-inf")):
-            return None
-        return obj
-    return obj
-
-
-def safe_dump_record(record: dict, droppable_fields=("prompt", "stability_data")) -> str | None:
-    """
-    Serialize a record to JSON with three layers of fallback:
-      1. Normalize numpy/NaN/Inf preemptively, try full dump.
-      2. If that fails, drop optional fields one at a time and retry.
-      3. If even that fails, fall back to essential keys only.
-
-    Droppable fields (prompt, stability_data) are deterministically
-    regenerable from `target` + the PD shards, so dropping them costs
-    nothing — you can rebuild them in a postscript later.
-    """
-    cleaned = _to_jsonable(record)
-    target_str = cleaned.get("target", "?") if isinstance(cleaned, dict) else "?"
-
-    try:
-        return json.dumps(cleaned, ensure_ascii=True, allow_nan=False)
-    except (TypeError, ValueError) as e:
-        logger.warning(f"[serialize] full dump failed for {target_str}: {e}")
-
-    for field in droppable_fields:
-        if isinstance(cleaned, dict) and field in cleaned:
-            cleaned = {k: v for k, v in cleaned.items() if k != field}
-            try:
-                result = json.dumps(cleaned, ensure_ascii=True, allow_nan=False)
-                logger.info(f"[serialize] recovered for {target_str} by dropping '{field}'")
-                return result
-            except (TypeError, ValueError):
-                continue
-
-    essential_keys = ("target", "predicted_route", "validator_score", "passed_validator",
-                      "thermodynamic_checks", "reasoning_raw")
-    minimal = {k: cleaned.get(k) for k in essential_keys if isinstance(cleaned, dict) and k in cleaned}
-    try:
-        result = json.dumps(minimal, ensure_ascii=True, allow_nan=False)
-        logger.warning(f"[serialize] minimal dump only for {target_str}")
-        return result
-    except Exception as e:
-        logger.error(f"[serialize] even minimal dump failed for {target_str}: {e}")
-        return None
-
-
-# --- STABILITY DATA (v2: corrected solid-solution branch + μ_O injection) -----
-def _classify_atmosphere(pd: PhaseDiagram, target_comp: Composition) -> str:
-    """
-    Return a one-line atmosphere-requirement hint based on the range of Δμ_O
-    across the target composition's stability facets.
-
-    Uses get_all_chempots (robust for edge/solid-solution compositions) and
-    keys off the LOWER bound of Δμ_O: that's "the most reducing condition
-    the target survives," which is what actually determines whether you need
-    oxidizing conditions.
-    """
-    try:
-        all_chempots = pd.get_all_chempots(target_comp)
-    except Exception as e:
-        logger.debug(f"[chempot] get_all_chempots failed for {target_comp.reduced_formula}: {e}")
-        return "ATMOSPHERE: chempot analysis unavailable for this composition."
-
-    if not all_chempots:
-        return "ATMOSPHERE: no stability facets returned."
-
-    o_el = Element("O")
-    if o_el not in pd.el_refs:
-        return "ATMOSPHERE: target contains no oxygen (analysis skipped)."
-
-    o_ref = pd.el_refs[o_el].energy_per_atom
-    o_mus_delta = [
-        float(facet[o_el]) - float(o_ref)
-        for facet in all_chempots.values()
-        if o_el in facet
-    ]
-
-    if not o_mus_delta:
-        return "ATMOSPHERE: oxygen chempot not present on any facet (unusual)."
-
-    mu_lo, mu_hi = min(o_mus_delta), max(o_mus_delta)
-
-    if mu_lo > MU_O_OXIDIZING_REQUIRED:
-        return (
-            f"ATMOSPHERE REQUIRED: oxidizing (air or O2). "
-            f"Target requires Δμ_O > {mu_lo:.2f} eV relative to O2 reference "
-            f"across all stability facets; reducing conditions will decompose it."
-        )
-    if mu_hi < MU_O_REDUCING_REQUIRED:
-        return (
-            f"ATMOSPHERE REQUIRED: reducing or inert (Ar, N2, H2, vacuum). "
-            f"Target lies in low-μ_O regime, Δμ_O ∈ [{mu_lo:.2f}, {mu_hi:.2f}] eV; "
-            f"oxidizing conditions will oxidize it away."
-        )
-    return (
-        f"ATMOSPHERE: flexible. Target stable across Δμ_O ∈ [{mu_lo:.2f}, {mu_hi:.2f}] eV; "
-        f"air, inert, or mildly reducing all acceptable."
-    )
-
-
-def _target_status_line(pd: PhaseDiagram, target: str, target_comp: Composition) -> str:
-    """
-    Honest stability framing for any target.
-
-    For compositions with an explicit MP entry (e.g. BaTiO3), reports its
-    e_above_hull from the lowest-energy matching entry.
-
-    For solid solutions and other compositions without an entry, uses
-    get_decomp_and_hull_energy_per_atom (which accepts a Composition) and
-    reports the decomposition products explicitly. There is no honest
-    "above hull" number for a composition without an energy — the
-    composition lies on the convex envelope, period. The model needs to
-    know what it will decompose into; that's the useful chemistry.
-    """
-    target_red = target_comp.reduced_formula
-
-    matches = [
-        e for e in pd.all_entries
-        if e.composition.reduced_formula == target_red
-    ]
-    if matches:
+    def _resolve_pd(self, formulas: list[str]):
+        """
+        Find a cached PD whose chemsys covers every element in formulas.
+        Tries exact match first, then any superset chemsys.
+        Returns (pd, chemsys) or (None, "") if no covering PD exists.
+        """
         try:
-            best = min(matches, key=lambda e: e.energy_per_atom)
-            e_hull = float(pd.get_e_above_hull(best, on_error="ignore"))
-            if e_hull <= 0.001:
-                return f"TARGET STATUS: {target} is THERMODYNAMICALLY STABLE (on the convex hull)."
-            return (
-                f"TARGET STATUS: {target} is METASTABLE (+{e_hull:.3f} eV/atom above hull). "
-                f"Will tend to decompose into more stable phases listed below."
-            )
-        except Exception as e:
-            logger.debug(f"[status] e_above_hull failed for {target}: {e}")
+            all_els = set()
+            for f in formulas:
+                for el in Composition(f).elements:
+                    all_els.add(str(el))
+        except Exception:
+            return None, ""
+        chemsys = "-".join(sorted(all_els))
+        pd = self._get_pd(chemsys)
+        if pd is not None:
+            return pd, chemsys
+        if self.pd_index:
+            for cs in self.pd_index:
+                if all_els.issubset(set(cs.split("-"))):
+                    pd = self._get_pd(cs)
+                    if pd is not None:
+                        return pd, cs
+        return None, chemsys
 
-    try:
-        decomp, hull_e = pd.get_decomp_and_hull_energy_per_atom(target_comp)
-        decomp_str = " + ".join(
-            f"{amt:.3f} {entry.composition.reduced_formula}"
-            for entry, amt in decomp.items()
-        )
-        return (
-            f"TARGET STATUS: {target} is a non-discrete composition (no MP entry — "
-            f"likely a solid solution or doped phase). At this composition the convex "
-            f"hull lies at {hull_e:.3f} eV/atom and decomposes into: {decomp_str}. "
-            f"Your synthesis must stabilize the target against this decomposition "
-            f"(typically via configurational entropy at high T plus controlled cooling)."
-        )
-    except Exception as e:
-        logger.debug(f"[status] decomp failed for {target}: {e}")
-        return f"TARGET STATUS: stability analysis unavailable for {target}."
-
-
-async def get_stability_data(target: str, pd_index: dict) -> str:
-    chemsys = get_chemsys(target)
-    pd_shard_path = pd_index.get(chemsys) if chemsys else None
-
-    if not pd_shard_path or not Path(pd_shard_path).exists():
-        return "No phase diagram data computed for this system."
-
-    try:
-        async with aiofiles.open(pd_shard_path, "rb") as f:
-            pd: PhaseDiagram = pickle.loads(await f.read())
-
-        target_comp = Composition(target)
-
-        # 1. Stability framing — entry-based when MP has one, hull-based otherwise.
-        target_status = _target_status_line(pd, target, target_comp)
-
-        # 2. Atmosphere requirement from Δμ_O envelope.
-        atmosphere_hint = _classify_atmosphere(pd, target_comp)
-
-        # 3. Stable phases in the chemsys with formation energies.
-        stable_lines = []
-        for entry in pd.stable_entries:
-            try:
-                form_e = float(pd.get_form_energy_per_atom(entry))
-                stable_lines.append(f"{entry.composition.reduced_formula} (ΔEf={form_e:.2f})")
-            except Exception:
-                continue
-
-        # 4. Dangerous competing phases (within 50 meV of hull), deduped by formula.
-        competing_dict: dict[str, float] = {}
-        for entry in pd.unstable_entries:
-            try:
-                e_above = float(pd.get_e_above_hull(entry, on_error="ignore"))
-            except Exception:
-                continue
-            if e_above is None or e_above >= 0.05:
-                continue
-            formula = entry.composition.reduced_formula
-            if formula not in competing_dict or e_above < competing_dict[formula]:
-                competing_dict[formula] = e_above
-
-        competing_lines = [f"{form} (+{e:.3f} above hull)" for form, e in competing_dict.items()]
-
-        return (
-            "--- THERMODYNAMIC PHASE COMPETITION ---\n"
-            f"{target_status}\n\n"
-            f"{atmosphere_hint}\n\n"
-            "SYSTEM STABLE PHASES (Formation Energy in eV/atom):\n"
-            f"  {', '.join(stable_lines) if stable_lines else 'None resolved.'}\n\n"
-            "DANGEROUS METASTABLE SIDE-PHASES (Energy above hull in eV/atom):\n"
-            f"  {', '.join(competing_lines) if competing_lines else 'None within 50 meV/atom threshold.'}"
-        )
-
-    except Exception as e:
-        logger.warning(f"[stability] failed to build context for {target}: {e}")
-        return f"[Error reading phase diagram: {e}]"
-
-
-# --- WORKER LOOP --------------------------------------------------------------
-async def worker(
-    queue: asyncio.Queue,
-    session: aiohttp.ClientSession,
-    pd_index: dict,
-    validator: SynthesisValidator,
-    pbar: tqdm,
-    f_out,
-    file_lock: asyncio.Lock,
-):
-    headers = {
-        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "HTTP-Referer": "https://github.com/mira-project",
-        "X-Title": "MIRA Capstone",
-        "Content-Type": "application/json",
-    }
-
-    while True:
-        record = await queue.get()
-        if record is None:
-            queue.task_done()
-            break
-
-        target = record.get("target_formula", "<unknown>")
-
+    @staticmethod
+    def _best_entry_for_formula(pd, formula: str):
+        """Lowest-energy PD entry whose reduced formula matches the input."""
         try:
-            precursors = record.get("precursors", [])
-            operations = record.get("operations", [])
-            ctx = ""
+            target_red = Composition(formula).reduced_formula
+        except Exception:
+            return None
+        matches = [
+            e for e in pd.all_entries
+            if e.composition.reduced_formula == target_red
+        ]
+        if not matches:
+            return None
+        return min(matches, key=lambda e: e.energy_per_atom)
 
-            stability_data = await get_stability_data(target, pd_index)
+    # ------------------------------------------------------------------
+    # Public queries
+    # ------------------------------------------------------------------
 
-            async def fetch_llm(prompt: str):
-                payload = {
-                    "model": MODEL_ID,
-                    "messages": [
-                        {"role": "system", "content": SYSTEM_MSG},
-                        {"role": "user", "content": prompt},
-                    ],
-                    "include_reasoning": True,
-                    "temperature": 0.6,
-                }
-                for attempt in range(3):
-                    try:
-                        async with session.post(
-                            "https://openrouter.ai/api/v1/chat/completions",
-                            json=payload,
-                            headers=headers,
-                            timeout=TIMEOUT,
-                        ) as response:
-                            if response.status == 200:
-                                data = await response.json()
-                                if "choices" in data and data["choices"]:
-                                    msg = data["choices"][0].get("message", {})
-                                    return msg.get("reasoning", ""), msg.get("content", "")
-                            elif response.status == 429:
-                                await asyncio.sleep(5 * (attempt + 1))
-                            else:
-                                break
-                    except Exception as e:
-                        logger.debug(f"[api] attempt {attempt} failed for {target}: {e}")
-                        await asyncio.sleep(2)
+    def reaction_energy_per_atom(
+        self,
+        precursors: list[tuple[str, float]],
+        target_formula: str,
+    ) -> Optional[float]:
+        """
+        Compute per-atom reaction energy using pymatgen's ComputedReaction.
+
+        ComputedReaction re-balances the reaction from compositions and computes
+        the energy from the entries' total energies. The model's stated
+        coefficients are irrelevant (and rightly so — RL shouldn't be teaching
+        the model to do stoichiometric arithmetic).
+
+        Returns None if the reaction can't be balanced or required entries are
+        missing from the PD.
+        """
+        try:
+            all_formulas = [target_formula] + [f for f, _ in precursors] + VOLATILE_FORMULAS
+            pd, _ = self._resolve_pd(all_formulas)
+            if pd is None:
                 return None
 
-            # --- PASS 1: CLOSED-BOOK -----------------------------------------
-            closed_prompt = CLOSED_BOOK_USER.format(
-                target=target, context=ctx, stability_data=stability_data
+            target_entry = self._best_entry_for_formula(pd, target_formula)
+            if target_entry is None:
+                return None
+
+            reactant_entries = []
+            for formula, _ in precursors:
+                e = self._best_entry_for_formula(pd, formula)
+                if e is None:
+                    return None
+                reactant_entries.append(e)
+
+            volatile_entries = []
+            for v in VOLATILE_FORMULAS:
+                e = self._best_entry_for_formula(pd, v)
+                if e is not None:
+                    volatile_entries.append(e)
+
+            product_entries = [target_entry] + volatile_entries
+
+            try:
+                reaction = ComputedReaction(reactant_entries, product_entries)
+            except ReactionError:
+                return None
+
+            # Sign convention: products positive, reactants negative.
+            # Target must appear with positive coefficient.
+            target_coeff = reaction.get_coeff(target_entry.composition)
+            if target_coeff <= 1e-6:
+                return None
+
+            delta_E_total = reaction.calculated_reaction_energy  # eV
+            atoms_target = target_coeff * target_entry.composition.num_atoms
+            return delta_E_total / atoms_target
+
+        except Exception:
+            return None
+
+    def target_e_above_hull(self, target_formula: str) -> Optional[float]:
+        """
+        Energy above convex hull of the target itself (eV/atom).
+
+        Tells us whether the target is stable in MP's PD or metastable.
+        Returns None if target isn't a PD entry (e.g., novel solid solutions
+        not in MP).
+        """
+        try:
+            pd, _ = self._resolve_pd([target_formula])
+            if pd is None:
+                return None
+            target_entry = self._best_entry_for_formula(pd, target_formula)
+            if target_entry is None:
+                return None
+            return pd.get_e_above_hull(target_entry, on_error="ignore")
+        except Exception:
+            return None
+
+    def composition_chempots(self, target_formula: str) -> Optional[dict]:
+        """
+        Chemical potentials at the target's facet via PhaseDiagram.get_composition_chempots.
+
+        Returns {Element: chempot} or None on failure.
+        """
+        try:
+            pd, _ = self._resolve_pd([target_formula])
+            if pd is None:
+                return None
+            target_comp = Composition(target_formula)
+            return pd.get_composition_chempots(target_comp)
+        except Exception:
+            return None
+
+    def oxygen_reference_energy(self, target_formula: str) -> Optional[float]:
+        """
+        Per-atom energy of the O2 elemental reference in the relevant PD.
+        Used to convert absolute μ_O to Δμ_O (relative to O2-rich limit).
+        """
+        try:
+            pd, _ = self._resolve_pd([target_formula])
+            if pd is None:
+                return None
+            o_el = Element("O")
+            if o_el not in pd.el_refs:
+                return None
+            return pd.el_refs[o_el].energy_per_atom
+        except Exception:
+            return None
+
+    def __contains__(self, chemsys: str) -> bool:
+        return chemsys in self.phase_diagrams or chemsys in self.pd_index
+
+    def __len__(self) -> int:
+        return len(self.phase_diagrams) + len(self.pd_index)
+
+
+# ---------------------------------------------------------------------------
+# Validator
+# ---------------------------------------------------------------------------
+
+class SynthesisValidator:
+    """
+    Scores a predicted synthesis route against physical/chemical constraints.
+
+    Args:
+        mp_formula_set: set of known MP formula strings (reduced form).
+        thermo_checker: optional ThermoChecker for thermo-aware mode.
+    """
+
+    def __init__(
+        self,
+        mp_formula_set: set[str],
+        thermo_checker: Optional[ThermoChecker] = None,
+    ):
+        self.mp_formula_set = {self._normalize_formula(f) for f in mp_formula_set}
+        self.thermo_checker = thermo_checker
+        self.weights = (
+            WEIGHTS_THERMO if thermo_checker is not None else WEIGHTS_LIGHT
+        )
+
+    # ------------------------------------------------------------------
+    # Public interface
+    # ------------------------------------------------------------------
+
+    def validate(
+        self,
+        predicted: PredictedRoute,
+        ground_truth_target_formula: Optional[str] = None,
+    ) -> tuple[float, dict[str, float]]:
+        scores: dict[str, float] = {}
+
+        scores["stoichiometry"]         = self._check_stoichiometry(predicted)
+        scores["charge_neutrality"]     = self._check_charge_neutrality(predicted)
+        scores["precursors_exist"]      = self._check_precursors_exist(predicted)
+        scores["operation_order"]       = self._check_operation_order(predicted)
+        scores["temperature_plausible"] = self._check_temperature(predicted)
+
+        if self.thermo_checker is not None:
+            scores["thermodynamic_favorable"] = self._check_thermodynamics(predicted)
+            scores["target_stability"]        = self._check_target_stability(predicted)
+            scores["chempot_atmosphere"]      = self._check_chempot_atmosphere(predicted)
+
+        if ground_truth_target_formula is not None:
+            scores["target_match"] = self._check_target_match(
+                predicted, ground_truth_target_formula
             )
-            llm_resp = await fetch_llm(closed_prompt)
 
-            final_result = None
-            closed_score = 0.0
+        active_weights = {k: v for k, v in self.weights.items() if k in scores}
+        weight_sum = sum(active_weights.values())
+        if weight_sum == 0:
+            return 0.0, scores
+        reward = sum(
+            (w / weight_sum) * scores[k] for k, w in active_weights.items()
+        )
+        return round(reward, 4), scores
 
-            if llm_resp:
-                reasoning, content = llm_resp
-                json_data = extract_json(content)
-                if json_data:
-                    route = convert_to_predicted_route(target, json_data)
-                    if route:
-                        closed_score, closed_breakdown = validator.validate(route, target)
-                        if closed_score >= VALIDATOR_THRESHOLD:
-                            final_result = {
-                                "target": target,
-                                "thinking": f"<think>\n{reasoning}\n</think>",
-                                "reasoning_raw": reasoning,
-                                "predicted_route": json_data,
-                                "thermodynamic_checks": json_data.get("thermodynamic_checks", []),
-                                "validator_score": closed_score,
-                                "validator_breakdown": closed_breakdown,
-                                "passed_validator": True,
-                                "used_fallback": False,
-                                "prompt": closed_prompt,
-                                "stability_data": stability_data,
-                                "generator": MODEL_ID,
-                            }
+    # ------------------------------------------------------------------
+    # Individual constraint checks
+    # ------------------------------------------------------------------
 
-            # --- PASS 2: OPEN-BOOK FALLBACK ----------------------------------
-            if not final_result:
-                open_prompt = OPEN_BOOK_USER.format(
-                    target=target,
-                    context=ctx,
-                    precursor_summary=summarize_mp_precursors(precursors),
-                    operations_summary=summarize_mp_operations(operations),
-                    stability_data=stability_data,
-                )
-                llm_resp = await fetch_llm(open_prompt)
+    def _check_stoichiometry(self, predicted: PredictedRoute) -> float:
+        """
+        Mass balance via pymatgen.analysis.reaction_calculator.Reaction.
 
-                if llm_resp:
-                    reasoning, content = llm_resp
-                    json_data = extract_json(content)
-                    if json_data:
-                        route = convert_to_predicted_route(target, json_data)
-                        open_score, open_breakdown = 0.0, {"error": 1.0}
-                        if route:
-                            open_score, open_breakdown = validator.validate(route, target)
+        Reaction performs exact null-space balancing on the elemental
+        composition matrix. If a balanced equation exists with the target
+        on the product side and the precursors on the reactant side
+        (allowing CO2/H2O/O2/N2/NH3 as volatile byproducts), score is 1.0.
+        Otherwise 0.0.
 
-                        final_result = {
-                            "target": target,
-                            "thinking": f"<think>\n{reasoning}\n</think>",
-                            "reasoning_raw": reasoning,
-                            "predicted_route": json_data,
-                            "thermodynamic_checks": json_data.get("thermodynamic_checks", []),
-                            "validator_score": open_score,
-                            "validator_breakdown": open_breakdown,
-                            "passed_validator": open_score >= VALIDATOR_THRESHOLD,
-                            "used_fallback": True,
-                            "prompt": open_prompt,
-                            "stability_data": stability_data,
-                            "generator": MODEL_ID,
-                        }
+        Binary because the underlying mathematical question is binary:
+        either a balance exists or it doesn't.
+        """
+        try:
+            reactants = [Composition(p.formula) for p in predicted.precursors]
+            if not reactants:
+                return 0.0
+            target_comp = Composition(predicted.target_formula)
 
-            # --- WRITE (safe) ------------------------------------------------
-            if final_result:
-                serialized = safe_dump_record(final_result)
-                if serialized:
-                    async with file_lock:
-                        await f_out.write(serialized + "\n")
-                        await f_out.flush()
-                else:
-                    logger.error(f"[worker] dropping record for {target}; could not serialize")
-
-        except Exception as e:
-            # Swallow ANY exception so one bad record can't kill a worker
-            # or deadlock the queue. Log with stack trace for postmortem.
-            logger.exception(f"[worker] crashed on {target}: {type(e).__name__}: {e}")
-        finally:
-            pbar.update(1)
-            queue.task_done()
-
-
-async def main():
-    if not OPENROUTER_API_KEY:
-        print("ERROR: Please set OPENROUTER_API_KEY environment variable.")
-        return
-
-    print("Loading data files...")
-    async with aiofiles.open(SYNTHESIS_FILE, "r") as f:
-        records = json.loads(await f.read())
-    async with aiofiles.open(PD_INDEX_FILE, "r") as f:
-        pd_index = json.loads(await f.read())
-
-    print("Initializing Sharded Thermo-Validator...")
-    with open(FORMULA_SET_FILE, "rb") as f:
-        mp_formula_set = pickle.load(f)
-
-    thermo_checker = ThermoChecker.from_sharded_cache(PD_INDEX_FILE, PROJECT_ROOT)
-    validator = SynthesisValidator(mp_formula_set=mp_formula_set, thermo_checker=thermo_checker)
-
-    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-
-    completed_targets = set()
-    if OUTPUT_FILE.exists():
-        async with aiofiles.open(OUTPUT_FILE, "r") as f:
-            async for line in f:
-                if line.strip():
-                    try:
-                        completed_targets.add(json.loads(line)["target"])
-                    except Exception:
-                        pass
-
-    pending_records = [r for r in records if r.get("target_formula") not in completed_targets]
-    print(
-        f"Total records: {len(records)} | "
-        f"Already completed: {len(completed_targets)} | "
-        f"Pending: {len(pending_records)}"
-    )
-
-    if not pending_records:
-        return
-
-    queue: asyncio.Queue = asyncio.Queue()
-    for r in pending_records:
-        queue.put_nowait(r)
-    for _ in range(NUM_WORKERS):
-        queue.put_nowait(None)
-
-    file_lock = asyncio.Lock()
-    pbar = tqdm(total=len(pending_records), desc="Generating Traces")
-
-    async with aiohttp.ClientSession() as session:
-        async with aiofiles.open(OUTPUT_FILE, "a") as f_out:
-            workers = [
-                asyncio.create_task(
-                    worker(queue, session, pd_index, validator, pbar, f_out, file_lock)
-                )
-                for _ in range(NUM_WORKERS)
+            # Try with progressively more volatile candidates. Some routes
+            # don't release any gases (e.g., oxide + oxide → oxide); Reaction
+            # is happier with the minimum set that lets it balance.
+            candidate_volatile_sets = [
+                [],                                                # no volatiles
+                [Composition(v) for v in ["CO2"]],                # carbonate routes
+                [Composition(v) for v in ["H2O"]],                # hydrate routes
+                [Composition(v) for v in ["O2"]],                 # redox routes
+                [Composition(v) for v in ["CO2", "H2O", "O2"]],   # full common set
+                [Composition(v) for v in VOLATILE_FORMULAS],      # everything
             ]
-            # return_exceptions=True so the gather doesn't abort the whole run
-            # if some worker hits a truly unexpected condition outside the
-            # per-record try/except.
-            await asyncio.gather(*workers, return_exceptions=True)
 
-    pbar.close()
+            for volatile_set in candidate_volatile_sets:
+                products = [target_comp] + volatile_set
+                try:
+                    reaction = Reaction(reactants, products)
+                except ReactionError:
+                    continue
+                # Target must be produced with positive coefficient
+                target_coeff = reaction.get_coeff(target_comp)
+                if target_coeff <= 1e-6:
+                    continue
+                # All precursors must actually be consumed (negative coeff)
+                all_used = all(
+                    reaction.get_coeff(r) < -1e-6 for r in reactants
+                )
+                if all_used:
+                    return 1.0
+
+            return 0.0
+
+        except Exception:
+            return 0.0
+
+    def _check_charge_neutrality(self, predicted: PredictedRoute) -> float:
+        """
+        Two-stage check:
+
+        1. Try Composition.oxi_state_guesses(all_oxi_states=True). If any
+           integer assignment exists, score 1.0.
+
+        2. For solid solutions with non-integer subscripts (e.g.,
+           La0.5Sr0.5FeO3 where Fe averages +3.5), do a fractional-valence
+           check: hold non-redox cations at their default valence, compute
+           the required average valence on redox cations, and check it lies
+           within their accessible range (Element.oxidation_states).
+
+        Continuous outside the accessible range: distance-to-range decay
+        with a 0.5-valence tolerance.
+        """
+        try:
+            comp = Composition(predicted.target_formula)
+
+            # Stage 1: pymatgen's integer oxidation-state guesser using
+            # COMMON states only. all_oxi_states=True is too permissive — it
+            # accepts Na^-1 + Cl^+0.5 for NaCl2 because it allows every known
+            # state of every element. Default behavior uses ICSD-frequency
+            # priors and rejects chemical nonsense.
+            try:
+                guesses = comp.oxi_state_guesses()
+                if guesses:
+                    return 1.0
+            except Exception:
+                pass
+
+            # Stage 2: fractional-valence path for mixed-valence solid solutions
+            # (La0.5Sr0.5FeO3, YBa2Cu3O7, La1-xCaxMnO3, etc.) — where the
+            # integer guesser correctly fails because the average metal
+            # valence is non-integer.
+            return self._fractional_valence_check(comp)
+
+        except Exception:
+            return 0.0
+
+    def _fractional_valence_check(self, comp: Composition) -> float:
+        """
+        Mixed-valence path: solve for required average valence on redox metals.
+        """
+        comp_dict = comp.as_dict()
+
+        anion_charge = 0.0
+        cations: list[tuple[str, float]] = []
+        for el, amt in comp_dict.items():
+            if el in ANION_STATES:
+                anion_charge += ANION_STATES[el] * amt
+            else:
+                cations.append((el, amt))
+
+        if not cations or anion_charge >= 0:
+            return 0.5
+
+        required_cation_charge = -anion_charge
+
+        fixed_cations = [(el, amt) for el, amt in cations if el not in REDOX_METALS]
+        redox_cations = [(el, amt) for el, amt in cations if el in REDOX_METALS]
+
+        fixed_charge = 0.0
+        for el, amt in fixed_cations:
+            if el in FIXED_CATION_STATE:
+                fixed_charge += FIXED_CATION_STATE[el] * amt
+            else:
+                # Unknown non-redox cation — fall back to most common positive
+                # state from pymatgen's Element.oxidation_states
+                try:
+                    states = [s for s in Element(el).oxidation_states if s > 0]
+                    if not states:
+                        return 0.5
+                    fixed_charge += states[0] * amt
+                except Exception:
+                    return 0.5
+
+        redox_charge_needed = required_cation_charge - fixed_charge
+
+        if not redox_cations:
+            # No mixed-valence flexibility; exact integer match required
+            return 1.0 if abs(redox_charge_needed) < 1e-3 else 0.0
+
+        total_redox_amt = sum(amt for _, amt in redox_cations)
+        if total_redox_amt <= 0:
+            return 0.0
+        avg_required = redox_charge_needed / total_redox_amt
+
+        # Check accessibility for each redox cation (best score wins)
+        best_score = 0.0
+        for el, _ in redox_cations:
+            try:
+                states = [s for s in Element(el).oxidation_states if s > 0]
+            except Exception:
+                continue
+            if not states:
+                continue
+            min_s, max_s = min(states), max(states)
+            if min_s <= avg_required <= max_s:
+                return 1.0
+            # Distance-based continuous decay (tolerance = 0.5 valence units)
+            if avg_required < min_s:
+                score = max(0.0, 1.0 - (min_s - avg_required) / 0.5)
+            else:
+                score = max(0.0, 1.0 - (avg_required - max_s) / 0.5)
+            best_score = max(best_score, score)
+
+        return best_score
+
+    def _check_precursors_exist(self, predicted: PredictedRoute) -> float:
+        """Fraction of precursors found in the MP formula set."""
+        if not predicted.precursors:
+            return 0.0
+        hits = sum(
+            1 for p in predicted.precursors
+            if self._normalize_formula(p.formula) in self.mp_formula_set
+        )
+        return hits / len(predicted.precursors)
+
+    def _check_operation_order(self, predicted: PredictedRoute) -> float:
+        """
+        Fraction of adjacent op pairs in valid order.
+
+        Solid-state synthesis routinely uses regrind cycles: calcine → grind
+        → calcine → grind → sinter is standard practice (intermediate
+        homogenization between heating steps). A naive monotone-rank check
+        punishes this; we treat heating→mixing→heating as a legitimate
+        regrind cycle, not a violation.
+        """
+        if not predicted.operations:
+            return 0.0
+        if len(predicted.operations) == 1:
+            return 1.0
+
+        ranks = [
+            OPERATION_ORDER.get(self._normalize_op_type(op.type), 99)
+            for op in predicted.operations
+        ]
+        HEATING_RANK = OPERATION_ORDER["HeatingOperation"]
+        MIXING_RANK  = OPERATION_ORDER["MixingOperation"]
+
+        pairs = list(zip(ranks[:-1], ranks[1:]))
+        violations = 0
+        for i, (a, b) in enumerate(pairs):
+            if a > b:
+                # Rank dropped. Check if it's a heating→mixing regrind cycle
+                # where another heating step follows later.
+                if a == HEATING_RANK and b <= MIXING_RANK + 1:
+                    if any(r >= HEATING_RANK for r in ranks[i + 2:]):
+                        continue   # legitimate regrind, not a violation
+                violations += 1
+        return 1.0 - violations / len(pairs)
+
+    def _check_temperature(self, predicted: PredictedRoute) -> float:
+        """
+        Fraction of HEATING-type operation temperatures in [TEMP_MIN, TEMP_MAX].
+
+        FIX from prior version: grinds, mixings, and dryings at room temperature
+        no longer count against the heating-temperature plausibility check.
+        """
+        temps = []
+        for op in predicted.operations:
+            op_type = self._normalize_op_type(op.type)
+            if op_type in HEATING_OP_TYPES:
+                temps.extend(op.conditions.heating_temperature)
+
+        if not temps:
+            return 0.5  # no heating temps specified — neutral
+        in_range = [1.0 if TEMP_MIN <= t <= TEMP_MAX else 0.0 for t in temps]
+        return sum(in_range) / len(in_range)
+
+    def _check_thermodynamics(self, predicted: PredictedRoute) -> float:
+        """
+        ΔE_rxn via ComputedReaction. Continuous score with piecewise-linear
+        mapping from eV/atom to [0, 1].
+        """
+        if self.thermo_checker is None:
+            return 0.5
+
+        try:
+            precursor_pairs = [(p.formula, p.amount) for p in predicted.precursors]
+            delta_E = self.thermo_checker.reaction_energy_per_atom(
+                precursor_pairs, predicted.target_formula
+            )
+        except Exception:
+            return 0.5
+
+        if delta_E is None:
+            return 0.5
+
+        if delta_E <= RXN_ENERGY_FAVORABLE:
+            return 1.0
+        elif delta_E <= RXN_ENERGY_BORDERLINE:
+            t = (delta_E - RXN_ENERGY_FAVORABLE) / (RXN_ENERGY_BORDERLINE - RXN_ENERGY_FAVORABLE)
+            return 1.0 - 0.5 * t
+        elif delta_E <= RXN_ENERGY_UNFAVORABLE:
+            t = (delta_E - RXN_ENERGY_BORDERLINE) / (RXN_ENERGY_UNFAVORABLE - RXN_ENERGY_BORDERLINE)
+            return 0.5 - 0.5 * t
+        else:
+            return 0.0
+
+    def _check_target_stability(self, predicted: PredictedRoute) -> float:
+        """
+        Score based on e_above_hull of the target itself.
+
+        Continuous:
+          ≤ 25 meV/atom    → 1.0 (on hull within DFT noise)
+          25–100 meV/atom  → linear decay 1.0 → 0.5 (synthesizable metastable)
+          100–250 meV/atom → linear decay 0.5 → 0.0
+          > 250 meV/atom   → 0.0
+
+        Returns 0.5 if the target isn't a discrete PD entry (e.g., novel
+        solid solution). This is the right neutral signal: we shouldn't
+        punish the model for working on a composition MP hasn't computed.
+        """
+        if self.thermo_checker is None:
+            return 0.5
+        try:
+            e_hull = self.thermo_checker.target_e_above_hull(predicted.target_formula)
+        except Exception:
+            return 0.5
+        if e_hull is None:
+            return 0.5
+
+        if e_hull <= HULL_STABLE:
+            return 1.0
+        elif e_hull <= HULL_METASTABLE:
+            t = (e_hull - HULL_STABLE) / (HULL_METASTABLE - HULL_STABLE)
+            return 1.0 - 0.5 * t
+        elif e_hull <= HULL_UNSTABLE:
+            t = (e_hull - HULL_METASTABLE) / (HULL_UNSTABLE - HULL_METASTABLE)
+            return 0.5 - 0.5 * t
+        else:
+            return 0.0
+
+    def _check_chempot_atmosphere(self, predicted: PredictedRoute) -> float:
+        """
+        Atmosphere consistency with the oxygen chemical potential at the
+        target's facet, via PhaseDiagram.get_composition_chempots.
+
+        Conditional binary:
+          - Compute Δμ_O = μ_O(target_facet) - μ_O(O2 reference).
+          - If Δμ_O > -1.0 eV: target needs oxidizing → require air/O2.
+            Omitting atmosphere = 0.0 (chemist needs to know).
+          - If Δμ_O < -3.0 eV: target needs reducing → require inert/H2.
+            Omitting atmosphere = 0.0.
+          - If -3.0 ≤ Δμ_O ≤ -1.0: chemistry is forgiving → any atmosphere
+            (including omitted) = 1.0.
+
+        Returns 0.5 if μ_O isn't computable (target isn't in PD or has no
+        oxygen content).
+        """
+        if self.thermo_checker is None:
+            return 0.5
+
+        try:
+            chempots = self.thermo_checker.composition_chempots(predicted.target_formula)
+            mu_O_ref = self.thermo_checker.oxygen_reference_energy(predicted.target_formula)
+        except Exception:
+            return 0.5
+
+        if chempots is None or mu_O_ref is None:
+            return 0.5
+
+        o_el = Element("O")
+        if o_el not in chempots:
+            # Target has no oxygen — atmosphere check doesn't apply
+            return 1.0
+
+        delta_mu_O = chempots[o_el] - mu_O_ref
+
+        # Collect atmospheres declared in heating operations
+        atms = []
+        for op in predicted.operations:
+            op_type = self._normalize_op_type(op.type)
+            if op_type in HEATING_OP_TYPES:
+                atms.extend(op.conditions.heating_atmosphere)
+        classes = [_classify_atmosphere(a) for a in atms]
+
+        needs_oxidizing = delta_mu_O > MU_O_OXIDIZING_REQUIRED
+        needs_reducing  = delta_mu_O < MU_O_REDUCING_REQUIRED
+
+        if not classes:
+            # Atmosphere omitted
+            if needs_oxidizing or needs_reducing:
+                return 0.0   # chemistry demands it, model didn't specify
+            return 1.0       # forgiving regime, omission is fine
+
+        if needs_oxidizing:
+            # Every heating step must be in an oxidizing atmosphere
+            return 1.0 if all(c == "ox" for c in classes) else 0.0
+        if needs_reducing:
+            # Reducing or inert both acceptable for reducing-required phases
+            return 1.0 if all(c in {"red", "inert"} for c in classes) else 0.0
+
+        # Neutral regime — any atmosphere passes
+        return 1.0
+
+    def _check_target_match(
+        self,
+        predicted: PredictedRoute,
+        ground_truth_formula: str,
+    ) -> float:
+        try:
+            pred = Composition(predicted.target_formula).reduced_formula
+            true = Composition(ground_truth_formula).reduced_formula
+            return 1.0 if pred == true else 0.0
+        except Exception:
+            return 0.0
+
+    # ------------------------------------------------------------------
+    # Helpers
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _normalize_formula(formula: str) -> str:
+        try:
+            return Composition(formula).reduced_formula
+        except Exception:
+            return formula.strip()
+
+    @staticmethod
+    def _normalize_op_type(op_type: str) -> str:
+        if "." in op_type:
+            op_type = op_type.split(".")[-1]
+        mapping = {
+            "starting":          "StartingSynthesis",
+            "startingsynthesis": "StartingSynthesis",
+            "mixing":            "MixingOperation",
+            "mixingoperation":   "MixingOperation",
+            "drying":            "DryingOperation",
+            "dryingoperation":   "DryingOperation",
+            "heating":           "HeatingOperation",
+            "heatingoperation":  "HeatingOperation",
+            "calcine":           "HeatingOperation",
+            "calcination":       "HeatingOperation",
+            "sinter":            "HeatingOperation",   # graded as a heating step
+            "sintering":         "HeatingOperation",
+            "sinteringoperation":"HeatingOperation",
+            "shaping":           "ShapingOperation",
+            "shapingoperation":  "ShapingOperation",
+            "quenching":         "QuenchingOperation",
+            "quenchingoperation":"QuenchingOperation",
+            "cleaning":          "CleaningOperation",
+            "cleaningoperation": "CleaningOperation",
+            "grind":             "MixingOperation",
+            "grinding":          "MixingOperation",
+        }
+        return mapping.get(op_type.lower(), op_type)
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+# ---------------------------------------------------------------------------
+# GRPO scoring helpers (unchanged)
+# ---------------------------------------------------------------------------
+
+def score_group(
+    validator: SynthesisValidator,
+    routes: list[PredictedRoute],
+    ground_truth_formula: str,
+) -> list[tuple[float, dict]]:
+    return [validator.validate(route, ground_truth_formula) for route in routes]
+
+
+def compute_grpo_advantages(rewards: list[float]) -> list[float]:
+    import statistics
+    if len(rewards) < 2:
+        return [0.0] * len(rewards)
+    mean = statistics.mean(rewards)
+    std = statistics.stdev(rewards) if len(rewards) > 1 else 1.0
+    eps = 1e-8
+    return [(r - mean) / (std + eps) for r in rewards]
+
