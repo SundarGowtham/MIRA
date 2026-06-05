@@ -408,16 +408,21 @@ class ThermoChecker:
 
     def composition_chempots(self, target_formula: str) -> Optional[dict]:
         """
-        Chemical potentials at the target's facet via PhaseDiagram.get_composition_chempots.
+        ALL facet chempots for the target via PhaseDiagram.get_all_chempots.
 
-        Returns {Element: chempot} or None on failure.
+        Returns {facet_name: {Element: chempot}} so the caller can compute
+        the Δμ_O envelope rather than relying on a single facet (which
+        get_composition_chempots picks arbitrarily — typically the O2-rich
+        one, masking reducing-stability behavior).
+
+        Returns None on failure.
         """
         try:
             pd, _ = self._resolve_pd([target_formula])
             if pd is None:
                 return None
             target_comp = Composition(target_formula)
-            return pd.get_composition_chempots(target_comp)
+            return pd.get_all_chempots(target_comp)
         except Exception:
             return None
 
@@ -798,41 +803,60 @@ class SynthesisValidator:
 
     def _check_chempot_atmosphere(self, predicted: PredictedRoute) -> float:
         """
-        Atmosphere consistency with the oxygen chemical potential at the
-        target's facet, via PhaseDiagram.get_composition_chempots.
+        Atmosphere consistency with the Δμ_O envelope at the target's
+        stability facets, via PhaseDiagram.get_all_chempots.
 
-        Conditional binary:
-          - Compute Δμ_O = μ_O(target_facet) - μ_O(O2 reference).
-          - If Δμ_O > -1.0 eV: target needs oxidizing → require air/O2.
-            Omitting atmosphere = 0.0 (chemist needs to know).
-          - If Δμ_O < -3.0 eV: target needs reducing → require inert/H2.
-            Omitting atmosphere = 0.0.
-          - If -3.0 ≤ Δμ_O ≤ -1.0: chemistry is forgiving → any atmosphere
-            (including omitted) = 1.0.
-
-        Returns 0.5 if μ_O isn't computable (target isn't in PD or has no
-        oxygen content).
+        Logic:
+          1. If target contains no oxygen → 1.0 (atmosphere check doesn't apply).
+          2. If PD unavailable → 0.5 (neutral, can't determine).
+          3. Compute Δμ_O envelope [mu_lo, mu_hi] across all stability facets,
+             where mu_lo is the lowest μ_O the target survives.
+          4. Classify atmosphere requirement using mu_lo (the binding constraint):
+               mu_lo > -1.0  → oxidizing required
+               mu_hi < -3.0  → reducing required
+               otherwise     → flexible
+          5. Compare against the atmospheres declared in heating operations:
+               - omitted + chemistry demands it → 0.0
+               - omitted + flexible regime     → 1.0
+               - declared + matches need       → 1.0
+               - declared + contradicts need   → 0.0
         """
         if self.thermo_checker is None:
             return 0.5
 
+        # Step 1: short-circuit for non-oxide targets — the check doesn't apply.
         try:
-            chempots = self.thermo_checker.composition_chempots(predicted.target_formula)
+            target_comp = Composition(predicted.target_formula)
+            if Element("O") not in target_comp.elements:
+                return 1.0
+        except Exception:
+            return 0.5
+
+        # Step 2: fetch chempot envelope.
+        try:
+            all_chempots = self.thermo_checker.composition_chempots(predicted.target_formula)
             mu_O_ref = self.thermo_checker.oxygen_reference_energy(predicted.target_formula)
         except Exception:
             return 0.5
 
-        if chempots is None or mu_O_ref is None:
+        if not all_chempots or mu_O_ref is None:
             return 0.5
 
         o_el = Element("O")
-        if o_el not in chempots:
-            # Target has no oxygen — atmosphere check doesn't apply
-            return 1.0
+        o_mus_delta = [
+            float(facet[o_el]) - float(mu_O_ref)
+            for facet in all_chempots.values()
+            if o_el in facet
+        ]
+        if not o_mus_delta:
+            # PD has oxygen ref but no facet exposes μ_O — unusual; be neutral.
+            return 0.5
 
-        delta_mu_O = chempots[o_el] - mu_O_ref
+        mu_lo, mu_hi = min(o_mus_delta), max(o_mus_delta)
+        needs_oxidizing = mu_lo > MU_O_OXIDIZING_REQUIRED
+        needs_reducing  = mu_hi < MU_O_REDUCING_REQUIRED
 
-        # Collect atmospheres declared in heating operations
+        # Step 5: compare against operation atmospheres.
         atms = []
         for op in predicted.operations:
             op_type = self._normalize_op_type(op.type)
@@ -840,23 +864,15 @@ class SynthesisValidator:
                 atms.extend(op.conditions.heating_atmosphere)
         classes = [_classify_atmosphere(a) for a in atms]
 
-        needs_oxidizing = delta_mu_O > MU_O_OXIDIZING_REQUIRED
-        needs_reducing  = delta_mu_O < MU_O_REDUCING_REQUIRED
-
         if not classes:
-            # Atmosphere omitted
             if needs_oxidizing or needs_reducing:
-                return 0.0   # chemistry demands it, model didn't specify
-            return 1.0       # forgiving regime, omission is fine
+                return 0.0
+            return 1.0
 
         if needs_oxidizing:
-            # Every heating step must be in an oxidizing atmosphere
             return 1.0 if all(c == "ox" for c in classes) else 0.0
         if needs_reducing:
-            # Reducing or inert both acceptable for reducing-required phases
             return 1.0 if all(c in {"red", "inert"} for c in classes) else 0.0
-
-        # Neutral regime — any atmosphere passes
         return 1.0
 
     def _check_target_match(
@@ -884,32 +900,93 @@ class SynthesisValidator:
 
     @staticmethod
     def _normalize_op_type(op_type: str) -> str:
+        """
+        Map a model-emitted op type string to a canonical internal name.
+
+        Recognized synonyms span the verbs the model actually emits in
+        practice (mix, calcine, sinter, anneal, cool, quench, etc.) plus
+        the longer Class-style names from the parser (HeatingOperation,
+        etc.). Unknown strings fall through unchanged so downstream code
+        can log them.
+        """
         if "." in op_type:
             op_type = op_type.split(".")[-1]
         mapping = {
-            "starting":          "StartingSynthesis",
-            "startingsynthesis": "StartingSynthesis",
-            "mixing":            "MixingOperation",
-            "mixingoperation":   "MixingOperation",
-            "drying":            "DryingOperation",
-            "dryingoperation":   "DryingOperation",
-            "heating":           "HeatingOperation",
-            "heatingoperation":  "HeatingOperation",
-            "calcine":           "HeatingOperation",
-            "calcination":       "HeatingOperation",
-            "sinter":            "HeatingOperation",   # graded as a heating step
-            "sintering":         "HeatingOperation",
-            "sinteringoperation":"HeatingOperation",
-            "shaping":           "ShapingOperation",
-            "shapingoperation":  "ShapingOperation",
-            "quenching":         "QuenchingOperation",
-            "quenchingoperation":"QuenchingOperation",
-            "cleaning":          "CleaningOperation",
-            "cleaningoperation": "CleaningOperation",
-            "grind":             "MixingOperation",
-            "grinding":          "MixingOperation",
+            # StartingSynthesis
+            "starting":             "StartingSynthesis",
+            "startingsynthesis":    "StartingSynthesis",
+
+            # MixingOperation — every prep-stage verb collapses here
+            "mix":                  "MixingOperation",
+            "mixing":               "MixingOperation",
+            "mixingoperation":      "MixingOperation",
+            "grind":                "MixingOperation",
+            "grinding":             "MixingOperation",
+            "ball_mill":            "MixingOperation",
+            "ballmill":             "MixingOperation",
+            "ball-milling":         "MixingOperation",
+            "ballmilling":          "MixingOperation",
+            "mortar":               "MixingOperation",
+
+            # DryingOperation
+            "dry":                  "DryingOperation",
+            "drying":               "DryingOperation",
+            "dryingoperation":      "DryingOperation",
+
+            # ShapingOperation
+            "shape":                "ShapingOperation",
+            "shaping":              "ShapingOperation",
+            "shapingoperation":     "ShapingOperation",
+            "press":                "ShapingOperation",
+            "pellet":               "ShapingOperation",
+            "pelletize":            "ShapingOperation",
+            "pelletizing":          "ShapingOperation",
+
+            # HeatingOperation — every furnace verb collapses here
+            "heat":                 "HeatingOperation",
+            "heating":              "HeatingOperation",
+            "heatingoperation":     "HeatingOperation",
+            "calcine":              "HeatingOperation",
+            "calcination":          "HeatingOperation",
+            "calcining":            "HeatingOperation",
+            "fire":                 "HeatingOperation",
+            "firing":               "HeatingOperation",
+            "anneal":               "HeatingOperation",
+            "annealing":            "HeatingOperation",
+            "sinter":               "HeatingOperation",
+            "sintering":            "HeatingOperation",
+            "sinteringoperation":   "HeatingOperation",
+            "reaction":             "HeatingOperation",
+            "react":                "HeatingOperation",
+            "sealed_tube_heating":  "HeatingOperation",
+            "sealedtubeheating":    "HeatingOperation",
+            "sealed-tube":          "HeatingOperation",
+            "ampoule":              "HeatingOperation",
+            "hydrothermal":         "HeatingOperation",
+            "solidstate":           "HeatingOperation",
+            "solid_state":          "HeatingOperation",
+
+            # QuenchingOperation — both rapid and slow cooling
+            "quench":               "QuenchingOperation",
+            "quenching":            "QuenchingOperation",
+            "quenchingoperation":   "QuenchingOperation",
+            "cool":                 "QuenchingOperation",
+            "cooling":              "QuenchingOperation",
+            "slow_cool":            "QuenchingOperation",
+            "slowcool":             "QuenchingOperation",
+            "slow_cooling":         "QuenchingOperation",
+
+            # CleaningOperation
+            "clean":                "CleaningOperation",
+            "cleaning":             "CleaningOperation",
+            "cleaningoperation":    "CleaningOperation",
+            "wash":                 "CleaningOperation",
+            "washing":              "CleaningOperation",
+            "filter":               "CleaningOperation",
+            "filtering":            "CleaningOperation",
+            "rinse":                "CleaningOperation",
         }
-        return mapping.get(op_type.lower(), op_type)
+        return mapping.get(op_type.lower().strip(), op_type)
 
 
 # ---------------------------------------------------------------------------

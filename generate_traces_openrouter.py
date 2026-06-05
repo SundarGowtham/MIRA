@@ -92,8 +92,90 @@ class PrecursorSchema(BaseModel):
     amount: float
 
 
+# Canonical operation vocabulary. The schema below restricts type to this set;
+# the normalization map (further down) maps common model-emitted synonyms onto
+# these canonical values before Pydantic validation, so the model still has
+# vocabulary freedom but the downstream pipeline sees a controlled set.
+CANONICAL_OP_TYPES = (
+    "mix",      # grinding, ball-milling, mortar-and-pestle prep (room temp)
+    "dry",      # moisture/solvent removal
+    "press",    # pelletization, shaping
+    "calcine",  # initial heating; precursor decomposition / reaction
+    "sinter",   # final densification heating
+    "anneal",   # intermediate or final heat treatment
+    "quench",   # rapid cooling
+    "cool",     # controlled slow cooling
+    "wash",     # post-synthesis solvent/acid wash
+)
+
+OP_TYPE_NORMALIZATION: dict[str, str] = {
+    # mix
+    "mix": "mix", "mixing": "mix",
+    "grind": "mix", "grinding": "mix",
+    "ball_mill": "mix", "ballmill": "mix",
+    "ball-milling": "mix", "ballmilling": "mix",
+    "mortar": "mix", "mortarandpestle": "mix",
+
+    # dry
+    "dry": "dry", "drying": "dry",
+
+    # press
+    "press": "press", "pressing": "press",
+    "pellet": "press", "pelletize": "press", "pelletizing": "press",
+    "shape": "press", "shaping": "press",
+
+    # calcine — initial heating / precursor decomposition / reaction
+    "calcine": "calcine", "calcination": "calcine", "calcining": "calcine",
+    "heat": "calcine", "heating": "calcine",
+    "fire": "calcine", "firing": "calcine",
+    "reaction": "calcine", "react": "calcine",
+    "sealed_tube_heating": "calcine", "sealedtubeheating": "calcine",
+    "sealed-tube": "calcine", "ampoule": "calcine",
+    "hydrothermal": "calcine",
+    "solidstate": "calcine", "solid_state": "calcine",
+
+    # sinter — final densification
+    "sinter": "sinter", "sintering": "sinter",
+
+    # anneal — intermediate heat treatment
+    "anneal": "anneal", "annealing": "anneal",
+    "heat_treatment": "anneal", "heattreatment": "anneal",
+
+    # quench — rapid cooling
+    "quench": "quench", "quenching": "quench",
+
+    # cool — controlled slow cooling
+    "cool": "cool", "cooling": "cool",
+    "slow_cool": "cool", "slowcool": "cool", "slow_cooling": "cool",
+
+    # wash
+    "wash": "wash", "washing": "wash",
+    "filter": "wash", "filtering": "wash",
+    "rinse": "wash", "rinsing": "wash",
+    "clean": "wash", "cleaning": "wash",
+}
+
+
+def normalize_op_type_for_parsing(raw_type: str) -> str:
+    """
+    Map any model-emitted op type onto the canonical set. Unmapped strings
+    pass through unchanged (and will trip Pydantic's Literal validation,
+    logged downstream as a vocabulary gap to be added to this map).
+    """
+    return OP_TYPE_NORMALIZATION.get(raw_type.lower().strip(), raw_type.lower().strip())
+
+
 class OperationSchema(BaseModel):
-    type: str
+    # Restricted Literal — anything outside CANONICAL_OP_TYPES fails Pydantic
+    # validation. The pre-normalization step in convert_to_predicted_route()
+    # maps synonyms first, so the model can emit "grinding" or "calcination"
+    # naturally and they're collapsed to "mix"/"calcine" before reaching here.
+    type: Literal[
+        "mix", "dry", "press",
+        "calcine", "sinter", "anneal",
+        "quench", "cool",
+        "wash",
+    ]
     temperature_c: float
     time_h: float
     atmosphere: str
@@ -176,9 +258,26 @@ You must output your final answer as a pure JSON object matching this schema:
   ]
 }
 
+The "type" field of each operation MUST be one of the following nine values
+(any synonym will be normalized but using these exactly avoids ambiguity):
+
+  - "mix"     — grinding, ball-milling, mortar-and-pestle prep (room temperature)
+  - "dry"     — moisture or solvent removal
+  - "press"   — pelletization, shaping, pressing into pellets
+  - "calcine" — initial heating step; precursor decomposition or reaction
+                (use for sealed-tube heating and hydrothermal — describe the
+                vessel in "media", not in "type")
+  - "sinter"  — final densification heating
+  - "anneal"  — intermediate or final heat treatment (post-sinter)
+  - "quench"  — rapid cooling (water, oil, gas blast)
+  - "cool"    — controlled slow cooling at a defined rate
+  - "wash"    — post-synthesis solvent/acid wash
+
 Output 3-6 thermodynamic claims total. Reference only formulas that appear
 in the SYSTEM STABLE PHASES or DANGEROUS METASTABLE SIDE-PHASES sections of
-the prompt; do not invent phase names. Do not include markdown formatting,
+the prompt; do not invent phase names. When a numeric value (formation
+energy, e_above_hull) is given in the prompt for a phase you reference,
+include that exact number in your claim. Do not include markdown formatting,
 backticks, or comments in the final output. Just the JSON object."""
 
 CLOSED_BOOK_USER = """Target: {target}{context}
@@ -232,6 +331,26 @@ def extract_json(text: str) -> dict | None:
 
 def convert_to_predicted_route(target: str, data: dict) -> PredictedRoute | None:
     try:
+        # Pre-normalize op-type vocabulary BEFORE Pydantic validation so that
+        # model-emitted synonyms ("calcination", "sealed_tube_heating",
+        # "ball-milling", "cooling") get mapped to the canonical Literal set
+        # rather than failing validation outright. Anything unmapped passes
+        # through and Pydantic will reject it, which we log for vocab growth.
+        if isinstance(data, dict) and isinstance(data.get("operations"), list):
+            unknown_types: list[str] = []
+            for op in data["operations"]:
+                if isinstance(op, dict) and "type" in op:
+                    raw = str(op["type"])
+                    normalized = normalize_op_type_for_parsing(raw)
+                    if normalized not in CANONICAL_OP_TYPES:
+                        unknown_types.append(raw)
+                    op["type"] = normalized
+            if unknown_types:
+                logger.warning(
+                    f"[parse] {target}: unmapped op types {unknown_types} "
+                    f"(add to OP_TYPE_NORMALIZATION)"
+                )
+
         schema = RouteSchema(**data)
         precs = [PredictedPrecursor(formula=p.formula, amount=p.amount) for p in schema.precursors]
         ops = []
@@ -557,6 +676,11 @@ async def worker(
 
             if llm_resp:
                 reasoning, content = llm_resp
+                # Don't let None render as the literal string "None" inside
+                # the chain-of-thought field — that pollutes the training data
+                # and teaches the model to emit "<think>\nNone\n</think>".
+                reasoning_str = reasoning if reasoning else ""
+                thinking_block = f"<think>\n{reasoning_str}\n</think>" if reasoning_str else None
                 json_data = extract_json(content)
                 if json_data:
                     route = convert_to_predicted_route(target, json_data)
@@ -565,8 +689,8 @@ async def worker(
                         if closed_score >= VALIDATOR_THRESHOLD:
                             final_result = {
                                 "target": target,
-                                "thinking": f"<think>\n{reasoning}\n</think>",
-                                "reasoning_raw": reasoning,
+                                "thinking": thinking_block,
+                                "reasoning_raw": reasoning_str or None,
                                 "predicted_route": json_data,
                                 "thermodynamic_checks": json_data.get("thermodynamic_checks", []),
                                 "validator_score": closed_score,
@@ -591,6 +715,8 @@ async def worker(
 
                 if llm_resp:
                     reasoning, content = llm_resp
+                    reasoning_str = reasoning if reasoning else ""
+                    thinking_block = f"<think>\n{reasoning_str}\n</think>" if reasoning_str else None
                     json_data = extract_json(content)
                     if json_data:
                         route = convert_to_predicted_route(target, json_data)
@@ -600,8 +726,8 @@ async def worker(
 
                         final_result = {
                             "target": target,
-                            "thinking": f"<think>\n{reasoning}\n</think>",
-                            "reasoning_raw": reasoning,
+                            "thinking": thinking_block,
+                            "reasoning_raw": reasoning_str or None,
                             "predicted_route": json_data,
                             "thermodynamic_checks": json_data.get("thermodynamic_checks", []),
                             "validator_score": open_score,
