@@ -1,7 +1,21 @@
 """
 generate_traces_openrouter.py  (v2)
 -----------------------------------
-Generates thinking traces to augment primary sft dataset
+Changes vs v1:
+  - SYSTEM_MSG now describes the structured ThermoClaim schema (matches the
+    Pydantic discriminated union below). The v1 prompt asked for ["str"]
+    while the schema expected typed claims — a silent 100% parse-failure
+    bug that would have wasted the entire run.
+  - get_stability_data() now correctly handles solid-solution targets via
+    pd.get_decomp_and_hull_energy_per_atom (which accepts a Composition,
+    unlike get_decomp_and_e_above_hull which requires a PDEntry).
+  - get_stability_data() injects an oxygen-chemical-potential classification
+    derived from pd.get_all_chempots, telling the model whether the target
+    requires oxidizing, reducing, or flexible atmosphere.
+  - Write safety: numpy scalars in the validator breakdown are normalized
+    to Python natives; serialization tries droppable fields before giving
+    up; worker iterations are wrapped in try/finally so one bad record
+    can't kill a worker or deadlock the queue.
 """
 
 import os
