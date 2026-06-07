@@ -345,8 +345,16 @@ class ThermoChecker:
         missing from the PD.
         """
         try:
-            all_formulas = [target_formula] + [f for f, _ in precursors] + VOLATILE_FORMULAS
-            pd, _ = self._resolve_pd(all_formulas)
+            # CRITICAL: use ONLY target + precursors for the chemsys lookup.
+            # Do NOT include VOLATILE_FORMULAS here. Including CO2/H2O/NH3/N2
+            # would add C, H, N to every query — turning a lookup for
+            # "C-O-Sr-Ti" (which data_pull built) into "C-H-N-O-Sr-Ti"
+            # (which was never built). The PD for (target+precursors) already
+            # contains all volatile sub-system entries (O2, CO2, etc.) because
+            # pymatgen's PhaseDiagram includes every entry across the full
+            # element set, so _best_entry_for_formula will find them there.
+            core_formulas = [target_formula] + [f for f, _ in precursors]
+            pd, _ = self._resolve_pd(core_formulas)
             if pd is None:
                 return None
 
@@ -721,15 +729,23 @@ class SynthesisValidator:
 
     def _check_temperature(self, predicted: PredictedRoute) -> float:
         """
-        Fraction of HEATING-type operation temperatures in [TEMP_MIN, TEMP_MAX].
+        Fraction of HEATING-step temperatures in [TEMP_MIN, TEMP_MAX].
 
-        FIX from prior version: grinds, mixings, and dryings at room temperature
-        no longer count against the heating-temperature plausibility check.
+        Only counts operations whose normalized type is "HeatingOperation"
+        (calcine, sinter, anneal, etc.). Excludes:
+          - MixingOperation / DryingOperation / ShapingOperation (room-temp prep)
+          - QuenchingOperation (the temperature_c on a quench/cool op is the
+            DESTINATION, not a heating setpoint, so it's typically 25°C and
+            would always fail TEMP_MIN).
+
+        The chempot-atmosphere check still considers quench/cool atmospheres
+        because those *are* meaningful (e.g., quenching in Ar vs. air); only
+        temperature plausibility excludes them.
         """
         temps = []
         for op in predicted.operations:
             op_type = self._normalize_op_type(op.type)
-            if op_type in HEATING_OP_TYPES:
+            if op_type == "HeatingOperation":
                 temps.extend(op.conditions.heating_temperature)
 
         if not temps:
@@ -1010,3 +1026,165 @@ def compute_grpo_advantages(rewards: list[float]) -> list[float]:
     eps = 1e-8
     return [(r - mean) / (std + eps) for r in rewards]
 
+
+# ---------------------------------------------------------------------------
+# Test harness — replays the La0.5Sr0.5FeO3 case from the conversation,
+# plus baseline coverage tests.
+# ---------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    fake_mp_set = {
+        "BaCO3", "TiO2", "BaTiO3", "BaO", "BaO2", "Ti",
+        "La2O3", "SrCO3", "Fe2O3", "LaFeO3", "SrFeO3",
+        "Gd2O3", "NH4Cl", "Er2O3",
+    }
+
+    validator = SynthesisValidator(fake_mp_set)
+
+    print("=" * 70)
+    print("TEST: La0.5Sr0.5FeO3 (DeepSeek's actual output — the case from chat)")
+    print("=" * 70)
+    la_sr_fe_o = PredictedRoute(
+        target_formula="La0.5Sr0.5FeO3",
+        precursors=[
+            PredictedPrecursor("La2O3",  amount=0.25),
+            PredictedPrecursor("SrCO3",  amount=0.5),
+            PredictedPrecursor("Fe2O3",  amount=0.5),
+        ],
+        operations=[
+            PredictedOperation(
+                type="grind",
+                conditions=PredictedConditions(heating_temperature=[25.0]),
+            ),
+            PredictedOperation(
+                type="calcine",
+                conditions=PredictedConditions(
+                    heating_temperature=[1000.0],
+                    heating_atmosphere=["oxygen"],
+                ),
+            ),
+            PredictedOperation(
+                type="grind",
+                conditions=PredictedConditions(heating_temperature=[25.0]),
+            ),
+            PredictedOperation(
+                type="calcine",
+                conditions=PredictedConditions(
+                    heating_temperature=[1200.0],
+                    heating_atmosphere=["oxygen"],
+                ),
+            ),
+            PredictedOperation(
+                type="grind",
+                conditions=PredictedConditions(heating_temperature=[25.0]),
+            ),
+            PredictedOperation(
+                type="sinter",
+                conditions=PredictedConditions(
+                    heating_temperature=[1300.0],
+                    heating_atmosphere=["oxygen"],
+                ),
+            ),
+        ],
+    )
+    reward, breakdown = validator.validate(la_sr_fe_o, "La0.5Sr0.5FeO3")
+    print(f"Reward: {reward}")
+    for k, v in breakdown.items():
+        print(f"  {k:25s}: {v:.3f}")
+    print()
+    print("Expected (light mode, no thermo checker):")
+    print("  stoichiometry: 1.0   (Reaction balances with O2 + CO2 products)")
+    print("  charge_neutrality: 1.0   (fractional path: Fe avg +3.5 in Fe oxi range)")
+    print("  precursors_exist: 1.0")
+    print("  operation_order: 1.0")
+    print("  temperature_plausible: 1.0   (only calcine/sinter temps counted)")
+    print()
+
+    print("=" * 70)
+    print("TEST: BaTiO3 — sanity check on simple case")
+    print("=" * 70)
+    bto = PredictedRoute(
+        target_formula="BaTiO3",
+        precursors=[
+            PredictedPrecursor("BaCO3", amount=1.0),
+            PredictedPrecursor("TiO2",  amount=1.0),
+        ],
+        operations=[
+            PredictedOperation(type="StartingSynthesis"),
+            PredictedOperation(type="MixingOperation"),
+            PredictedOperation(
+                type="HeatingOperation",
+                conditions=PredictedConditions(
+                    heating_temperature=[1200.0],
+                    heating_atmosphere=["air"],
+                ),
+            ),
+        ],
+    )
+    reward, breakdown = validator.validate(bto, "BaTiO3")
+    print(f"Reward: {reward}")
+    for k, v in breakdown.items():
+        print(f"  {k:25s}: {v:.3f}")
+    print()
+
+    print("=" * 70)
+    print("TEST: Broken stoichiometry (Ba but no Ti for BaTiO3)")
+    print("=" * 70)
+    broken = PredictedRoute(
+        target_formula="BaTiO3",
+        precursors=[PredictedPrecursor("BaCO3", amount=1.0)],
+        operations=[
+            PredictedOperation(type="HeatingOperation",
+                               conditions=PredictedConditions(heating_temperature=[1200.0])),
+        ],
+    )
+    reward, breakdown = validator.validate(broken, "BaTiO3")
+    print(f"Reward: {reward}")
+    for k, v in breakdown.items():
+        print(f"  {k:25s}: {v:.3f}")
+    print()
+
+    print("=" * 70)
+    print("TEST: Impossible compound (NaCl2) — charge neutrality should fail")
+    print("=" * 70)
+    impossible = PredictedRoute(
+        target_formula="NaCl2",
+        precursors=[PredictedPrecursor("NaCl", amount=2.0)],
+        operations=[PredictedOperation(type="HeatingOperation",
+                    conditions=PredictedConditions(heating_temperature=[500.0]))],
+    )
+    reward, breakdown = validator.validate(impossible, "NaCl2")
+    print(f"Reward: {reward}")
+    for k, v in breakdown.items():
+        print(f"  {k:25s}: {v:.3f}")
+    print()
+    print("Expected: charge_neutrality = 0.0  (no valid Na state above +1)")
+    print()
+
+    print("=" * 70)
+    print("TEST: YBa2Cu3O7 (high-Tc — Cu mixed-valence at avg +2.33)")
+    print("=" * 70)
+    ybco = PredictedRoute(
+        target_formula="YBa2Cu3O7",
+        precursors=[
+            PredictedPrecursor("Y2O3",  amount=0.5),
+            PredictedPrecursor("BaCO3", amount=2.0),
+            PredictedPrecursor("CuO",   amount=3.0),
+        ],
+        operations=[
+            PredictedOperation(type="MixingOperation"),
+            PredictedOperation(
+                type="HeatingOperation",
+                conditions=PredictedConditions(
+                    heating_temperature=[950.0],
+                    heating_atmosphere=["oxygen"],
+                ),
+            ),
+        ],
+    )
+    reward, breakdown = validator.validate(ybco, "YBa2Cu3O7")
+    print(f"Reward: {reward}")
+    for k, v in breakdown.items():
+        print(f"  {k:25s}: {v:.3f}")
+    print()
+    print("Expected: charge_neutrality = 1.0  (Cu avg +2.33 in [1, 4] range)")
