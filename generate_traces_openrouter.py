@@ -72,7 +72,7 @@ PROJECT_ROOT = Path(__file__).parent
 DATA_RAW = PROJECT_ROOT / "data" / "raw"
 DATA_CACHE = PROJECT_ROOT / "data" / "cache"
 
-SYNTHESIS_FILE = DATA_RAW / "synthesis.json"
+SYNTHESIS_FILE = DATA_RAW / "synthesis_clean.json"
 SUMMARY_FILE = DATA_RAW / "summary.json"
 PD_INDEX_FILE = DATA_CACHE / "pd_index.json"
 FORMULA_SET_FILE = DATA_CACHE / "mp_formula_set.pkl"
