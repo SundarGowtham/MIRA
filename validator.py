@@ -526,9 +526,17 @@ class SynthesisValidator:
         scores["temperature_plausible"] = self._check_temperature(predicted)
 
         if self.thermo_checker is not None:
-            scores["thermodynamic_favorable"] = self._check_thermodynamics(predicted)
-            scores["target_stability"]        = self._check_target_stability(predicted)
-            scores["chempot_atmosphere"]      = self._check_chempot_atmosphere(predicted)
+            # scores["thermodynamic_favorable"] = self._check_thermodynamics(predicted)
+            # scores["target_stability"]        = self._check_target_stability(predicted)
+            # scores["chempot_atmosphere"]      = self._check_chempot_atmosphere(predicted)
+            score, meta = self._check_thermodynamics(predicted)
+            scores["thermodynamic_favorable"] = score
+            if "T_K" in meta:
+                scores["thermodynamic_T_K"] = meta["T_K"]
+            if "dG_eV_atom" in meta:
+                scores["thermodynamic_dG_eV_atom"] = meta["dG_eV_atom"]
+            scores["target_stability"]   = self._check_target_stability(predicted)
+            scores["chempot_atmosphere"] = self._check_chempot_atmosphere(predicted)
 
         if ground_truth_target_formula is not None:
             scores["target_match"] = self._check_target_match(
@@ -780,13 +788,48 @@ class SynthesisValidator:
         in_range = [1.0 if TEMP_MIN <= t <= TEMP_MAX else 0.0 for t in temps]
         return sum(in_range) / len(in_range)
 
-    def _check_thermodynamics(self, predicted: PredictedRoute) -> float:
+    # def _check_thermodynamics(self, predicted: PredictedRoute) -> float:
+    #     """
+    #     ΔE_rxn via ComputedReaction. Continuous score with piecewise-linear
+    #     mapping from eV/atom to [0, 1].
+    #     """
+    #     if self.thermo_checker is None:
+    #         return 0.5
+
+    #     try:
+    #         precursor_pairs = [(p.formula, p.amount) for p in predicted.precursors]
+    #         delta_G = self.thermo_checker.reaction_energy_per_atom(
+    #             precursor_pairs, predicted.target_formula,
+    #             predicted_route=predicted,
+    #         )
+    #     except Exception:
+    #         return 0.5
+
+    #     if delta_G is None:
+    #         return 0.5
+
+    #     # Piecewise-linear scoring applied to ΔG_rxn(T_synthesis), not 0K ΔE.
+    #     if delta_G <= RXN_ENERGY_FAVORABLE:
+    #         return 1.0
+    #     elif delta_G <= RXN_ENERGY_BORDERLINE:
+    #         t = (delta_G - RXN_ENERGY_FAVORABLE) / (RXN_ENERGY_BORDERLINE - RXN_ENERGY_FAVORABLE)
+    #         return 1.0 - 0.5 * t
+    #     elif delta_G <= RXN_ENERGY_UNFAVORABLE:
+    #         t = (delta_G - RXN_ENERGY_BORDERLINE) / (RXN_ENERGY_UNFAVORABLE - RXN_ENERGY_BORDERLINE)
+    #         return 0.5 - 0.5 * t
+    #     else:
+    #         return 0.0
+
+    def _check_thermodynamics(self, predicted: PredictedRoute) -> tuple[float, dict]:
         """
-        ΔE_rxn via ComputedReaction. Continuous score with piecewise-linear
-        mapping from eV/atom to [0, 1].
+        Returns (score, metadata). metadata has 'T_K' (synthesis temperature
+        used for the Gibbs calculation) and 'dG_eV_atom' (the actual ΔG_rxn
+        value before piecewise-linear scoring). Empty metadata if thermo_checker
+        is unavailable.
         """
+        meta: dict = {}
         if self.thermo_checker is None:
-            return 0.5
+            return 0.5, meta
 
         try:
             precursor_pairs = [(p.formula, p.amount) for p in predicted.precursors]
@@ -795,22 +838,31 @@ class SynthesisValidator:
                 predicted_route=predicted,
             )
         except Exception:
-            return 0.5
+            return 0.5, meta
+
+        # Record synthesis T even when ΔG can't be computed — still useful info
+        from gibbs_corrector import extract_synthesis_temperature_K
+        meta["T_K"] = extract_synthesis_temperature_K(predicted)
+        if delta_G is not None:
+            meta["dG_eV_atom"] = delta_G
 
         if delta_G is None:
-            return 0.5
+            return 0.5, meta
 
-        # Piecewise-linear scoring applied to ΔG_rxn(T_synthesis), not 0K ΔE.
+        # Piecewise-linear scoring on ΔG_rxn(T_synthesis)
         if delta_G <= RXN_ENERGY_FAVORABLE:
-            return 1.0
+            score = 1.0
         elif delta_G <= RXN_ENERGY_BORDERLINE:
             t = (delta_G - RXN_ENERGY_FAVORABLE) / (RXN_ENERGY_BORDERLINE - RXN_ENERGY_FAVORABLE)
-            return 1.0 - 0.5 * t
+            score = 1.0 - 0.5 * t
         elif delta_G <= RXN_ENERGY_UNFAVORABLE:
             t = (delta_G - RXN_ENERGY_BORDERLINE) / (RXN_ENERGY_UNFAVORABLE - RXN_ENERGY_BORDERLINE)
-            return 0.5 - 0.5 * t
+            score = 0.5 - 0.5 * t
         else:
-            return 0.0
+            score = 0.0
+
+        return score, meta
+
 
     def _check_target_stability(self, predicted: PredictedRoute) -> float:
         """

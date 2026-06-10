@@ -68,6 +68,14 @@ MODEL_ID = "deepseek/deepseek-v4-pro"
 NUM_WORKERS = 15
 VALIDATOR_THRESHOLD = 0.65
 
+# Maximum USD to spend in a single run. The script polls OpenRouter's
+# /api/v1/credits endpoint every CREDIT_CHECK_EVERY_N completions and
+# raises a clean stop signal when remaining credits drop below this floor.
+# Set via env var MAX_COST_USD or hardcoded here.
+MAX_COST_USD     = float(os.environ.get("MAX_COST_USD", "10.00"))
+CREDIT_FLOOR_USD = float(os.environ.get("CREDIT_FLOOR_USD", "1.50"))   # stop when remaining < this
+CREDIT_CHECK_EVERY_N = 20   # how many completions between credit polls
+
 PROJECT_ROOT = Path(__file__).parent
 DATA_RAW = PROJECT_ROOT / "data" / "raw"
 DATA_CACHE = PROJECT_ROOT / "data" / "cache"
@@ -608,6 +616,42 @@ async def get_stability_data(target: str, pd_index: dict) -> str:
         return f"[Error reading phase diagram: {e}]"
 
 
+# --- CREDIT GUARD -------------------------------------------------------------
+import aiohttp as _aiohttp_for_credits  # already imported, just aliased for clarity
+
+async def get_remaining_credits_usd(session: aiohttp.ClientSession) -> float:
+    """
+    Query OpenRouter /api/v1/credits for remaining balance.
+    Returns float("inf") on any network failure so a transient blip
+    never triggers a false stop.
+    """
+    try:
+        async with session.get(
+            "https://openrouter.ai/api/v1/credits",
+            headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}"},
+            timeout=ClientTimeout(total=10),
+        ) as resp:
+            if resp.status != 200:
+                logger.warning(f"[credits] HTTP {resp.status} from credits endpoint")
+                return float("inf")
+            data = await resp.json()
+            d = data.get("data", {})
+            total    = float(d.get("total_credits", 0))
+            used     = float(d.get("total_usage",   0))
+            remaining = total - used
+            logger.info(f"[credits] ${remaining:.3f} remaining (used ${used:.3f} of ${total:.3f})")
+            return remaining
+    except Exception as e:
+        logger.warning(f"[credits] check failed ({e}); skipping guard this cycle")
+        return float("inf")
+
+
+# Shared completion counter — workers increment atomically via a lock.
+# Used to decide when to poll the credits endpoint.
+_completion_count = 0
+_completion_lock  = asyncio.Lock()
+
+
 # --- WORKER LOOP --------------------------------------------------------------
 async def worker(
     queue: asyncio.Queue,
@@ -617,6 +661,7 @@ async def worker(
     pbar: tqdm,
     f_out,
     file_lock: asyncio.Lock,
+    stop_event: asyncio.Event,
 ):
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -631,9 +676,32 @@ async def worker(
             queue.task_done()
             break
 
+        # Check if any worker has raised the stop signal (credit limit hit)
+        if stop_event.is_set():
+            queue.task_done()
+            logger.info("[worker] stop_event set — draining without processing")
+            continue
+
         target = record.get("target_formula", "<unknown>")
 
         try:
+            # --- CREDIT GUARD ------------------------------------------------
+            global _completion_count
+            async with _completion_lock:
+                _completion_count += 1
+                count_snapshot = _completion_count
+
+            if count_snapshot % CREDIT_CHECK_EVERY_N == 0:
+                remaining = await get_remaining_credits_usd(session)
+                if remaining < CREDIT_FLOOR_USD:
+                    logger.warning(
+                        f"[credits] ${remaining:.3f} remaining — below floor "
+                        f"${CREDIT_FLOOR_USD:.2f}. Setting stop signal."
+                    )
+                    stop_event.set()
+                    queue.task_done()
+                    continue
+            # -----------------------------------------------------------------
             precursors = record.get("precursors", [])
             operations = record.get("operations", [])
             ctx = ""
@@ -848,19 +916,31 @@ async def main():
         queue.put_nowait(None)
 
     file_lock = asyncio.Lock()
+    stop_event = asyncio.Event()
     pbar = tqdm(total=len(pending_records), desc="Generating Traces")
 
     async with aiohttp.ClientSession() as session:
+        # Initial credit check before we spin up workers
+        initial_credits = await get_remaining_credits_usd(session)
+        if initial_credits < CREDIT_FLOOR_USD:
+            logger.error(
+                f"[credits] Only ${initial_credits:.3f} remaining — "
+                f"below floor ${CREDIT_FLOOR_USD:.2f}. Aborting before start."
+            )
+            pbar.close()
+            return
+        logger.info(
+            f"[credits] Starting with ${initial_credits:.3f}. "
+            f"Will stop when < ${CREDIT_FLOOR_USD:.2f} (MAX_COST_USD cap: ${MAX_COST_USD:.2f})"
+        )
+
         async with aiofiles.open(OUTPUT_FILE, "a") as f_out:
             workers = [
                 asyncio.create_task(
-                    worker(queue, session, pd_index, validator, pbar, f_out, file_lock)
+                    worker(queue, session, pd_index, validator, pbar, f_out, file_lock, stop_event)
                 )
                 for _ in range(NUM_WORKERS)
             ]
-            # return_exceptions=True so the gather doesn't abort the whole run
-            # if some worker hits a truly unexpected condition outside the
-            # per-record try/except.
             await asyncio.gather(*workers, return_exceptions=True)
 
     pbar.close()

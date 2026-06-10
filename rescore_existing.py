@@ -32,6 +32,37 @@ PD_INDEX_FILE  = PROJECT_ROOT / "data" / "cache" / "pd_index.json"
 FORMULA_SET_FILE = PROJECT_ROOT / "data" / "cache" / "mp_formula_set.pkl"
 
 
+def _to_jsonable(obj):
+    """
+    Recursively convert a record to JSON-safe types.
+    Handles numpy scalars, Python bools, and nested dicts/lists.
+    The validator now emits float metadata keys (thermodynamic_T_K,
+    thermodynamic_dG_eV_atom) that may come back as numpy floats on some
+    platforms; this sanitizes everything before json.dumps.
+    """
+    try:
+        import numpy as np
+        np_int   = (np.integer,)
+        np_float = (np.floating,)
+        np_array = np.ndarray
+    except ImportError:
+        np_int = np_float = np_array = ()
+
+    if isinstance(obj, dict):
+        return {k: _to_jsonable(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_to_jsonable(v) for v in obj]
+    if isinstance(obj, bool):
+        return int(obj)
+    if np_int and isinstance(obj, np_int):
+        return int(obj)
+    if np_float and isinstance(obj, np_float):
+        return float(obj)
+    if np_array and isinstance(obj, np_array):
+        return obj.tolist()
+    return obj
+
+
 def rescore_record(record: dict, validator: SynthesisValidator) -> dict | None:
     """
     Re-validate one record. Returns the updated record (with new score/breakdown)
@@ -54,8 +85,8 @@ def rescore_record(record: dict, validator: SynthesisValidator) -> dict | None:
     updated["validator_breakdown_old"] = record.get("validator_breakdown")
     updated["validator_score"] = new_score
     updated["validator_breakdown"] = new_breakdown
-    # 0.5 is the validator-pass threshold; record what the new bool is too
-    updated["passed_validator"] = new_score >= 0.5
+    # Cast to int so json.dumps never sees a bare Python bool
+    updated["passed_validator"] = int(new_score >= 0.5)
     return updated
 
 
@@ -194,7 +225,7 @@ def main():
         args.output.parent.mkdir(parents=True, exist_ok=True)
         with args.output.open("w") as f:
             for rec in output_records:
-                f.write(json.dumps(rec) + "\n")
+                f.write(json.dumps(_to_jsonable(rec)) + "\n")
         print()
         print(f"Wrote rescored records to {args.output}")
         print(f"Original input untouched at {args.input}")
