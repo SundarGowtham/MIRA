@@ -384,12 +384,24 @@ class ThermoChecker:
 
             # Sign convention: products positive, reactants negative.
             # Target must appear with positive coefficient.
-            target_coeff = reaction.get_coeff(target_entry.composition)
+            # NOTE: ComputedReaction normalizes compositions to their reduced
+            # form internally. The target_entry.composition might be the
+            # unreduced form (e.g. Sr2Ti2O6 for the mp-4651 SrTiO3 entry),
+            # so we MUST query with the reduced composition or get_coeff
+            # raises ValueError and the whole call silently returns None.
+            target_comp_reduced = Composition(
+                target_entry.composition.reduced_formula
+            )
+            try:
+                target_coeff = reaction.get_coeff(target_comp_reduced)
+            except (ValueError, KeyError):
+                return None
             if target_coeff <= 1e-6:
                 return None
 
             delta_E_total = reaction.calculated_reaction_energy  # eV
-            atoms_target = target_coeff * target_entry.composition.num_atoms
+            # Use the reduced composition's atom count to match the coefficient.
+            atoms_target = target_coeff * target_comp_reduced.num_atoms
             return delta_E_total / atoms_target
 
         except Exception:

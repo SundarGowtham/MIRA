@@ -642,6 +642,24 @@ async def worker(
                     ],
                     "include_reasoning": True,
                     "temperature": 0.6,
+                    # OpenRouter routes across many underlying providers
+                    # (Parasail, Baidu, Novita, Fireworks, etc.) and they're
+                    # not identical — some silently drop the reasoning field
+                    # for chat-style models. Earlier wild records showed
+                    # intermittent thinking=null because of this routing.
+                    #
+                    # require_parameters=True: only consider providers that
+                    #   actually accept every parameter we sent (including
+                    #   include_reasoning).
+                    # order: preference list — these are providers the probe
+                    #   confirmed return reasoning consistently.
+                    # allow_fallbacks=True: if the preferred set is all down,
+                    #   fall back to any provider that supports the params.
+                    "provider": {
+                        "require_parameters": True,
+                        "order": ["Parasail", "Novita", "Fireworks", "Baidu"],
+                        "allow_fallbacks": True,
+                    },
                 }
                 for attempt in range(3):
                     try:
@@ -655,7 +673,12 @@ async def worker(
                                 data = await response.json()
                                 if "choices" in data and data["choices"]:
                                     msg = data["choices"][0].get("message", {})
-                                    return msg.get("reasoning", ""), msg.get("content", "")
+                                    provider = data.get("provider", "unknown")
+                                    return (
+                                        msg.get("reasoning", ""),
+                                        msg.get("content", ""),
+                                        provider,
+                                    )
                             elif response.status == 429:
                                 await asyncio.sleep(5 * (attempt + 1))
                             else:
@@ -675,12 +698,18 @@ async def worker(
             closed_score = 0.0
 
             if llm_resp:
-                reasoning, content = llm_resp
+                reasoning, content, provider = llm_resp
                 # Don't let None render as the literal string "None" inside
                 # the chain-of-thought field — that pollutes the training data
                 # and teaches the model to emit "<think>\nNone\n</think>".
                 reasoning_str = reasoning if reasoning else ""
                 thinking_block = f"<think>\n{reasoning_str}\n</think>" if reasoning_str else None
+                if not reasoning_str:
+                    # Provider routed but stripped reasoning — log for blacklisting
+                    logger.warning(
+                        f"[reasoning] {target}: empty reasoning from provider '{provider}' "
+                        f"(consider adding to provider.ignore)"
+                    )
                 json_data = extract_json(content)
                 if json_data:
                     route = convert_to_predicted_route(target, json_data)
@@ -700,6 +729,7 @@ async def worker(
                                 "prompt": closed_prompt,
                                 "stability_data": stability_data,
                                 "generator": MODEL_ID,
+                                "provider": provider,
                             }
 
             # --- PASS 2: OPEN-BOOK FALLBACK ----------------------------------
@@ -714,9 +744,14 @@ async def worker(
                 llm_resp = await fetch_llm(open_prompt)
 
                 if llm_resp:
-                    reasoning, content = llm_resp
+                    reasoning, content, provider = llm_resp
                     reasoning_str = reasoning if reasoning else ""
                     thinking_block = f"<think>\n{reasoning_str}\n</think>" if reasoning_str else None
+                    if not reasoning_str:
+                        logger.warning(
+                            f"[reasoning] {target} (fallback): empty reasoning from "
+                            f"provider '{provider}' (consider blacklisting)"
+                        )
                     json_data = extract_json(content)
                     if json_data:
                         route = convert_to_predicted_route(target, json_data)
@@ -737,6 +772,7 @@ async def worker(
                             "prompt": open_prompt,
                             "stability_data": stability_data,
                             "generator": MODEL_ID,
+                            "provider": provider,
                         }
 
             # --- WRITE (safe) ------------------------------------------------
