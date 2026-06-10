@@ -273,6 +273,13 @@ The "type" field of each operation MUST be one of the following nine values
   - "cool"    — controlled slow cooling at a defined rate
   - "wash"    — post-synthesis solvent/acid wash
 
+
+
+The temperature you specify in heating operations (calcine, sinter, anneal) determines the 
+thermodynamic regime at which your route is evaluated. Routes whose temperatures don't enable 
+the proposed chemistry to proceed will be marked as thermodynamically unfavorable.
+
+
 Output 3-6 thermodynamic claims total. Reference only formulas that appear
 in the SYSTEM STABLE PHASES or DANGEROUS METASTABLE SIDE-PHASES sections of
 the prompt; do not invent phase names. When a numeric value (formation

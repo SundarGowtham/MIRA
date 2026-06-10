@@ -42,16 +42,16 @@ References
 
 Caveats
 -------
-  - Bartel descriptor reports ~50 meV/atom MAE on its 440-compound test set.
+  • Bartel descriptor reports ~50 meV/atom MAE on its 440-compound test set.
     The validator's piecewise-linear scoring treats ΔG within ±0.05 eV/atom
     of zero as a noise band, so this MAE is absorbed.
-  - Bartel descriptor is valid for inorganic crystalline solids, T ∈ [300, 2000] K.
-  - NIST tabulated values cover T ∈ [298, 2000] K. Outside this range we
+  • Bartel descriptor is valid for inorganic crystalline solids, T ∈ [300, 2000] K.
+  • NIST tabulated values cover T ∈ [298, 2000] K. Outside this range we
     clamp to the nearest endpoint and log a warning.
-  - Solid CO2, H2O, NH3 entries from MP are excluded from Gibbs wrapping in
+  • Solid CO2, H2O, NH3 entries from MP are excluded from Gibbs wrapping in
     favor of NIST gas-phase values. These species are always treated as gases
     since their sublimation/boiling points are well below typical synthesis T.
-  - Synthesis temperature is taken as the MAX heating-operation temperature
+  • Synthesis temperature is taken as the MAX heating-operation temperature
     (calcine, sinter, anneal). This represents the reaction's operating point.
     Reactions occurring during ramping or cooling are not modeled.
 """
@@ -269,7 +269,54 @@ def make_nist_gas_entry(species: str, T_K: float) -> ComputedEntry:
 # Main entry point: ΔG_rxn computation
 # ===========================================================================
 
-def compute_reaction_gibbs_per_atom(target_formula: str, precursor_formulas: list[str], pd, predicted_route) -> tuple[Optional[float], float]:
+def _best_entry_for_formula(pd, formula: str):
+    """Lowest-energy entry in pd whose reduced formula matches `formula`."""
+    target_red = Composition(formula).reduced_formula
+    best = None
+    for e in pd.all_entries:
+        if e.composition.reduced_formula == target_red:
+            if best is None or e.energy_per_atom < best.energy_per_atom:
+                best = e
+    return best
+
+
+def _wrap_solid_at_T(entry, pd, T_K: float):
+    """
+    Wrap a single solid entry with Bartel-descriptor Gibbs correction at T_K.
+    
+    Uses formation enthalpy computed against the supplied PD's elemental
+    references, sidestepping GibbsComputedStructureEntry.from_entries (which
+    would try to rebuild a PD internally and fail without the gas entries
+    we excluded).
+    
+    Returns None if the entry can't be wrapped (e.g., missing structure).
+    """
+    if not hasattr(entry, "structure") or entry.structure is None:
+        return None
+    try:
+        form_enthalpy_per_atom = pd.get_form_energy_per_atom(entry)
+    except Exception as exc:
+        logger.debug(f"[gibbs] get_form_energy failed for {entry.entry_id}: {exc}")
+        return None
+    try:
+        return GibbsComputedStructureEntry(
+            structure=entry.structure,
+            formation_enthalpy_per_atom=form_enthalpy_per_atom,
+            temp=T_K,
+            composition=entry.composition,
+            entry_id=entry.entry_id,
+        )
+    except Exception as exc:
+        logger.debug(f"[gibbs] GibbsComputedStructureEntry init failed for {entry.entry_id}: {exc}")
+        return None
+
+
+def compute_reaction_gibbs_per_atom(
+    target_formula: str,
+    precursor_formulas: list[str],
+    pd,
+    predicted_route,
+) -> tuple[Optional[float], float]:
     """
     Compute ΔG_rxn per atom of target at the synthesis temperature.
     
@@ -280,7 +327,9 @@ def compute_reaction_gibbs_per_atom(target_formula: str, precursor_formulas: lis
     precursor_formulas : list[str]
         Formulas of the proposed precursors. Order doesn't matter.
     pd : pymatgen.analysis.phase_diagram.PhaseDiagram
-        Phase diagram covering the target+precursor chemsys.
+        Phase diagram covering the target+precursor chemsys. Must contain
+        elemental references for all elements in target/precursors so that
+        formation enthalpies can be computed.
     predicted_route : PredictedRoute
         Used to extract the synthesis temperature from heating operations.
     
@@ -291,66 +340,63 @@ def compute_reaction_gibbs_per_atom(target_formula: str, precursor_formulas: lis
     """
     T_K = extract_synthesis_temperature_K(predicted_route)
     
-    # Step 1: separate solid candidates from gases.
-    # Gas species from MP are dropped in favor of NIST values.
-    solid_entries = []
-    for e in pd.all_entries:
-        if e.composition.reduced_formula in _GAS_SPECIES:
-            continue
-        solid_entries.append(e)
-    
-    if not solid_entries:
-        logger.debug(f"[gibbs] No solid entries in PD for target {target_formula}")
-        return None, T_K
-    
-    # Step 2: wrap all solid entries with Bartel-descriptor Gibbs correction.
-    # Each entry's .energy becomes ΔfG(T) at the synthesis temperature.
-    try:
-        gibbs_solids = GibbsComputedStructureEntry.from_entries(
-            solid_entries, temp=T_K
-        )
-    except Exception as exc:
-        logger.warning(
-            f"[gibbs] GibbsComputedStructureEntry.from_entries failed for "
-            f"{target_formula} at T={T_K:.0f}K: {exc}"
-        )
-        return None, T_K
-    
-    # Step 3: build a lookup table by reduced formula. Keep the most stable
-    # (lowest energy_per_atom) polymorph for each formula.
-    by_formula: dict[str, GibbsComputedStructureEntry] = {}
-    for e in gibbs_solids:
-        red = e.composition.reduced_formula
-        existing = by_formula.get(red)
-        if existing is None or e.energy_per_atom < existing.energy_per_atom:
-            by_formula[red] = e
-    
-    # Step 4: find target and precursor entries.
+    # Step 1: find raw target entry (most stable polymorph in PD).
     target_red = Composition(target_formula).reduced_formula
-    target_entry = by_formula.get(target_red)
-    if target_entry is None:
+    target_raw = _best_entry_for_formula(pd, target_red)
+    if target_raw is None:
         logger.debug(f"[gibbs] No PD entry for target {target_red}")
         return None, T_K
     
-    precursor_entries = []
+    # Step 2: find raw precursor entries.
+    precursor_raw = []
     missing = []
     for p in precursor_formulas:
         p_red = Composition(p).reduced_formula
-        p_entry = by_formula.get(p_red)
+        p_entry = _best_entry_for_formula(pd, p_red)
         if p_entry is None:
             missing.append(p_red)
         else:
-            precursor_entries.append(p_entry)
+            precursor_raw.append(p_entry)
     if missing:
         logger.debug(f"[gibbs] Missing precursor entries: {missing}")
         return None, T_K
     
-    # Step 5: NIST gas entries at synthesis temperature.
-    gas_entries = [make_nist_gas_entry(sp, T_K) for sp in _GAS_SPECIES]
+    # Step 3: wrap each solid entry with Bartel descriptor at T_K.
+    # Uses the cached PD's formation enthalpies as input to the descriptor.
+    target_gibbs = _wrap_solid_at_T(target_raw, pd, T_K)
+    if target_gibbs is None:
+        logger.warning(f"[gibbs] Failed to wrap target {target_red} at T={T_K:.0f}K")
+        return None, T_K
     
-    # Step 6: balance the reaction.
-    reactants = list(precursor_entries)
-    products = [target_entry] + gas_entries
+    precursor_gibbs = []
+    for raw in precursor_raw:
+        wrapped = _wrap_solid_at_T(raw, pd, T_K)
+        if wrapped is None:
+            logger.warning(
+                f"[gibbs] Failed to wrap precursor "
+                f"{raw.composition.reduced_formula} at T={T_K:.0f}K"
+            )
+            return None, T_K
+        precursor_gibbs.append(wrapped)
+    
+    # Step 4: NIST gas entries at synthesis temperature.
+    # CRITICAL: only include gases whose elements are a SUBSET of the reactant
+    # elements. Otherwise ComputedReaction will find spurious balances that
+    # consume e.g. NH3 to produce H2O + N2, contaminating the reaction with
+    # elements that aren't actually present.
+    reactant_elements = set()
+    for raw in [target_raw] + precursor_raw:
+        reactant_elements.update(str(el) for el in raw.composition.elements)
+    
+    gas_entries = []
+    for sp in _GAS_SPECIES:
+        sp_elements = set(str(el) for el in Composition(sp).elements)
+        if sp_elements.issubset(reactant_elements):
+            gas_entries.append(make_nist_gas_entry(sp, T_K))
+    
+    # Step 5: balance the reaction.
+    reactants = list(precursor_gibbs)
+    products = [target_gibbs] + gas_entries
     
     try:
         reaction = ComputedReaction(reactants, products)
@@ -358,9 +404,8 @@ def compute_reaction_gibbs_per_atom(target_formula: str, precursor_formulas: lis
         logger.debug(f"[gibbs] ReactionError for {target_red}: {exc}")
         return None, T_K
     
-    # Step 7: extract target coefficient via REDUCED composition.
-    # ComputedReaction normalizes internally; querying with unreduced
-    # form (e.g. Sr2Ti2O6) raises ValueError.
+    # Step 6: extract target coefficient via REDUCED composition.
+    # ComputedReaction normalizes internally; unreduced form (Sr2Ti2O6) fails.
     target_comp_reduced = Composition(target_red)
     try:
         coeff = reaction.get_coeff(target_comp_reduced)
@@ -372,7 +417,7 @@ def compute_reaction_gibbs_per_atom(target_formula: str, precursor_formulas: lis
         logger.debug(f"[gibbs] Target coefficient non-positive: {coeff}")
         return None, T_K
     
-    # Step 8: ΔG_rxn / (atoms of target produced)
+    # Step 7: ΔG_rxn / (atoms of target produced)
     delta_G_total = reaction.calculated_reaction_energy
     atoms_target = coeff * target_comp_reduced.num_atoms
     delta_G_per_atom = delta_G_total / atoms_target
