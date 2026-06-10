@@ -184,7 +184,10 @@ FIXED_CATION_STATE: dict[str, int] = {
 
 # ---------------------------------------------------------------------------
 # Thermodynamic favorability thresholds (eV/atom)
-# Based on MP-documented noise floors for GGA reaction energies.
+# These thresholds apply to ΔG_rxn(T_synthesis) computed by gibbs_corrector.py
+# (Bartel descriptor for solids + NIST-JANAF tabulated values for gases).
+# Calibrated against the ~50 meV/atom MAE of the Bartel descriptor, so the
+# ±0.025 eV/atom band around zero is treated as noise.
 # ---------------------------------------------------------------------------
 
 RXN_ENERGY_FAVORABLE   = -0.025
@@ -332,17 +335,24 @@ class ThermoChecker:
         self,
         precursors: list[tuple[str, float]],
         target_formula: str,
+        predicted_route=None,
     ) -> Optional[float]:
         """
         Compute per-atom reaction energy using pymatgen's ComputedReaction.
 
-        ComputedReaction re-balances the reaction from compositions and computes
-        the energy from the entries' total energies. The model's stated
-        coefficients are irrelevant (and rightly so — RL shouldn't be teaching
-        the model to do stoichiometric arithmetic).
+        If `predicted_route` is provided, computes ΔG_rxn at the synthesis
+        temperature parsed from the route's heating operations, using
+        gibbs_corrector.py (Bartel descriptor for solids + NIST-JANAF tabulated
+        values for gases). This is the Tier 3.1 codepath and is what the
+        validator should always use in production.
 
-        Returns None if the reaction can't be balanced or required entries are
-        missing from the PD.
+        If `predicted_route` is None, falls back to a 0K ΔE calculation. This
+        is a diagnostic-only path; raw 0K ΔE is systematically endothermic for
+        gas-releasing reactions (carbonates, hydroxides) and shouldn't be
+        scored against the same thresholds as ΔG.
+
+        Returns None if the reaction can't be balanced or required entries
+        are missing from the PD.
         """
         try:
             # CRITICAL: use ONLY target + precursors for the chemsys lookup.
@@ -352,12 +362,22 @@ class ThermoChecker:
             # (which was never built). The PD for (target+precursors) already
             # contains all volatile sub-system entries (O2, CO2, etc.) because
             # pymatgen's PhaseDiagram includes every entry across the full
-            # element set, so _best_entry_for_formula will find them there.
+            # element set.
             core_formulas = [target_formula] + [f for f, _ in precursors]
             pd, _ = self._resolve_pd(core_formulas)
             if pd is None:
                 return None
 
+            # Tier 3.1: Gibbs-corrected reaction energy at synthesis T
+            if predicted_route is not None:
+                from gibbs_corrector import compute_reaction_gibbs_per_atom
+                precursor_formulas = [f for f, _ in precursors]
+                delta_G, _T_K = compute_reaction_gibbs_per_atom(
+                    target_formula, precursor_formulas, pd, predicted_route
+                )
+                return delta_G
+
+            # Legacy 0K path (diagnostic only — not for production scoring)
             target_entry = self._best_entry_for_formula(pd, target_formula)
             if target_entry is None:
                 return None
@@ -382,13 +402,9 @@ class ThermoChecker:
             except ReactionError:
                 return None
 
-            # Sign convention: products positive, reactants negative.
-            # Target must appear with positive coefficient.
-            # NOTE: ComputedReaction normalizes compositions to their reduced
-            # form internally. The target_entry.composition might be the
-            # unreduced form (e.g. Sr2Ti2O6 for the mp-4651 SrTiO3 entry),
-            # so we MUST query with the reduced composition or get_coeff
-            # raises ValueError and the whole call silently returns None.
+            # ComputedReaction normalizes internally to reduced compositions.
+            # Target entry may be the unreduced form (Sr2Ti2O6 for mp-4651
+            # SrTiO3), so query with reduced composition or get_coeff raises.
             target_comp_reduced = Composition(
                 target_entry.composition.reduced_formula
             )
@@ -400,7 +416,6 @@ class ThermoChecker:
                 return None
 
             delta_E_total = reaction.calculated_reaction_energy  # eV
-            # Use the reduced composition's atom count to match the coefficient.
             atoms_target = target_coeff * target_comp_reduced.num_atoms
             return delta_E_total / atoms_target
 
@@ -775,22 +790,24 @@ class SynthesisValidator:
 
         try:
             precursor_pairs = [(p.formula, p.amount) for p in predicted.precursors]
-            delta_E = self.thermo_checker.reaction_energy_per_atom(
-                precursor_pairs, predicted.target_formula
+            delta_G = self.thermo_checker.reaction_energy_per_atom(
+                precursor_pairs, predicted.target_formula,
+                predicted_route=predicted,
             )
         except Exception:
             return 0.5
 
-        if delta_E is None:
+        if delta_G is None:
             return 0.5
 
-        if delta_E <= RXN_ENERGY_FAVORABLE:
+        # Piecewise-linear scoring applied to ΔG_rxn(T_synthesis), not 0K ΔE.
+        if delta_G <= RXN_ENERGY_FAVORABLE:
             return 1.0
-        elif delta_E <= RXN_ENERGY_BORDERLINE:
-            t = (delta_E - RXN_ENERGY_FAVORABLE) / (RXN_ENERGY_BORDERLINE - RXN_ENERGY_FAVORABLE)
+        elif delta_G <= RXN_ENERGY_BORDERLINE:
+            t = (delta_G - RXN_ENERGY_FAVORABLE) / (RXN_ENERGY_BORDERLINE - RXN_ENERGY_FAVORABLE)
             return 1.0 - 0.5 * t
-        elif delta_E <= RXN_ENERGY_UNFAVORABLE:
-            t = (delta_E - RXN_ENERGY_BORDERLINE) / (RXN_ENERGY_UNFAVORABLE - RXN_ENERGY_BORDERLINE)
+        elif delta_G <= RXN_ENERGY_UNFAVORABLE:
+            t = (delta_G - RXN_ENERGY_BORDERLINE) / (RXN_ENERGY_UNFAVORABLE - RXN_ENERGY_BORDERLINE)
             return 0.5 - 0.5 * t
         else:
             return 0.0
