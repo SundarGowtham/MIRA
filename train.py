@@ -32,7 +32,14 @@ def parse_args():
     p.add_argument("--sft-checkpoint", type=str, default=None, help="For sft-grpo: path to SFT checkpoint to start GRPO from")
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--tag", type=str, default=None, help="Optional run name suffix for W&B")
-    p.add_argument("--data-prefix", default=None,help="Filename prefix for data files (default: 'sft'). E.g. --data-prefix sft_v2 uses sft_v2_train.jsonl etc.")
+    p.add_argument("--data-prefix", default=None,
+                   help="Filename prefix for data files (default: 'sft'). E.g. --data-prefix sft_v2 uses sft_v2_train.jsonl etc.")
+    p.add_argument("--lora-r", type=int, default=None,
+                   help="LoRA rank. Overrides the experiment's default. Used by rank_ablation.py.")
+    p.add_argument("--lora-alpha", type=int, default=None,
+                   help="LoRA alpha. Overrides the experiment's default. Conventional: 2 * lora_r.")
+    p.add_argument("--lora-dropout", type=float, default=None,
+                   help="LoRA dropout. Overrides the experiment's default.")
 
 
     return p.parse_args()

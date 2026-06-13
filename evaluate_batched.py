@@ -39,7 +39,9 @@ def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("--checkpoint", required=True, help="LoRA checkpoint path or 'base' for pretrained")
     p.add_argument("--model", default=None, help="Base model name (required for base or LoRA)")
-    p.add_argument("--data-dir", type=Path, default=Path("data/processed"))
+    p.add_argument("--data-dir", type=Path, default=None,
+                   help="Directory containing split JSONL files. Defaults to data/sft/ "
+                        "(output of split_dataset.py). Override to data/processed/ for legacy files.")
     p.add_argument("--cache-dir", type=Path, default=Path("data/cache"))
     p.add_argument("--data-prefix", default="sft",
                    help="Filename prefix for data files. E.g. --data-prefix sft_v2 "
@@ -153,12 +155,21 @@ def generate_batch(model, tok, prompts: list[str], args) -> list[str]:
 # Scoring
 # ---------------------------------------------------------------------------
 
-def score_one(completion: str, target: str, validator):
-    try:
-        route = parse_completion(completion, target)
-        return validator.validate(route, target)
-    except Exception:
-        return 0.0, {"error": 1.0}
+def get_target(ex: dict) -> str:
+    """
+    Extract target formula from a record.
+    split_dataset.py writes 'target' at top level.
+    Legacy evaluate.py format wraps it in ex['metadata']['target_formula'].
+    """
+    if "target" in ex:
+        return ex["target"]
+    return ex.get("metadata", {}).get("target_formula", "")
+
+    # try:
+    #     route = parse_completion(completion, target)
+    #     return validator.validate(route, target)
+    # except Exception:
+    #     return 0.0, {"error": 1.0}
 
 
 def aggregate(records: list[dict]) -> dict:
@@ -230,6 +241,11 @@ def main():
     args = parse_args()
     torch.manual_seed(args.seed)
 
+    # Resolve data_dir default: split_dataset.py writes to data/sft/
+    if args.data_dir is None:
+        args.data_dir = Path("data/sft") if Path("data/sft").exists() else Path("data/processed")
+        log(f"data-dir not specified; using {args.data_dir}")
+
     log(f"Loading model from {args.checkpoint}...")
     model, tok = load_eval_model(args.checkpoint, args.model)
     log(f"Model loaded. Device: {model.device}")
@@ -279,7 +295,7 @@ def main():
     # Filter to TODO
     todo = []
     for i, ex in enumerate(examples):
-        target = ex["metadata"]["target_formula"]
+        target = get_target(ex)
         if (target, i) in completed_targets:
             continue
         todo.append((i, ex))
@@ -300,7 +316,7 @@ def main():
     for batch_idx in range(n_batches):
         batch = todo[batch_idx * args.batch_size : (batch_idx + 1) * args.batch_size]
         prompts = [ex["prompt"] for _, ex in batch]
-        targets = [ex["metadata"]["target_formula"] for _, ex in batch]
+        targets = [get_target(ex) for _, ex in batch]
         indices = [i for i, _ in batch]
 
         completions = generate_batch(model, tok, prompts, args)
