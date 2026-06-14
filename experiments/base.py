@@ -37,6 +37,12 @@ class ExperimentConfig:
     output_root: Path
     seed: int
     tag: str | None
+    # LoRA hyperparameters — defaulting to None means "use the experiment's
+    # own default". Populated from CLI args --lora-r / --lora-alpha / --lora-dropout
+    # so rank_ablation.py can override them without touching experiment files.
+    lora_r: int | None = None
+    lora_alpha: int | None = None
+    lora_dropout: float | None = None
     extras: dict[str, Any] = field(default_factory=dict)
 
 
@@ -61,6 +67,9 @@ class Experiment(ABC):
             output_root=args.output_root,
             seed=args.seed,
             tag=args.tag,
+            lora_r=getattr(args, "lora_r", None),
+            lora_alpha=getattr(args, "lora_alpha", None),
+            lora_dropout=getattr(args, "lora_dropout", None),
         )
 
     def _set_seed(self, seed: int) -> None:
@@ -102,6 +111,9 @@ class Experiment(ABC):
             "model": self.cfg.model,
             "smoke": self.cfg.smoke,
             "seed": self.cfg.seed,
+            "lora_r": self.cfg.lora_r,
+            "lora_alpha": self.cfg.lora_alpha,
+            "lora_dropout": self.cfg.lora_dropout,
         }
         if extra_config:
             config.update(extra_config)

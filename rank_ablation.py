@@ -30,7 +30,7 @@ from statistics import mean, stdev
 PROJECT_ROOT = Path(__file__).parent
 
 
-def run_one(rank: int, seed: int, epochs: int, train_path: Path, eval_path: Path,
+def run_one(rank: int, seed: int, epochs: int,
             output_root: Path, dry_run: bool = False) -> dict:
     """
     Train one config and evaluate.
@@ -47,36 +47,32 @@ def run_one(rank: int, seed: int, epochs: int, train_path: Path, eval_path: Path
         "checkpoint_path": str,
       }
     """
-    run_name = f"rank{rank}_seed{seed}"
+    run_name = f"sft-qlora-v3-rank{rank}-seed{seed}"
     output_dir = output_root / run_name
 
     train_cmd = [
-        "python", "train.py",
-        "--train_file", str(train_path),
-        "--eval_file",  str(eval_path),
-        "--lora_r",     str(rank),
-        "--lora_alpha", str(rank * 2),   # standard convention: alpha = 2*r
-        "--lora_dropout", "0.05",
-        "--num_train_epochs", str(epochs),
-        "--seed", str(seed),
-        "--output_dir", str(output_dir),
-        "--logging_steps", "10",
-        "--eval_strategy", "steps",
-        "--eval_steps", "200",
-        "--save_strategy", "steps",
-        "--save_steps", "200",
-        "--save_total_limit", "2",
-        "--load_best_model_at_end", "true",
-        "--metric_for_best_model", "eval_loss",
-        "--report_to", "wandb",
-        "--run_name", run_name,
+        "python", "-u", "train.py", "sft",
+        "--adapter",      "qlora",
+        "--model",        "Qwen/Qwen3-8B",
+        "--data-prefix",  "sft",
+        "--data-dir",     "data/sft",
+        "--lora-r",       str(rank),
+        "--lora-alpha",   str(rank * 2),
+        "--lora-dropout", "0.05",
+        "--seed",         str(seed),
+        "--output-root",  str(output_root),
+        "--tag",          f"v3-rank{rank}-seed{seed}",
     ]
 
     eval_cmd = [
-        "python", "evaluate_batched.py",
-        "--adapter_path", str(output_dir),
-        "--test_file",    str(eval_path),
-        "--output_path",  str(output_dir / "test_results.json"),
+        "python", "-u", "evaluate_batched.py",
+        "--checkpoint", str(output_dir / "final"),
+        "--model",      "Qwen/Qwen3-8B",
+        "--data-dir",   "data/sft",
+        "--data-prefix", "sft",
+        "--split",      "test",
+        "--tag",        f"v3-rank{rank}-seed{seed}",
+        "--skip-thermo",
     ]
 
     if dry_run:
@@ -94,14 +90,15 @@ def run_one(rank: int, seed: int, epochs: int, train_path: Path, eval_path: Path
 
     with (output_dir / "test_results.json").open() as f:
         results = json.load(f)
+    agg = results.get("aggregate", results)  # evaluate_batched wraps under "aggregate"
 
     return {
         "rank": rank,
         "seed": seed,
         "train_seconds": train_seconds,
-        "test_mean_reward": results.get("mean_validator_score", 0),
-        "test_format_fail_rate": results.get("format_fail_rate", 0),
-        "test_thermo_favorable_mean": results.get("thermo_favorable_mean", 0),
+        "test_mean_reward": agg.get("mean_reward", 0),
+        "test_format_fail_rate": agg.get("format_fail_rate", 0),
+        "test_thermo_favorable_mean": agg.get("mean_thermodynamic_favorable", 0),
         "checkpoint_path": str(output_dir),
     }
 
@@ -109,8 +106,17 @@ def run_one(rank: int, seed: int, epochs: int, train_path: Path, eval_path: Path
 def summarize(results: list[dict], ranks: list[int]) -> dict:
     """Aggregate results: mean ± std per rank, and report which wins."""
     summary = {}
+    failed = [r for r in results if "error" in r]
+    if failed:
+        summary["failed_runs"] = [
+            {"rank": r["rank"], "seed": r["seed"]} for r in failed
+        ]
+
     for rank in ranks:
-        rank_results = [r for r in results if r["rank"] == rank and not r.get("dry_run")]
+        rank_results = [
+            r for r in results
+            if r["rank"] == rank and not r.get("dry_run") and "error" not in r
+        ]
         if not rank_results:
             continue
         rewards = [r["test_mean_reward"] for r in rank_results]
@@ -160,10 +166,7 @@ def summarize(results: list[dict], ranks: list[int]) -> dict:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--train-file", type=Path, default=PROJECT_ROOT / "data/sft/train.jsonl")
-    parser.add_argument("--val-file",   type=Path, default=PROJECT_ROOT / "data/sft/val.jsonl")
-    parser.add_argument("--test-file",  type=Path, default=PROJECT_ROOT / "data/sft/test.jsonl")
-    parser.add_argument("--output-root", type=Path, default=PROJECT_ROOT / "runs/rank_ablation")
+    parser.add_argument("--output-root", type=Path, default=PROJECT_ROOT / "runs")
     parser.add_argument("--ranks", type=int, nargs="+", default=[16, 32])
     parser.add_argument("--seeds", type=int, nargs="+", default=[42, 7, 1337])
     parser.add_argument("--epochs", type=int, default=3)
@@ -192,7 +195,6 @@ def main():
             try:
                 result = run_one(
                     rank=rank, seed=seed, epochs=args.epochs,
-                    train_path=args.train_file, eval_path=args.test_file,
                     output_root=args.output_root, dry_run=args.dry_run,
                 )
                 results.append(result)

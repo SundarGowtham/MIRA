@@ -75,20 +75,27 @@ def attach_lora(model, r: int = 16, alpha: int = 32, dropout: float = 0.05):
     return model
 
 
-def load_with_adapter(model_name: str, adapter: str, smoke: bool, init_from: str | None = None):
+def load_with_adapter(model_name: str, adapter: str, smoke: bool, init_from: str | None = None, lora_r: int | None = None, lora_alpha: int | None = None, lora_dropout: float | None = None,):
     """
     Returns (model, tokenizer). If init_from is a path, loads adapter weights from there.
+    lora_r / lora_alpha / lora_dropout override the defaults in attach_lora when provided.
     """
     tok = load_tokenizer(model_name)
     model = load_model(model_name, adapter, smoke)
     if adapter in ("lora", "qlora"):
         if init_from and init_from != "base":
             model = PeftModel.from_pretrained(model, init_from, is_trainable=True)
-            # Same fix applies when loading an existing adapter checkpoint:
-            # PeftModel.from_pretrained may also instantiate LoRA params in fp32.
             for name, p in model.named_parameters():
                 if p.requires_grad and "lora_" in name.lower():
                     p.data = p.data.to(torch.bfloat16)
         else:
-            model = attach_lora(model)
+            # Build kwargs — only pass what was explicitly overridden
+            lora_kwargs: dict = {}
+            if lora_r is not None:
+                lora_kwargs["r"] = lora_r
+            if lora_alpha is not None:
+                lora_kwargs["alpha"] = lora_alpha
+            if lora_dropout is not None:
+                lora_kwargs["dropout"] = lora_dropout
+            model = attach_lora(model, **lora_kwargs)
     return model, tok

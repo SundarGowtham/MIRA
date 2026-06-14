@@ -34,6 +34,9 @@ class GRPOExperiment(Experiment):
         model, tok = load_with_adapter(
             self.cfg.model, self.cfg.adapter, self.cfg.smoke,
             init_from=self.args.init_from,
+            lora_r=self.cfg.lora_r,
+            lora_alpha=self.cfg.lora_alpha,
+            lora_dropout=self.cfg.lora_dropout,
         )
 
         train_path = self.cfg.data_dir / f"{self.data_prefix}_train.jsonl"
