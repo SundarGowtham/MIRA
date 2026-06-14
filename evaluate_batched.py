@@ -170,7 +170,12 @@ def get_target(ex: dict) -> str:
     #     return validator.validate(route, target)
     # except Exception:
     #     return 0.0, {"error": 1.0}
-
+def score_one(completion: str, target: str, validator) -> tuple[float, dict]:
+    try:
+        route = parse_completion(completion, target)
+        return validator.validate(route, target)
+    except Exception as e:
+        return 0.0, {"error": 1.0}
 
 def aggregate(records: list[dict]) -> dict:
     if not records:

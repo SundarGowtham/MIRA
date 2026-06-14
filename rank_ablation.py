@@ -72,7 +72,7 @@ def run_one(rank: int, seed: int, epochs: int,
         "--data-prefix", "sft",
         "--split",      "test",
         "--tag",        f"v3-rank{rank}-seed{seed}",
-        "--skip-thermo",
+        # "--skip-thermo",
     ]
 
     if dry_run:
