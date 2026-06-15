@@ -49,9 +49,7 @@ def parse_args():
     p.add_argument("--split", default="test", choices=["train", "val", "test"])
     p.add_argument("--limit", type=int, default=None)
     p.add_argument("--batch-size", type=int, default=8, help="Prompts per batch (8 fits comfortably on 3090, try 16 on A100)")
-    p.add_argument("--max-new-tokens", type=int, default=1024,
-                   help="Bumped from 512 — sft_v2 completions reach ~983 tokens "
-                        "(reasoning + structured output).")
+    p.add_argument("--max-new-tokens", type=int, default=15226)
     p.add_argument("--temperature", type=float, default=0.7)
     p.add_argument("--top-p", type=float, default=0.9)
     p.add_argument("--skip-thermo", action="store_true")
