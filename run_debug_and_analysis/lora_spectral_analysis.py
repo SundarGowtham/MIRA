@@ -273,7 +273,12 @@ def print_random_baseline_summary(rb: dict, trained_vs_trained_deg: float | None
         print(f"    relative to the {rb['random_vs_random_mean_deg']:.1f}° random-vs-random ceiling.")
 
 
+# ============================================================================
+# Per-adapter profile
+# ============================================================================
 
+@torch.no_grad()
+def profile_adapter(checkpoint_path: Path, device: str) -> dict:
     print(f"\nProfiling {checkpoint_path}")
     matrices = load_adapter_weights(checkpoint_path)
     print(f"  Found {len(matrices)} LoRA modules")
