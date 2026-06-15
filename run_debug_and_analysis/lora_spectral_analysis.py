@@ -155,7 +155,125 @@ def principal_angles(delta_w_1: torch.Tensor, delta_w_2: torch.Tensor, k: int) -
 # ============================================================================
 
 @torch.no_grad()
-def profile_adapter(checkpoint_path: Path, device: str) -> dict:
+def random_adapter_like(
+    reference: dict[str, dict[str, torch.Tensor]],
+    device: str,
+    seed: int = 0,
+) -> dict[str, dict[str, torch.Tensor]]:
+    """
+    Generate a random LoRA adapter with the same module names and matrix
+    shapes as `reference`, using PEFT's default LoRA init convention:
+    A ~ Kaiming-uniform (matches nn.Linear default), B = zeros.
+
+    Since B=0 gives ΔW=0 identically (useless for comparison), we instead
+    draw BOTH A and B from the same Kaiming-uniform distribution used to
+    init A — this represents "a randomly initialized but untrained adapter
+    that has SOME update", giving a meaningful zero-alignment baseline for
+    principal-angle comparisons. This is an artificial construction (real
+    PEFT init has B=0) but answers the right question: "what do principal
+    angles look like between two UNRELATED random subspaces of this shape?"
+    """
+    gen = torch.Generator(device="cpu").manual_seed(seed)
+    random_mats: dict[str, dict[str, torch.Tensor]] = {}
+    for module_name, mats in reference.items():
+        A_shape = mats["A"].shape
+        B_shape = mats["B"].shape
+        # Kaiming-uniform, same as nn.Linear default init
+        bound_a = 1.0 / math.sqrt(A_shape[1])
+        bound_b = 1.0 / math.sqrt(B_shape[1])
+        A = (torch.rand(A_shape, generator=gen) * 2 - 1) * bound_a
+        B = (torch.rand(B_shape, generator=gen) * 2 - 1) * bound_b
+        random_mats[module_name] = {"A": A, "B": B}
+    return random_mats
+
+
+@torch.no_grad()
+def compare_against_random_baseline(
+    ckpt: Path,
+    device: str,
+    angle_k: int = 5,
+    n_random_seeds: int = 3,
+) -> dict:
+    """
+    Compare a trained adapter's top-k subspaces against freshly-initialized
+    random adapters of the same shape. Gives the empirical "zero alignment"
+    reference point for principal angles at this k, d (ambient dim).
+
+    If trained-vs-trained angles (e.g. 50.9°) are well below
+    random-vs-random angles (likely 75-88° per the asymptotic estimate
+    cos²θ ≈ k/d), that confirms the trained subspaces share real structure
+    despite not being identical.
+    """
+    print(f"\nRandom baseline for {ckpt} (k={angle_k}, {n_random_seeds} random seeds)")
+    mats_trained = load_adapter_weights(ckpt)
+    module_names = sorted(mats_trained.keys())
+
+    all_seed_results = []
+    for rseed in range(n_random_seeds):
+        random_mats = random_adapter_like(mats_trained, device, seed=rseed)
+        angles_this_seed = []
+        for module_name in module_names:
+            dw_trained = compute_delta_w(
+                mats_trained[module_name]["A"], mats_trained[module_name]["B"], device
+            )
+            dw_random = compute_delta_w(
+                random_mats[module_name]["A"], random_mats[module_name]["B"], device
+            )
+            k = min(
+                mats_trained[module_name]["A"].shape[0],
+                random_mats[module_name]["A"].shape[0],
+                angle_k,
+            )
+            result = principal_angles(dw_trained, dw_random, k=k)
+            angles_this_seed.append(result["mean_angle_deg"])
+        all_seed_results.append(float(np.mean(angles_this_seed)))
+
+    # Also compute random-vs-random (two independent random adapters)
+    random_vs_random = []
+    for rseed in range(n_random_seeds):
+        mats_a = random_adapter_like(mats_trained, device, seed=100 + rseed)
+        mats_b = random_adapter_like(mats_trained, device, seed=200 + rseed)
+        angles = []
+        for module_name in module_names:
+            dw_a = compute_delta_w(mats_a[module_name]["A"], mats_a[module_name]["B"], device)
+            dw_b = compute_delta_w(mats_b[module_name]["A"], mats_b[module_name]["B"], device)
+            k = min(mats_a[module_name]["A"].shape[0], mats_b[module_name]["A"].shape[0], angle_k)
+            result = principal_angles(dw_a, dw_b, k=k)
+            angles.append(result["mean_angle_deg"])
+        random_vs_random.append(float(np.mean(angles)))
+
+    return {
+        "checkpoint": str(ckpt),
+        "angle_k": angle_k,
+        "n_random_seeds": n_random_seeds,
+        "trained_vs_random_mean_deg": round(float(np.mean(all_seed_results)), 2),
+        "trained_vs_random_std_deg":  round(float(np.std(all_seed_results)), 2),
+        "random_vs_random_mean_deg":  round(float(np.mean(random_vs_random)), 2),
+        "random_vs_random_std_deg":   round(float(np.std(random_vs_random)), 2),
+        "per_seed_trained_vs_random": [round(a, 2) for a in all_seed_results],
+        "per_seed_random_vs_random":  [round(a, 2) for a in random_vs_random],
+    }
+
+
+def print_random_baseline_summary(rb: dict, trained_vs_trained_deg: float | None = None) -> None:
+    print("\n" + "=" * 70)
+    print(f"RANDOM BASELINE  (k={rb['angle_k']}, {rb['n_random_seeds']} seeds)")
+    print("=" * 70)
+    print(f"  trained vs random:  {rb['trained_vs_random_mean_deg']:.1f}° "
+          f"± {rb['trained_vs_random_std_deg']:.1f}°")
+    print(f"  random vs random:   {rb['random_vs_random_mean_deg']:.1f}° "
+          f"± {rb['random_vs_random_std_deg']:.1f}°")
+    if trained_vs_trained_deg is not None:
+        print(f"\n  trained vs trained (r16 vs r32): {trained_vs_trained_deg:.1f}°")
+        gap_to_random = rb["random_vs_random_mean_deg"] - trained_vs_trained_deg
+        full_range = rb["random_vs_random_mean_deg"]
+        pct = 100 * gap_to_random / full_range if full_range > 0 else 0
+        print(f"\n  → trained subspaces are {pct:.0f}% of the way from "
+              f"'fully random' (0%) to 'identical' (100%, i.e. 0°),")
+        print(f"    relative to the {rb['random_vs_random_mean_deg']:.1f}° random-vs-random ceiling.")
+
+
+
     print(f"\nProfiling {checkpoint_path}")
     matrices = load_adapter_weights(checkpoint_path)
     print(f"  Found {len(matrices)} LoRA modules")
@@ -396,6 +514,15 @@ def main():
     parser.add_argument("--output-dir",     type=Path, default=Path("analysis"))
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     parser.add_argument("--angle-k", type=int, default=16)
+    parser.add_argument("--random-baseline", action="store_true",
+                        help="Compare --checkpoint against random adapters of the same "
+                             "shape, and random-vs-random, to establish a zero-alignment "
+                             "reference for principal angles at --angle-k.")
+    parser.add_argument("--random-seeds", type=int, default=3)
+    parser.add_argument("--trained-vs-trained-deg", type=float, default=None,
+                        help="If you already have a trained-vs-trained mean angle "
+                             "(e.g. from --compare), pass it here to show where it "
+                             "falls relative to the random baseline.")
     args = parser.parse_args()
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -420,6 +547,18 @@ def main():
 
     if not args.checkpoint:
         parser.error("Must specify --checkpoint or --checkpoint-dir")
+
+    if args.random_baseline:
+        rb = compare_against_random_baseline(
+            args.checkpoint, args.device,
+            angle_k=args.angle_k, n_random_seeds=args.random_seeds,
+        )
+        out = args.output_dir / f"random_baseline_{args.checkpoint.parent.name}_k{args.angle_k}.json"
+        with out.open("w") as f:
+            json.dump(rb, f, indent=2)
+        print_random_baseline_summary(rb, args.trained_vs_trained_deg)
+        print(f"\nWrote {out}")
+        return
 
     profile_a = profile_adapter(args.checkpoint, args.device)
     out_a = args.output_dir / f"profile_{args.checkpoint.parent.name}.json"
