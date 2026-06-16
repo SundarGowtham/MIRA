@@ -2,6 +2,8 @@ from __future__ import annotations
 import pickle
 import re
 from pathlib import Path
+from typing import List
+import json
 
 from validator import (
     SynthesisValidator, ThermoChecker,
@@ -14,8 +16,27 @@ TEMP_RE       = re.compile(r"T=([0-9.]+)")
 TIME_RE       = re.compile(r"t=([0-9.]+)")
 ATM_RE        = re.compile(r"atm=([^,|]+)")
 
-
 def parse_completion(text: str, target_formula: str) -> PredictedRoute:
+    precursors = []
+    operations = []
+    thermodynamic_checks = []
+
+    # 1. Strip the reasoning block
+    # re.DOTALL ensures the '.' matches newline characters inside the <think> tags
+    text_cleaned = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
+    
+    # 2. Isolate the JSON string (in case there's trailing/leading text)
+    start_idx = text_cleaned.find('{')
+    end_idx = text_cleaned.rfind('}')
+
+    if start_idx == -1 or end_idx == -1:
+        return PredictedRoute(target_formula=target_formula, precursors=[], operations=[])
+
+    
+
+
+
+def parse_completion_old(text: str, target_formula: str) -> PredictedRoute:
     """Parse model output back into validator schema. Defaults to empty on failure."""
     precursors = []
     operations = []
