@@ -163,16 +163,12 @@ def get_target(ex: dict) -> str:
         return ex["target"]
     return ex.get("metadata", {}).get("target_formula", "")
 
-    # try:
-    #     route = parse_completion(completion, target)
-    #     return validator.validate(route, target)
-    # except Exception:
-    #     return 0.0, {"error": 1.0}
-def score_one(completion: str, target: str, validator) -> tuple[float, dict]:
+
+def score_one(completion: str, target: str, validator):
     try:
         route = parse_completion(completion, target)
         return validator.validate(route, target)
-    except Exception as e:
+    except Exception:
         return 0.0, {"error": 1.0}
 
 def aggregate(records: list[dict]) -> dict:
@@ -337,6 +333,14 @@ def main():
         # Incremental save after every batch — kill-safe
         agg = aggregate(records)
         write_results(args, records, agg, out_path)
+
+        # Release fragmented CUDA memory between batches. With large
+        # max_new_tokens, KV-cache allocations grow over the run and
+        # fragmentation can trigger OOM even with capacity nominally free.
+        # See PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True for the
+        # complementary allocator-level fix.
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
 
         # Progress logging
         done = len(records)
