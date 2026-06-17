@@ -63,8 +63,16 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
     if start_idx == -1 or end_idx == -1 or end_idx <= start_idx:
         raise ParseFailure(f"no JSON object found in completion (len={len(text)})")
 
+    json_str = text_cleaned[start_idx : end_idx + 1]
+    # Strip trailing // line comments. Observed in real completions (e.g. a
+    # model-inserted "// Target is metastable, slightly above hull?" inside
+    # an otherwise well-formed object) — invalid per JSON spec, but a single
+    # comment doesn't mean the rest of the structure is unreliable, so we
+    # recover it rather than counting it as a hard parse failure.
+    json_str = re.sub(r"//[^\n]*", "", json_str)
+
     try:
-        data = json.loads(text_cleaned[start_idx : end_idx + 1])
+        data = json.loads(json_str)
     except json.JSONDecodeError as e:
         raise ParseFailure(f"JSON decode error: {e}") from e
 
@@ -88,17 +96,22 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
         if not isinstance(op, dict) or "type" not in op:
             continue
 
-        # Case-insensitive key lookup: we've now hit one casing mismatch
-        # (temperature_c vs temperature_C) that silently dropped real data
-        # rather than raising, because dict.get() doesn't fail loudly on a
-        # near-miss key. Rather than patch this one key, normalize all
-        # operation-level keys to lowercase once, so the same failure class
-        # doesn't quietly recur for time_h/atmosphere/media if a future
-        # generation batch varies casing on those instead.
+        # Case- and name-insensitive key lookup. Ground-truth survey of 162
+        # real eval completions (see notes below) showed the model uses
+        # several DIFFERENT key names for the same field, not just casing
+        # variants of the trained schema:
+        #   temperature: 733x   temperature_C: 7x   temperature_c: 3x
+        #   (i.e. the model's dominant key, post-SFT, is "temperature" —
+        #    NOT "temperature_c", which is what 100% of training data used)
+        #   time_h (trained) vs time (drifted, paired with "temperature")
+        # This is real schema drift away from the training format, not
+        # noise — treat it as a finding, not just a bug to silently absorb.
         op_lower = {k.lower(): v for k, v in op.items()}
 
-        temp_c = op_lower.get("temperature_c")
-        time_h = op_lower.get("time_h")
+        temp_c = (op_lower.get("temperature_c")
+                  or op_lower.get("temperature"))
+        time_h = (op_lower.get("time_h")
+                  or op_lower.get("time"))
         atm = op_lower.get("atmosphere")
 
         operations.append(PredictedOperation(
