@@ -109,9 +109,11 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
         op_lower = {k.lower(): v for k, v in op.items()}
 
         temp_c = (op_lower.get("temperature_c")
-                  or op_lower.get("temperature"))
+                  or op_lower.get("temperature")
+                  or op_lower.get("temperature_celsius"))
         time_h = (op_lower.get("time_h")
-                  or op_lower.get("time"))
+                  or op_lower.get("time")
+                  or op_lower.get("time_hours"))
         atm = op_lower.get("atmosphere")
 
         operations.append(PredictedOperation(
@@ -139,11 +141,11 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
     )
 
 
-def load_validator(formula_set_path: Path, pd_cache_path: Path | None = None):
+def load_validator(formula_set_path: Path, pd_cache_path: Path | None = None, project_root: Path | None = None):
     import pickle
     with formula_set_path.open("rb") as f:
         formula_set = pickle.load(f)
-    thermo = ThermoChecker.from_cache(pd_cache_path) if pd_cache_path and pd_cache_path.exists() else None
+    thermo = ThermoChecker.from_sharded_cache(pd_cache_path, project_root) if pd_cache_path and pd_cache_path.exists() else None
     return SynthesisValidator(formula_set, thermo_checker=thermo)
 
 
