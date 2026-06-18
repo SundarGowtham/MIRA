@@ -47,6 +47,7 @@ import pickle
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Literal, Optional, TYPE_CHECKING
+from rich import print as rprint
 
 from pymatgen.core import Composition, Element
 from pymatgen.analysis.reaction_calculator import (
@@ -542,6 +543,45 @@ class SynthesisValidator:
     # ------------------------------------------------------------------
     # Public interface
     # ------------------------------------------------------------------
+    def val_debug(self, predicted: PredictedRoute, ground_truth_target_formula: Optional[str] = None):
+
+
+        reactants = [Composition(p.formula) for p in predicted.precursors]
+        if not reactants:
+            print("no reactants")
+        target_comp = Composition(predicted.target_formula)
+
+        # Try with progressively more volatile candidates. Some routes
+        # don't release any gases (e.g., oxide + oxide → oxide); Reaction
+        # is happier with the minimum set that lets it balance.
+        candidate_volatile_sets = [
+            [],                                                # no volatiles
+            [Composition(v) for v in ["CO2"]],                # carbonate routes
+            [Composition(v) for v in ["H2O"]],                # hydrate routes
+            [Composition(v) for v in ["O2"]],                 # redox routes
+            [Composition(v) for v in ["CO2", "H2O", "O2"]],   # full common set
+            [Composition(v) for v in VOLATILE_FORMULAS],      # everything
+        ]
+
+        for volatile_set in candidate_volatile_sets:
+            products = [target_comp] + volatile_set
+        #     try:
+        #         reaction = Reaction(reactants, products)
+        #     except ReactionError:
+        #         continue
+        #     # Target must be produced with positive coefficient
+        #     target_coeff = reaction.get_coeff(target_comp)
+        #     if target_coeff <= 1e-6:
+        #         continue
+        #     # All precursors must actually be consumed (negative coeff)
+        #     all_used = all(
+        #         reaction.get_coeff(r) < -1e-6 for r in reactants
+        #     )
+        #     if all_used:
+        #         return 1.0
+
+
+
 
     def validate(
         self,
@@ -819,6 +859,9 @@ class SynthesisValidator:
         ΔE_rxn via ComputedReaction. Continuous score with piecewise-linear
         mapping from eV/atom to [0, 1].
         """
+        # print(f"if self.thermo_checker is None: {self.thermo_checker}")
+
+        
         if self.thermo_checker is None:
             return 0.5
 

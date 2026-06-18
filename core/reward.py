@@ -25,6 +25,30 @@ class ParseFailure(Exception):
     """
     pass
 
+def _coerce_float(value) -> float | None:
+    """
+    Coerce a field that should be numeric to float, defensively.
+ 
+    Observed real failure: model emitted "time": "1 h" (string with units)
+    instead of "time": 1.0 (number) in rank32-seed1337. Rather than crash
+    on the float() call inside list comprehensions — which is what bit us
+    once already — strip non-numeric trailing junk and parse the leading
+    number. Returns None if nothing numeric can be recovered, letting the
+    caller decide whether that's a missing field or a parse failure.
+    """
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, str):
+        m = re.match(r"\s*(-?\d+\.?\d*(?:[eE][+-]?\d+)?)", value)
+        if m:
+            try:
+                return float(m.group(1))
+            except ValueError:
+                return None
+    return None
+
 
 def parse_completion(text: str, target_formula: str) -> PredictedRoute:
     """
@@ -83,10 +107,13 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
     for p in data.get("precursors", []):
         if not isinstance(p, dict) or "formula" not in p:
             continue
+        amount = _coerce_float(p.get("amount", 1.0))
+        if amount is None:
+            amount = 1.0
         try:
             precursors.append(PredictedPrecursor(
                 formula=str(p["formula"]),
-                amount=float(p.get("amount", 1.0)),
+                amount=amount,
             ))
         except (TypeError, ValueError):
             continue
@@ -108,12 +135,12 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
         # noise — treat it as a finding, not just a bug to silently absorb.
         op_lower = {k.lower(): v for k, v in op.items()}
 
-        temp_c = (op_lower.get("temperature_c")
-                  or op_lower.get("temperature")
-                  or op_lower.get("temperature_celsius"))
-        time_h = (op_lower.get("time_h")
-                  or op_lower.get("time")
-                  or op_lower.get("time_hours"))
+        temp_c = _coerce_float(op_lower.get("temperature_c")
+                                or op_lower.get("temperature")
+                                or op_lower.get("temperature_celsius"))
+        time_h = _coerce_float(op_lower.get("time_h")
+                                or op_lower.get("time")
+                                or op_lower.get("time_hours"))
         atm = op_lower.get("atmosphere")
 
         operations.append(PredictedOperation(
