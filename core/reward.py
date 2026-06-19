@@ -25,10 +25,11 @@ class ParseFailure(Exception):
     """
     pass
 
+
 def _coerce_float(value) -> float | None:
     """
     Coerce a field that should be numeric to float, defensively.
- 
+
     Observed real failure: model emitted "time": "1 h" (string with units)
     instead of "time": 1.0 (number) in rank32-seed1337. Rather than crash
     on the float() call inside list comprehensions — which is what bit us
@@ -146,8 +147,8 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
         operations.append(PredictedOperation(
             type=str(op["type"]),
             conditions=PredictedConditions(
-                heating_temperature=[float(temp_c)] if temp_c is not None else [],
-                heating_time=[float(time_h)] if time_h is not None else [],
+                heating_temperature=[temp_c] if temp_c is not None else [],
+                heating_time=[time_h] if time_h is not None else [],
                 heating_atmosphere=[str(atm)] if atm is not None else [],
                 mixing_media=op_lower.get("media"),
                 atmosphere=atm if atm in ("Ar", "N2", "vacuum", "air") else None,
@@ -168,11 +169,29 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
     )
 
 
-def load_validator(formula_set_path: Path, pd_cache_path: Path | None = None, project_root: Path | None = None):
+def load_validator(formula_set_path: Path, pd_index_path: Path | None = None,
+                   project_root: Path | None = None):
+    """
+    formula_set_path: data/cache/mp_formula_set.pkl
+    pd_index_path:    data/cache/pd_index.json  (maps chemsys -> shard filename,
+                       e.g. "Al-O-Zn" -> "pd_shards/Al-O-Zn.pkl")
+    project_root:      directory pd_index.json's relative shard paths are
+                       resolved against (i.e. data/cache/), since
+                       ThermoChecker._get_pd does project_root / pd_index[chemsys]
+
+    NOTE: thermo data is sharded per chemical system (data/cache/pd_shards/*.pkl),
+    not one bulk pickle. ThermoChecker.from_sharded_cache only loads pd_index.json
+    up front; individual shards are lazy-loaded on first access by chemsys.
+    """
     import pickle
     with formula_set_path.open("rb") as f:
         formula_set = pickle.load(f)
-    thermo = ThermoChecker.from_sharded_cache(pd_cache_path, project_root) if pd_cache_path and pd_cache_path.exists() else None
+
+    thermo = None
+    if pd_index_path and pd_index_path.exists():
+        root = project_root or pd_index_path.parent
+        thermo = ThermoChecker.from_sharded_cache(pd_index_path, root)
+
     return SynthesisValidator(formula_set, thermo_checker=thermo)
 
 

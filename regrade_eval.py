@@ -25,10 +25,9 @@ Usage:
 from __future__ import annotations
 import argparse
 import json
-import os
 import statistics
 from pathlib import Path
-from rich import print as rprint
+
 from core.reward import parse_completion, ParseFailure, load_validator
 
 
@@ -51,7 +50,7 @@ def regrade_file(path: Path, validator, verbose: bool = False) -> dict:
     old_rewards = []
 
     new_records = []
-    for rec in records[:1]:
+    for rec in records:
         completion = rec["completion"]
         target = rec["target"]
         old_rewards.append(rec.get("reward", 0.0))
@@ -74,7 +73,6 @@ def regrade_file(path: Path, validator, verbose: bool = False) -> dict:
 
         try:
             reward, breakdown = validator.validate(route, target)
-            rprint("breakdown: ", breakdown)
         except Exception as e:
             n_validate_failed += 1
             new_rec["reward"] = 0.0
@@ -151,7 +149,7 @@ def main():
     p.add_argument("files", nargs="+", type=Path)
     p.add_argument("--formula-set", type=Path, default=Path("data/cache/mp_formula_set.pkl"))
     p.add_argument("--pd-index", type=Path, default=Path("data/cache/pd_index.json"))
-    p.add_argument("--project-root", type=Path, default=Path(os.getcwd()),
+    p.add_argument("--project-root", type=Path, default=Path("data/cache"),
                    help="Directory pd_index.json's shard paths are resolved against")
     p.add_argument("--in-place", action="store_true",
                    help="Overwrite source files instead of writing _regraded.json copies")
@@ -169,18 +167,17 @@ def main():
         if args.verbose:
             print(f"\n=== {path.name} ===")
         result = regrade_file(path, validator, verbose=args.verbose)
-        # rprint(f"result: {result}")
         s = result["summary"]
         summaries.append((path.name, s))
         print(f"{path.stem[:50]:50s} {s['mean_old']:>10.4f} {s['mean_new']:>10.4f} "
               f"{s['parse_fail_rate']*100:>10.2f}%")
 
-        # if args.in_place:
-        #     out_path = path
-        # else:
-        #     out_path = path.with_name(path.stem + "_regraded" + path.suffix)
-        # with out_path.open("w") as f:
-        #     json.dump(result["data"], f, indent=2)
+        if args.in_place:
+            out_path = path
+        else:
+            out_path = path.with_name(path.stem + "_regraded" + path.suffix)
+        with out_path.open("w") as f:
+            json.dump(result["data"], f, indent=2)
 
     # Per-constraint breakdown across all files
     print(f"\n{'constraint':25s} ", end="")
