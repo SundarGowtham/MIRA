@@ -12,6 +12,13 @@ Key pymatgen functions used (with the validator check they back):
 
   _check_stoichiometry          → pymatgen.analysis.reaction_calculator.Reaction
                                   (exact null-space balance, ReactionError on fail)
+  _check_amount_accuracy (NEW)  → same Reaction object's solved get_coeff()
+                                  values, compared against the model's
+                                  predicted precursor amounts. Added 2026-07:
+                                  .amount was previously read once and
+                                  discarded, so the reward had zero signal
+                                  on whether predicted quantities were
+                                  correct, only on precursor SPECIES choice.
   _check_charge_neutrality      → Composition.oxi_state_guesses(all_oxi_states=True)
                                   + fractional-valence path using
                                   Element.oxidation_states (full known list)
@@ -116,19 +123,28 @@ class PredictedRoute:
 # ---------------------------------------------------------------------------
 
 # Lightweight mode (no thermodynamics)
+# NOTE: stoichiometry's original 0.35 is split in half with the new
+# amount_accuracy check (added 2026-07) rather than diluting every other
+# weight proportionally. These are two sub-questions of the same
+# underlying "is the recipe stoichiometrically sound" concept (does a
+# balance exist vs. is the predicted ratio close to it), so splitting the
+# existing budget between them is the natural starting allocation - not
+# touching the other four checks' relative weights against each other.
 WEIGHTS_LIGHT = {
-    "stoichiometry":         0.35,
+    "stoichiometry":         0.175,
+    "amount_accuracy":       0.175,
     "charge_neutrality":     0.25,
     "precursors_exist":      0.20,
     "operation_order":       0.10,
     "temperature_plausible": 0.10,
 }
 
-# Thermo-aware mode — eight checks, all physics-grounded.
+# Thermo-aware mode — nine checks, all physics-grounded.
 # Mass balance + reaction energy + target hull stability + atmosphere chemistry
 # carry the most weight because they're the load-bearing chemistry signals.
 WEIGHTS_THERMO = {
-    "stoichiometry":            0.20,   # Reaction balances exactly?
+    "stoichiometry":            0.10,   # Reaction balances exactly?
+    "amount_accuracy":          0.10,   # Predicted ratio vs. solved ratio
     "thermodynamic_favorable":  0.20,   # ΔE_rxn from ComputedReaction
     "target_stability":         0.15,   # e_above_hull of target itself
     "chempot_atmosphere":       0.10,   # μ_O vs. operation atmosphere
@@ -235,6 +251,25 @@ HULL_UNSTABLE   = 0.250   # > 250 meV: probably not a real phase → 0.0
 # These are heuristic but grounded in MP convex-hull behavior for oxides.
 MU_O_OXIDIZING_REQUIRED = -1.0   # Δμ_O > this → target needs air/O2
 MU_O_REDUCING_REQUIRED  = -3.0   # Δμ_O < this → target needs inert/H2
+
+# Amount-accuracy thresholds. UNLIKE the thermo thresholds above, these are
+# NOT derived from a physical noise floor - they're a starting design
+# choice, chosen to tolerate the modest deliberate excess real recipes use
+# (e.g. 5-20% extra alkali carbonate to compensate for volatilization
+# losses, per real corpus reasoning traces - "we might use excess K2CO3
+# due to volatility at high temps"). Validate/retune empirically against
+# real predicted-vs-solved distributions before trusting these numbers the
+# way the physically-grounded thermo thresholds can be trusted.
+# Metric: sum(|predicted_i - solved_i|) / sum(solved_i) - a stoichiometric-
+# mass-weighted mean relative error. Weighting by the solved coefficient
+# itself means a large relative error on a small-coefficient dopant
+# precursor (e.g. Eu2O3 in Sr0.99Eu0.01B2O4) barely moves the score, since
+# its absolute contribution to the deviation is small - this matters for
+# THIS corpus specifically, given ~40% of targets are doped solid
+# solutions with genuinely minor dopant-source precursors.
+AMOUNT_ERROR_TIGHT = 0.10   # within 10% of total stoichiometric mass → 1.0
+AMOUNT_ERROR_LOOSE = 0.30   # up to 30% → linear decay 1.0 → 0.5
+AMOUNT_ERROR_BAD   = 0.75   # up to 75% → linear decay 0.5 → 0.0; beyond → 0.0
 
 
 # ---------------------------------------------------------------------------
@@ -368,7 +403,7 @@ class ThermoChecker:
         precursors: list[tuple[str, float]],
         target_formula: str,
         predicted_route=None,
-    ) -> Optional[float]:
+    ) -> tuple[Optional[float], str]:
         """
         Compute per-atom reaction energy using pymatgen's ComputedReaction.
 
@@ -378,13 +413,34 @@ class ThermoChecker:
         values for gases). This is the Tier 3.1 codepath and is what the
         validator should always use in production.
 
+        If the target has no discrete PD entry (doped / non-stoichiometric
+        solid solution - the dominant cause of sentinel scores, confirmed
+        2026-07: ~98% of previously-flat records fail at exactly this step
+        despite a fully covered, uncorrupted PD), falls back to
+        gibbs_corrector.compute_reaction_gibbs_per_atom_interpolated, which
+        represents the target via its convex-hull decomposition instead of
+        a literal entry. Backtested against 400 records with a real discrete
+        entry: median residual 0.0, 95.3% within MP's own 50 meV/atom
+        reaction-energy noise floor. See that function's docstring for the
+        known systematic bias (mild upper bound on the true driving force).
+
         If `predicted_route` is None, falls back to a 0K ΔE calculation. This
         is a diagnostic-only path; raw 0K ΔE is systematically endothermic for
         gas-releasing reactions (carbonates, hydroxides) and shouldn't be
         scored against the same thresholds as ΔG.
 
-        Returns None if the reaction can't be balanced or required entries
-        are missing from the PD.
+        Returns
+        -------
+        (value, gradeability) where gradeability is one of:
+          "discrete"     - target had a literal PD entry; Tier 3.1 as before.
+          "interpolated" - target had no entry; hull-decomposition fallback
+                            was used. Caller should calibrate/weight this
+                            differently from "discrete" (see bias note above).
+          "ungradeable"  - neither method produced a value (value is None):
+                            no covering PD, missing precursor entry, or the
+                            reaction genuinely doesn't balance. This is a
+                            real "can't grade" case, distinct from either
+                            success path.
         """
         try:
             # CRITICAL: use ONLY target + precursors for the chemsys lookup.
@@ -398,27 +454,38 @@ class ThermoChecker:
             core_formulas = [target_formula] + [f for f, _ in precursors]
             pd, _ = self._resolve_pd(core_formulas)
             if pd is None:
-                return None
+                return None, "ungradeable"
 
             # Tier 3.1: Gibbs-corrected reaction energy at synthesis T
             if predicted_route is not None:
-                from gibbs_corrector import compute_reaction_gibbs_per_atom
+                from gibbs_corrector import (
+                    compute_reaction_gibbs_per_atom,
+                    compute_reaction_gibbs_per_atom_interpolated,
+                )
                 precursor_formulas = [f for f, _ in precursors]
                 delta_G, _T_K = compute_reaction_gibbs_per_atom(
                     target_formula, precursor_formulas, pd, predicted_route
                 )
-                return delta_G
+                if delta_G is not None:
+                    return delta_G, "discrete"
+
+                delta_G_interp, _T_K = compute_reaction_gibbs_per_atom_interpolated(
+                    target_formula, precursor_formulas, pd, predicted_route
+                )
+                if delta_G_interp is not None:
+                    return delta_G_interp, "interpolated"
+                return None, "ungradeable"
 
             # Legacy 0K path (diagnostic only — not for production scoring)
             target_entry = self._best_entry_for_formula(pd, target_formula)
             if target_entry is None:
-                return None
+                return None, "ungradeable"
 
             reactant_entries = []
             for formula, _ in precursors:
                 e = self._best_entry_for_formula(pd, formula)
                 if e is None:
-                    return None
+                    return None, "ungradeable"
                 reactant_entries.append(e)
 
             volatile_entries = []
@@ -432,7 +499,7 @@ class ThermoChecker:
             try:
                 reaction = ComputedReaction(reactant_entries, product_entries)
             except ReactionError:
-                return None
+                return None, "ungradeable"
 
             # ComputedReaction normalizes internally to reduced compositions.
             # Target entry may be the unreduced form (Sr2Ti2O6 for mp-4651
@@ -443,16 +510,16 @@ class ThermoChecker:
             try:
                 target_coeff = reaction.get_coeff(target_comp_reduced)
             except (ValueError, KeyError):
-                return None
+                return None, "ungradeable"
             if target_coeff <= 1e-6:
-                return None
+                return None, "ungradeable"
 
             delta_E_total = reaction.calculated_reaction_energy  # eV
             atoms_target = target_coeff * target_comp_reduced.num_atoms
-            return delta_E_total / atoms_target
+            return delta_E_total / atoms_target, "discrete"
 
         except Exception:
-            return None
+            return None, "ungradeable"
 
     def target_e_above_hull(self, target_formula: str) -> Optional[float]:
         """
@@ -587,19 +654,34 @@ class SynthesisValidator:
         self,
         predicted: PredictedRoute,
         ground_truth_target_formula: Optional[str] = None,
-    ) -> tuple[float, dict[str, float]]:
-        scores: dict[str, float] = {}
+    ) -> tuple[float, dict[str, float | str]]:
+        # NOTE: scores is float-valued for every check EXCEPT the three
+        # "_gradeability"-suffixed sibling keys added below, which are
+        # strings ("discrete" / "interpolated" / "ungradeable" / etc).
+        # This is deliberate and additive: active_weights below only pulls
+        # keys that also exist in self.weights, and no "_gradeability" key
+        # is ever a weight name, so the reward computation is unaffected.
+        # External callers that unpack validate() as (reward, breakdown)
+        # and do dict lookups by check name see no change; only code that
+        # blindly iterated breakdown.values() assuming all-float would
+        # break, and nothing in this codebase currently does that.
+        scores: dict[str, float | str] = {}
 
         scores["stoichiometry"]         = self._check_stoichiometry(predicted)
+        scores["amount_accuracy"], scores["amount_accuracy_gradeability"] = \
+            self._check_amount_accuracy(predicted)
         scores["charge_neutrality"]     = self._check_charge_neutrality(predicted)
         scores["precursors_exist"]      = self._check_precursors_exist(predicted)
         scores["operation_order"]       = self._check_operation_order(predicted)
         scores["temperature_plausible"] = self._check_temperature(predicted)
 
         if self.thermo_checker is not None:
-            scores["thermodynamic_favorable"] = self._check_thermodynamics(predicted)
-            scores["target_stability"]        = self._check_target_stability(predicted)
-            scores["chempot_atmosphere"]      = self._check_chempot_atmosphere(predicted)
+            scores["thermodynamic_favorable"], scores["thermodynamic_favorable_gradeability"] = \
+                self._check_thermodynamics(predicted)
+            scores["target_stability"], scores["target_stability_gradeability"] = \
+                self._check_target_stability(predicted)
+            scores["chempot_atmosphere"], scores["chempot_atmosphere_gradeability"] = \
+                self._check_chempot_atmosphere(predicted)
 
         if ground_truth_target_formula is not None:
             scores["target_match"] = self._check_target_match(
@@ -619,6 +701,55 @@ class SynthesisValidator:
     # Individual constraint checks
     # ------------------------------------------------------------------
 
+    def _find_balanced_reaction(self, predicted: PredictedRoute):
+        """
+        Shared balance-finding logic for _check_stoichiometry and
+        _check_amount_accuracy - both need "does a balanced reaction
+        exist, and if so, what are its solved coefficients", and must
+        agree on which reaction that is (extracted here so they can't
+        silently diverge into disagreeing about the same route).
+
+        Returns (reaction, reactants). reaction is None if no balance was
+        found across any volatile-set candidate. reactants is returned
+        even on failure so callers can still report/use the reactant
+        Compositions without reconstructing them.
+        """
+        reactants = [Composition(p.formula) for p in predicted.precursors]
+        if not reactants:
+            return None, reactants
+        target_comp = Composition(predicted.target_formula)
+
+        # Try with progressively more volatile candidates. Some routes
+        # don't release any gases (e.g., oxide + oxide → oxide); Reaction
+        # is happier with the minimum set that lets it balance.
+        candidate_volatile_sets = [
+            [],                                                # no volatiles
+            [Composition(v) for v in ["CO2"]],                # carbonate routes
+            [Composition(v) for v in ["H2O"]],                # hydrate routes
+            [Composition(v) for v in ["O2"]],                 # redox routes
+            [Composition(v) for v in ["CO2", "H2O", "O2"]],   # full common set
+            [Composition(v) for v in VOLATILE_FORMULAS],      # everything
+        ]
+
+        for volatile_set in candidate_volatile_sets:
+            products = [target_comp] + volatile_set
+            try:
+                reaction = Reaction(reactants, products)
+            except ReactionError:
+                continue
+            # Target must be produced with positive coefficient
+            target_coeff = reaction.get_coeff(target_comp)
+            if target_coeff <= 1e-6:
+                continue
+            # All precursors must actually be consumed (negative coeff)
+            all_used = all(
+                reaction.get_coeff(r) < -1e-6 for r in reactants
+            )
+            if all_used:
+                return reaction, reactants
+
+        return None, reactants
+
     def _check_stoichiometry(self, predicted: PredictedRoute) -> float:
         """
         Mass balance via pymatgen.analysis.reaction_calculator.Reaction.
@@ -630,47 +761,106 @@ class SynthesisValidator:
         Otherwise 0.0.
 
         Binary because the underlying mathematical question is binary:
-        either a balance exists or it doesn't.
+        either a balance exists or it doesn't. See _check_amount_accuracy
+        for whether the model's PREDICTED amounts match that balance -
+        this check only asks whether some balance exists at all.
         """
         try:
-            reactants = [Composition(p.formula) for p in predicted.precursors]
+            reaction, reactants = self._find_balanced_reaction(predicted)
             if not reactants:
                 return 0.0
-            target_comp = Composition(predicted.target_formula)
-
-            # Try with progressively more volatile candidates. Some routes
-            # don't release any gases (e.g., oxide + oxide → oxide); Reaction
-            # is happier with the minimum set that lets it balance.
-            candidate_volatile_sets = [
-                [],                                                # no volatiles
-                [Composition(v) for v in ["CO2"]],                # carbonate routes
-                [Composition(v) for v in ["H2O"]],                # hydrate routes
-                [Composition(v) for v in ["O2"]],                 # redox routes
-                [Composition(v) for v in ["CO2", "H2O", "O2"]],   # full common set
-                [Composition(v) for v in VOLATILE_FORMULAS],      # everything
-            ]
-
-            for volatile_set in candidate_volatile_sets:
-                products = [target_comp] + volatile_set
-                try:
-                    reaction = Reaction(reactants, products)
-                except ReactionError:
-                    continue
-                # Target must be produced with positive coefficient
-                target_coeff = reaction.get_coeff(target_comp)
-                if target_coeff <= 1e-6:
-                    continue
-                # All precursors must actually be consumed (negative coeff)
-                all_used = all(
-                    reaction.get_coeff(r) < -1e-6 for r in reactants
-                )
-                if all_used:
-                    return 1.0
-
-            return 0.0
-
+            return 1.0 if reaction is not None else 0.0
         except Exception:
             return 0.0
+
+    def _check_amount_accuracy(self, predicted: PredictedRoute) -> tuple[float, str]:
+        """
+        Compares the model's PREDICTED precursor amounts against the
+        solved stoichiometric coefficients pymatgen's Reaction computes -
+        the same balance _check_stoichiometry finds and then discards.
+
+        Added 2026-07 after discovering .amount was read in exactly one
+        place in the entire validator (packed into a tuple, then
+        immediately discarded before reaching any computation) - meaning
+        the reward previously had ZERO signal on whether predicted
+        amounts were correct, only on whether the right precursor SPECIES
+        were chosen. This check closes that gap.
+
+        Units confirmed from real corpus data (KLaNb2O7 example): the
+        model reasons out a balance for exactly 1 mole of target, and
+        "amount" IS that solved coefficient
+        (K2CO3: 0.5, La2O3: 0.5, Nb2O5: 1.0 for 0.5 K2CO3 + 0.5 La2O3 +
+        1.0 Nb2O5 -> 1 KLaNb2O7 + 0.5 CO2). So the comparison is: take
+        Reaction's solved coefficients, normalize by the target's own
+        solved coefficient (putting them on the same "per 1 mole target"
+        basis), and compare directly to predicted.precursors[i].amount -
+        no unit conversion needed, same convention on both sides.
+
+        Metric: sum(|predicted_i - solved_i|) / sum(solved_i) - total
+        absolute deviation normalized by total reference stoichiometric
+        mass. This is a stoichiometric-mass-WEIGHTED mean relative error:
+        weighting by each precursor's own solved coefficient means a
+        large relative error on a small-coefficient dopant precursor
+        (e.g. Eu2O3 in Sr0.99Eu0.01B2O4, solved coeff ~0.01) barely moves
+        the score, matching the actual chemistry - getting a trace
+        dopant's amount somewhat wrong matters far less than botching a
+        major reagent. Deliberately NOT cosine similarity: tested against
+        real numbers, cosine similarity stays >0.9 even for a 100%
+        overage on one precursor out of two - too forgiving in the
+        low-dimensional (2-4 precursor) regime this corpus lives in to
+        give GRPO anything to push against.
+
+        Returns (score, gradeability):
+          "discrete"         - a balance was found and amounts compared
+          "no_balance_found" - _find_balanced_reaction found nothing (0.5,
+                                mirrors _check_stoichiometry's 0.0 failure
+                                mode but as a sentinel rather than a
+                                penalty, since this check's JOB is amount
+                                comparison, not balance-existence - that
+                                failure is already penalized via the
+                                separate stoichiometry weight)
+          "no_precursors"    - route has no precursors at all
+          "ungradeable"      - unexpected exception, or degenerate solved
+                                coefficients (should not occur in practice)
+
+        AMOUNT_ERROR_TIGHT/LOOSE/BAD thresholds are a starting design
+        choice, not physically derived - see their definition comment.
+        """
+        try:
+            reaction, reactants = self._find_balanced_reaction(predicted)
+            if not reactants:
+                return 0.0, "no_precursors"
+            if reaction is None:
+                return 0.5, "no_balance_found"
+
+            target_comp = Composition(predicted.target_formula)
+            target_coeff = reaction.get_coeff(target_comp)
+
+            solved = [abs(reaction.get_coeff(c)) / target_coeff for c in reactants]
+            predicted_amounts = [p.amount for p in predicted.precursors]
+
+            sum_solved = sum(solved)
+            if sum_solved < 1e-9:
+                return 0.5, "ungradeable"
+
+            total_abs_dev = sum(
+                abs(pa - s) for pa, s in zip(predicted_amounts, solved)
+            )
+            weighted_error = total_abs_dev / sum_solved
+
+            if weighted_error <= AMOUNT_ERROR_TIGHT:
+                return 1.0, "discrete"
+            elif weighted_error <= AMOUNT_ERROR_LOOSE:
+                t = (weighted_error - AMOUNT_ERROR_TIGHT) / (AMOUNT_ERROR_LOOSE - AMOUNT_ERROR_TIGHT)
+                return 1.0 - 0.5 * t, "discrete"
+            elif weighted_error <= AMOUNT_ERROR_BAD:
+                t = (weighted_error - AMOUNT_ERROR_LOOSE) / (AMOUNT_ERROR_BAD - AMOUNT_ERROR_LOOSE)
+                return 0.5 - 0.5 * t, "discrete"
+            else:
+                return 0.0, "discrete"
+
+        except Exception:
+            return 0.5, "ungradeable"
 
     def _check_charge_neutrality(self, predicted: PredictedRoute) -> float:
         """
@@ -854,42 +1044,48 @@ class SynthesisValidator:
         in_range = [1.0 if TEMP_MIN <= t <= TEMP_MAX else 0.0 for t in temps]
         return sum(in_range) / len(in_range)
 
-    def _check_thermodynamics(self, predicted: PredictedRoute) -> float:
+    def _check_thermodynamics(self, predicted: PredictedRoute) -> tuple[float, str]:
         """
         ΔE_rxn via ComputedReaction. Continuous score with piecewise-linear
         mapping from eV/atom to [0, 1].
-        """
-        # print(f"if self.thermo_checker is None: {self.thermo_checker}")
 
-        
+        Returns (score, gradeability) — gradeability is one of "discrete",
+        "interpolated", "ungradeable", or "no_thermo_checker". This
+        replaces the old bare-float return specifically so a genuine
+        interpolated/discrete value is never indistinguishable from a
+        0.5 can't-compute sentinel downstream (the schema gap flagged in
+        HANDOFF_2 — a stored 0.5 used to mean either "computed and happens
+        to be near 0.5" or "couldn't compute at all", with no way to tell
+        which after the fact).
+        """
         if self.thermo_checker is None:
-            return 0.5
+            return 0.5, "no_thermo_checker"
 
         try:
             precursor_pairs = [(p.formula, p.amount) for p in predicted.precursors]
-            delta_G = self.thermo_checker.reaction_energy_per_atom(
+            delta_G, gradeability = self.thermo_checker.reaction_energy_per_atom(
                 precursor_pairs, predicted.target_formula,
                 predicted_route=predicted,
             )
         except Exception:
-            return 0.5
+            return 0.5, "ungradeable"
 
         if delta_G is None:
-            return 0.5
+            return 0.5, gradeability  # "ungradeable" from reaction_energy_per_atom
 
         # Piecewise-linear scoring applied to ΔG_rxn(T_synthesis), not 0K ΔE.
         if delta_G <= RXN_ENERGY_FAVORABLE:
-            return 1.0
+            return 1.0, gradeability
         elif delta_G <= RXN_ENERGY_BORDERLINE:
             t = (delta_G - RXN_ENERGY_FAVORABLE) / (RXN_ENERGY_BORDERLINE - RXN_ENERGY_FAVORABLE)
-            return 1.0 - 0.5 * t
+            return 1.0 - 0.5 * t, gradeability
         elif delta_G <= RXN_ENERGY_UNFAVORABLE:
             t = (delta_G - RXN_ENERGY_BORDERLINE) / (RXN_ENERGY_UNFAVORABLE - RXN_ENERGY_BORDERLINE)
-            return 0.5 - 0.5 * t
+            return 0.5 - 0.5 * t, gradeability
         else:
-            return 0.0
+            return 0.0, gradeability
 
-    def _check_target_stability(self, predicted: PredictedRoute) -> float:
+    def _check_target_stability(self, predicted: PredictedRoute) -> tuple[float, str]:
         """
         Score based on e_above_hull of the target itself.
 
@@ -899,31 +1095,37 @@ class SynthesisValidator:
           100–250 meV/atom → linear decay 0.5 → 0.0
           > 250 meV/atom   → 0.0
 
-        Returns 0.5 if the target isn't a discrete PD entry (e.g., novel
-        solid solution). This is the right neutral signal: we shouldn't
-        punish the model for working on a composition MP hasn't computed.
+        Returns (0.5, "sentinel_no_entry") if the target isn't a discrete PD
+        entry (e.g. novel solid solution). Deliberately NOT interpolated,
+        unlike reaction_energy_per_atom: e_above_hull measures how far a
+        discrete entry sits above the equilibrium mixture at its own
+        composition. A target represented at its own interpolated hull
+        value doesn't have a meaningful "distance above hull" - it would
+        trivially be 0 by construction, which overstates confidence rather
+        than fixing anything. This stays an honest, explicitly-tagged
+        sentinel rather than a fabricated number.
         """
         if self.thermo_checker is None:
-            return 0.5
+            return 0.5, "no_thermo_checker"
         try:
             e_hull = self.thermo_checker.target_e_above_hull(predicted.target_formula)
         except Exception:
-            return 0.5
+            return 0.5, "ungradeable"
         if e_hull is None:
-            return 0.5
+            return 0.5, "sentinel_no_entry"
 
         if e_hull <= HULL_STABLE:
-            return 1.0
+            return 1.0, "discrete"
         elif e_hull <= HULL_METASTABLE:
             t = (e_hull - HULL_STABLE) / (HULL_METASTABLE - HULL_STABLE)
-            return 1.0 - 0.5 * t
+            return 1.0 - 0.5 * t, "discrete"
         elif e_hull <= HULL_UNSTABLE:
             t = (e_hull - HULL_METASTABLE) / (HULL_UNSTABLE - HULL_METASTABLE)
-            return 0.5 - 0.5 * t
+            return 0.5 - 0.5 * t, "discrete"
         else:
-            return 0.0
+            return 0.0, "discrete"
 
-    def _check_chempot_atmosphere(self, predicted: PredictedRoute) -> float:
+    def _check_chempot_atmosphere(self, predicted: PredictedRoute) -> tuple[float, str]:
         """
         Atmosphere consistency with the Δμ_O envelope at the target's
         stability facets, via PhaseDiagram.get_all_chempots.
@@ -942,27 +1144,36 @@ class SynthesisValidator:
                - omitted + flexible regime     → 1.0
                - declared + matches need       → 1.0
                - declared + contradicts need   → 0.0
+
+        Returns (score, gradeability). Unlike reaction_energy_per_atom, this
+        check does NOT depend on the target having a discrete PD entry —
+        get_all_chempots operates on facet geometry for any composition in
+        the covered chemsys, discrete or not (confirmed against pymatgen
+        source, 2026-07). So this was never actually blocked by the
+        target_entry_missing failure mode; the tag is added here purely for
+        schema consistency across all three thermo checks, not because a
+        fix was needed.
         """
         if self.thermo_checker is None:
-            return 0.5
+            return 0.5, "no_thermo_checker"
 
         # Step 1: short-circuit for non-oxide targets — the check doesn't apply.
         try:
             target_comp = Composition(predicted.target_formula)
             if Element("O") not in target_comp.elements:
-                return 1.0
+                return 1.0, "not_applicable"
         except Exception:
-            return 0.5
+            return 0.5, "ungradeable"
 
         # Step 2: fetch chempot envelope.
         try:
             all_chempots = self.thermo_checker.composition_chempots(predicted.target_formula)
             mu_O_ref = self.thermo_checker.oxygen_reference_energy(predicted.target_formula)
         except Exception:
-            return 0.5
+            return 0.5, "ungradeable"
 
         if not all_chempots or mu_O_ref is None:
-            return 0.5
+            return 0.5, "ungradeable"
 
         o_el = Element("O")
         o_mus_delta = [
@@ -972,7 +1183,7 @@ class SynthesisValidator:
         ]
         if not o_mus_delta:
             # PD has oxygen ref but no facet exposes μ_O — unusual; be neutral.
-            return 0.5
+            return 0.5, "ungradeable"
 
         mu_lo, mu_hi = min(o_mus_delta), max(o_mus_delta)
         needs_oxidizing = mu_lo > MU_O_OXIDIZING_REQUIRED
@@ -988,14 +1199,14 @@ class SynthesisValidator:
 
         if not classes:
             if needs_oxidizing or needs_reducing:
-                return 0.0
-            return 1.0
+                return 0.0, "discrete"
+            return 1.0, "discrete"
 
         if needs_oxidizing:
-            return 1.0 if all(c == "ox" for c in classes) else 0.0
+            return (1.0 if all(c == "ox" for c in classes) else 0.0), "discrete"
         if needs_reducing:
-            return 1.0 if all(c in {"red", "inert"} for c in classes) else 0.0
-        return 1.0
+            return (1.0 if all(c in {"red", "inert"} for c in classes) else 0.0), "discrete"
+        return 1.0, "discrete"
 
     def _check_target_match(
         self,
