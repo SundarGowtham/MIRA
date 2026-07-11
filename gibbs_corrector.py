@@ -79,8 +79,32 @@ logger = logging.getLogger(__name__)
 _EV_PER_KJMOL = 1.0 / 96.485332
 
 # Operations that determine "synthesis temperature".
-# Match the canonical operation vocabulary in validator.py.
-_HEATING_OP_NAMES = frozenset({"calcine", "sinter", "anneal"})
+# Covers TWO vocabularies that both appear as PredictedRoute.operations[i].type
+# in this codebase: the model's own completion verbs ("calcine", "sinter",
+# "anneal") AND Kononova's raw Class-style parser names ("HeatingOperation",
+# "SinteringOperation" - the latter per validator.py's own defensive comment
+# "in case the parser emits this variant"). The original set only covered the
+# first vocabulary; this was invisible because every prior caller built
+# routes from MODEL-generated completions (which always use the model's own
+# verbs), never from raw corpus records directly - until kononova_triage.py
+# (2026-07), which builds routes straight from Kononova's raw schema and
+# silently defaulted every route to the (also-buggy, see below) fallback
+# temperature because "heatingoperation" was never in this set.
+# NOTE: deliberately does NOT include "quenchingoperation" - quenching is a
+# COOLING step following the max-temperature heating step, not itself a
+# temperature-defining event for ΔG evaluation (validator.py's
+# HEATING_OP_TYPES includes it for a different purpose - temperature-
+# plausibility checking on ALL temperature-bearing ops - which is not the
+# same question this function answers).
+_HEATING_OP_NAMES = frozenset({
+    "calcine", "sinter", "anneal",
+    "heatingoperation", "sinteringoperation",
+})
+
+# See extract_synthesis_temperature_K's docstring: 300.0, not 298.15
+# (literal room temperature), because GibbsComputedStructureEntry hard-
+# requires temp >= 300K and 298.15 sat 1.85K below that floor.
+_FALLBACK_TEMP_K = 300.0
 
 # Gas-phase species always handled via NIST tables (never via Bartel).
 # Boiling points well below typical synthesis temperatures.
@@ -221,13 +245,27 @@ def gibbs_formation_ev(species: str, T_K: float) -> float:
 def extract_synthesis_temperature_K(predicted_route) -> float:
     """
     Determine the temperature at which to evaluate ΔG_rxn.
-    
+
     Take the highest temperature_c across all heating-type operations
-    (calcine, sinter, anneal). Convert °C → K. If no heating ops, default to
-    298.15 K (room temperature).
-    
+    (calcine, sinter, anneal, and Kononova's raw HeatingOperation/
+    SinteringOperation class names - see _HEATING_OP_NAMES). Convert
+    °C → K. If no heating ops are found, default to _FALLBACK_TEMP_K.
+
     This represents the operating point of the synthesis reaction. For the
     route to work, the reaction must be thermodynamically favorable at this T.
+
+    _FALLBACK_TEMP_K is 300.0, NOT literal room temperature (298.15K).
+    GibbsComputedStructureEntry hard-requires temp in [300, 2000] K
+    (pymatgen.analysis.compatibility.computed_entries, "Temperature must
+    be selected from range: [300, 2000] K."). 298.15 is 1.85K below that
+    floor, so every fallback-temperature wrap was silently raising
+    ValueError, being swallowed by _wrap_solid_at_T's broad except, and
+    returning None - invisible until kononova_triage.py (2026-07) started
+    building routes without recognized heating ops en masse. This bug was
+    independent of the _HEATING_OP_NAMES vocabulary gap above; fixing only
+    one of the two would still leave routes with genuinely no heating
+    operation (a real, if rare, case - e.g. room-temperature mechanochemical
+    synthesis routes) hitting the same ValueError.
     """
     max_T_C = -float("inf")
     for op in predicted_route.operations:
@@ -238,9 +276,9 @@ def extract_synthesis_temperature_K(predicted_route) -> float:
         heating_temps = op.conditions.heating_temperature
         if heating_temps:
             max_T_C = max(max_T_C, max(heating_temps))
-    
+
     if max_T_C == -float("inf"):
-        return 298.15
+        return _FALLBACK_TEMP_K
     return max_T_C + 273.15
 
 
