@@ -15,6 +15,8 @@ wheels/
 
 data/
 data*/
+!data_curation
+
 
 .DS_Store
 
