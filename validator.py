@@ -786,29 +786,45 @@ class SynthesisValidator:
         amounts were correct, only on whether the right precursor SPECIES
         were chosen. This check closes that gap.
 
-        Units confirmed from real corpus data (KLaNb2O7 example): the
-        model reasons out a balance for exactly 1 mole of target, and
-        "amount" IS that solved coefficient
-        (K2CO3: 0.5, La2O3: 0.5, Nb2O5: 1.0 for 0.5 K2CO3 + 0.5 La2O3 +
-        1.0 Nb2O5 -> 1 KLaNb2O7 + 0.5 CO2). So the comparison is: take
-        Reaction's solved coefficients, normalize by the target's own
-        solved coefficient (putting them on the same "per 1 mole target"
-        basis), and compare directly to predicted.precursors[i].amount -
-        no unit conversion needed, same convention on both sides.
+        SCALE-INVARIANCE BUG, found and fixed 2026-07: the first version
+        of this check assumed the model always states amounts normalized
+        to "produce exactly 1 mole of target" (true in the one real
+        example it was validated against, KLaNb2O7, by coincidence - the
+        model happened to solve its balance for 1 mole there). Reaction's
+        solved coefficients ARE normalized that way (target_coeff always
+        == 1.0 after the /target_coeff step below), but the model has no
+        reason to pick that same batch size - "combine 1 mole La2O3 + 1
+        mole In2O3" (-> 2 mole LaInO3) is an entirely standard, correct
+        way to state a recipe, and compared unscaled against solved
+        [0.5, 0.5] it scored as maximally wrong. A full-corpus rescore
+        caught this: the overwhelming majority of amount_accuracy=0.0
+        records showed a CONSISTENT scale factor between predicted and
+        solved (not scattered ratio errors), across formulas as mundane
+        as LaInO3, LiTaO3, FeNbO4. Fixed by finding the best-fit uniform
+        scale factor (ratio of totals) and rescaling predicted amounts by
+        it before computing distance - this is now comparing RATIOS, not
+        absolute batch sizes, which is the chemically meaningful quantity.
+        Verified against real flagged records post-fix: pure scale
+        mismatches (LaInO3, CaMg0.8Al0.4Si1.8O6, Na2Mo2O7) now resolve to
+        ~0 error; genuine ratio errors (Y0.99Dy0.01(P0.8V0.2)O4 at 27%,
+        Ga5Ge20Sb10S65 at 48%) correctly retain substantial error - the
+        fix discriminates rather than just zeroing everything out.
 
-        Metric: sum(|predicted_i - solved_i|) / sum(solved_i) - total
-        absolute deviation normalized by total reference stoichiometric
-        mass. This is a stoichiometric-mass-WEIGHTED mean relative error:
-        weighting by each precursor's own solved coefficient means a
-        large relative error on a small-coefficient dopant precursor
-        (e.g. Eu2O3 in Sr0.99Eu0.01B2O4, solved coeff ~0.01) barely moves
-        the score, matching the actual chemistry - getting a trace
-        dopant's amount somewhat wrong matters far less than botching a
-        major reagent. Deliberately NOT cosine similarity: tested against
-        real numbers, cosine similarity stays >0.9 even for a 100%
-        overage on one precursor out of two - too forgiving in the
-        low-dimensional (2-4 precursor) regime this corpus lives in to
-        give GRPO anything to push against.
+        Units: Reaction's solved coefficients are normalized by the
+        target's own solved coefficient (putting them on a "per 1 mole
+        target" basis) as before - that part was always correct. What's
+        new is normalizing the PREDICTED side by its own best-fit scale
+        before comparing, so the comparison is scale-free on both sides.
+
+        Metric: sum(|scaled_predicted_i - solved_i|) / sum(solved_i) -
+        total absolute deviation normalized by total reference
+        stoichiometric mass, AFTER removing the model's chosen batch
+        size. Still a stoichiometric-mass-WEIGHTED error: a large
+        relative error on a small-coefficient dopant precursor (e.g.
+        Eu2O3 in Sr0.99Eu0.01B2O4, solved coeff ~0.01) barely moves the
+        score, matching the actual chemistry - getting a trace dopant's
+        amount somewhat wrong matters far less than botching a major
+        reagent.
 
         Returns (score, gradeability):
           "discrete"         - a balance was found and amounts compared
@@ -820,11 +836,14 @@ class SynthesisValidator:
                                 failure is already penalized via the
                                 separate stoichiometry weight)
           "no_precursors"    - route has no precursors at all
-          "ungradeable"      - unexpected exception, or degenerate solved
-                                coefficients (should not occur in practice)
+          "ungradeable"      - unexpected exception, or degenerate solved/
+                                predicted amounts (e.g. all-zero predicted
+                                amounts, making the scale factor undefined)
 
         AMOUNT_ERROR_TIGHT/LOOSE/BAD thresholds are a starting design
         choice, not physically derived - see their definition comment.
+        Worth re-examining empirically now that the metric measures real
+        ratio error instead of being dominated by scale-mismatch noise.
         """
         try:
             reaction, reactants = self._find_balanced_reaction(predicted)
@@ -840,11 +859,19 @@ class SynthesisValidator:
             predicted_amounts = [p.amount for p in predicted.precursors]
 
             sum_solved = sum(solved)
-            if sum_solved < 1e-9:
+            sum_predicted = sum(predicted_amounts)
+            if sum_solved < 1e-9 or sum_predicted < 1e-9:
                 return 0.5, "ungradeable"
 
+            # Best-fit uniform scale factor: what batch size did the model
+            # implicitly choose, relative to the solved "1 mole target"
+            # convention? Rescale predicted amounts by it before measuring
+            # distance, so the comparison is between RATIOS, not batch sizes.
+            scale = sum_predicted / sum_solved
+            scaled_predicted = [pa / scale for pa in predicted_amounts]
+
             total_abs_dev = sum(
-                abs(pa - s) for pa, s in zip(predicted_amounts, solved)
+                abs(sp - s) for sp, s in zip(scaled_predicted, solved)
             )
             weighted_error = total_abs_dev / sum_solved
 
@@ -1091,8 +1118,8 @@ class SynthesisValidator:
 
         Continuous:
           ≤ 25 meV/atom    → 1.0 (on hull within DFT noise)
-          25–100 meV/atom  → linear decay 1.0 → 0.5 (synthesizable metastable)
-          100–250 meV/atom → linear decay 0.5 → 0.0
+          25-100 meV/atom  → linear decay 1.0 → 0.5 (synthesizable metastable)
+          100-250 meV/atom → linear decay 0.5 → 0.0
           > 250 meV/atom   → 0.0
 
         Returns (0.5, "sentinel_no_entry") if the target isn't a discrete PD
