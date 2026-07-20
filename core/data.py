@@ -9,6 +9,20 @@ def load_jsonl(path: Path) -> list[dict]:
         return [json.loads(line) for line in f if line.strip()]
 
 
+def get_target(ex: dict) -> str:
+    """
+    Extract target formula from a record.
+    split_dataset.py writes 'target' at top level.
+    Legacy evaluate.py format wraps it in ex['metadata']['target_formula'].
+    Mirrors evaluate_batched.py's get_target() exactly - the two files had
+    diverged (this one only checked the legacy path, confirmed broken
+    against real data 2026-07), now both use the same tolerant lookup.
+    """
+    if "target" in ex:
+        return ex["target"]
+    return ex.get("metadata", {}).get("target_formula", "")
+
+
 def build_sft_dataset(jsonl_path: Path, tokenizer, limit: int | None = None) -> Dataset:
     """For SFT: format {prompt, completion} → {text} via chat template."""
     examples = load_jsonl(jsonl_path)
@@ -38,6 +52,6 @@ def build_grpo_dataset(jsonl_path: Path, tokenizer, limit: int | None = None) ->
         )
         rows.append({
             "prompt": prompt_text,
-            "target_formula": ex["metadata"]["target_formula"],
+            "target_formula": get_target(ex),
         })
     return Dataset.from_list(rows)

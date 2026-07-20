@@ -51,6 +51,7 @@ Usage:
 from __future__ import annotations
 
 import pickle
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Literal, Optional, TYPE_CHECKING
@@ -86,10 +87,52 @@ class PredictedOperation:
     conditions: PredictedConditions = field(default_factory=PredictedConditions)
 
 
+def expand_hydrate_notation(formula: str) -> str:
+    """
+    pymatgen's Composition() cannot parse the standard middle-dot hydrate
+    notation "A·nB" (confirmed 2026-07: Composition("FeC2O4·2H2O") raises
+    "·2 is an invalid formula!"). This is common, standard synthesis
+    notation - FeC2O4·2H2O (iron oxalate dihydrate) is the conventional
+    Fe(II) precursor for LiFePO4 specifically, chosen to keep iron from
+    oxidizing to Fe(III) during synthesis. Found via a real LiFePO4
+    record: _resolve_pd hit this precursor and aborted the ENTIRE
+    chemsys resolution with zero PD candidates attempted - even though
+    the target and every other precursor parsed fine and the needed PD
+    shard was confirmed present and loadable. This one unhandled
+    notation is the leading suspect for why LFP-family sat at 82%
+    ungradeable despite the target chemistry itself being unremarkable.
+
+    Rewrites "A·nB" -> "A(B)n", parenthetical-multiplier notation
+    pymatgen DOES support natively (confirmed against Ca9Y(PO4)7,
+    Li3V2(PO4)3C, and FeC2O4(H2O)2 - the last one verified to produce
+    exactly {Fe:1, C:2, O:6, H:4}, matching the real chemistry).
+
+    Only handles the CONFIRMED "·" (U+00B7 MIDDLE DOT) character -
+    deliberately not guessing at other hydrate notations ("." with
+    spaces, "*", unspecified "xH2O") without evidence they occur in
+    this corpus too. Formulas without "·" pass through unchanged.
+    """
+    if "\u00b7" not in formula:
+        return formula
+    parts = formula.split("\u00b7")
+    if len(parts) != 2:
+        return formula  # more than one dot - don't guess, leave as-is
+    base, hydrate = parts
+    m = re.match(r"^(\d*)(.+)$", hydrate.strip())
+    if not m:
+        return formula
+    count_str, hydrate_formula = m.groups()
+    count = count_str if count_str else "1"
+    return f"{base}({hydrate_formula}){count}"
+
+
 @dataclass
 class PredictedPrecursor:
     formula: str
     amount: float = 1.0
+
+    def __post_init__(self):
+        self.formula = expand_hydrate_notation(self.formula)
 
 
 
@@ -116,6 +159,9 @@ class PredictedRoute:
     precursors: list[PredictedPrecursor]
     operations: list[PredictedOperation]
     reaction_string: str = ""
+
+    def __post_init__(self):
+        self.target_formula = expand_hydrate_notation(self.target_formula)
 
 
 # ---------------------------------------------------------------------------
