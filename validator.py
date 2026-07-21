@@ -322,19 +322,32 @@ AMOUNT_ERROR_BAD   = 0.75   # up to 75% → linear decay 0.5 → 0.0; beyond →
 # Atmosphere classification (used by chempot_atmosphere check)
 # ---------------------------------------------------------------------------
 
-ATMOSPHERE_OXIDIZING = frozenset({"air", "o2", "oxygen"})
+ATMOSPHERE_OXIDIZING = frozenset({"air", "o2", "oxygen", "h2o", "steam", "water"})
 ATMOSPHERE_REDUCING  = frozenset({"h2", "hydrogen", "co", "forming gas", "formgas"})
 ATMOSPHERE_INERT     = frozenset({"ar", "argon", "n2", "nitrogen", "vacuum", "he", "helium"})
 
 
 def _classify_atmosphere(atm: str) -> str:
-    """Return one of: 'ox', 'red', 'inert', 'unknown'."""
+    """Return one of: 'ox', 'red', 'inert', 'unknown'.
+
+    Token-based matching on alphanumeric runs — NOT substring matching.
+    The previous `in` checks misclassified real strings: "h2o" matched
+    "h2" (steam flagged REDUCING, which is backwards — steam oxidizes
+    metals at temperature, e.g. Fe + H2O -> FeO + H2), "co2" matched
+    "o2", "cold"/"controlled" matched "co", and "carbon" matched "ar"
+    (carbon is a reductant, not an inert gas). h2o/steam/water are
+    classified oxidizing accordingly.
+    """
     a = atm.lower().strip()
-    if any(o in a for o in ATMOSPHERE_OXIDIZING):
-        return "ox"
-    if any(r in a for r in ATMOSPHERE_REDUCING):
+    # Multiword phrases whose individual tokens would lose their meaning.
+    if "forming gas" in a or "formgas" in a:
         return "red"
-    if any(i in a for i in ATMOSPHERE_INERT):
+    tokens = {t for t in re.split(r"[^a-z0-9]+", a) if t}
+    if tokens & ATMOSPHERE_OXIDIZING:
+        return "ox"
+    if tokens & ATMOSPHERE_REDUCING:
+        return "red"
+    if tokens & ATMOSPHERE_INERT:
         return "inert"
     return "unknown"
 
@@ -418,11 +431,19 @@ class ThermoChecker:
         if pd is not None:
             return pd, chemsys
         if self.pd_index:
-            for cs in self.pd_index:
-                if all_els.issubset(set(cs.split("-"))):
-                    pd = self._get_pd(cs)
-                    if pd is not None:
-                        return pd, cs
+            # Deterministic candidate order: smallest covering superset first
+            # (fewer extraneous competing phases distorting the hull),
+            # alphabetical tiebreak. Previously iterated raw dict order, so
+            # the chosen PD depended on the index file's key ordering and
+            # could change across index rebuilds.
+            candidates = sorted(
+                (cs for cs in self.pd_index if all_els.issubset(set(cs.split("-")))),
+                key=lambda c: (c.count("-"), c),
+            )
+            for cs in candidates:
+                pd = self._get_pd(cs)
+                if pd is not None:
+                    return pd, cs
         return None, chemsys
 
     @staticmethod
@@ -769,15 +790,16 @@ class SynthesisValidator:
         # don't release any gases (e.g., oxide + oxide → oxide); Reaction
         # is happier with the minimum set that lets it balance.
         candidate_volatile_sets = [
-            [],                                                # no volatiles
-            [Composition(v) for v in ["CO2"]],                # carbonate routes
-            [Composition(v) for v in ["H2O"]],                # hydrate routes
-            [Composition(v) for v in ["O2"]],                 # redox routes
-            [Composition(v) for v in ["CO2", "H2O", "O2"]],   # full common set
-            [Composition(v) for v in VOLATILE_FORMULAS],      # everything
+            [],                          # no volatiles
+            ["CO2"],                     # carbonate routes
+            ["H2O"],                     # hydrate routes
+            ["O2"],                      # redox routes
+            ["CO2", "H2O", "O2"],        # full common set
+            VOLATILE_FORMULAS,           # everything
         ]
 
-        for volatile_set in candidate_volatile_sets:
+        for volatile_strs in candidate_volatile_sets:
+            volatile_set = [Composition(v) for v in volatile_strs]
             products = [target_comp] + volatile_set
             try:
                 reaction = Reaction(reactants, products)
@@ -791,10 +813,46 @@ class SynthesisValidator:
             all_used = all(
                 reaction.get_coeff(r) < -1e-6 for r in reactants
             )
-            if all_used:
-                return reaction, reactants
+            if not all_used:
+                continue
+            # pymatgen's null-space balance puts a volatile on whichever
+            # side closes the equation — including the REACTANT side, i.e.
+            # the balance can silently assume gas uptake (FeO -> Fe2O3
+            # balanced as consuming O2 the route never declared). Only
+            # accept such a balance if the route declares an atmosphere
+            # that can actually supply the consumed gas.
+            consumed = [s for s, c in zip(volatile_strs, volatile_set)
+                        if reaction.get_coeff(c) < -1e-6]
+            if consumed and not self._volatiles_supplied(consumed, predicted):
+                continue
+            return reaction, reactants
 
         return None, reactants
+
+    @staticmethod
+    def _volatiles_supplied(consumed: list[str], predicted: PredictedRoute) -> bool:
+        """
+        True iff every volatile the balance CONSUMES has a declared supplier
+        in the route's operation atmospheres (e.g. O2 uptake requires an
+        air/O2/oxidizing atmosphere; N2 uptake a nitrogen atmosphere).
+        Atmospheres declared on any operation count — quench-step
+        atmospheres are as real as furnace atmospheres for this purpose.
+        """
+        SUPPLIERS = {
+            "O2":  {"o2", "oxygen", "air"},
+            "H2O": {"h2o", "steam", "water"},
+            "CO2": {"co2"},
+            "N2":  {"n2", "nitrogen"},
+            "NH3": {"nh3", "ammonia"},
+        }
+        tokens: set[str] = set()
+        for op in predicted.operations:
+            for atm in op.conditions.heating_atmosphere:
+                tokens.update(t for t in re.split(r"[^a-z0-9]+", atm.lower()) if t)
+        for v in consumed:
+            if not (tokens & SUPPLIERS.get(v, set())):
+                return False
+        return True
 
     def _check_stoichiometry(self, predicted: PredictedRoute) -> float:
         """
@@ -1081,7 +1139,14 @@ class SynthesisValidator:
 
         pairs = list(zip(ranks[:-1], ranks[1:]))
         violations = 0
+        assessed = 0
         for i, (a, b) in enumerate(pairs):
+            if a == 99 or b == 99:
+                # Unrecognized op type — ordering of this pair can't be
+                # assessed. Previously such pairs silently passed, so a
+                # route of entirely unknown op types scored a perfect 1.0.
+                continue
+            assessed += 1
             if a > b:
                 # Rank dropped. Check if it's a heating→mixing regrind cycle
                 # where another heating step follows later.
@@ -1089,7 +1154,9 @@ class SynthesisValidator:
                     if any(r >= HEATING_RANK for r in ranks[i + 2:]):
                         continue   # legitimate regrind, not a violation
                 violations += 1
-        return 1.0 - violations / len(pairs)
+        if assessed == 0:
+            return 0.5  # no recognizable op types — neutral, not perfect
+        return 1.0 - violations / assessed
 
     def _check_temperature(self, predicted: PredictedRoute) -> float:
         """

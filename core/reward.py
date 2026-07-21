@@ -89,17 +89,20 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
         raise ParseFailure(f"no JSON object found in completion (len={len(text)})")
 
     json_str = text_cleaned[start_idx : end_idx + 1]
-    # Strip trailing // line comments. Observed in real completions (e.g. a
-    # model-inserted "// Target is metastable, slightly above hull?" inside
-    # an otherwise well-formed object) — invalid per JSON spec, but a single
+    # Model-inserted // line comments were observed in real completions
+    # (e.g. a "// Target is metastable, slightly above hull?" inside an
+    # otherwise well-formed object) — invalid per JSON spec, but a single
     # comment doesn't mean the rest of the structure is unreliable, so we
-    # recover it rather than counting it as a hard parse failure.
-    json_str = re.sub(r"//[^\n]*", "", json_str)
-
+    # recover it rather than counting it as a hard parse failure. Only as
+    # a FALLBACK, though: the naive strip mangles "//" inside legitimate
+    # string values, so the unmodified string gets the first attempt.
     try:
         data = json.loads(json_str)
-    except json.JSONDecodeError as e:
-        raise ParseFailure(f"JSON decode error: {e}") from e
+    except json.JSONDecodeError:
+        try:
+            data = json.loads(re.sub(r"//[^\n]*", "", json_str))
+        except json.JSONDecodeError as e:
+            raise ParseFailure(f"JSON decode error: {e}") from e
 
     if not isinstance(data, dict):
         raise ParseFailure(f"parsed JSON is not an object (got {type(data).__name__})")
@@ -150,7 +153,7 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
                 heating_temperature=[temp_c] if temp_c is not None else [],
                 heating_time=[time_h] if time_h is not None else [],
                 heating_atmosphere=[str(atm)] if atm is not None else [],
-                mixing_media=op_lower.get("media"),
+                mixing_media=str(op_lower["media"]) if op_lower.get("media") is not None else None,
                 atmosphere=atm if atm in ("Ar", "N2", "vacuum", "air") else None,
             ),
         ))
@@ -215,7 +218,11 @@ def make_reward_fn(validator: SynthesisValidator, verbose: bool = False):
             stats["n_total"] += 1
             try:
                 route = parse_completion(completion, target)
-            except ParseFailure as e:
+            except Exception as e:
+                # Broad on purpose: ParseFailure is the expected path, but a
+                # malformed operations entry can raise TypeError/ValueError
+                # from dataclass construction, and that must not propagate
+                # into TRL's reward computation and kill a training run.
                 stats["n_parse_failed"] += 1
                 if verbose:
                     print(f"[parse_fail] target={target}: {e}")
