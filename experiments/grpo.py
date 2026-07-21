@@ -54,8 +54,8 @@ class GRPOExperiment(Experiment):
 
         validator = load_validator(
             formula_set_path=Path("data/cache/mp_formula_set.pkl"),
-            # pd_cache_path=Path("data/cache/phase_diagrams.pkl"),
-            pd_cache_path=None,
+            pd_index_path=Path("data/cache/pd_index.json"),
+            project_root=Path("."),
         )
         reward_fn = make_reward_fn(validator)
 

@@ -146,6 +146,13 @@ def generate_batch(model, tok, prompts: list[str], args) -> list[str]:
     prompt_len = inputs.input_ids.shape[1]
     completion_ids = out[:, prompt_len:]
     completions = tok.batch_decode(completion_ids, skip_special_tokens=True)
+
+    # Release GPU tensors and hand reserved blocks back to the driver. The
+    # KV cache for a long batch is GBs; without this, the caching allocator's
+    # reserved memory only ratchets upward across batches (indistinguishable
+    # from a leak in nvidia-smi) and long-generation runs OOM mid-eval.
+    del inputs, out, completion_ids
+    torch.cuda.empty_cache()
     return completions
 
 
@@ -178,7 +185,8 @@ def aggregate(records: list[dict]) -> dict:
     constraint_scores: dict[str, list[float]] = defaultdict(list)
     for r in records:
         for k, v in r["breakdown"].items():
-            constraint_scores[k].append(v)
+            if isinstance(v, (int, float)):
+                constraint_scores[k].append(v)
 
     agg = {
         "n_examples":       len(records),
@@ -254,7 +262,8 @@ def main():
         log("  (--skip-thermo: using neutral 0.5 for thermo)")
     validator = load_validator(
         formula_set_path=args.cache_dir / "mp_formula_set.pkl",
-        pd_cache_path=None if args.skip_thermo else args.cache_dir / "phase_diagrams.pkl",
+        pd_index_path=None if args.skip_thermo else args.cache_dir / "pd_index.json",
+        project_root=Path("."),
     )
 
     eval_path = args.data_dir / f"{args.data_prefix}_{args.split}.jsonl"

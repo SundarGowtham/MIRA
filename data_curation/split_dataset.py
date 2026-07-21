@@ -59,21 +59,24 @@ def chemistry_class(formula: str) -> str:
     Coarse chemistry class from the target formula.
     Used as one axis of stratification so val/test see all chemistry types.
     """
-    f = formula.upper()
-    elements = set(re.findall(r'[A-Z][A-Z]?', f))  # rough element extraction
+    # Extract elements from the ORIGINAL formula with proper case.
+    # Previously this uppercased the formula first, which destroyed
+    # two-letter element symbols (Nb -> "NB" -> tokens N and B) and
+    # labeled niobates like KLaNb2O7 as "borate".
+    elements = set(re.findall(r'[A-Z][a-z]?', formula))
     if "P" in elements and "O" in elements:
         return "phosphate"
     if "S" in elements and "O" not in elements:
         return "sulfide"
-    if "S" in elements and "O" in elements and any(e in elements for e in ["Ba","Sr","Ca","La"]):
+    if "S" in elements and "O" in elements and any(e in elements for e in ["Ba", "Sr", "Ca", "La"]):
         return "sulfate"
-    if any(e in elements for e in ["F","CL","BR","I"]) and "O" not in elements:
+    if any(e in elements for e in ["F", "Cl", "Br", "I"]) and "O" not in elements:
         return "halide"
     if "N" in elements and "O" not in elements:
         return "nitride"
     if "C" in elements and "O" not in elements:
         return "carbide"
-    if "SI" in elements and "O" in elements:
+    if "Si" in elements and "O" in elements:
         return "silicate"
     if "B" in elements and "O" in elements:
         return "borate"
@@ -126,7 +129,7 @@ def format_for_sft(record: dict) -> dict:
     Returns a dict with 'prompt', 'thinking', 'response' fields plus
     all validator metadata preserved for downstream filtering.
     """
-    thinking = record.get("thinking", "").strip()
+    thinking = (record.get("thinking") or "").strip()
     # Strip the wrapping <think>...</think> tags if present — the model
     # should generate them, not receive them in the target
     thinking = re.sub(r'^<think>\s*', '', thinking)
@@ -215,7 +218,7 @@ def main():
                     recs,
                     key=lambda r: (
                         r.get("validator_score", 0),
-                        len(r.get("thinking", "")),
+                        len(r.get("thinking") or ""),
                     )
                 )
                 deduped.append(best)
