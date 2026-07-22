@@ -135,24 +135,6 @@ class PredictedPrecursor:
         self.formula = expand_hydrate_notation(self.formula)
 
 
-
-# {"type": "oxidation_state", "element": "Fe", "avg_valence": 3.5, "requires_atmosphere": "oxidizing"},
-# {"type": "competing_phase", "formula": "LaFeO3", "form_energy_per_atom": -2.85},
-# {"type": "stoichiometric_constraint", "species": "O2", "moles_per_formula_unit": 0.125, "role": "consumed"},
-# {"type": "hull_stability", "formula": "SrLa(FeO3)2", "e_above_hull": 0.005}
-
-
-# @dataclass
-# class ThermodynamicCheck:
-#     type: Literal["oxidation_state", "competing_phase", "stoichiometric_constraint", "hull_stability"]
-#     element: Optional[str] = None
-#     formula: Optional[str] = None
-#     avg_valence: Optional[float] = None
-#     requires_atmosphere: []
-
-
-
-
 @dataclass
 class PredictedRoute:
     target_formula: str
@@ -674,6 +656,13 @@ class SynthesisValidator:
             WEIGHTS_THERMO if thermo_checker is not None else WEIGHTS_LIGHT
         )
 
+    # Gradeability tags that mean "this check could not be computed" — as
+    # opposed to a genuinely computed mid-band 0.5. validate() excludes
+    # checks carrying one of these from the reward entirely (see there).
+    SENTINEL_TAGS = frozenset({
+        "ungradeable", "sentinel_no_entry", "no_balance_found", "no_thermo_checker",
+    })
+
     # ------------------------------------------------------------------
     # Public interface
     # ------------------------------------------------------------------
@@ -755,7 +744,21 @@ class SynthesisValidator:
                 predicted, ground_truth_target_formula
             )
 
-        active_weights = {k: v for k, v in self.weights.items() if k in scores}
+        # None-propagation (Route C): checks whose gradeability tag marks a
+        # can't-compute state are EXCLUDED from the reward and the remaining
+        # weights are renormalized. Previously the 0.5 sentinel was paid at
+        # full weight — free credit on eval (up to ~0.225 in thermo mode
+        # when all three thermo checks are ungradeable) and constant,
+        # advantage-zero mass inside every GRPO group on that target.
+        # Genuinely computed mid-band 0.5 scores (tag "discrete"/
+        # "interpolated") are unaffected.
+        active_weights = {}
+        for k, w in self.weights.items():
+            if k not in scores:
+                continue
+            if scores.get(f"{k}_gradeability") in self.SENTINEL_TAGS:
+                continue
+            active_weights[k] = w
         weight_sum = sum(active_weights.values())
         if weight_sum == 0:
             return 0.0, scores

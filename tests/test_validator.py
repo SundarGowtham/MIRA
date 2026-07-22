@@ -108,6 +108,19 @@ nonsense = route("LiFePO4", [("K2CO3", 1.0)], ops=[op("calcine", temp=700)])
 check("chemically impossible route fails",
       LIGHT_VALIDATOR._check_stoichiometry(nonsense) == 0.0)
 
+print("== sentinel exclusion (None-propagation in validate()) ==")
+reward, bd = LIGHT_VALIDATOR.validate(nonsense, "LiFePO4")
+check("impossible route's amount_accuracy tagged no_balance_found",
+      bd.get("amount_accuracy_gradeability") == "no_balance_found")
+# Expected reward: renormalized over active checks with amount_accuracy removed
+w = dict(LIGHT_VALIDATOR.weights)
+w.pop("amount_accuracy")
+ws = sum(w.values())
+expected = sum(w[k] * bd[k] for k in w) / ws
+check("sentinel check excluded from reward, weights renormalized",
+      abs(reward - round(expected, 4)) < 1e-3,
+      f"reward={reward} expected={expected:.4f}")
+
 # ---------------------------------------------------------------------------
 print("== operation_order ==")
 mix_heat = route("X", [("X", 1.0)],
