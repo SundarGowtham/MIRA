@@ -42,3 +42,6 @@ debug_raw
 manifold_visualization
 
 run_logs
+
+validator_v2.py
+
