@@ -208,6 +208,12 @@ HEATING_OP_TYPES = frozenset({
     "QuenchingOperation",
 })
 
+# Validator epoch stamp. Written into datasets, eval JSONs, and wandb
+# configs so a score can never be attributed to the wrong validator
+# version (the 0.285 -> 0.853 regrade whiplash must stay impossible
+# to misread). Bump on any scoring-behavior change.
+VALIDATOR_VERSION = "2026-07-30-noneprop+hydrate+gasuptake+atmtokens"
+
 TEMP_MIN = 100.0
 TEMP_MAX = 2000.0
 

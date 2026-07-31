@@ -40,6 +40,12 @@ def parse_args():
                    help="LoRA alpha. Overrides the experiment's default. Conventional: 2 * lora_r.")
     p.add_argument("--lora-dropout", type=float, default=None,
                    help="LoRA dropout. Overrides the experiment's default.")
+    p.add_argument("--reward-aggregation",
+                   choices=["normalize_then_sum", "sum_then_normalize"],
+                   default="normalize_then_sum",
+                   help="GRPO only: multi-reward aggregation. normalize_then_sum = "
+                        "GDPO (per-check z-normalize, then combine); sum_then_normalize "
+                        "= classic GRPO (combine, then normalize). Grid axis A.")
 
 
     return p.parse_args()

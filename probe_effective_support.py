@@ -80,6 +80,8 @@ def parse_args():
     p.add_argument("--max-new-tokens", type=int, default=11000)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--out", type=Path, default=Path("misc/support_probe_results.json"))
+    p.add_argument("--save-completions", action="store_true",
+                   help="also store raw completions (large; enables RS-SFT/DPO reuse)")
     return p.parse_args()
 
 
@@ -112,6 +114,10 @@ def summarize(results: dict[str, dict]) -> None:
     print("=" * 74)
     for stratum, recs in sorted(by_stratum.items()):
         print(f"\n{stratum}  (n_targets={len(recs)})")
+        flaps = [r.get("n_gradeability_flappy_checks", 0) for r in recs]
+        if any(flaps):
+            print(f"  gradeability-flap: {sum(1 for f in flaps if f)}/{len(recs)} targets "
+                  f"have >=1 check with unstable gradeability across samples")
         for t in PASS_THRESHOLDS:
             key = f"p_hat_ge_{t}"
             buckets = {"p=0": 0, "0<p<0.5": 0, "0.5<=p<0.95": 0, "p>=0.95": 0}
@@ -184,24 +190,43 @@ def main():
             completions.extend(generate_batch(model, tok, [prompt] * n, args))
 
         rewards: list[float] = []
+        breakdowns: list[dict] = []
         n_error = 0
         for c in completions:
             try:
                 route = parse_completion(c, target)
-                r, _ = validator.validate(route, target)
+                r, bd = validator.validate(route, target)
                 rewards.append(r)
+                breakdowns.append(bd)
             except Exception:
                 rewards.append(0.0)
+                breakdowns.append({"error": 1.0})
                 n_error += 1
+
+        # Gradeability-path stability: a check whose tag varies across
+        # samples of the SAME target means part of the reward spread is
+        # gradeability-path noise (different active_weights), not route
+        # quality — the trap flagged in CLAUDE_RESPONSE_TO_WRITEUP §"trap".
+        check_names = [k for k in validator.weights if any(k in b for b in breakdowns)]
+        n_flappy = 0
+        for k in check_names:
+            tags = {b.get(f"{k}_gradeability") for b in breakdowns if k in b}
+            if len(tags) > 1:
+                n_flappy += 1
 
         results[target] = {
             "target": target,
             "stratum": stratum,
             "n_samples": len(completions),
             "n_error": n_error,
+            "n_gradeability_flappy_checks": n_flappy,
             "mean_reward": round(sum(rewards) / len(rewards), 4),
             **p_hats(rewards),
             "rewards": rewards,
+            "breakdowns": breakdowns,
+        }
+        if args.save_completions:
+            results[target]["completions"] = completions
         }
         n_done += 1
 

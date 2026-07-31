@@ -6,8 +6,9 @@ from trl import GRPOConfig, GRPOTrainer
 from experiments.base import Experiment
 from core.data import build_grpo_dataset
 from core.model import load_with_adapter
-from core.reward import load_validator, make_reward_fn
+from core.reward import load_validator, make_check_reward_fns
 from core.observability import GradientStatsCallback
+from validator import VALIDATOR_VERSION
 
 
 class GRPOExperiment(Experiment):
@@ -23,13 +24,24 @@ class GRPOExperiment(Experiment):
             return dict(epochs=1, batch_size=2, lr=1e-5, accum=1,
                         num_generations=2, max_prompt_len=512,
                         max_completion_len=256, limit=8, kl_beta=0.04)
-        return dict(epochs=2, batch_size=4, lr=5e-6, accum=2,
-                    num_generations=4, max_prompt_len=1024,
-                    max_completion_len=512, limit=None, kl_beta=0.04)
+        # G=8: GDPO's per-check z-normalization divides by group stds
+        # estimated from G samples; at G=4 each std has ~40% relative
+        # error. accum=4 -> effective batch 16 = two G=8 groups per step.
+        # max_completion_len=6144: the trained format is multi-KB
+        # think+JSON (the old 512 truncated essentially every completion).
+        return dict(epochs=2, batch_size=4, lr=5e-6, accum=4,
+                    num_generations=8, max_prompt_len=1024,
+                    max_completion_len=6144, limit=None, kl_beta=0.04)
 
     def run(self) -> Path:
         h = self.hyperparams()
-        self.init_wandb(extra_config={**h, "data_prefix": self.data_prefix})
+        reward_aggregation = getattr(
+            self.args, "reward_aggregation", "normalize_then_sum")
+        self.init_wandb(extra_config={
+            **h, "data_prefix": self.data_prefix,
+            "reward_aggregation": reward_aggregation,
+            "validator_version": VALIDATOR_VERSION,
+        })
 
         model, tok = load_with_adapter(
             self.cfg.model, self.cfg.adapter, self.cfg.smoke,
@@ -57,7 +69,10 @@ class GRPOExperiment(Experiment):
             pd_index_path=Path("data/cache/pd_index.json"),
             project_root=Path("."),
         )
-        reward_fn = make_reward_fn(validator)
+        reward_funcs, reward_names, reward_weights = make_check_reward_fns(
+            validator, dump_path=str(self.output_dir / "generations.jsonl"))
+        print(f"[{self.run_name}] reward funcs: {reward_names} "
+              f"(aggregation={reward_aggregation})")
 
         grpo_config = GRPOConfig(
             output_dir=str(self.output_dir),
@@ -79,7 +94,10 @@ class GRPOExperiment(Experiment):
             # max_prompt_length=h["max_prompt_len"],
             max_completion_length=h["max_completion_len"],
             num_generations=h["num_generations"],
-            generation_batch_size=h["num_generations"],
+            generation_batch_size=h["batch_size"] * h["accum"],
+            multi_objective_aggregation=reward_aggregation,
+            reward_weights=reward_weights,
+            log_completions=True,
             temperature=0.9,
             top_p=0.95,
             beta=h["kl_beta"],
@@ -95,7 +113,7 @@ class GRPOExperiment(Experiment):
         trainer = GRPOTrainer(
             model=model, args=grpo_config,
             train_dataset=train_ds,
-            reward_funcs=[reward_fn],
+            reward_funcs=reward_funcs,
             processing_class=tok,
             callbacks=[GradientStatsCallback(log_every=25 if not self.cfg.smoke else 5)],
         )

@@ -242,3 +242,83 @@ def make_reward_fn(validator: SynthesisValidator, verbose: bool = False):
 
     reward_fn.parse_stats = stats
     return reward_fn
+
+def make_check_reward_fns(validator: SynthesisValidator, dump_path: str | None = None):
+    """
+    Per-check reward functions for multi-reward (GDPO) training via TRL's
+    multi_objective_aggregation.
+
+    Design (see CLAUDE_RESPONSE_TO_WRITEUP.md §1):
+      - ONE shared parse+validate per completion, cached. TRL calls every
+        reward func with the same batch; without the cache each completion
+        would be validated once per check (9-10x).
+      - Can't-compute checks return None, NOT 0.0: TRL converts None ->
+        NaN (grpo_trainer.py:1518-1519), excludes it from that check's
+        group mean/std, and drops it from the nansum aggregation. This is
+        None-propagation — the RL-side twin of validate()'s sentinel
+        exclusion. Returning 0.0 would reinstall the sentinel bug one
+        level up and inject spurious z-scores under normalize_then_sum.
+      - Parse failure yields None for every chemistry check (masked by
+        TRL's unscorable_mask -> advantage 0) and 0.0 for format_ok:
+        format pressure without poisoning the chemistry channels.
+      - dump_path appends (step, target, completion, breakdown) as JSONL:
+        the generation archive for RS-SFT seeding, verified-pair DPO,
+        on-policy p-hat re-estimation, and the JEPA-surrogate monitor.
+
+    Returns (funcs, names, weights) for GRPOTrainer(reward_funcs=funcs)
+    and GRPOConfig(reward_weights=weights): validator weights per check,
+    plus a small weight on format_ok.
+    """
+    cache: dict[tuple[str, str], dict | None] = {}
+    dump_fp = open(dump_path, "a", buffering=1) if dump_path else None
+
+    def bank(completions, target_formula, trainer_state=None, **kwargs):
+        out = []
+        new = []
+        for c, t in zip(completions, target_formula):
+            key = (c, t)
+            if key not in cache:
+                try:
+                    route = parse_completion(c, t)
+                    cache[key] = validator.validate(route, t)[1]
+                except Exception:
+                    cache[key] = None
+                new.append((c, t, cache[key]))
+            out.append(cache[key])
+        # dump only newly-validated completions — bank() is called once per
+        # reward func per batch, and we want each generation archived ONCE.
+        if dump_fp is not None and new:
+            step = getattr(trainer_state, "global_step", None)
+            for c, t, bd in new:
+                dump_fp.write(json.dumps(
+                    {"step": step, "target": t, "completion": c, "breakdown": bd},
+                    default=str) + "\n")
+        return out
+
+    checks = list(validator.weights.keys())
+
+    def format_ok(completions, target_formula, **kwargs):
+        bds = bank(completions, target_formula, **kwargs)
+        return [0.0 if bd is None else 1.0 for bd in bds]
+    format_ok.__name__ = "format_ok"
+
+    def make_fn(check: str):
+        def fn(completions, target_formula, **kwargs):
+            bds = bank(completions, target_formula, **kwargs)
+            vals = []
+            for bd in bds:
+                if bd is None:
+                    vals.append(None)
+                elif bd.get(f"{check}_gradeability") in SynthesisValidator.SENTINEL_TAGS:
+                    vals.append(None)
+                else:
+                    v = bd.get(check)
+                    vals.append(float(v) if isinstance(v, (int, float)) else None)
+            return vals
+        fn.__name__ = f"check_{check}"
+        return fn
+
+    funcs = [format_ok] + [make_fn(c) for c in checks]
+    names = ["format_ok"] + checks
+    weights = [0.2] + [validator.weights[c] for c in checks]
+    return funcs, names, weights
