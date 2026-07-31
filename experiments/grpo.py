@@ -26,14 +26,15 @@ class GRPOExperiment(Experiment):
                         max_completion_len=256, limit=8, kl_beta=0.04)
         # G=8: GDPO's per-check z-normalization divides by group stds
         # estimated from G samples; at G=4 each std has ~40% relative
-        # error. accum=8 -> effective batch 16 = two G=8 groups per step.
-        # batch_size=2, NOT 4: the post-generation logps forward
-        # materializes the full 152k-vocab logits for the batch AND
-        # accelerate's bf16 wrapper forces an fp32 copy — at batch 4 that
-        # pair is ~20GB and OOMs the 32GB card (confirmed 2026-07-31).
+        # error. accum=16 -> effective batch 16 = two G=8 groups per step,
+        # and generation_batch_size stays 16 (generation speed unaffected).
+        # batch_size=1: the training forward materializes the full
+        # 152k-vocab logits per sequence (~5GB fp32) and the backward
+        # needs its gradient too — at batch 2 that chain is ~20GB and
+        # OOM'd inside loss.backward() on the 32GB card (2026-07-31).
         # max_completion_len=6144: the trained format is multi-KB
         # think+JSON (the old 512 truncated essentially every completion).
-        return dict(epochs=2, batch_size=2, lr=5e-6, accum=8,
+        return dict(epochs=2, batch_size=1, lr=5e-6, accum=16,
                     num_generations=8, max_prompt_len=1024,
                     max_completion_len=6144, limit=None, kl_beta=0.04)
 
