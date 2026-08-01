@@ -32,11 +32,15 @@ class GRPOExperiment(Experiment):
         # 152k-vocab logits per sequence (~5GB fp32) and the backward
         # needs its gradient too — at batch 2 that chain is ~20GB and
         # OOM'd inside loss.backward() on the 32GB card (2026-07-31).
-        # max_completion_len=6144: the trained format is multi-KB
-        # think+JSON (the old 512 truncated essentially every completion).
-        return dict(epochs=2, batch_size=1, lr=5e-6, accum=16,
+        # max_completion_len=8192: the trained format is multi-KB
+        # think+JSON (the old 512 truncated everything). 6144 still
+        # clipped ~20% of generations live on gdpo-v3 (clipped_ratio=0.2)
+        # -> ParseFailure -> format-only signal; completions p99 ~6.4k, so
+        # 8192 covers the tail. Memory at batch_size=1: ~10.2k-token seq ->
+        # fp32 logits ~6.2GB + grad ~6.2GB + 5GB model ~ 24GB peak, fits.
+        return dict(epochs=1, batch_size=1, lr=5e-6, accum=16,
                     num_generations=8, max_prompt_len=1024,
-                    max_completion_len=6144, limit=None, kl_beta=0.04)
+                    max_completion_len=8192, limit=2000, kl_beta=0.04)
 
     def run(self) -> Path:
         h = self.hyperparams()
@@ -103,6 +107,14 @@ class GRPOExperiment(Experiment):
             multi_objective_aggregation=reward_aggregation,
             reward_weights=reward_weights,
             log_completions=True,
+            # Lockstep generate() lets the slowest (clipped, 6.1k-token)
+            # completion gate every batch — dominant cost at ~900s/step.
+            # Continuous batching retires finished sequences early.
+            use_transformers_continuous_batching=True,
+            transformers_continuous_batching_config={
+                "use_cuda_graph": False,
+                "max_memory_percent": 0.4,
+            },
             temperature=0.9,
             top_p=0.95,
             beta=h["kl_beta"],
