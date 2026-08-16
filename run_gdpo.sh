@@ -11,7 +11,7 @@ set -u
 cd /users/gsundar/projects/MIRA
 mkdir -p run_logs
 
-TAG="${1:-gdpo-v1}"
+TAG="${1:-gdpo-v3}"
 SEED="${2:-42}"
 EXP="${3:-gdpo}"
 AGG="${4:-sum_then_normalize}"   # only used by the grpo arm; gdpo forces normalize_then_sum

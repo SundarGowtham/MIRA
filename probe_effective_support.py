@@ -82,6 +82,11 @@ def parse_args():
     p.add_argument("--out", type=Path, default=Path("misc/support_probe_results.json"))
     p.add_argument("--save-completions", action="store_true",
                    help="also store raw completions (large; enables RS-SFT/DPO reuse)")
+    p.add_argument("--closed-book", action="store_true",
+                   help="strip the PD stability block from the prompt entirely: "
+                        "the model reasons from the formula alone while the validator "
+                        "still grades with full thermodynamics (verifier-knows-more "
+                        "regime; Claude Step 3).")
     return p.parse_args()
 
 
@@ -152,6 +157,8 @@ def main():
         for t in random.sample(targets, k):
             selected.append((stratum, t))
     print(f"selected {len(selected)} targets x {args.samples_per_target} samples")
+    if args.closed_book:
+        print("MODE: closed-book (no PD stability data in prompts)")
     est_batches = len(selected) * (args.samples_per_target / args.batch_size)
     print(f"~{est_batches:.0f} generation batches expected")
 
@@ -178,10 +185,17 @@ def main():
             n_done += 1
             continue
 
-        stability_text, _ = get_stability_data_sync(target, validator)
-        user_msg = CLOSED_BOOK_USER.format(
-            target=target, context="", stability_data=stability_text)
-        prompt = SYSTEM_MSG + "\n\n" + user_msg
+        if args.closed_book:
+            # No PD context anywhere in the prompt — not even an empty
+            # "Thermodynamic Context" header, which would signal "data
+            # missing" rather than "no data exists".
+            prompt = (SYSTEM_MSG + "\n\nTarget: " + target +
+                      "\n\nProvide your synthesis route as a JSON object.")
+        else:
+            stability_text, _ = get_stability_data_sync(target, validator)
+            user_msg = CLOSED_BOOK_USER.format(
+                target=target, context="", stability_data=stability_text)
+            prompt = SYSTEM_MSG + "\n\n" + user_msg
 
         # draw samples-per-target completions in batches
         completions: list[str] = []
@@ -227,7 +241,6 @@ def main():
         }
         if args.save_completions:
             results[target]["completions"] = completions
-        }
         n_done += 1
 
         # incremental write (resume support)

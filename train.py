@@ -46,6 +46,15 @@ def parse_args():
                    help="GRPO only: multi-reward aggregation. normalize_then_sum = "
                         "GDPO (per-check z-normalize, then combine); sum_then_normalize "
                         "= classic GRPO (combine, then normalize). Grid axis A.")
+    p.add_argument("--lr", type=float, default=None,
+                   help="Override learning rate (e.g. ablation probes).")
+    p.add_argument("--kl-beta", type=float, default=None,
+                   help="Override GRPO KL coefficient beta (default 0.04).")
+    p.add_argument("--fresh-restart", action="store_true",
+                   help="Load adapter weights from --init-from but start a FRESH "
+                        "trainer (new optimizer/scheduler, step 0). Use when changing "
+                        "lr/beta: a normal resume restores the old scheduler state "
+                        "and silently re-imposes the old LR schedule.")
 
 
     return p.parse_args()

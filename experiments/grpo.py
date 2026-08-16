@@ -38,9 +38,14 @@ class GRPOExperiment(Experiment):
         # -> ParseFailure -> format-only signal; completions p99 ~6.4k, so
         # 8192 covers the tail. Memory at batch_size=1: ~10.2k-token seq ->
         # fp32 logits ~6.2GB + grad ~6.2GB + 5GB model ~ 24GB peak, fits.
-        return dict(epochs=1, batch_size=1, lr=5e-6, accum=16,
+        h = dict(epochs=1, batch_size=1, lr=1e-5, accum=16,
                     num_generations=8, max_prompt_len=1024,
-                    max_completion_len=8192, limit=2000, kl_beta=0.04)
+                    max_completion_len=8192, limit=2000, kl_beta=0.001)
+        if getattr(self.args, "lr", None) is not None:
+            h["lr"] = self.args.lr
+        if getattr(self.args, "kl_beta", None) is not None:
+            h["kl_beta"] = self.args.kl_beta
+        return h
 
     def run(self) -> Path:
         h = self.hyperparams()
@@ -135,8 +140,15 @@ class GRPOExperiment(Experiment):
             callbacks=[GradientStatsCallback(log_every=25 if not self.cfg.smoke else 5)],
         )
 
-        # If init_from points to a checkpoint directory, tell the trainer to resume states
-        resume_path = self.args.init_from if (self.args.init_from and "checkpoint" in self.args.init_from) else None
+        # If init_from points to a checkpoint directory, tell the trainer to
+        # resume states — UNLESS --fresh-restart: then take only the adapter
+        # weights and start a fresh optimizer/scheduler at step 0. Required
+        # when ablating lr/beta, because a resumed scheduler restores the
+        # OLD run's base_lrs and silently re-imposes the old LR schedule.
+        if getattr(self.args, "fresh_restart", False):
+            resume_path = None
+        else:
+            resume_path = self.args.init_from if (self.args.init_from and "checkpoint" in self.args.init_from) else None
 
         trainer.train(resume_from_checkpoint=resume_path)
 
