@@ -52,6 +52,31 @@ class GradientStatsCallback(TrainerCallback):
             wandb.log(stats, step=state.global_step)
 
 
+class EvalModeGuard(TrainerCallback):
+    """
+    Works around a TRL 1.8.0 bug: the continuous-batching generation path
+    calls `unwrapped_model.train()` unconditionally after EVERY generation
+    round (grpo_trainer.py:1685). During evaluate() that flips the model
+    back to train mode after the first eval batch, so _prepare_inputs'
+    `mode = "train" if self.model.training else "eval"` misroutes later
+    eval batches through the TRAIN branch — train num_generations (8)
+    instead of num_generations_eval (2) at the group view, which crashed
+    gdpo-v4's first probe eval ("shape [-1, 8, 6] invalid for size 12").
+    Force the correct mode at each loop boundary instead. Needs the
+    trainer (its .model may be a wrapper distinct from the module we
+    built), so it is added post-construction via trainer.add_callback.
+    """
+
+    def __init__(self, trainer):
+        self._trainer = trainer
+
+    def on_prediction_step(self, args, state, control, **kwargs):
+        self._trainer.model.eval()
+
+    def on_step_begin(self, args, state, control, **kwargs):
+        self._trainer.model.train()
+
+
 class SampleCompletionCallback(TrainerCallback):
     """Generates completions for fixed prompts each eval and logs to W&B as a table."""
 

@@ -55,6 +55,15 @@ def parse_args():
                         "trainer (new optimizer/scheduler, step 0). Use when changing "
                         "lr/beta: a normal resume restores the old scheduler state "
                         "and silently re-imposes the old LR schedule.")
+    p.add_argument("--probe-eval-steps", type=int, default=None,
+                   help="GRPO only: evaluate the fixed probe set "
+                        "(<data-dir>/<prefix>_probe.jsonl) every N steps "
+                        "(default 50; 1 in --smoke). Probe generations are "
+                        "archived in generations.jsonl like training ones.")
+    p.add_argument("--max-steps", type=int, default=None,
+                   help="SFT only: hard step cap, overrides epochs (e.g. the "
+                        "equal-compute continuation arm matched to GDPO-300's "
+                        "~75 GPU-hours: ~24000 steps at ~11 s/step).")
 
 
     return p.parse_args()

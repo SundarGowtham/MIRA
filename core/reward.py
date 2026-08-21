@@ -2,6 +2,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
+from statistics import stdev
 
 from validator import (
     SynthesisValidator, ThermoChecker,
@@ -243,7 +244,25 @@ def make_reward_fn(validator: SynthesisValidator, verbose: bool = False):
     reward_fn.parse_stats = stats
     return reward_fn
 
-def make_check_reward_fns(validator: SynthesisValidator, dump_path: str | None = None):
+# Run-3 reward vector (gdpo_v4_next_steps_claude_recommendation.md §5, step 4).
+# The five live-or-revivable channels. Dropped:
+#   target_stability, target_match — prompt-determined / constant, so zero
+#     within-group variance by construction under any group-relative method;
+#   charge_neutrality — insensitive to the variation the policy actually
+#     produces (100% zero-std groups across runs 1-2);
+#   precursors_exist, temperature_plausible — saturated (means ~0.998/0.999).
+RUN3_CHECKS = (
+    "amount_accuracy",
+    "thermodynamic_favorable",
+    "stoichiometry",
+    "chempot_atmosphere",
+    "operation_order",
+)
+
+
+def make_check_reward_fns(validator: SynthesisValidator, dump_path: str | None = None,
+                          checks: tuple[str, ...] = RUN3_CHECKS,
+                          format_weight: float = 0.2):
     """
     Per-check reward functions for multi-reward (GDPO) training via TRL's
     multi_objective_aggregation.
@@ -264,11 +283,29 @@ def make_check_reward_fns(validator: SynthesisValidator, dump_path: str | None =
       - dump_path appends (step, target, completion, breakdown) as JSONL:
         the generation archive for RS-SFT seeding, verified-pair DPO,
         on-policy p-hat re-estimation, and the JEPA-surrogate monitor.
+      - checks: run-3 vector by default (RUN3_CHECKS, uniform weights —
+        the validator's scalar weights were tuned for a weighted sum of
+        [0,1] scores and mean something different after per-channel
+        z-normalization). A missing requested check raises — silently
+        dropping channels is exactly this codebase's historical failure
+        mode.
+      - Each check fn also reports its within-group std via TRL's
+        log_metric hook (wandb: within_group_std/<check>). Groups are
+        keyed on target_formula, robust to batch ordering. This is the
+        per-channel dead-channel diagnostic that the aggregate
+        frac_reward_zero_std hid in runs 1-2.
 
     Returns (funcs, names, weights) for GRPOTrainer(reward_funcs=funcs)
-    and GRPOConfig(reward_weights=weights): validator weights per check,
+    and GRPOConfig(reward_weights=weights): uniform 1.0 per retained check,
     plus a small weight on format_ok.
     """
+    missing = [c for c in checks if c not in validator.weights]
+    if missing:
+        raise ValueError(
+            f"requested reward checks {missing} not present in validator "
+            f"(has {sorted(validator.weights)}) — refusing to run with a "
+            f"silently truncated reward vector")
+
     cache: dict[tuple[str, str], dict | None] = {}
     dump_fp = open(dump_path, "a", buffering=1) if dump_path else None
 
@@ -295,7 +332,7 @@ def make_check_reward_fns(validator: SynthesisValidator, dump_path: str | None =
                     default=str) + "\n")
         return out
 
-    checks = list(validator.weights.keys())
+    checks = list(checks)
 
     def format_ok(completions, target_formula, **kwargs):
         bds = bank(completions, target_formula, **kwargs)
@@ -303,7 +340,7 @@ def make_check_reward_fns(validator: SynthesisValidator, dump_path: str | None =
     format_ok.__name__ = "format_ok"
 
     def make_fn(check: str):
-        def fn(completions, target_formula, **kwargs):
+        def fn(completions, target_formula, log_metric=None, **kwargs):
             bds = bank(completions, target_formula, **kwargs)
             vals = []
             for bd in bds:
@@ -314,11 +351,25 @@ def make_check_reward_fns(validator: SynthesisValidator, dump_path: str | None =
                 else:
                     v = bd.get(check)
                     vals.append(float(v) if isinstance(v, (int, float)) else None)
+            if log_metric is not None:
+                # Per-check within-group std, keyed on target (TRL lays each
+                # prompt's num_generations completions contiguously, but the
+                # target key is robust to any ordering). This is the live
+                # dead-channel diagnostic; frac_reward_zero_std aggregates
+                # across channels and read ~0 while 8/10 were dead.
+                groups: dict[str, list[float]] = {}
+                for v, t in zip(vals, target_formula):
+                    if v is not None:
+                        groups.setdefault(t, []).append(v)
+                stds = [stdev(g) for g in groups.values() if len(g) >= 2]
+                if stds:
+                    log_metric(f"within_group_std/{check}",
+                               sum(stds) / len(stds))
             return vals
         fn.__name__ = f"check_{check}"
         return fn
 
     funcs = [format_ok] + [make_fn(c) for c in checks]
     names = ["format_ok"] + checks
-    weights = [0.2] + [validator.weights[c] for c in checks]
+    weights = [format_weight] + [1.0] * len(checks)
     return funcs, names, weights

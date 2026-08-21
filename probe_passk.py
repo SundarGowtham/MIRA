@@ -32,10 +32,11 @@ from evaluate_batched import load_eval_model, generate_batch  # noqa: E402
 from core.reward import parse_completion, load_validator  # noqa: E402
 from stratified_difficulty_eval import SYSTEM_MSG  # noqa: E402
 
+# Decision-relevant pair first (gdpo300 vs sft); base is context.
 MODELS = [
-    ("base", "base"),
     ("sft", "runs/sft-qlora-sft-v3-2nd-rank16/final"),
     ("gdpo300", "runs/gdpo-qlora-gdpo-v3/checkpoint-300"),
+    ("base", "base"),
 ]
 KS = [1, 2, 4, 8, 16, 32, 48]
 
@@ -55,6 +56,12 @@ def parse_args():
     p.add_argument("--pd-index", type=Path, default=Path("data/cache/pd_index.json"))
     p.add_argument("--project-root", type=Path, default=Path("."))
     p.add_argument("--out", type=Path, default=Path("misc/passk_baseline.json"))
+    p.add_argument("--extra-model", action="append", default=[],
+                   metavar="NAME:PATH",
+                   help="extra checkpoint to evaluate after the built-in three "
+                        "(e.g. the equal-compute SFT continuation arm: "
+                        "--extra-model sftcont:runs/sft-qlora-sft-v3-cont/final). "
+                        "Repeatable; resume-safe per model.")
     return p.parse_args()
 
 
@@ -93,7 +100,14 @@ def main():
         results = {r["target"]: r for r in json.load(args.out.open())["per_target"]}
         print(f"resuming: {len(results)} targets have partial results", flush=True)
 
-    for model_name, ckpt in MODELS:
+    models = list(MODELS)
+    for spec in args.extra_model:
+        name, _, path = spec.partition(":")
+        if not path:
+            sys.exit(f"--extra-model must be NAME:PATH, got {spec!r}")
+        models.append((name, path))
+
+    for model_name, ckpt in models:
         print(f"\n=== loading {model_name} ({ckpt}) ===", flush=True)
         model, tok = load_eval_model(ckpt, args.model)
         t0 = time.time()
@@ -131,11 +145,12 @@ def main():
 
     # summary: mean pass@k per model
     print("\n=== PASS@K SUMMARY (mean over targets) ===")
-    for model_name, _ in MODELS:
+    for model_name, _ in models:
         row = [model_name]
-        for k in [1, 8, 48]:
+        for k in [1, 8, 16, 48]:
             vals = [r["models"][model_name][f"pass@{k}"]
-                    for r in results.values() if model_name in r["models"]]
+                    for r in results.values()
+                    if model_name in r["models"] and f"pass@{k}" in r["models"][model_name]]
             row.append(f"pass@{k}={sum(vals)/len(vals):.3f}" if vals else f"pass@{k}=n/a")
         print("  " + "  ".join(row))
     print(f"\nWrote {args.out}")

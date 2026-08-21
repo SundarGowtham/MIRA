@@ -96,6 +96,8 @@ class SFTExperiment(Experiment):
             run_name=self.run_name,
             seed=self.cfg.seed,
             optim="adamw_8bit",
+            # >0 overrides num_train_epochs (equal-compute continuation arm)
+            max_steps=getattr(self.args, "max_steps", None) or -1,
         )
 
         callbacks = [GradientStatsCallback(log_every=25 if not self.cfg.smoke else 5)]

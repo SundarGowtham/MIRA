@@ -7,7 +7,7 @@ from experiments.base import Experiment
 from core.data import build_grpo_dataset
 from core.model import load_with_adapter
 from core.reward import load_validator, make_check_reward_fns
-from core.observability import GradientStatsCallback
+from core.observability import EvalModeGuard, GradientStatsCallback
 from validator import VALIDATOR_VERSION
 
 
@@ -21,9 +21,14 @@ class GRPOExperiment(Experiment):
 
     def hyperparams(self) -> dict:
         if self.cfg.smoke:
-            return dict(epochs=1, batch_size=2, lr=1e-5, accum=1,
+            # accum=2 (steps_per_generation>1) + num_generations_eval=1
+            # reproduces the real run's eval/train shape mismatch that the
+            # EvalModeGuard guards against (TRL's post-generation .train()
+            # bug) — without the guard this config crashes at eval batch 2.
+            return dict(epochs=1, batch_size=2, lr=1e-5, accum=2,
                         num_generations=2, max_prompt_len=512,
-                        max_completion_len=256, limit=8, kl_beta=0.04)
+                        max_completion_len=256, limit=8, kl_beta=0.04,
+                        probe_eval_steps=1)
         # G=8: GDPO's per-check z-normalization divides by group stds
         # estimated from G samples; at G=4 each std has ~40% relative
         # error. accum=16 -> effective batch 16 = two G=8 groups per step,
@@ -40,11 +45,14 @@ class GRPOExperiment(Experiment):
         # fp32 logits ~6.2GB + grad ~6.2GB + 5GB model ~ 24GB peak, fits.
         h = dict(epochs=1, batch_size=1, lr=1e-5, accum=16,
                     num_generations=8, max_prompt_len=1024,
-                    max_completion_len=8192, limit=2000, kl_beta=0.001)
+                    max_completion_len=8192, limit=2000, kl_beta=0.001,
+                    probe_eval_steps=50)
         if getattr(self.args, "lr", None) is not None:
             h["lr"] = self.args.lr
         if getattr(self.args, "kl_beta", None) is not None:
             h["kl_beta"] = self.args.kl_beta
+        if getattr(self.args, "probe_eval_steps", None) is not None:
+            h["probe_eval_steps"] = self.args.probe_eval_steps
         return h
 
     def run(self) -> Path:
@@ -75,8 +83,19 @@ class GRPOExperiment(Experiment):
 
         train_ds = build_grpo_dataset(train_path, tok, h["limit"])
         val_ds   = build_grpo_dataset(val_path, tok)
+
+        # Fixed held-out probe set (run-3 spec, fixes the rank-deficient
+        # trend design of runs 1-2 where no target ever repeated across
+        # steps): <data-dir>/<prefix>_probe.jsonl, ~30 targets, evaluated
+        # every probe_eval_steps steps. Eval generations land in the same
+        # generations.jsonl dump, so per-check probe curves are also
+        # recoverable offline.
+        probe_path = self.cfg.data_dir / f"{self.data_prefix}_probe.jsonl"
+        eval_ds = (build_grpo_dataset(probe_path, tok)
+                   if probe_path.exists() else None)
         print(f"[{self.run_name}] data_prefix={self.data_prefix} "
-              f"train={len(train_ds)} val={len(val_ds)}")
+              f"train={len(train_ds)} val={len(val_ds)} "
+              f"probe={len(eval_ds) if eval_ds is not None else 0}")
 
         validator = load_validator(
             formula_set_path=Path("data/cache/mp_formula_set.pkl"),
@@ -123,22 +142,39 @@ class GRPOExperiment(Experiment):
             temperature=0.9,
             top_p=0.95,
             beta=h["kl_beta"],
+            # DAPO clip-higher: temperature is not a diversity lever on this
+            # policy (distinct sets/group 1.9-2.3 across T=1.0-1.5), so the
+            # upside clip is opened wide instead. 5.0 = effectively no upper
+            # clip; the DAPO-canonical conservative value is 0.28.
+            epsilon_high=5.0,
+            eval_strategy="steps" if eval_ds is not None else "no",
+            eval_steps=h["probe_eval_steps"],
+            # TRL requires global eval batch divisible by the eval generation
+            # count, and chunks the eval logps forward at
+            # per_device_eval_batch_size sequences — full-vocab logits at
+            # 8 seqs x ~6k tokens would be ~29GB fp32 (OOM). G_eval=2 keeps
+            # the chunk at ~11GB, probe means averaged over 30 targets are
+            # still well-estimated, and eval cost drops to ~5% overhead.
+            per_device_eval_batch_size=2,
+            num_generations_eval=1 if self.cfg.smoke else 2,
             report_to=["wandb"] if os.environ.get("WANDB_API_KEY") else "none",
             run_name=self.run_name,
             seed=self.cfg.seed,
             optim="adamw_8bit",
             remove_unused_columns=False,
-            
-            # epsilon_high=5.0
         )
 
         trainer = GRPOTrainer(
             model=model, args=grpo_config,
             train_dataset=train_ds,
+            eval_dataset=eval_ds,
             reward_funcs=reward_funcs,
             processing_class=tok,
             callbacks=[GradientStatsCallback(log_every=25 if not self.cfg.smoke else 5)],
         )
+        # Must be added post-construction: the guard needs the trainer whose
+        # .model may be an accelerate wrapper around the module we built.
+        trainer.add_callback(EvalModeGuard(trainer))
 
         # If init_from points to a checkpoint directory, tell the trainer to
         # resume states — UNLESS --fresh-restart: then take only the adapter
