@@ -20,11 +20,17 @@ level. The scientific question: does RL expand the synthesis-capability
 boundary or merely sharpen SFT's distribution — and can a factored verifier
 show *which* subskills moved?
 
-**Answer as of 2026-08-25: it sharpens, and the factored verifier cannot show
+**Answer as of 2026-08-26: it sharpens, and the factored verifier cannot show
 which subskills moved because it has no within-group variance to show them
 with.** The project's contribution has shifted from "a better synthesis model"
-to "a diagnostic account of why a physically-decomposed verifier fails to
-support factored-reward RL." See the Central Diagnosis below.
+to two things: (a) a diagnostic account of why a physically-decomposed verifier
+fails to support factored-reward RL (Central Diagnosis below), and (b) — newer
+and stronger — **three positive interpretability results on a model whose
+behavioral story is a null** (findings 12–14). The representational axis is
+where the signal is: success is predictable at AUC ~0.75, SFT's capability
+redistribution has a mechanistic depth signature, and the base model already
+encodes which targets are unsolvable. The RL null becomes context for that,
+not the headline.
 
 ## Central diagnosis (read this before proposing anything)
 
@@ -110,6 +116,44 @@ channel must be something the model fails at a meaningful rate.
 
 11. **Hard-zero pocket**: 12/104 targets (11.5%) score 0/16 at bar 0.9, and they are chemically coherent — complex site-substituted perovskites (`Ba(Zn₀.₃₃Ta₀.₆₇)O₃`, `Ca(Mg₀.₃₃Nb₀.₆₇)O₃`, `BaCe₀.₇Zr₀.₁Y₀.₁Yb₀.₁O₃`), non-oxides (`Si₀.₀₅Al₀.₉₅N`, `Li₂PO₂N`), alloys (`Mg₉₈.₅Gd₁Zn₀.₅`), unusual oxidation states (`Li₂NiO₂`, `SrBiO₂.₅`). Base pass@16 = 0.835 — there were only 16.5 pts of headroom to begin with; SFT captured 21%, GDPO 27%.
 
+12. **Interp probe A — success IS predictable from representation (2026-08-26, v2 hardened)**. Linear probe on prompt activations, 200 targets, 5-fold CV, 2000-sample bootstrap. Continuous pass@1 is NOT predictable (R² negative at every layer, every checkpoint). Binary hit/miss IS, at **mid-late layers**:
+
+    | checkpoint | best layer | AUC | 95% CI |
+    |---|---|---|---|
+    | base | 26 | 0.745 | [0.653, 0.828] |
+    | sft | 21 | 0.767 | [0.662, 0.857] |
+    | gdpo300 | 20 | 0.729 | [0.598, 0.840] |
+
+    All CIs clear 0.5. **CIs overlap heavily across checkpoints — do NOT claim SFT's 0.767 beats base's 0.745.** A usable calibrated-confidence signal: the representation knows, before generating, whether the model is likely to fail. (v1 reporting bug, now fixed: "best layer" selected on R², printing layer 0 — the worst layer by AUC — and making a real result look null.)
+13. **Interp probe B — SFT rotates the frac/int direction progressively with depth (2026-08-26, v2 hardened)**. Diff-of-means direction between fractional and integer targets (frac=94, int=106), perm_p=0.000 at 36/37 layers. `cos(d_base, d_sft)` by layer:
+
+    | layer | 1 | 4 | 10 | 15 | 20 | 25 | 30 | 36 |
+    |---|---|---|---|---|---|---|---|---|
+    | cos | 0.997 | 0.971 | 0.858 | 0.647 | 0.535 | 0.465 | 0.379 | **0.244** |
+
+    **Random-direction null (d=4096, 2000 pairs): mean 0.0002, 5–95% band [−0.025, +0.026].** So 0.244 is ~9× the null's upper band → **SFT rotates the direction ~76° by the final layer but does NOT replace it.** Progressive reorganization, not overwriting. ‖d_sft‖/‖d_base‖ = 0.85. Held-out projection-vs-Δpass@1 Spearman ρ≈0.31, p<1e-5, consistent across all three checkpoints (layer 3). Mechanistic signature of finding 10's redistribution, localized to depth; same architectural shape as the PD-attention "read early, discounted late" result. Caveat: early-layer alignment (0.997) is trivially lexical — fractional formula strings contain decimal points. **Correction (2026-08-28): the "held-out AUC/Cohen's d are None at all 37 layers" note above was a misread of the JSON, not a real bug — verified directly against `pass3_interp_probes.json`: `held_out_auc_frac_vs_int` (base) is AUC≈0.98–0.99 at layers 1–36 (Cohen's d≈1.7–1.8), only layer 0 is `None` (expected — direction norm is ~0 there, constant embedding, guarded intentionally). Held-out separation DID run and generalizes strongly.**
+14. **Interp probe C — hard-zeros are separable, but shallower and weaker than v1 suggested (2026-08-26, v2 with malformed-formula ablation; corrected 2026-08-28)**. 17/200 targets score 0/16 on base AND sft AND gdpo300. Logistic probe on **base** activations, LOO AUC (95% CI):
+
+    | set | AUC at layer 22 (pre-registered) | exploratory best layer | AUC there |
+    |---|---|---|---|
+    | full 17 | 0.821 [0.706, 0.913] | 22 | 0.821 [0.706, 0.913] |
+    | reduced 12 (malformed dropped) | **0.716 [0.517, 0.892]** | **3** | 0.786 [0.629, 0.916] |
+
+    **The pre-registered rule (AUC >0.75 AT LAYER 22 on the reduced set) was NOT met: 0.716.** (An earlier pass computed this wrong — it re-searched reduced-12's own best-of-37 layer, 0.786 at layer 3, and called that the verdict; that's a data-snooped, non-preregistered number and shouldn't be quoted as the confirmatory test. Fixed in `interp_probes.py` and re-patched into the JSON, `probe_c.reduced_12.preregistered_layer_*` fields.) Separability survives everywhere (36/37 layers p<0.001, layer-0 control explained below), but the deep-layer (22) peak in the full set was substantially driven by the 5 malformed corpus artifacts (`BaCrO`, `MgSnZnO`, `LiFeBO3C`, `Eu4Y1`, `ReBa2Cu3O`); on chemically-real hard-zeros the signal is strongest at the shallower, exploratory **layer 3**. Honest claim: *hard-zero targets are linearly separable in base activations, but on the pre-registered test the effect is weaker than first reported, and the (non-preregistered) shallow-layer peak is closer to a formula-family feature than to deep synthesis reasoning.* **Do not quote "FINDING STANDS" for the full pre-registered claim; the correct read is "weakened, not gone."** The earlier layer-22 / CKA-dip convergence does NOT survive; drop it. **Layer-0 "AUC=0.000" explained, not a bug:** re-audited `auc_score` with tie-averaged ranks (`scipy.stats.rankdata`) and the value is unchanged — it isn't a tie artifact. Layer 0 is the embedding of the fixed final prompt token, literally identical across all 200 targets, so LOO on an intercept-only model produces a *systematic* prior-shift bias (leaving out a positive lowers the train fold's estimated P(positive) below leaving out a negative, so held-out positives get a *lower* score every time) — a known LOO pathology on a fully uninformative feature, not random chance (~0.5) and not a sign-convention bug. `perm_p=1.000` is the correct read regardless (the permutation null shows the identical artifact): no real signal at layer 0.
+
+15. **Low-temperature objective probe (2026-08-28) — the closest of five interventions to the bar, right at the boundary, decision needed.** Spec: `misc/some_claude_files/low_temperature_objective_SPEC.md`; script: `probe_hardening.py` `low_temp` condition; data: `misc/hardening_low_temp.json` (baseline records reused byte-for-byte from `misc/hardening.json`, same checkpoint/settings — only `low_temp`'s 320 completions are fresh). New reward-only (not validator.py) channel `temperature_economy`: continuous, per-target-normalized reward for lower reported T_max, gated on `thermodynamic_favorable≥0.5` so reporting room temperature isn't free.
+
+    | | capacity (11ch, incl. temperature_economy) | capacity (10ch, original channels only) | routes/grp | %identical | p̂@0.9 | mean max_T reported |
+    |---|---|---|---|---|---|---|
+    | baseline | 14.9% | 16.4% (matches original run) | 2.18 | 37.5% | 0.646 | n/a (not tracked, no constraint) |
+    | low_temp | **23.8%** | 18.96% | 2.15 | 40.0% | 0.610 | 1055.5 °C |
+
+    **Read the two capacity columns carefully — they answer different questions.** The 11-channel number (23.8%) is what a training run would actually see (the reward vector this condition implies) and is what the pre-registered rule should be checked against. The 10-channel number isolates whether the *original* channels moved at all under this prompt (yes, modestly: 16.4%→18.96%, mostly `operation_order` 0.227→0.394 and `precursors_exist` 0.022→0.064 z-variance) — this is the mechanism the spec hypothesized (reagent-family T tradeoffs making existing swaps score-relevant), and it partially fired. `temperature_economy` itself is the single most alive channel of the eleven: z-variance 0.72 (vs `amount_accuracy`'s previous high of 0.61), only 16.2% zero-std within group (vs 90–100% for the four structurally-dead channels).
+
+    **Pre-registered rule: >40% confirmed / 25–40% partial / <25% failed. 23.8% falls just under the "failed" line** — but it is the largest capacity movement of any of the five tried interventions (baseline~16%, temp_ceiling 17.7%, inventory 16.4%, atmosphere 16.3%, combined 16.1%, low_temp 23.8%), and unlike those four it did so via a genuinely non-saturated new channel rather than a null nudge to existing ones. Diversity (routes/group, %identical) barely moved, so the gain is not coming from the precursor-swap diversity mechanism the spec hypothesized as strongly as hoped — it's coming mostly from the new channel's own variance in *how cold* the model goes. p̂@0.9 dropped 0.646→0.610 (task got modestly harder, not collapsed — no red flag). Constraint adherence: mean reported T under the *soft* preference (1055.5 °C) is higher than the hardening probe's *hard-ceiling* condition forced it to (993.3 °C, finding 9) — expected, a preference is weaker than a gate, but a same-data unconstrained-baseline T_max isn't recoverable from `hardening.json` (routes weren't persisted) to quantify how much the soft preference moved T on its own.
+
+    **This is a genuine judgment call, not an automatic verdict — flagged for user decision rather than resolved unilaterally.** Options: (a) call it "partial" and tighten `T_span`/strengthen the prompt per the spec's own failure-mode playbook, then re-probe before deciding on run 4; (b) call it a fifth near-miss and close the capability-side track, moving fully to the interpretability + paper-writing track; (c) treat 23.8% as close enough to greenlight run 4 directly. The Central Diagnosis's four-failed-interventions framing (written before this result) should be read as "four failed, one right at the boundary," not "five failed."
+
 ## Journey (why things are the way they are)
 
 1. Six checkpoints once "scored identically" — root cause: silent parse-failure fallback; then the sentinel-payout bug. Validator now has None-propagation end to end + 43 tests.
@@ -122,28 +166,42 @@ channel must be something the model fails at a meaningful rate.
 
 ## Active work / next steps (ordered)
 
-**Why interp before more RL:** every reward-side axis is blocked by the same
-bottleneck (you cannot find representation structure aligned to a channel with
-no variance — that is what finding 5's null means). Finding 10 is the one axis
-with a large, clean, differential effect to explain. Cost comparison: a GDPO run
-is ~1,400 s/step × 300 ≈ **5 days**; pass1+pass2 activation geometry took
-**1–2 hours**. The probes below are hours, not days.
+**Why interp before more RL — now confirmed empirically.** Every reward-side
+axis is blocked by the same bottleneck (you cannot find representation structure
+aligned to a channel with no variance — that is finding 5's null). Finding 10
+was the one axis with a large differential effect to explain, and probing it
+worked: findings 12–14 are all positive, cost ~2 h of GPU, versus ~5 days for a
+GDPO run. **The pattern to keep: probe contrasts that are behaviourally
+measured and large, not reward channels that are constant.** Items 1–3 below
+harden the three results; items 4+ are the capability-side track, unblocked but
+lower priority now.
 
-1. **Interp probe A — failure prediction (highest value to the chemistry community).**
-   Linear probe on layer-L activations predicting whether the model will succeed
-   on a target, trained on the 200-target pass@k success rates across
-   base/SFT/GDPO-300. A calibrated "don't trust this one" signal is more useful
-   in a lab than +2 pts of pass@1. Reuses `act_geo/cache/*_probe.npz`; CPU after
-   the forward pass.
-2. **Interp probe B — the redistribution direction.** Contrast frac vs int
-   targets in activation space per checkpoint. Does SFT create or amplify a
-   separating direction, and does its magnitude track the +0.149/−0.089 swing?
-   This localizes what distillation did. Directly explains finding 10.
-3. **Interp probe C — the hard-zero pocket.** Are the 12 never-solved targets
-   (finding 11) representationally distinct in the **base** model, before any
-   fine-tuning? If the base model already "knows" it cannot do these, that is a
-   striking result and it feeds probe A.
-4. **Reward redesign — the low-temperature objective (the one capability-side
+1. **DONE (2026-08-28).** Both "open bugs" resolved, neither was what it looked
+   like. (a) Probe B's held-out arrays were never None — verified directly
+   against the JSON (AUC≈0.98–0.99, layers 1–36); a misread, not a bug. (b)
+   Probe C's layer-0 AUC=0.000 is a genuine leave-one-out artifact on a fully
+   uninformative constant feature (re-audited with tie-averaged AUC, unchanged),
+   not a sign flip. **Separately, a REAL bug was found and fixed while checking
+   these**: probe C's decision-rule verdict was evaluating the wrong layer
+   (reduced-12's own best-of-37, a data-snooped search) instead of the
+   pre-registered layer 22. Corrected: reduced-12 AUC at layer 22 is 0.716
+   [0.517, 0.892] — below the 0.75 bar. Finding 14 updated accordingly.
+2. **DONE (2026-08-28).** Finding 14 restated to the corrected, weaker version
+   (pre-registered test at layer 22 fails; the shallower, non-preregistered
+   layer-3 peak is closer to a formula-family effect) and the layer-22/CKA
+   convergence claim removed.
+3. **Low-temperature objective probe (starting now — the one remaining
+   capability-side lever).** Spec: `misc/some_claude_files/low_temperature_objective_SPEC.md`.
+   New condition in `probe_hardening.py`; primary metric is reward capacity, not
+   p̂. Pre-registered rule: capacity >40% → run 4 has a real chance; <25% → four
+   failed interventions and an airtight structural conclusion. Rationale: it is
+   the only proposed change that alters **what the verifier can distinguish**
+   rather than what the policy does — every previous lever changed the policy
+   against a verifier that cannot rank.
+4. **Article drafting (IN PROGRESS)** — draft at
+   `misc/some_claude_files/PAPER_DRAFT.md`. Needs no new results; the low-T
+   probe outcome slots into the "what would have to change" section either way.
+5. **Reward redesign detail — the low-temperature objective (the one capability-side
    idea that plausibly moves capacity).** Convert the confirmed hack into the
    objective: reward = ΔG favorable *at the reported T* **minus** a term in T.
    Reporting a high T no longer helps because T is penalized directly. This

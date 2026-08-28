@@ -26,16 +26,23 @@ DECISION RULE (set before running):
                                       itself the strongest form of the result
 
 CONDITIONS
-  0 baseline      replicate, no constraint
-  1 temp_ceiling  "max temperature X C" (per-target, from literature route)
-  2 inventory     "use only these reagents" (lit precursors + decoys)
-  3 atmosphere    "air only" / restricted atmosphere
-  4 combined      all three
+  0 baseline           replicate, no constraint
+  1 temp_ceiling       "max temperature X C" (per-target, from literature route)
+  2 inventory          "use only these reagents" (lit precursors + decoys)
+  3 atmosphere         "air only" / restricted atmosphere
+  4 combined           all three
+  5 low_temp           soft "prefer lower T" preference + new temperature_economy
+                       reward channel, gated on thermodynamic_favorable (see
+                       misc/some_claude_files/low_temperature_objective_SPEC.md).
+                       Opt-in, not in the default --conditions list.
+  6 low_temp_combined  low_temp + inventory
 
 Usage:
     python probe_hardening.py --n-targets 40 --samples 8 --out misc/hardening.json
     python probe_hardening.py --conditions baseline temp_ceiling --n-targets 20
     python probe_hardening.py --analyze-only --out misc/hardening.json
+    python probe_hardening.py --conditions baseline low_temp \
+        --reuse-pool-from misc/hardening.json --out misc/hardening_low_temp.json
 """
 
 from __future__ import annotations
@@ -57,6 +64,17 @@ from core.reward import parse_completion, load_validator  # noqa: E402
 from stratified_difficulty_eval import SYSTEM_MSG  # noqa: E402
 
 CONDITIONS = ["baseline", "temp_ceiling", "inventory", "atmosphere", "combined"]
+LOW_TEMP_CONDITIONS = ["low_temp", "low_temp_combined"]
+ALL_CONDITIONS = CONDITIONS + LOW_TEMP_CONDITIONS
+
+# misc/some_claude_files/low_temperature_objective_SPEC.md: a soft preference,
+# not a numeric ceiling -- temp_ceiling already showed a stated ceiling gets
+# 100% compliance and therefore zero variance. The point here is a gradient.
+LOW_TEMP_HINT = (
+    "Constraint: prefer the lowest processing temperature that still allows "
+    "the reaction to proceed. Lower maximum temperature is better, provided "
+    "the route remains thermodynamically favorable."
+)
 
 
 # --------------------------------------------------------------------------
@@ -189,6 +207,10 @@ def build_prompt(target: str, condition: str, constraints: dict,
         lines.append(constraints["inventory"])
     if condition in ("atmosphere", "combined"):
         lines.append(constraints["atmosphere"])
+    if condition in ("low_temp", "low_temp_combined"):
+        lines.append(LOW_TEMP_HINT)
+    if condition == "low_temp_combined" and "inventory" in constraints:
+        lines.append(constraints["inventory"])
     if lines:
         prompt = prompt.rstrip() + "\n\n" + "\n".join(lines)
     return prompt
@@ -198,6 +220,22 @@ def build_prompt(target: str, condition: str, constraints: dict,
 # Post-hoc constraint adherence (NOT a validator edit -- user owns validator)
 # --------------------------------------------------------------------------
 
+def route_max_T(route) -> float | None:
+    """Max processing temperature reported anywhere in the route, or None."""
+    temps = []
+    for op in getattr(route, "operations", []) or []:
+        # PredictedOperation: temps live in conditions.heating_temperature
+        conds = getattr(op, "conditions", None)
+        vals = getattr(conds, "heating_temperature", None) or []
+        for t in (vals if isinstance(vals, list) else [vals]):
+            try:
+                if t is not None:
+                    temps.append(float(t))
+            except (TypeError, ValueError):
+                pass
+    return max(temps) if temps else None
+
+
 def check_adherence(route, constraints: dict, condition: str) -> dict:
     """Did the model actually respect the constraint? Scored outside the reward."""
     res = {}
@@ -206,21 +244,18 @@ def check_adherence(route, constraints: dict, condition: str) -> dict:
 
     if condition in ("temp_ceiling", "combined") and "_ceiling_value" in constraints:
         ceiling = constraints["_ceiling_value"]
-        temps = []
-        for op in getattr(route, "operations", []) or []:
-            # PredictedOperation: temps live in conditions.heating_temperature
-            conds = getattr(op, "conditions", None)
-            vals = getattr(conds, "heating_temperature", None) or []
-            for t in (vals if isinstance(vals, list) else [vals]):
-                try:
-                    if t is not None:
-                        temps.append(float(t))
-                except (TypeError, ValueError):
-                    pass
-        res["temp_ok"] = (max(temps) <= ceiling) if temps else None
-        res["max_T_reported"] = max(temps) if temps else None
+        max_t = route_max_T(route)
+        res["temp_ok"] = (max_t <= ceiling) if max_t is not None else None
+        res["max_T_reported"] = max_t
 
-    if condition in ("inventory", "combined") and "_inventory_list" in constraints:
+    if condition in ("low_temp", "low_temp_combined"):
+        # no ceiling to check compliance against -- just track whether the
+        # soft preference actually moved reported T (spec failure mode:
+        # "the model ignores the soft preference")
+        res["max_T_reported"] = route_max_T(route)
+
+    if condition in ("inventory", "combined", "low_temp_combined") \
+            and "_inventory_list" in constraints:
         inv = {s.strip().lower() for s in constraints["_inventory_list"]}
         used = []
         for p in getattr(route, "precursors", []) or []:
@@ -233,6 +268,46 @@ def check_adherence(route, constraints: dict, condition: str) -> dict:
         res["n_offlist"] = sum(1 for u in used if u not in inv) if used else None
 
     return res
+
+
+def compute_temperature_economy(route, breakdown: dict, lit_max_T: float | None,
+                                sentinel_tags: frozenset,
+                                t_ref_margin: float = 300.0,
+                                t_span: float = 600.0) -> float | None:
+    """
+    Continuous reward for lower T_max, gated on feasibility -- converts the
+    confirmed temperature hack (validator grades ΔG at the model's OWN
+    reported T, so reporting higher T is free favorability) into a scored
+    objective instead of a validity gate. None (excluded from capacity, same
+    None-propagation convention as every other check) when the route parsed
+    to nothing, literature T is unavailable, or thermodynamic_favorable
+    itself couldn't be computed for this completion.
+
+    Per-target normalization is essential: T_ref = lit_max_T + margin, so
+    this measures "how much colder than the literature route, capped at a
+    plausible ceiling" rather than an absolute T -- a global scale would
+    make low-T targets trivially easy and high-T targets impossible.
+
+    Gated (multiplied, not summed) on thermodynamic_favorable >= 0.5
+    (the validator's own borderline-or-better cutoff -- see
+    RXN_ENERGY_BORDERLINE in validator.py) so the model can't trivially
+    maximize by reporting room temperature; ungradeable thermo -> None,
+    not a silent pass or fail.
+    """
+    if route is None or lit_max_T is None:
+        return None
+    thermo = breakdown.get("thermodynamic_favorable")
+    tag = breakdown.get("thermodynamic_favorable_gradeability")
+    if not isinstance(thermo, (int, float)) or isinstance(thermo, bool):
+        return None
+    if tag in sentinel_tags:
+        return None
+    max_t = route_max_T(route)
+    if max_t is None:
+        return None
+    t_ref = lit_max_T + t_ref_margin
+    economy = max(0.0, min(1.0, (t_ref - max_t) / t_span))
+    return economy if thermo >= 0.5 else 0.0
 
 
 # --------------------------------------------------------------------------
@@ -392,16 +467,22 @@ def analyze(path: Path, check_names: list[str]) -> None:
     by_cond = defaultdict(list)
     for r in blob["records"]:
         by_cond[r["condition"]].append(r)
+    # iterate whatever conditions were actually run, not the original
+    # 5-condition default -- otherwise low_temp/low_temp_combined (or any
+    # future condition) silently vanish from the analysis
+    run_conditions = blob.get("conditions") or list(by_cond)
+    ordered_conditions = [c for c in ALL_CONDITIONS if c in run_conditions] + \
+        [c for c in run_conditions if c not in ALL_CONDITIONS]
 
     print("\n" + "=" * 78)
     print("HARDENING PROBE — PRIMARY METRIC: REWARD CAPACITY")
     print("=" * 78)
     print("\nPre-registered prediction: capacity 14% -> 40%+, routes/group 2.01 -> 3+\n")
 
-    print(f"{'condition':<16}{'capacity%':>11}{'routes/grp':>12}"
+    print(f"{'condition':<18}{'capacity%':>11}{'routes/grp':>12}"
           f"{'%identical':>12}{'p̂@0.9':>9}{'n':>7}")
     summary = {}
-    for cond in CONDITIONS:
+    for cond in ordered_conditions:
         recs = by_cond.get(cond)
         if not recs:
             continue
@@ -409,7 +490,7 @@ def analyze(path: Path, check_names: list[str]) -> None:
         div = diversity_metrics(recs)
         ph = phat_metrics(recs)
         summary[cond] = (cap, div, ph, adherence_metrics(recs))
-        print(f"{cond:<16}{cap.get('capacity_pct', float('nan')):>10.1f}%"
+        print(f"{cond:<18}{cap.get('capacity_pct', float('nan')):>10.1f}%"
               f"{div.get('mean_distinct_routes', float('nan')):>12.2f}"
               f"{div.get('pct_groups_all_identical', float('nan')):>11.1f}%"
               f"{ph.get('bar_0.9', {}).get('mean_phat', float('nan')):>9.3f}"
@@ -417,7 +498,7 @@ def analyze(path: Path, check_names: list[str]) -> None:
 
     base_cap = summary.get("baseline", ({}, {}, {}, {}))[0].get("capacity_pct")
     print("\n--- per-channel zero-std %% (lower = more live) ---")
-    conds = [c for c in CONDITIONS if c in summary]
+    conds = [c for c in ordered_conditions if c in summary]
     print(f"{'channel':<28}" + "".join(f"{c[:11]:>13}" for c in conds))
     for name in check_names:
         row = f"{name:<28}"
@@ -465,11 +546,17 @@ def main():
     ap.add_argument("--checkpoint", type=Path,
                     default=Path("runs/sft-qlora-sft-v3-2nd-rank16/final"))
     ap.add_argument("--out", type=Path, default=Path("misc/hardening_probe.json"))
+    ap.add_argument("--reuse-pool-from", type=Path, default=None,
+                    help="load the exact (target, stratum) pool from a prior "
+                         "hardening run's baseline records instead of "
+                         "re-sampling val.jsonl, for direct comparability "
+                         "(spec: 'same target pool as the previous hardening "
+                         "probe'). E.g. misc/hardening.json.")
     ap.add_argument("--n-targets", type=int, default=40)
     ap.add_argument("--samples", type=int, default=8)
     ap.add_argument("--batch-size", type=int, default=8)
     ap.add_argument("--inventory-size", type=int, default=16)
-    ap.add_argument("--conditions", nargs="+", default=CONDITIONS)
+    ap.add_argument("--conditions", nargs="+", default=CONDITIONS, choices=ALL_CONDITIONS)
     ap.add_argument("--max-new-tokens", type=int, default=8192)
     ap.add_argument("--temperature", type=float, default=1.0)
     ap.add_argument("--top-p", type=float, default=0.95)
@@ -489,8 +576,11 @@ def main():
     # The full 10-channel vector — the pre-registered 14.3% capacity baseline
     # (reward_geometry D1) was computed over all ten; a subset would make the
     # comparison invalid. validator.weights carries 9; target_match is added
-    # by validate() itself.
-    check_names = sorted(set(validator.weights) | {"target_match"})
+    # by validate() itself. temperature_economy is an 11th, LOCAL-ONLY channel
+    # (never touches validator.py) computed post-hoc for low_temp* conditions;
+    # it's simply absent/NaN for the original five, so always including it
+    # here doesn't change their capacity numbers.
+    check_names = sorted(set(validator.weights) | {"target_match", "temperature_economy"})
 
     if args.analyze_only:
         analyze(args.out, check_names)
@@ -500,15 +590,30 @@ def main():
     random.seed(args.seed)
     torch.manual_seed(args.seed)
 
-    # Target pool: prefer targets with literature data (needed for constraints).
-    pool = []
-    for line in open(args.val):
-        r = json.loads(line)
-        t = r["target"]
-        if t in lit and lit[t]["precursors"]:
-            pool.append((t, r.get("stratum", "unknown")))
-    rng.shuffle(pool)
-    targets = pool[: args.n_targets]
+    if args.reuse_pool_from and args.reuse_pool_from.exists():
+        prior = json.loads(args.reuse_pool_from.read_text())
+        seen = {}
+        for r in prior.get("records", []):
+            seen.setdefault(r["target"], r.get("stratum", "unknown"))
+        targets = [(t, s) for t, s in seen.items() if t in lit and lit[t]["precursors"]]
+        n_missing_lit = len(seen) - len(targets)
+        print(f"reusing {len(targets)}/{len(seen)} targets from {args.reuse_pool_from} "
+              f"({n_missing_lit} dropped: no longer have usable literature data)")
+    else:
+        # Target pool: prefer targets with literature data (needed for constraints).
+        pool = []
+        for line in open(args.val):
+            r = json.loads(line)
+            t = r["target"]
+            if t in lit and lit[t]["precursors"]:
+                pool.append((t, r.get("stratum", "unknown")))
+        rng.shuffle(pool)
+        targets = pool[: args.n_targets]
+    n_missing_maxT = sum(1 for t, _ in targets if lit[t].get("max_T") is None)
+    if n_missing_maxT:
+        print(f"WARNING: {n_missing_maxT}/{len(targets)} targets have no literature "
+              f"max_T -- temperature_economy will be None (excluded from capacity) "
+              f"for those under low_temp*", file=sys.stderr)
     if not targets:
         raise RuntimeError(
             f"No targets with usable literature constraints found: {len(pool)} "
@@ -568,6 +673,11 @@ def main():
                 except Exception:
                     route = None
                     reward, breakdown = (None, {"error": "parse_failure"})
+                if cond in LOW_TEMP_CONDITIONS and isinstance(breakdown, dict):
+                    breakdown = dict(breakdown)
+                    breakdown["temperature_economy"] = compute_temperature_economy(
+                        route, breakdown, lit[target].get("max_T"),
+                        validator.SENTINEL_TAGS)
                 records.append({
                     "condition": cond, "target": target, "stratum": stratum,
                     "reward": reward, "breakdown": breakdown,
