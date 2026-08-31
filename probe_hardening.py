@@ -26,23 +26,34 @@ DECISION RULE (set before running):
                                       itself the strongest form of the result
 
 CONDITIONS
-  0 baseline           replicate, no constraint
-  1 temp_ceiling       "max temperature X C" (per-target, from literature route)
-  2 inventory          "use only these reagents" (lit precursors + decoys)
-  3 atmosphere         "air only" / restricted atmosphere
-  4 combined           all three
-  5 low_temp           soft "prefer lower T" preference + new temperature_economy
-                       reward channel, gated on thermodynamic_favorable (see
-                       misc/some_claude_files/low_temperature_objective_SPEC.md).
-                       Opt-in, not in the default --conditions list.
-  6 low_temp_combined  low_temp + inventory
+  0 baseline            replicate, no constraint
+  1 temp_ceiling        "max temperature X C" (per-target, from literature route)
+  2 inventory           "use only these reagents" (lit precursors + decoys)
+  3 atmosphere          "air only" / restricted atmosphere
+  4 combined            all three
+  5 low_temp            soft "prefer lower T" preference + temperature_economy
+                        reward channel, gated on thermodynamic_favorable. Round-1
+                        result: capacity 23.8%, just under the 25% floor --
+                        round 2 (default T_ref_margin=150/T_span=400, tightened
+                        from round 1's 300/600) is Fix A in
+                        misc/some_claude_files/post_low_temp_probe_steps.md.
+                        Opt-in, not in the default --conditions list.
+  6 low_temp_ceiling    Fix B: low_temp's soft preference AND a hard per-target
+                        ceiling (temp_ceiling's construction) together; economy
+                        is banded to [lit_T, ceiling] via
+                        compute_temperature_economy_banded, not a fixed margin --
+                        round 1 found the ceiling gives the behavioral pull
+                        (100% compliance) the soft preference alone didn't.
+  7 low_temp_inventory  low_temp + inventory (round 1's low_temp_combined,
+                        renamed for round 2's naming)
 
 Usage:
     python probe_hardening.py --n-targets 40 --samples 8 --out misc/hardening.json
     python probe_hardening.py --conditions baseline temp_ceiling --n-targets 20
     python probe_hardening.py --analyze-only --out misc/hardening.json
-    python probe_hardening.py --conditions baseline low_temp \
-        --reuse-pool-from misc/hardening.json --out misc/hardening_low_temp.json
+    python probe_hardening.py \
+        --conditions baseline low_temp low_temp_ceiling low_temp_inventory \
+        --reuse-pool-from misc/hardening.json --out misc/hardening_low_temp2.json
 """
 
 from __future__ import annotations
@@ -62,9 +73,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from evaluate_batched import load_eval_model, generate_batch  # noqa: E402
 from core.reward import parse_completion, load_validator  # noqa: E402
 from stratified_difficulty_eval import SYSTEM_MSG  # noqa: E402
+from validator import ThermoChecker  # noqa: E402
 
 CONDITIONS = ["baseline", "temp_ceiling", "inventory", "atmosphere", "combined"]
-LOW_TEMP_CONDITIONS = ["low_temp", "low_temp_combined"]
+# misc/some_claude_files/post_low_temp_probe_steps.md Task 1: low_temp round 2.
+# low_temp_ceiling combines Fix A (rescaled economy) with Fix B (hard ceiling
+# provides the behavioral pull the soft preference alone didn't); its economy
+# term is banded to [lit_T, ceiling], not [lit_T, lit_T+margin], via
+# compute_temperature_economy_banded. low_temp_inventory (was
+# low_temp_combined in round 1) is low_temp + inventory.
+LOW_TEMP_CONDITIONS = ["low_temp", "low_temp_ceiling", "low_temp_inventory"]
 ALL_CONDITIONS = CONDITIONS + LOW_TEMP_CONDITIONS
 
 # misc/some_claude_files/low_temperature_objective_SPEC.md: a soft preference,
@@ -135,8 +153,9 @@ def load_literature(triage_path: Path, synthesis_path: Path) -> dict:
                     except (TypeError, ValueError):
                         pass
         max_T = max(vals) if vals else None
+        n_ops = len(synth.get("operations") or [])
 
-        lit[target] = {"precursors": names, "max_T": max_T}
+        lit[target] = {"precursors": names, "max_T": max_T, "n_ops": n_ops}
         lit_reward[target] = rw
     return lit
 
@@ -201,15 +220,16 @@ def build_prompt(target: str, condition: str, constraints: dict,
     """
     prompt = base_prompt_fn(target)
     lines = []
-    if condition in ("temp_ceiling", "combined") and "temp_ceiling" in constraints:
+    if condition in ("temp_ceiling", "combined", "low_temp_ceiling") \
+            and "temp_ceiling" in constraints:
         lines.append(constraints["temp_ceiling"])
     if condition in ("inventory", "combined") and "inventory" in constraints:
         lines.append(constraints["inventory"])
     if condition in ("atmosphere", "combined"):
         lines.append(constraints["atmosphere"])
-    if condition in ("low_temp", "low_temp_combined"):
+    if condition in ("low_temp", "low_temp_ceiling", "low_temp_inventory"):
         lines.append(LOW_TEMP_HINT)
-    if condition == "low_temp_combined" and "inventory" in constraints:
+    if condition == "low_temp_inventory" and "inventory" in constraints:
         lines.append(constraints["inventory"])
     if lines:
         prompt = prompt.rstrip() + "\n\n" + "\n".join(lines)
@@ -237,24 +257,26 @@ def route_max_T(route) -> float | None:
 
 
 def check_adherence(route, constraints: dict, condition: str) -> dict:
-    """Did the model actually respect the constraint? Scored outside the reward."""
+    """Did the model actually respect the constraint? Scored outside the reward.
+
+    max_T_reported is recorded for EVERY condition, including baseline
+    (post_low_temp_probe_steps.md Task 1: "Fix the baseline instrumentation
+    first" -- round 1 only tracked it for temp-constrained conditions, so
+    there was no baseline number to compare low_temp's reported T against).
+    """
     res = {}
     if route is None:
         return res
 
-    if condition in ("temp_ceiling", "combined") and "_ceiling_value" in constraints:
+    res["max_T_reported"] = route_max_T(route)
+
+    if condition in ("temp_ceiling", "combined", "low_temp_ceiling") \
+            and "_ceiling_value" in constraints:
         ceiling = constraints["_ceiling_value"]
-        max_t = route_max_T(route)
-        res["temp_ok"] = (max_t <= ceiling) if max_t is not None else None
-        res["max_T_reported"] = max_t
+        res["temp_ok"] = (res["max_T_reported"] <= ceiling) \
+            if res["max_T_reported"] is not None else None
 
-    if condition in ("low_temp", "low_temp_combined"):
-        # no ceiling to check compliance against -- just track whether the
-        # soft preference actually moved reported T (spec failure mode:
-        # "the model ignores the soft preference")
-        res["max_T_reported"] = route_max_T(route)
-
-    if condition in ("inventory", "combined", "low_temp_combined") \
+    if condition in ("inventory", "combined", "low_temp_inventory") \
             and "_inventory_list" in constraints:
         inv = {s.strip().lower() for s in constraints["_inventory_list"]}
         used = []
@@ -272,8 +294,8 @@ def check_adherence(route, constraints: dict, condition: str) -> dict:
 
 def compute_temperature_economy(route, breakdown: dict, lit_max_T: float | None,
                                 sentinel_tags: frozenset,
-                                t_ref_margin: float = 300.0,
-                                t_span: float = 600.0) -> float | None:
+                                t_ref_margin: float = 150.0,
+                                t_span: float = 400.0) -> float | None:
     """
     Continuous reward for lower T_max, gated on feasibility -- converts the
     confirmed temperature hack (validator grades ΔG at the model's OWN
@@ -294,7 +316,15 @@ def compute_temperature_economy(route, breakdown: dict, lit_max_T: float | None,
     maximize by reporting room temperature; ungradeable thermo -> None,
     not a silent pass or fail.
     """
-    if route is None or lit_max_T is None:
+    if lit_max_T is None:
+        return None
+    return _temperature_economy_core(route, breakdown, sentinel_tags,
+                                     lit_max_T + t_ref_margin, t_span)
+
+
+def _temperature_economy_core(route, breakdown: dict, sentinel_tags: frozenset,
+                              t_ref: float, t_span: float) -> float | None:
+    if route is None or t_span <= 0:
         return None
     thermo = breakdown.get("thermodynamic_favorable")
     tag = breakdown.get("thermodynamic_favorable_gradeability")
@@ -305,9 +335,28 @@ def compute_temperature_economy(route, breakdown: dict, lit_max_T: float | None,
     max_t = route_max_T(route)
     if max_t is None:
         return None
-    t_ref = lit_max_T + t_ref_margin
     economy = max(0.0, min(1.0, (t_ref - max_t) / t_span))
     return economy if thermo >= 0.5 else 0.0
+
+
+def compute_temperature_economy_banded(route, breakdown: dict, band_lo: float | None,
+                                       band_hi: float | None,
+                                       sentinel_tags: frozenset) -> float | None:
+    """
+    Fix B (post_low_temp_probe_steps.md): for low_temp_ceiling, the economy
+    gradient is rescaled to the band the model is actually confined to
+    ([lit_max_T, ceiling]) rather than [lit_max_T, lit_max_T + margin] --
+    round 1's fixed margin/span put a third of the mass off-scale (piled at
+    0.0/1.0) because it didn't track the model's actual, ceiling-constrained
+    output range. band_hi=ceiling gives 0.0 at the cap the hard constraint
+    already enforces; band_lo=lit_max_T gives 1.0 at the literature route's
+    own temperature -- the gradient does its work entirely within the band
+    the ceiling produces the behavioral pull for.
+    """
+    if band_lo is None or band_hi is None or band_hi <= band_lo:
+        return None
+    return _temperature_economy_core(route, breakdown, sentinel_tags,
+                                     t_ref=band_hi, t_span=band_hi - band_lo)
 
 
 # --------------------------------------------------------------------------
@@ -556,11 +605,25 @@ def main():
     ap.add_argument("--samples", type=int, default=8)
     ap.add_argument("--batch-size", type=int, default=8)
     ap.add_argument("--inventory-size", type=int, default=16)
+    ap.add_argument("--t-ref-margin", type=float, default=150.0,
+                    help="low_temp/low_temp_inventory: T_ref = lit_max_T + this "
+                         "(round-2 default 150, tightened from round 1's 300 -- "
+                         "Fix A in post_low_temp_probe_steps.md). Ignored by "
+                         "low_temp_ceiling, which bands to [lit_T, ceiling] instead.")
+    ap.add_argument("--t-span", type=float, default=400.0,
+                    help="low_temp/low_temp_inventory: economy scale width "
+                         "(round-2 default 400, tightened from round 1's 600).")
     ap.add_argument("--conditions", nargs="+", default=CONDITIONS, choices=ALL_CONDITIONS)
     ap.add_argument("--max-new-tokens", type=int, default=8192)
     ap.add_argument("--temperature", type=float, default=1.0)
     ap.add_argument("--top-p", type=float, default=0.95)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--scorer", choices=["validator", "ranker"], default="validator",
+                    help="validator = Arm A (validity checks, RANKER_SPEC.md's "
+                         "control). ranker = Arm B (core/ranker.py's gates x "
+                         "objectives quality scorer) -- the verifier is the "
+                         "independent variable, everything else about this "
+                         "probe stays identical between the two.")
     ap.add_argument("--analyze-only", action="store_true")
     ap.add_argument("--dump-lit", action="store_true")
     args = ap.parse_args()
@@ -571,16 +634,30 @@ def main():
             print(k, json.dumps(v, indent=2))
         return
 
-    validator = load_validator(Path("data/cache/mp_formula_set.pkl"),Path("data/cache/pd_index.json"), Path("."))
-
-    # The full 10-channel vector — the pre-registered 14.3% capacity baseline
-    # (reward_geometry D1) was computed over all ten; a subset would make the
-    # comparison invalid. validator.weights carries 9; target_match is added
-    # by validate() itself. temperature_economy is an 11th, LOCAL-ONLY channel
-    # (never touches validator.py) computed post-hoc for low_temp* conditions;
-    # it's simply absent/NaN for the original five, so always including it
-    # here doesn't change their capacity numbers.
-    check_names = sorted(set(validator.weights) | {"target_match", "temperature_economy"})
+    ranker = None
+    if args.scorer == "ranker":
+        from core.ranker import Ranker, OBJECTIVE_NAMES, build_precursor_frequency
+        import pickle
+        with open("data/cache/mp_formula_set.pkl", "rb") as f:
+            formula_set = pickle.load(f)
+        thermo = ThermoChecker.from_sharded_cache(
+            Path("data/cache/pd_index.json"), Path("."))
+        freq = build_precursor_frequency(args.synthesis)
+        ranker = Ranker(formula_set, thermo, freq)
+        check_names = list(OBJECTIVE_NAMES)
+        validator = None
+    else:
+        validator = load_validator(Path("data/cache/mp_formula_set.pkl"),
+                                   Path("data/cache/pd_index.json"), Path("."))
+        # The full 10-channel vector — the pre-registered 14.3% capacity
+        # baseline (reward_geometry D1) was computed over all ten; a subset
+        # would make the comparison invalid. validator.weights carries 9;
+        # target_match is added by validate() itself. temperature_economy is
+        # an 11th, LOCAL-ONLY channel (never touches validator.py) computed
+        # post-hoc for low_temp* conditions; it's simply absent/NaN for the
+        # original five, so always including it here doesn't change their
+        # capacity numbers.
+        check_names = sorted(set(validator.weights) | {"target_match", "temperature_economy"})
 
     if args.analyze_only:
         analyze(args.out, check_names)
@@ -669,15 +746,33 @@ def main():
                 # None) and needs the target for the route schema.
                 try:
                     route = parse_completion(comp, target)
-                    reward, breakdown = validator.validate(route, target)
                 except Exception:
                     route = None
-                    reward, breakdown = (None, {"error": "parse_failure"})
-                if cond in LOW_TEMP_CONDITIONS and isinstance(breakdown, dict):
-                    breakdown = dict(breakdown)
-                    breakdown["temperature_economy"] = compute_temperature_economy(
-                        route, breakdown, lit[target].get("max_T"),
-                        validator.SENTINEL_TAGS)
+
+                if ranker is not None:
+                    # Arm B: the ranker computes its own temperature_economy
+                    # (gates x objectives) uniformly for every condition --
+                    # no low_temp*-specific post-hoc injection needed here.
+                    reward, breakdown = ranker.score(
+                        route, target, lit_T=lit[target].get("max_T"),
+                        lit_n_ops=lit[target].get("n_ops"))
+                else:
+                    try:
+                        if route is None:
+                            raise ValueError("unparseable")
+                        reward, breakdown = validator.validate(route, target)
+                    except Exception:
+                        reward, breakdown = (None, {"error": "parse_failure"})
+                    if cond in LOW_TEMP_CONDITIONS and isinstance(breakdown, dict):
+                        breakdown = dict(breakdown)
+                        if cond == "low_temp_ceiling":
+                            breakdown["temperature_economy"] = compute_temperature_economy_banded(
+                                route, breakdown, lit[target].get("max_T"),
+                                cons.get("_ceiling_value"), validator.SENTINEL_TAGS)
+                        else:
+                            breakdown["temperature_economy"] = compute_temperature_economy(
+                                route, breakdown, lit[target].get("max_T"),
+                                validator.SENTINEL_TAGS, args.t_ref_margin, args.t_span)
                 records.append({
                     "condition": cond, "target": target, "stratum": stratum,
                     "reward": reward, "breakdown": breakdown,
