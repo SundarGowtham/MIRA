@@ -59,11 +59,17 @@ class GRPOExperiment(Experiment):
         h = self.hyperparams()
         reward_aggregation = getattr(
             self.args, "reward_aggregation", "normalize_then_sum")
-        self.init_wandb(extra_config={
+        scorer = getattr(self.args, "scorer", "validator")
+        wandb_extra = {
             **h, "data_prefix": self.data_prefix,
             "reward_aggregation": reward_aggregation,
+            "scorer": scorer,
             "validator_version": VALIDATOR_VERSION,
-        })
+        }
+        if scorer == "ranker":
+            from core.ranker import RANKER_VERSION
+            wandb_extra["ranker_version"] = RANKER_VERSION
+        self.init_wandb(extra_config=wandb_extra)
 
         model, tok = load_with_adapter(
             self.cfg.model, self.cfg.adapter, self.cfg.smoke,
@@ -97,14 +103,39 @@ class GRPOExperiment(Experiment):
               f"train={len(train_ds)} val={len(val_ds)} "
               f"probe={len(eval_ds) if eval_ds is not None else 0}")
 
-        validator = load_validator(
-            formula_set_path=Path("data/cache/mp_formula_set.pkl"),
-            pd_index_path=Path("data/cache/pd_index.json"),
-            project_root=Path("."),
-        )
-        reward_funcs, reward_names, reward_weights = make_check_reward_fns(
-            validator, dump_path=str(self.output_dir / "generations.jsonl"))
-        print(f"[{self.run_name}] reward funcs: {reward_names} "
+        scorer = getattr(self.args, "scorer", "validator")
+        dump_path = str(self.output_dir / "generations.jsonl")
+        if scorer == "ranker":
+            # Arm B (RANKER_SPEC.md). Lazy imports: core.ranker's Ranker
+            # only needs validator.py's data classes + ThermoChecker, but
+            # load_literature lives in probe_hardening.py (a debug/analysis
+            # script) -- keep that dependency and its generation-utility
+            # imports out of the validator (Arm A) path entirely.
+            from core.ranker import Ranker, make_ranker_reward_fns, build_precursor_frequency
+            from probe_hardening import load_literature
+            from validator import ThermoChecker
+            with open("data/cache/mp_formula_set.pkl", "rb") as f:
+                import pickle
+                formula_set = pickle.load(f)
+            thermo = ThermoChecker.from_sharded_cache(
+                Path("data/cache/pd_index.json"), Path("."))
+            freq = build_precursor_frequency(Path("data/raw/synthesis_clean.json"))
+            ranker = Ranker(formula_set, thermo, freq)  # class defaults --
+            # ranker_fixes_instructions.md's calibrated values live there
+            lit = load_literature(Path("misc/kononova_triage_results3.json"),
+                                  Path("data/raw/synthesis_clean.json"))
+            print(f"[{self.run_name}] ranker scales: {ranker.scales}")
+            reward_funcs, reward_names, reward_weights = make_ranker_reward_fns(
+                ranker, lit, dump_path=dump_path)
+        else:
+            validator = load_validator(
+                formula_set_path=Path("data/cache/mp_formula_set.pkl"),
+                pd_index_path=Path("data/cache/pd_index.json"),
+                project_root=Path("."),
+            )
+            reward_funcs, reward_names, reward_weights = make_check_reward_fns(
+                validator, dump_path=dump_path)
+        print(f"[{self.run_name}] scorer={scorer} reward funcs: {reward_names} "
               f"(aggregation={reward_aggregation})")
 
         grpo_config = GRPOConfig(

@@ -32,6 +32,7 @@ import json
 import math
 from dataclasses import dataclass, field
 from pathlib import Path
+from statistics import stdev
 from typing import Optional
 
 from pymatgen.core import Composition, Element
@@ -51,8 +52,20 @@ GATE_NAMES = [
 ]
 OBJECTIVE_NAMES = [
     "temperature_economy", "step_economy", "precursor_availability",
-    "volatility_risk", "phase_purity", "driving_force_margin",
+    "volatility_risk", "driving_force_margin",
 ]
+# phase_purity REMOVED from the active reward (misc/some_claude_files/
+# ranker_fixes_instructions.md step 2, 2026-08-30): the capacity probe
+# (misc/ranker_capacity_probe.json) showed it 100% zero-std -- it counts
+# every entry in the RESOLVED CHEMSYS within the purity window, which is
+# constant per target (all 8 group completions typically share a chemsys)
+# and just measures how big that chemsys's phase diagram is, not how
+# selective the route is. That makes it prompt-determined, the same failure
+# mode that killed the validator's target_stability. `_phase_purity` and
+# `_competing_phases` are kept below (still computed, still written to the
+# breakdown as `phase_purity_n_competing` for later analysis) but excluded
+# from scoring. Deferred fix: redefine it to count phases reachable from
+# the DECLARED PRECURSOR SET specifically, not the whole chemsys.
 
 TEMP_PHYSICAL_MIN = 100.0
 TEMP_PHYSICAL_MAX = 2200.0  # deliberately wider than validator's 100-2000
@@ -111,17 +124,31 @@ def build_precursor_frequency(synthesis_clean_path: Path | str) -> dict[str, int
 @dataclass
 class RankerScales:
     """Per-objective scale parameters -- everything RANKER_SPEC.md section 5's
-    rail-calibration step is meant to tune. Defaults are the spec's own
-    starting points (temperature_economy's are the values finding 15's round
-    2 already validated: T_ref_margin 150 / T_span 400, tighter than round
-    1's 300/600)."""
+    rail-calibration step is meant to tune. These are LIVE DEFAULTS, not
+    just CLI-tunable knobs: the capacity probe (misc/ranker_capacity_probe.json)
+    was run via `Ranker(formula_set, thermo, freq)` with no scales override,
+    so whatever is written here is what run 4 actually trains against unless
+    a caller overrides it -- keep this in sync with the current
+    best-calibrated values, don't just tune a CLI flag and leave these stale
+    (that gap is exactly what happened to the first capacity probe: rail
+    calibration found n_max=5 was ~50x too small, but only the standalone
+    calibration script's CLI got the fix, not this dataclass, so the real
+    probe ran uncalibrated).
+
+    Values below are ranker_fixes_instructions.md step 3 (2026-08-30),
+    picked from misc/ranker_capacity_probe.json's actual per-channel rail
+    rates (320 real completions, 40 groups) -- t_span/n_span/cost_scale
+    widened to cut tie-at-the-rail rates; z-normalization within GDPO makes
+    a constant rescale gradient-neutral, so the only thing these scales
+    control is where clip(0,1) bites."""
     t_ref_margin: float = 150.0
-    t_span: float = 400.0
+    t_span: float = 800.0             # was 400 -- 42.8% of routes clipped at 0.0
     n_ref_margin: int = 2
-    n_span: float = 4.0
-    cost_scale: float = 10.0          # TUNE: rail-calibrate against archived gens
-    dg_scale: float = 0.3             # eV/atom
-    n_max: float = 5.0                # max "meaningfully many" competing phases
+    n_span: float = 5.0               # was 3-4 -- 41.3% clipped at 1.0
+    cost_scale: float = 3.0           # was 10 -- no clipping, but std only 0.082
+    dg_scale: float = 0.3             # eV/atom -- best-behaved channel, unchanged
+    n_max: float = 250.0              # phase_purity is inactive (see OBJECTIVE_NAMES)
+                                       # but kept sane for the retained diagnostic
     purity_window: float = 0.05       # eV/atom (50 meV) above hull
 
 
@@ -197,7 +224,10 @@ class Ranker:
         obj["step_economy"] = self._step_economy(predicted, lit_n_ops)
         obj["precursor_availability"] = self._precursor_availability(predicted)
         obj["volatility_risk"] = self._volatility_risk(predicted, target_formula)
-        obj["phase_purity"], info["phase_purity_n_competing"] = \
+        # phase_purity: computed and logged (diagnostic only) but NOT added
+        # to `obj` -- it must stay out of the weighted reward now that it's
+        # not in OBJECTIVE_NAMES/self.weights (see the module-level note).
+        info["phase_purity_INACTIVE"], info["phase_purity_n_competing"] = \
             self._phase_purity(predicted, target_formula)
         obj["driving_force_margin"] = (
             None if dG is None else
@@ -315,6 +345,10 @@ class Ranker:
 
     def _volatility_risk(self, predicted: PredictedRoute,
                          target_formula: str) -> Optional[float]:
+        """None (not 1.0) when no volatile-risk element is present -- the
+        channel doesn't apply to that route, it hasn't EARNED a perfect
+        score (ranker_fixes_instructions.md step 1, 2026-08-30: a hardcoded
+        1.0 here was most of a 53.9% ceiling pile in the capacity probe)."""
         elements: set[str] = set()
         try:
             elements |= {str(e) for e in Composition(target_formula).elements}
@@ -327,7 +361,7 @@ class Ranker:
                 continue
         volatile_present = [el for el in elements if el in VOLATILE_T]
         if not volatile_present:
-            return 1.0  # no volatile-risk element present -- not applicable
+            return None  # not applicable -- excluded from group stats, not a free 1.0
         T_max = _route_max_T(predicted)
         if T_max is None:
             return None
@@ -431,6 +465,115 @@ def rail_stats(breakdowns: list[dict]) -> dict[str, dict]:
             "mean": round(sum(vals) / n, 3),
         }
     return out
+
+
+def make_ranker_reward_fns(
+    ranker: Ranker,
+    lit: dict[str, dict],
+    dump_path: Optional[str] = None,
+    checks: tuple[str, ...] = tuple(OBJECTIVE_NAMES),
+    format_weight: float = 0.2,
+):
+    """
+    Per-objective reward functions for GDPO multi-reward training via TRL's
+    multi_objective_aggregation, in the exact shape
+    core.reward.make_check_reward_fns returns: (reward_funcs, reward_names,
+    reward_weights) for GRPOTrainer(reward_funcs=...) /
+    GRPOConfig(reward_weights=...). Arm B's drop-in analog of that function
+    -- the verifier is the only thing that should differ between arms, so
+    this mirrors its caching, dump-to-JSONL, None-propagation, and
+    within-group-std logging behavior line for line.
+
+    Unlike make_check_reward_fns, no `*_gradeability` sentinel lookup is
+    needed here -- Ranker.score() already returns None directly for every
+    ungradeable/inapplicable objective, so `bd.get(check)` is the whole
+    story.
+
+    `lit`: the full load_literature() table (misc/kononova_triage_results3.json
+    x data/raw/synthesis_clean.json), looked up per-target inside the reward
+    closure -- training sees many more targets than any fixed probe set, so
+    this is loaded once here rather than baked into the dataset.
+    """
+    cache: dict[tuple[str, str], Optional[dict]] = {}
+    dump_fp = open(dump_path, "a", buffering=1) if dump_path else None
+
+    def bank(completions, target_formula, trainer_state=None, **kwargs):
+        from core.reward import parse_completion  # local: core.reward imports
+                                                    # this module transitively
+                                                    # via validator; avoid a cycle
+        out = []
+        new = []
+        for c, t in zip(completions, target_formula):
+            key = (c, t)
+            if key not in cache:
+                try:
+                    route = parse_completion(c, t)
+                except Exception:
+                    route = None
+                try:
+                    lit_rec = lit.get(t, {})
+                    _, bd = ranker.score(route, t, lit_T=lit_rec.get("max_T"),
+                                        lit_n_ops=lit_rec.get("n_ops"))
+                    cache[key] = bd
+                except Exception:
+                    cache[key] = None
+                new.append((c, t, cache[key]))
+            out.append(cache[key])
+        if dump_fp is not None and new:
+            step = getattr(trainer_state, "global_step", None)
+            for c, t, bd in new:
+                dump_fp.write(json.dumps(
+                    {"step": step, "target": t, "completion": c, "breakdown": bd},
+                    default=str) + "\n")
+        return out
+
+    checks = list(checks)
+    missing = [c for c in checks if c not in OBJECTIVE_NAMES]
+    if missing:
+        raise ValueError(
+            f"requested ranker reward checks {missing} not in OBJECTIVE_NAMES "
+            f"({OBJECTIVE_NAMES}) -- refusing to run with a silently "
+            f"truncated/misnamed reward vector")
+
+    def format_ok(completions, target_formula, **kwargs):
+        bds = bank(completions, target_formula, **kwargs)
+        # ranker.score(None, ...) returns a real dict (reward 0.0, every
+        # gate False) rather than None -- unlike make_check_reward_fns'
+        # bank(), a parse failure here is NOT "bd is None" (that only
+        # happens on a genuine exception inside ranker.score() itself).
+        # gate_format_ok is the actual "did this parse into a sane route"
+        # signal (Ranker._gate_format_ok: nonempty precursors + operations).
+        return [0.0 if (bd is None or not bd.get("gate_format_ok")) else 1.0
+               for bd in bds]
+    format_ok.__name__ = "format_ok"
+
+    def make_fn(check: str):
+        def fn(completions, target_formula, log_metric=None, **kwargs):
+            bds = bank(completions, target_formula, **kwargs)
+            vals = []
+            for bd in bds:
+                if bd is None:
+                    vals.append(None)
+                else:
+                    v = bd.get(check)
+                    vals.append(float(v) if isinstance(v, (int, float))
+                               and not isinstance(v, bool) else None)
+            if log_metric is not None:
+                groups: dict[str, list[float]] = {}
+                for v, t in zip(vals, target_formula):
+                    if v is not None:
+                        groups.setdefault(t, []).append(v)
+                stds = [stdev(g) for g in groups.values() if len(g) >= 2]
+                if stds:
+                    log_metric(f"within_group_std/{check}", sum(stds) / len(stds))
+            return vals
+        fn.__name__ = f"check_{check}"
+        return fn
+
+    funcs = [format_ok] + [make_fn(c) for c in checks]
+    names = ["format_ok"] + checks
+    weights = [format_weight] + [1.0] * len(checks)
+    return funcs, names, weights
 
 
 def gate_failure_rates(breakdowns: list[dict]) -> dict[str, float]:

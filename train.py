@@ -64,6 +64,13 @@ def parse_args():
                    help="SFT only: hard step cap, overrides epochs (e.g. the "
                         "equal-compute continuation arm matched to GDPO-300's "
                         "~75 GPU-hours: ~24000 steps at ~11 s/step).")
+    p.add_argument("--scorer", choices=["validator", "ranker"], default="validator",
+                   help="GRPO/GDPO only: validator = Arm A (core/reward.py's "
+                        "SynthesisValidator, validity checks). ranker = Arm B "
+                        "(core/ranker.py's gates x objectives quality scorer, "
+                        "RANKER_SPEC.md). The verifier is the only thing this "
+                        "flag should change -- everything else (beta, lr, G, "
+                        "data pipeline) stays identical between arms.")
 
 
     return p.parse_args()

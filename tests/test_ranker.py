@@ -160,8 +160,8 @@ r_no_volatile = route("BaTiO3", [("BaO", 1.0), ("TiO2", 1.0)],
                       ops=[op("calcine", temp=1400)])
 r_hot_ag = route("Ag2O", [("AgNO3", 1.0)], ops=[op("calcine", temp=1400)])
 r_ag_no_temp = route("Ag2O", [("AgNO3", 1.0)], ops=[op("mix")])
-check("volatility_risk: 1.0 when no volatile element present",
-      RANKER._volatility_risk(r_no_volatile, "BaTiO3") == 1.0)
+check("volatility_risk: None (not applicable, not a free 1.0) when no volatile element present",
+      RANKER._volatility_risk(r_no_volatile, "BaTiO3") is None)
 v_ag = RANKER._volatility_risk(r_hot_ag, "Ag2O")
 check("volatility_risk: penalized when a volatile element (Ag) is hot",
       v_ag is not None and v_ag < 1.0, f"got {v_ag}")
@@ -214,9 +214,11 @@ check("BaTiO3 route scores in [0,1]", 0.0 <= reward <= 1.0, f"reward={reward}")
 check("ranker_version stamped", info.get("ranker_version") == RANKER_VERSION)
 check("driving_force_margin_gradeability present",
       "driving_force_margin_gradeability" in info)
+check("phase_purity excluded from OBJECTIVE_NAMES but still logged inactive",
+      "phase_purity" not in OBJECTIVE_NAMES and "phase_purity_INACTIVE" in info)
 print(f"    (BaTiO3 reward={reward:.3f}  "
       f"dfm={info.get('driving_force_margin')}  "
-      f"phase_purity={info.get('phase_purity')}  "
+      f"phase_purity_INACTIVE={info.get('phase_purity_INACTIVE')}  "
       f"temp_economy={info.get('temperature_economy')})")
 
 # gate-passing route with a nonsense target should still degrade gracefully
