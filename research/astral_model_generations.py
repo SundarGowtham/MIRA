@@ -50,6 +50,8 @@ def parse_args():
     p.add_argument("--out", type=Path, default=None,
                    help="default: misc/astral_gen_<tag>.json")
     p.add_argument("--seed", type=int, default=42)
+    p.add_argument("--n-samples", type=int, default=8,
+                   help="closed-book samples per target (Phase 11 Step 0: 32)")
     return p.parse_args()
 
 
@@ -111,7 +113,15 @@ def main():
         pred = {SynthesisValidator._normalize_formula(f) for f in t["predicted"]}
 
         prompt = closed_prompt(target)
-        completions = generate_batch(model, tok, [prompt] * 8, gen_args)
+        # Chunked at 8/call (the proven-working batch size, CLAUDE.md's GPU
+        # memory rule) -- args.n_samples=32 in one generate_batch call OOMs
+        # the 32GB card (KV-cache scales with batch x max_new_tokens=8192).
+        completions = []
+        remaining = args.n_samples
+        while remaining > 0:
+            chunk = min(8, remaining)
+            completions.extend(generate_batch(model, tok, [prompt] * chunk, gen_args))
+            remaining -= chunk
 
         samples = []
         for comp in completions:
@@ -134,7 +144,8 @@ def main():
         out.write_text(json.dumps({"results": results}, indent=1))
         n_trad = sum(1 for s in samples if s["match"] in ("TRADITIONAL", "TRADITIONAL_SUPERSET"))
         n_pred = sum(1 for s in samples if s["match"] in ("PREDICTED", "PREDICTED_SUPERSET"))
-        print(f"[{i+1}/{len(data['targets'])}] {target}: trad={n_trad}/8 pred={n_pred}/8",
+        print(f"[{i+1}/{len(data['targets'])}] {target}: "
+              f"trad={n_trad}/{args.n_samples} pred={n_pred}/{args.n_samples}",
               flush=True)
 
     # summary
@@ -170,7 +181,7 @@ def main():
           if all_temps else "no temps")
 
     out.write_text(json.dumps({
-        "tag": args.tag, "checkpoint": args.checkpoint,
+        "tag": args.tag, "checkpoint": args.checkpoint, "n_samples": args.n_samples,
         "results": results,
         "summary": {
             "n_targets": len(results),

@@ -1,0 +1,66 @@
+{
+  "source": {
+    "paper": "Navigating phase diagram complexity to guide robotic inorganic materials synthesis",
+    "authors": "Chen, Cross, Miara, Cho, Wang, Sun",
+    "venue": "Nature Synthesis 2024",
+    "arxiv": "2304.00743",
+    "lab": "ASTRAL, Samsung Advanced Institute of Technology - America",
+    "note": "224 robot-run reactions over 35 quaternary oxide/phosphate/borate targets. Phase purity = I_target/(I_target+I_residual) from automated Rietveld refinement. >0.5 high, 0.2-0.5 moderate, <0.2 low. ~10% error bar.",
+    "why_this_matters": "This is EXTERNAL EXPERIMENTAL GROUND TRUTH for route quality. MIRA's validator has never been checked against measured outcomes. The predicted precursors (LiPO3, LiBO2, LiNbO3, KPO3, NaBO2, ...) are largely ABSENT from the Kononova text-mined corpus, which is MIRA's SFT training data - so a model trained on that corpus is unlikely to propose them."
+  },
+  "precursor_selection_principles": [
+    "1. Reactions should initiate between only 2 precursors if possible.",
+    "2. Precursors should be relatively HIGH-ENERGY (unstable) to maximize driving force and kinetics.",
+    "3. The target should be the deepest point in the reaction convex hull.",
+    "4. The composition slice between the two precursors should intersect as few competing phases as possible.",
+    "5. If byproducts are unavoidable, the target should have a large inverse hull energy."
+  ],
+  "targets": [
+    {"target": "LiZnPO4", "traditional": ["Li2CO3", "NH4H2PO4", "ZnO"], "predicted": ["LiPO3", "ZnO"], "trad_best_purity": 0.76, "trad_best_T": 800, "pred_best_purity": 0.70, "pred_best_T": 800, "inverse_hull_eV": -0.106, "reaction_energy_eV": -0.106},
+    {"target": "LiMnPO4", "traditional": ["Li2CO3", "NH4H2PO4", "MnO"], "predicted": ["LiPO3", "MnO"], "trad_best_purity": 0.63, "trad_best_T": 700, "pred_best_purity": 0.59, "pred_best_T": 700, "inverse_hull_eV": -0.061, "reaction_energy_eV": -0.132},
+    {"target": "Li2CuP2O7", "traditional": ["Li2CO3", "NH4H2PO4", "CuO"], "predicted": ["LiPO3", "CuO"], "trad_best_purity": 0.72, "trad_best_T": 800, "pred_best_purity": 0.78, "pred_best_T": 700, "inverse_hull_eV": -0.036, "reaction_energy_eV": -0.036},
+    {"target": "LiMgPO4", "traditional": ["Li2CO3", "NH4H2PO4", "MgO"], "predicted": ["LiPO3", "MgO"], "trad_best_purity": 0.75, "trad_best_T": 900, "pred_best_purity": 0.70, "pred_best_T": 800, "inverse_hull_eV": -0.032, "reaction_energy_eV": -0.143},
+    {"target": "BaLiBO3", "traditional": ["Li2CO3", "B2O3", "BaO"], "predicted": ["LiBO2", "BaO"], "trad_best_purity": 0.32, "trad_best_T": 700, "pred_best_purity": 0.77, "pred_best_T": 800, "inverse_hull_eV": -0.153, "reaction_energy_eV": -0.192},
+    {"target": "SrLiBO3", "traditional": ["Li2CO3", "B2O3", "SrO"], "predicted": ["LiBO2", "SrO"], "trad_best_purity": 0.68, "trad_best_T": 700, "pred_best_purity": 0.70, "pred_best_T": 600, "inverse_hull_eV": -0.119, "reaction_energy_eV": -0.149},
+    {"target": "Li3Pr2(BO3)3", "traditional": ["Li2CO3", "B2O3", "Pr6O11"], "predicted": ["LiBO2", "Pr6O11"], "trad_best_purity": 0.13, "trad_best_T": 800, "pred_best_purity": 0.70, "pred_best_T": 600, "inverse_hull_eV": -0.015, "reaction_energy_eV": -0.057},
+    {"target": "LiGeBO4", "traditional": ["Li2CO3", "B2O3", "GeO2"], "predicted": ["LiBO2", "GeO2"], "trad_best_purity": 0.15, "trad_best_T": 800, "pred_best_purity": 0.63, "pred_best_T": 800, "inverse_hull_eV": -0.026, "reaction_energy_eV": -0.040},
+    {"target": "K3LiP2O7", "traditional": ["K2CO3", "Li2CO3", "NH4H2PO4"], "predicted": ["LiPO3", "K3PO4"], "trad_best_purity": 0.62, "trad_best_T": 800, "pred_best_purity": 0.66, "pred_best_T": 700, "inverse_hull_eV": -0.035, "reaction_energy_eV": -0.071},
+    {"target": "Li3Sc2(PO4)3", "traditional": ["Sc2O3", "Li2CO3", "NH4H2PO4"], "predicted": ["Sc2O3", "LiPO3"], "trad_best_purity": 0.28, "trad_best_T": 800, "pred_best_purity": 0.81, "pred_best_T": 900, "inverse_hull_eV": -0.034, "reaction_energy_eV": -0.102},
+    {"target": "Li3V2(PO4)3", "traditional": ["V2O3", "Li2CO3", "NH4H2PO4"], "predicted": ["LiPO3", "V2O3"], "trad_best_purity": 0.00, "trad_best_T": 900, "pred_best_purity": 0.07, "pred_best_T": 900, "inverse_hull_eV": -0.024, "reaction_energy_eV": -0.062, "failure_note": "BOTH FAILED. Literature uses reducing atmosphere (Ar+H2); air calcination gives wrong V oxidation state (need V3+, air favors V5+)."},
+    {"target": "KLi(PO3)2", "traditional": ["K2CO3", "Li2CO3", "NH4H2PO4"], "predicted": ["KPO3", "LiPO3"], "trad_best_purity": 0.35, "trad_best_T": 800, "pred_best_purity": 0.38, "pred_best_T": 800, "inverse_hull_eV": -0.009, "reaction_energy_eV": -0.009, "failure_note": "Glass former - amorphous product, low XRD crystallinity."},
+    {"target": "Li2TiSiO5", "traditional": ["SiO2", "TiO2", "Li2CO3"], "predicted": ["SiO2", "Li2TiO3"], "trad_best_purity": 0.75, "trad_best_T": 1000, "pred_best_purity": 0.51, "pred_best_T": 1000, "inverse_hull_eV": -0.026, "reaction_energy_eV": -0.026},
+    {"target": "LiNbGeO5", "traditional": ["GeO2", "Li2CO3", "Nb2O5"], "predicted": ["GeO2", "LiNbO3"], "trad_best_purity": 0.85, "trad_best_T": 1000, "pred_best_purity": 0.78, "pred_best_T": 1000, "inverse_hull_eV": -0.024, "reaction_energy_eV": -0.024},
+    {"target": "Li2TiGeO5", "traditional": ["GeO2", "Li2CO3", "TiO2"], "predicted": ["GeO2", "Li2TiO3"], "trad_best_purity": 0.75, "trad_best_T": 1000, "pred_best_purity": 0.62, "pred_best_T": 1000, "inverse_hull_eV": -0.008, "reaction_energy_eV": -0.036},
+    {"target": "Li3Fe2(PO4)3", "traditional": ["Li2CO3", "NH4H2PO4", "Fe2O3"], "predicted": ["LiPO3", "Fe2O3"], "trad_best_purity": 0.43, "trad_best_T": 800, "pred_best_purity": 0.47, "pred_best_T": 700, "inverse_hull_eV": -0.008, "reaction_energy_eV": -0.048},
+    {"target": "KBaPO4", "traditional": ["K2CO3", "NH4H2PO4", "BaO"], "predicted": ["KPO3", "BaO"], "trad_best_purity": 0.59, "trad_best_T": 600, "pred_best_purity": 0.56, "pred_best_T": 700, "inverse_hull_eV": -0.316, "reaction_energy_eV": -0.316},
+    {"target": "BaNaBO3", "traditional": ["Na2CO3", "BaO", "B2O3"], "predicted": ["BaO", "NaBO2"], "trad_best_purity": 0.33, "trad_best_T": 800, "pred_best_purity": 0.05, "pred_best_T": 600, "inverse_hull_eV": -0.172, "reaction_energy_eV": -0.172, "failure_note": "Published reaction T is very precise at 790C; rounding to 800C may be too high."},
+    {"target": "KMgPO4", "traditional": ["K2CO3", "NH4H2PO4", "MgO"], "predicted": ["KPO3", "MgO"], "trad_best_purity": 0.22, "trad_best_T": 700, "pred_best_purity": 0.49, "pred_best_T": 700, "inverse_hull_eV": -0.123, "reaction_energy_eV": -0.123},
+    {"target": "NaSrBO3", "traditional": ["Na2CO3", "SrO", "B2O3"], "predicted": ["NaBO2", "SrO"], "trad_best_purity": 0.50, "trad_best_T": 800, "pred_best_purity": 0.35, "pred_best_T": 600, "inverse_hull_eV": -0.118, "reaction_energy_eV": -0.118},
+    {"target": "K3Bi2(PO4)3", "traditional": ["K2CO3", "NH4H2PO4", "Bi2O3"], "predicted": ["Bi2O3", "KPO3"], "trad_best_purity": 0.48, "trad_best_T": 600, "pred_best_purity": 0.85, "pred_best_T": 700, "inverse_hull_eV": -0.079, "reaction_energy_eV": -0.079},
+    {"target": "K2Zr(PO4)2", "traditional": ["K2CO3", "NH4H2PO4", "ZrO2"], "predicted": ["KPO3", "ZrO2"], "trad_best_purity": 0.12, "trad_best_T": 800, "pred_best_purity": 0.75, "pred_best_T": 800, "inverse_hull_eV": -0.068, "reaction_energy_eV": -0.068},
+    {"target": "K3Al2(PO4)3", "traditional": ["K2CO3", "NH4H2PO4", "Al2O3"], "predicted": ["KPO3", "Al2O3"], "trad_best_purity": 0.47, "trad_best_T": 700, "pred_best_purity": 0.59, "pred_best_T": 700, "inverse_hull_eV": -0.063, "reaction_energy_eV": -0.067},
+    {"target": "KTiPO5", "traditional": ["K2CO3", "NH4H2PO4", "TiO2"], "predicted": ["TiO2", "KPO3"], "trad_best_purity": 0.66, "trad_best_T": 800, "pred_best_purity": 0.62, "pred_best_T": 700, "inverse_hull_eV": -0.057, "reaction_energy_eV": -0.057},
+    {"target": "KNiPO4", "traditional": ["K2CO3", "NH4H2PO4", "NiO"], "predicted": ["KPO3", "NiO"], "trad_best_purity": 0.25, "trad_best_T": 800, "pred_best_purity": 0.69, "pred_best_T": 800, "inverse_hull_eV": -0.050, "reaction_energy_eV": -0.050},
+    {"target": "K3Fe2(PO4)3", "traditional": ["K2CO3", "NH4H2PO4", "Fe2O3"], "predicted": ["KPO3", "Fe2O3"], "trad_best_purity": 0.39, "trad_best_T": 800, "pred_best_purity": 0.68, "pred_best_T": 700, "inverse_hull_eV": -0.042, "reaction_energy_eV": -0.042},
+    {"target": "KNbWO6", "traditional": ["K2CO3", "Nb2O5", "WO3"], "predicted": ["WO3", "KNbO3"], "trad_best_purity": 0.66, "trad_best_T": 600, "pred_best_purity": 0.61, "pred_best_T": 800, "inverse_hull_eV": -0.024, "reaction_energy_eV": -0.042},
+    {"target": "KTa2PO8", "traditional": ["K2CO3", "NH4H2PO4", "Ta2O5"], "predicted": ["KPO3", "Ta2O5"], "trad_best_purity": 0.21, "trad_best_T": 700, "pred_best_purity": 0.16, "pred_best_T": 700, "inverse_hull_eV": -0.015, "reaction_energy_eV": -0.036},
+    {"target": "Li3Y2(BO3)3", "traditional": ["Li2CO3", "Y2O3", "B2O3"], "predicted": ["LiBO2", "Y2O3"], "trad_best_purity": 0.12, "trad_best_T": 600, "pred_best_purity": 0.17, "pred_best_T": 700, "inverse_hull_eV": -0.014, "reaction_energy_eV": -0.038, "failure_note": "Likely insufficient synthesis temperature; also metastable (39 meV/atom above hull)."},
+    {"target": "Na2Al2B2O7", "traditional": ["Na2CO3", "Al2O3", "B2O3"], "predicted": ["Al2O3", "NaBO2"], "trad_best_purity": 0.46, "trad_best_T": 700, "pred_best_purity": 0.60, "pred_best_T": 700, "inverse_hull_eV": -0.014, "reaction_energy_eV": -0.024, "MIRA_note": "IN MIRA's pass@k HELD-OUT SET, pass@1 = 1.000. Traditional route yields 0.00 phase fraction at 600C, 0.46 at 700C. Predicted route yields 0.52 at 600C, 0.60 at 700C. THE CASE STUDY."},
+    {"target": "NaSiBO4", "traditional": ["Na2CO3", "SiO2", "B2O3"], "predicted": ["NaBO2", "SiO2"], "trad_best_purity": 0.18, "trad_best_T": 600, "pred_best_purity": 0.00, "pred_best_T": 600, "inverse_hull_eV": -0.008, "reaction_energy_eV": -0.022, "failure_note": "Glass former; amorphous product."},
+    {"target": "KTiNbO5", "traditional": ["K2CO3", "TiO2", "Nb2O5"], "predicted": ["TiO2", "KNbO3"], "trad_best_purity": 0.27, "trad_best_T": 700, "pred_best_purity": 0.18, "pred_best_T": 700, "inverse_hull_eV": -0.006, "reaction_energy_eV": -0.013},
+    {"target": "LiSi2BO6", "traditional": ["Li2CO3", "SiO2", "B2O3"], "predicted": ["LiBO2", "SiO2"], "trad_best_purity": 0.46, "trad_best_T": 700, "pred_best_purity": 0.27, "pred_best_T": 700, "inverse_hull_eV": -0.004, "reaction_energy_eV": -0.010},
+    {"target": "LiNbWO6", "traditional": ["Li2CO3", "Nb2O5", "WO3"], "predicted": ["LiNbO3", "WO3"], "trad_best_purity": 0.05, "trad_best_T": 700, "pred_best_purity": 0.17, "pred_best_T": 700, "inverse_hull_eV": 0.000, "reaction_energy_eV": 0.000},
+    {"target": "LiZnBO3", "traditional": ["Li2CO3", "ZnO", "B2O3"], "predicted": ["LiBO2", "ZnO"], "trad_best_purity": 0.15, "trad_best_T": 700, "pred_best_purity": 0.52, "pred_best_T": 700, "inverse_hull_eV": 0.000, "reaction_energy_eV": 0.000}
+  ],
+  "novel_precursors_absent_from_literature_corpus": [
+    "LiPO3", "LiBO2", "LiNbO3", "Li2TiO3", "KPO3", "K3PO4", "KNbO3", "NaBO2", "NaPO3"
+  ],
+  "headline_numbers": {
+    "targets_where_predicted_beat_traditional_by_10pct": 15,
+    "targets_where_similar": 16,
+    "targets_where_traditional_better_by_10pct": 4,
+    "targets_where_only_predicted_worked": 6,
+    "total_reactions": 224,
+    "total_targets": 35
+  }
+}

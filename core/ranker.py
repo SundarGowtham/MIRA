@@ -29,7 +29,6 @@ differently and does NOT modify validator.py. Arm A must stay reproducible.
 from __future__ import annotations
 
 import json
-import math
 from dataclasses import dataclass, field
 from pathlib import Path
 from statistics import stdev
@@ -44,15 +43,47 @@ from validator import (
     RXN_ENERGY_BORDERLINE,
 )
 
-RANKER_VERSION = "2026-08-29-v1"
+RANKER_VERSION = "2026-09-03-v2-phase11"
 
 GATE_NAMES = [
     "balances", "precursors_exist", "charge_neutral", "format_ok",
     "temperature_physical",
 ]
+# Phase 11 rebuild (misc/some_claude_files/PHASE_11_INSTRUCTIONS.md Step 1,
+# 2026-09-03), replacing v1's step_economy/precursor_availability pair.
+# `step_economy` was chemically backwards -- the standard ceramic method is
+# deliberately multi-step (calcine/regrind/calcine) because the reaction is
+# diffusion-limited; rewarding brevity rewarded convenience. `precursor_
+# availability` scored by corpus frequency, i.e. rewarded *being typical* --
+# the ASTRAL comparison (three_model_comparison, 2026-09-01) shows the
+# experimentally-superior precursors sit at ~0 corpus frequency, so that
+# channel actively penalized the right answer, and it had collapsed to
+# z-variance 0.002 under rail-tightening anyway (`ranker_fixes_instructions.md`
+# step 3). `_step_economy`/`_precursor_availability` are deleted, not kept
+# dead -- `build_precursor_frequency`/`precursor_freq` stay on the instance
+# (still used by other scripts, e.g. astral_corpus_coverage.py) even though
+# no active objective reads them anymore.
+#
+# The four replacements are all physics, none reference conventionality --
+# they target ASTRAL's published precursor-selection principles directly
+# (arXiv 2304.00743) rather than rewarding rarity with the sign flipped:
+#   precursor_instability     (principle 2 -- exact inverse of the deleted
+#                              precursor_availability, but thermodynamic
+#                              instability, not corpus rarity)
+#   inverse_hull_energy       (principle 5)
+#   n_precursors               (principle 1 -- 2-precursor initiation)
+#   slice_competing_phases     (principle 4 -- competing phases on the
+#                              2-precursor tie line specifically, not the
+#                              whole chemsys; that generality is what made
+#                              v1's phase_purity 100% prompt-determined, see
+#                              below)
+# temperature_economy, volatility_risk, driving_force_margin are unchanged
+# from v1 (temperature_economy z-var 0.72, the healthiest channel measured
+# anywhere in this project -- finding 15).
 OBJECTIVE_NAMES = [
-    "temperature_economy", "step_economy", "precursor_availability",
-    "volatility_risk", "driving_force_margin",
+    "temperature_economy", "driving_force_margin", "volatility_risk",
+    "precursor_instability", "inverse_hull_energy", "n_precursors",
+    "slice_competing_phases", "precursor_decomposition_match",
 ]
 # phase_purity REMOVED from the active reward (misc/some_claude_files/
 # ranker_fixes_instructions.md step 2, 2026-08-30): the capacity probe
@@ -64,8 +95,8 @@ OBJECTIVE_NAMES = [
 # mode that killed the validator's target_stability. `_phase_purity` and
 # `_competing_phases` are kept below (still computed, still written to the
 # breakdown as `phase_purity_n_competing` for later analysis) but excluded
-# from scoring. Deferred fix: redefine it to count phases reachable from
-# the DECLARED PRECURSOR SET specifically, not the whole chemsys.
+# from scoring. Its Phase 11 replacement is `slice_competing_phases` below,
+# which fixes exactly this by restricting to the 2-precursor tie line.
 
 TEMP_PHYSICAL_MIN = 100.0
 TEMP_PHYSICAL_MAX = 2200.0  # deliberately wider than validator's 100-2000
@@ -84,6 +115,27 @@ VOLATILE_T = {
     "S": 600, "Sb": 900, "Tl": 700, "As": 600,
 }
 
+# Approximate onset-of-decomposition temperature in air, degrees C, for
+# common carbonate/hydroxide/nitrate precursors -- `precursor_decomposition_
+# match` below (Phase 11 Step 1, "optional if time allows"). SPEC FLAG: a
+# first-pass reference table, not verified against a primary source; real
+# decomposition onset shifts with partial pressure, particle size, and
+# matrix effects. Ask the user to sanity-check before trusting this for
+# anything beyond reward shaping -- same posture as VOLATILE_T above. Keyed
+# on the human-readable formula and normalized once at import time via
+# SynthesisValidator._normalize_formula so lookups at score time share the
+# validator's key space.
+_DECOMP_T_RAW = {
+    "Li2CO3": 720.0, "Na2CO3": 851.0, "K2CO3": 900.0,
+    "CaCO3": 840.0, "SrCO3": 1100.0, "BaCO3": 1300.0, "MgCO3": 350.0,
+    "LiOH": 450.0, "NaOH": 318.0, "KOH": 360.0, "Ca(OH)2": 512.0,
+    "LiNO3": 600.0, "NaNO3": 380.0, "KNO3": 400.0, "Ca(NO3)2": 561.0,
+    "Sr(NO3)2": 645.0, "Ba(NO3)2": 592.0,
+}
+PRECURSOR_DECOMP_T = {
+    SynthesisValidator._normalize_formula(f): t for f, t in _DECOMP_T_RAW.items()
+}
+
 
 def _route_max_T(predicted: PredictedRoute) -> Optional[float]:
     """Max heating-op temperature reported anywhere in the route."""
@@ -96,10 +148,6 @@ def _route_max_T(predicted: PredictedRoute) -> Optional[float]:
             except (TypeError, ValueError):
                 pass
     return max(temps) if temps else None
-
-
-def _route_n_ops(predicted: PredictedRoute) -> int:
-    return len(predicted.operations or [])
 
 
 def build_precursor_frequency(synthesis_clean_path: Path | str) -> dict[str, int]:
@@ -140,16 +188,59 @@ class RankerScales:
     rates (320 real completions, 40 groups) -- t_span/n_span/cost_scale
     widened to cut tie-at-the-rail rates; z-normalization within GDPO makes
     a constant rescale gradient-neutral, so the only thing these scales
-    control is where clip(0,1) bites."""
+    control is where clip(0,1) bites.
+
+    Phase 11 rebuild (PHASE_11_INSTRUCTIONS.md Step 1, 2026-09-03): n_ref_margin/
+    n_span (step_economy) and cost_scale (precursor_availability) are gone with
+    those objectives. Calibrated 2026-09-03 against 200 archived completions
+    from runs/gdpo-qlora-beta-ablation-probe/generations.jsonl
+    (misc/ranker_rail_calibration_phase11.json, ranker_rail_calibration_phase11.py,
+    5th/95th percentile of each raw quantity, per PHASE_11_INSTRUCTIONS.md Step 1).
+
+    IMPORTANT CALIBRATION FINDING, not just a number update: that same run
+    showed 4 of the 8 objectives at exactly 0.0 within-group z-variance
+    (n_precursors, inverse_hull_energy, slice_competing_phases, and --
+    separately and worse -- precursor_instability, whose RAW quantity itself
+    is 98.7% exactly 0.0 at p5/p50/p95, not just a scale problem). Only
+    temperature_economy (0.272), driving_force_margin (0.273), volatility_risk
+    (0.125), and precursor_decomposition_match (0.143) carry real within-group
+    spread; inline capacity on these placeholder-then-calibrated scales was
+    10.6%, BELOW Arm A's validator baseline (14%). This is a real, reported
+    finding (misc/PHASE11_RESULTS.md), not swept under a rescale -- z-
+    normalization within GDPO makes a constant rescale gradient-neutral, so
+    no choice of scale fixes a channel whose raw quantity has no variance to
+    begin with. precursor_instability in particular looks structurally dead:
+    `_best_entry_for_formula` correctly returns each precursor's most stable
+    known polymorph, and real, isolable solid precursors sit at or near their
+    own DFT hull almost by construction (that is close to what "isolable
+    solid compound" means) -- e_above_hull does not operationalize ASTRAL's
+    "kinetically metastable / synthesis-uncommon" sense of precursor
+    instability, a conceptual mismatch, not a rail-tuning problem.
+    instability_scale below is kept at a physically-motivated constant
+    (typical metastable-polymorph DFT energy scale) rather than the
+    calibration run's own suggested 0.001 (a percentile-of-an-all-zero-
+    distribution artifact, not a real scale -- pasting it verbatim would make
+    the channel numerically unstable, clipping to 1.0 on any nonzero noise).
+    The remaining Phase-11-gate question is whether the EXTERNAL ASTRAL
+    agreement rate (Step 2) clears its own, separate, pre-registered bar
+    despite this internal capacity signal -- Step 2, not this number, is the
+    protocol's actual stop gate."""
     t_ref_margin: float = 150.0
     t_span: float = 800.0             # was 400 -- 42.8% of routes clipped at 0.0
-    n_ref_margin: int = 2
-    n_span: float = 5.0               # was 3-4 -- 41.3% clipped at 1.0
-    cost_scale: float = 3.0           # was 10 -- no clipping, but std only 0.082
     dg_scale: float = 0.3             # eV/atom -- best-behaved channel, unchanged
     n_max: float = 250.0              # phase_purity is inactive (see OBJECTIVE_NAMES)
                                        # but kept sane for the retained diagnostic
     purity_window: float = 0.05       # eV/atom (50 meV) above hull
+    # -- Phase 11 additions, calibrated 2026-09-03 (see docstring above) --
+    instability_scale: float = 0.05   # eV/atom -- NOT from percentiles (raw
+                                       # dist is 98.7% exactly 0.0); kept at a
+                                       # physically sane constant, channel is
+                                       # expected to stay near-dead regardless
+    inv_hull_scale: float = 0.18      # eV/atom -- was 0.3, p95(|raw|)=0.18
+    n_precursors_ref: int = 2         # principle 1: 2-precursor initiation
+    n_precursors_span: float = 2.0    # unchanged -- p95(excess)=2, matches
+    slice_n_max: float = 4.0          # was 3.0, p95(raw n_competing)=4
+    decomp_span: float = 610.0        # was 400 -- p95(|raw margin|)=610 C
 
 
 class Ranker:
@@ -173,9 +264,11 @@ class Ranker:
         # weight vector is irrelevant here.
         self._v = SynthesisValidator(mp_formula_set, thermo_checker=None)
         self.thermo = thermo_checker
+        # precursor_freq/build_precursor_frequency are kept on the instance
+        # for other callers (e.g. astral_corpus_coverage.py) even though no
+        # active objective reads them since precursor_availability was
+        # deleted (Phase 11 Step 1) -- see the OBJECTIVE_NAMES module note.
         self.precursor_freq = precursor_freq
-        self.total_freq = max(1, sum(precursor_freq.values()))
-        self.max_cost = -math.log(1.0 / (2 * self.total_freq))
         self.scales = scales or RankerScales()
         self.weights = weights or {name: 1.0 / len(OBJECTIVE_NAMES)
                                    for name in OBJECTIVE_NAMES}
@@ -221,8 +314,6 @@ class Ranker:
 
         obj: dict[str, Optional[float]] = {}
         obj["temperature_economy"] = self._temperature_economy(predicted, lit_T, dG)
-        obj["step_economy"] = self._step_economy(predicted, lit_n_ops)
-        obj["precursor_availability"] = self._precursor_availability(predicted)
         obj["volatility_risk"] = self._volatility_risk(predicted, target_formula)
         # phase_purity: computed and logged (diagnostic only) but NOT added
         # to `obj` -- it must stay out of the weighted reward now that it's
@@ -233,6 +324,18 @@ class Ranker:
             None if dG is None else
             max(0.0, min(1.0, -dG / self.scales.dg_scale))
         )
+        # Each of these returns (clipped [0,1] score, raw pre-clip quantity)
+        # -- same pattern as _phase_purity above -- so rail calibration can
+        # pick scales from the actual raw distribution instead of guessing.
+        obj["precursor_instability"], info["precursor_instability_raw_mean_eah"] = \
+            self._precursor_instability(predicted, target_formula)
+        obj["inverse_hull_energy"], info["inverse_hull_energy_raw_e_eq"] = \
+            self._inverse_hull_energy(predicted, target_formula)
+        obj["n_precursors"], info["n_precursors_raw_n"] = self._n_precursors(predicted)
+        obj["slice_competing_phases"], info["slice_competing_phases_raw_n_competing"] = \
+            self._slice_competing_phases(predicted, target_formula)
+        obj["precursor_decomposition_match"], info["precursor_decomposition_match_raw_margin"] = \
+            self._precursor_decomposition_match(predicted)
         info.update(obj)
 
         active = {k: v for k, v in obj.items()
@@ -323,25 +426,159 @@ class Ranker:
         T_ref = lit_T + self.scales.t_ref_margin
         return max(0.0, min(1.0, (T_ref - T_max) / self.scales.t_span))
 
-    def _step_economy(self, predicted: PredictedRoute,
-                      lit_n_ops: Optional[int]) -> Optional[float]:
-        if lit_n_ops is None:
-            return None
-        n_ops = _route_n_ops(predicted)
-        n_ref = lit_n_ops + self.scales.n_ref_margin
-        return max(0.0, min(1.0, (n_ref - n_ops) / self.scales.n_span))
+    def _precursor_instability(self, predicted: PredictedRoute,
+                               target_formula: str) -> tuple[Optional[float], Optional[float]]:
+        """Principle 2 -- the exact inverse of the deleted precursor_
+        availability: mean e_above_hull of the DECLARED precursors
+        (eV/atom), not corpus frequency. Higher is better -- LiPO3/LiBO2
+        sit meaningfully above the Li2CO3/B2O3 hull, so this favors
+        ASTRAL's winners on thermodynamic grounds with no reference to
+        how common they are in the corpus. Returns (clipped score, raw
+        mean e_above_hull) -- the raw value is what rail calibration uses
+        to set instability_scale from an actual distribution."""
+        if self.thermo is None or not predicted.precursors:
+            return None, None
+        try:
+            core_formulas = [target_formula] + [p.formula for p in predicted.precursors]
+            pd, _ = self.thermo._resolve_pd(core_formulas)
+            if pd is None:
+                return None, None
+            eahs = []
+            for p in predicted.precursors:
+                entry = self.thermo._best_entry_for_formula(pd, p.formula)
+                if entry is None:
+                    continue
+                eah = pd.get_e_above_hull(entry, on_error="ignore")
+                if eah is not None:
+                    eahs.append(eah)
+        except Exception:
+            return None, None
+        if not eahs:
+            return None, None
+        mean_eah = sum(eahs) / len(eahs)
+        score = max(0.0, min(1.0, mean_eah / self.scales.instability_scale))
+        return score, mean_eah
 
-    def _precursor_availability(self, predicted: PredictedRoute) -> Optional[float]:
+    def _inverse_hull_energy(self, predicted: PredictedRoute,
+                             target_formula: str) -> tuple[Optional[float], Optional[float]]:
+        """Principle 5, via pymatgen's PhaseDiagram.get_equilibrium_
+        reaction_energy -- literally documented as the 'inverse distance to
+        hull': the reaction energy of the target's PD entry from its
+        neighbouring stable phases (eV/atom, <=0 for a stable entry, more
+        negative = more robustly protected against decomposing into its
+        hull neighbours). Score is larger for a more negative (deeper)
+        value. SPEC CAVEAT: this is a property of the TARGET's own PD
+        entry, not the declared precursor set, so within a GRPO group
+        (same target on every completion) it is close to constant unless
+        different precursor element coverage resolves `_resolve_pd` to a
+        different covering chemsys. Implemented per Phase 11 Step 1 as
+        specified; whether it carries real within-group variance is
+        exactly what Step 2's rail check will show -- if it comes back
+        flat, that is itself the finding (another target-only,
+        prompt-determined trap, same failure mode as the validator's
+        target_stability), not a reason to have skipped implementing it.
+        Returns (clipped score, raw equilibrium reaction energy)."""
+        if self.thermo is None:
+            return None, None
+        try:
+            core_formulas = [target_formula] + [p.formula for p in (predicted.precursors or [])]
+            pd, _ = self.thermo._resolve_pd(core_formulas)
+            if pd is None:
+                return None, None
+            entry = self.thermo._best_entry_for_formula(pd, target_formula)
+            if entry is None:
+                return None, None
+            e_eq = pd.get_equilibrium_reaction_energy(entry)
+        except Exception:
+            return None, None
+        if e_eq is None:
+            return None, None
+        score = max(0.0, min(1.0, -e_eq / self.scales.inv_hull_scale))
+        return score, e_eq
+
+    def _n_precursors(self, predicted: PredictedRoute) -> tuple[Optional[float], Optional[int]]:
+        """Principle 1 -- 2-precursor initiation. n<=n_precursors_ref (2)
+        scores 1.0; each additional precursor costs 1/n_precursors_span,
+        penalizing 3+ precursor routes (simultaneous, unpredictable
+        pairwise side-reactions) without hard-gating them out. Returns
+        (clipped score, raw n)."""
+        n = len(predicted.precursors or [])
+        if n == 0:
+            return None, None
+        excess = max(0, n - self.scales.n_precursors_ref)
+        score = max(0.0, min(1.0, 1.0 - excess / self.scales.n_precursors_span))
+        return score, n
+
+    def _slice_competing_phases(self, predicted: PredictedRoute,
+                                target_formula: str) -> tuple[Optional[float], Optional[int]]:
+        """Principle 4 -- competing phases on the TWO-PRECURSOR composition
+        slice specifically (pymatgen InterfacialReactivity tie-line kinks),
+        not every entry in the whole chemsys -- that generality is exactly
+        what made v1's phase_purity 100% prompt-determined (see the
+        module-level note above OBJECTIVE_NAMES). Only gradeable for
+        exactly-2-precursor routes; None otherwise -- this couples the
+        channel to `n_precursors` by construction, both reward the same
+        2-precursor structure, and effects are meant to compound (finding
+        15's temperature_economy -> operation_order/precursors_exist
+        revival is the precedent for this kind of coupling). Returns
+        (clipped score, raw n_competing count)."""
+        if self.thermo is None or len(predicted.precursors or []) != 2:
+            return None, None
+        try:
+            target_red = Composition(target_formula).reduced_formula
+            c1 = Composition(predicted.precursors[0].formula)
+            c2 = Composition(predicted.precursors[1].formula)
+            core_formulas = [target_formula, predicted.precursors[0].formula,
+                             predicted.precursors[1].formula]
+            pd, _ = self.thermo._resolve_pd(core_formulas)
+            if pd is None:
+                return None, None
+            from pymatgen.analysis.interface_reactions import InterfacialReactivity
+            ir = InterfacialReactivity(c1, c2, pd, norm=True, use_hull_energy=False)
+            products: set[str] = set()
+            for _idx, _x, _energy, reaction, _rxn_e in ir.get_kinks():
+                for comp in reaction.products:
+                    try:
+                        red = comp.reduced_formula
+                    except Exception:
+                        continue
+                    if red != target_red:
+                        products.add(red)
+        except Exception:
+            return None, None
+        n_competing = len(products)
+        score = max(0.0, min(1.0, 1.0 - n_competing / self.scales.slice_n_max))
+        return score, n_competing
+
+    def _precursor_decomposition_match(
+        self, predicted: PredictedRoute
+    ) -> tuple[Optional[float], Optional[float]]:
+        """OPTIONAL Phase 11 objective ('if time allows'): calcination T_max
+        must clear the decomposition onset of every carbonate/hydroxide/
+        nitrate precursor in PRECURSOR_DECOMP_T (SPEC FLAG: first-pass
+        reference table, see its module-level comment). Creates a genuine
+        precursor<->temperature coupling -- Li2CO3 (720 C) tolerates a much
+        lower T_max than BaCO3 (1300 C) before this starts penalizing.
+        Margin of exactly 0 (T_max at the decomposition onset) scores 0.5;
+        `decomp_span` sets how fast headroom saturates to 1.0 / deficit
+        drops to 0.0. None if no declared precursor is in the table.
+        Returns (clipped score, raw worst-case margin in deg C)."""
         if not predicted.precursors:
-            return None
-        costs = []
+            return None, None
+        T_max = _route_max_T(predicted)
+        if T_max is None:
+            return None, None
+        relevant = []
         for p in predicted.precursors:
             key = SynthesisValidator._normalize_formula(p.formula)
-            freq = self.precursor_freq.get(key, 0)
-            cost = self.max_cost if freq <= 0 else -math.log(freq / self.total_freq)
-            costs.append(cost)
-        mean_cost = sum(costs) / len(costs)
-        return max(0.0, min(1.0, 1.0 - mean_cost / self.scales.cost_scale))
+            t_decomp = PRECURSOR_DECOMP_T.get(key)
+            if t_decomp is not None:
+                relevant.append(t_decomp)
+        if not relevant:
+            return None, None
+        worst_margin = min(T_max - t for t in relevant)
+        score = max(0.0, min(1.0, 0.5 + worst_margin / self.scales.decomp_span))
+        return score, worst_margin
 
     def _volatility_risk(self, predicted: PredictedRoute,
                          target_formula: str) -> Optional[float]:

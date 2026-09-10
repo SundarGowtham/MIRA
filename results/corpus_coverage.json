@@ -1,0 +1,760 @@
+{
+ "novel_precursor_corpus_freq": {
+  "LiPO3": 2,
+  "LiBO2": 2,
+  "LiNbO3": 0,
+  "Li2TiO3": 2,
+  "KPO3": 0,
+  "K3PO4": 1,
+  "KNbO3": 9,
+  "NaBO2": 0,
+  "NaPO3": 7
+ },
+ "traditional_precursor_corpus_freq": {
+  "Li2CO3": 1654,
+  "B2O3": 93,
+  "BaO": 74,
+  "NH4H2PO4": 677,
+  "K2CO3": 536,
+  "Na2CO3": 1015
+ },
+ "corpus_total_mentions": 50371,
+ "corpus_n_distinct_precursors": 1408,
+ "routes": [
+  {
+   "target": "LiZnPO4",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "NH4H2PO4",
+    "ZnO"
+   ],
+   "mean_corpus_freq": 1048.3333333333333,
+   "measured_purity": 0.76
+  },
+  {
+   "target": "LiZnPO4",
+   "kind": "predicted",
+   "precursors": [
+    "LiPO3",
+    "ZnO"
+   ],
+   "mean_corpus_freq": 408.0,
+   "measured_purity": 0.7
+  },
+  {
+   "target": "LiMnPO4",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "NH4H2PO4",
+    "MnO"
+   ],
+   "mean_corpus_freq": 831.0,
+   "measured_purity": 0.63
+  },
+  {
+   "target": "LiMnPO4",
+   "kind": "predicted",
+   "precursors": [
+    "LiPO3",
+    "MnO"
+   ],
+   "mean_corpus_freq": 82.0,
+   "measured_purity": 0.59
+  },
+  {
+   "target": "Li2CuP2O7",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "NH4H2PO4",
+    "CuO"
+   ],
+   "mean_corpus_freq": 1120.3333333333333,
+   "measured_purity": 0.72
+  },
+  {
+   "target": "Li2CuP2O7",
+   "kind": "predicted",
+   "precursors": [
+    "LiPO3",
+    "CuO"
+   ],
+   "mean_corpus_freq": 516.0,
+   "measured_purity": 0.78
+  },
+  {
+   "target": "LiMgPO4",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "NH4H2PO4",
+    "MgO"
+   ],
+   "mean_corpus_freq": 1045.0,
+   "measured_purity": 0.75
+  },
+  {
+   "target": "LiMgPO4",
+   "kind": "predicted",
+   "precursors": [
+    "LiPO3",
+    "MgO"
+   ],
+   "mean_corpus_freq": 403.0,
+   "measured_purity": 0.7
+  },
+  {
+   "target": "BaLiBO3",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "B2O3",
+    "BaO"
+   ],
+   "mean_corpus_freq": 607.0,
+   "measured_purity": 0.32
+  },
+  {
+   "target": "BaLiBO3",
+   "kind": "predicted",
+   "precursors": [
+    "LiBO2",
+    "BaO"
+   ],
+   "mean_corpus_freq": 38.0,
+   "measured_purity": 0.77
+  },
+  {
+   "target": "SrLiBO3",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "B2O3",
+    "SrO"
+   ],
+   "mean_corpus_freq": 611.0,
+   "measured_purity": 0.68
+  },
+  {
+   "target": "SrLiBO3",
+   "kind": "predicted",
+   "precursors": [
+    "LiBO2",
+    "SrO"
+   ],
+   "mean_corpus_freq": 44.0,
+   "measured_purity": 0.7
+  },
+  {
+   "target": "Li3Pr2(BO3)3",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "B2O3",
+    "Pr6O11"
+   ],
+   "mean_corpus_freq": 645.0,
+   "measured_purity": 0.13
+  },
+  {
+   "target": "Li3Pr2(BO3)3",
+   "kind": "predicted",
+   "precursors": [
+    "LiBO2",
+    "Pr6O11"
+   ],
+   "mean_corpus_freq": 95.0,
+   "measured_purity": 0.7
+  },
+  {
+   "target": "LiGeBO4",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "B2O3",
+    "GeO2"
+   ],
+   "mean_corpus_freq": 656.3333333333334,
+   "measured_purity": 0.15
+  },
+  {
+   "target": "LiGeBO4",
+   "kind": "predicted",
+   "precursors": [
+    "LiBO2",
+    "GeO2"
+   ],
+   "mean_corpus_freq": 112.0,
+   "measured_purity": 0.63
+  },
+  {
+   "target": "K3LiP2O7",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "Li2CO3",
+    "NH4H2PO4"
+   ],
+   "mean_corpus_freq": 955.6666666666666,
+   "measured_purity": 0.62
+  },
+  {
+   "target": "K3LiP2O7",
+   "kind": "predicted",
+   "precursors": [
+    "LiPO3",
+    "K3PO4"
+   ],
+   "mean_corpus_freq": 1.5,
+   "measured_purity": 0.66
+  },
+  {
+   "target": "Li3Sc2(PO4)3",
+   "kind": "traditional",
+   "precursors": [
+    "Sc2O3",
+    "Li2CO3",
+    "NH4H2PO4"
+   ],
+   "mean_corpus_freq": 830.0,
+   "measured_purity": 0.28
+  },
+  {
+   "target": "Li3Sc2(PO4)3",
+   "kind": "predicted",
+   "precursors": [
+    "Sc2O3",
+    "LiPO3"
+   ],
+   "mean_corpus_freq": 80.5,
+   "measured_purity": 0.81
+  },
+  {
+   "target": "Li3V2(PO4)3",
+   "kind": "traditional",
+   "precursors": [
+    "V2O3",
+    "Li2CO3",
+    "NH4H2PO4"
+   ],
+   "mean_corpus_freq": 788.6666666666666,
+   "measured_purity": 0.0
+  },
+  {
+   "target": "Li3V2(PO4)3",
+   "kind": "predicted",
+   "precursors": [
+    "LiPO3",
+    "V2O3"
+   ],
+   "mean_corpus_freq": 18.5,
+   "measured_purity": 0.07
+  },
+  {
+   "target": "KLi(PO3)2",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "Li2CO3",
+    "NH4H2PO4"
+   ],
+   "mean_corpus_freq": 955.6666666666666,
+   "measured_purity": 0.35
+  },
+  {
+   "target": "KLi(PO3)2",
+   "kind": "predicted",
+   "precursors": [
+    "KPO3",
+    "LiPO3"
+   ],
+   "mean_corpus_freq": 1.0,
+   "measured_purity": 0.38
+  },
+  {
+   "target": "Li2TiSiO5",
+   "kind": "traditional",
+   "precursors": [
+    "SiO2",
+    "TiO2",
+    "Li2CO3"
+   ],
+   "mean_corpus_freq": 1819.3333333333333,
+   "measured_purity": 0.75
+  },
+  {
+   "target": "Li2TiSiO5",
+   "kind": "predicted",
+   "precursors": [
+    "SiO2",
+    "Li2TiO3"
+   ],
+   "mean_corpus_freq": 514.0,
+   "measured_purity": 0.51
+  },
+  {
+   "target": "LiNbGeO5",
+   "kind": "traditional",
+   "precursors": [
+    "GeO2",
+    "Li2CO3",
+    "Nb2O5"
+   ],
+   "mean_corpus_freq": 1146.0,
+   "measured_purity": 0.85
+  },
+  {
+   "target": "LiNbGeO5",
+   "kind": "predicted",
+   "precursors": [
+    "GeO2",
+    "LiNbO3"
+   ],
+   "mean_corpus_freq": 111.0,
+   "measured_purity": 0.78
+  },
+  {
+   "target": "Li2TiGeO5",
+   "kind": "traditional",
+   "precursors": [
+    "GeO2",
+    "Li2CO3",
+    "TiO2"
+   ],
+   "mean_corpus_freq": 1551.3333333333333,
+   "measured_purity": 0.75
+  },
+  {
+   "target": "Li2TiGeO5",
+   "kind": "predicted",
+   "precursors": [
+    "GeO2",
+    "Li2TiO3"
+   ],
+   "mean_corpus_freq": 112.0,
+   "measured_purity": 0.62
+  },
+  {
+   "target": "Li3Fe2(PO4)3",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "NH4H2PO4",
+    "Fe2O3"
+   ],
+   "mean_corpus_freq": 1297.0,
+   "measured_purity": 0.43
+  },
+  {
+   "target": "Li3Fe2(PO4)3",
+   "kind": "predicted",
+   "precursors": [
+    "LiPO3",
+    "Fe2O3"
+   ],
+   "mean_corpus_freq": 781.0,
+   "measured_purity": 0.47
+  },
+  {
+   "target": "KBaPO4",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "NH4H2PO4",
+    "BaO"
+   ],
+   "mean_corpus_freq": 429.0,
+   "measured_purity": 0.59
+  },
+  {
+   "target": "KBaPO4",
+   "kind": "predicted",
+   "precursors": [
+    "KPO3",
+    "BaO"
+   ],
+   "mean_corpus_freq": 37.0,
+   "measured_purity": 0.56
+  },
+  {
+   "target": "BaNaBO3",
+   "kind": "traditional",
+   "precursors": [
+    "Na2CO3",
+    "BaO",
+    "B2O3"
+   ],
+   "mean_corpus_freq": 394.0,
+   "measured_purity": 0.33
+  },
+  {
+   "target": "BaNaBO3",
+   "kind": "predicted",
+   "precursors": [
+    "BaO",
+    "NaBO2"
+   ],
+   "mean_corpus_freq": 37.0,
+   "measured_purity": 0.05
+  },
+  {
+   "target": "KMgPO4",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "NH4H2PO4",
+    "MgO"
+   ],
+   "mean_corpus_freq": 672.3333333333334,
+   "measured_purity": 0.22
+  },
+  {
+   "target": "KMgPO4",
+   "kind": "predicted",
+   "precursors": [
+    "KPO3",
+    "MgO"
+   ],
+   "mean_corpus_freq": 402.0,
+   "measured_purity": 0.49
+  },
+  {
+   "target": "NaSrBO3",
+   "kind": "traditional",
+   "precursors": [
+    "Na2CO3",
+    "SrO",
+    "B2O3"
+   ],
+   "mean_corpus_freq": 398.0,
+   "measured_purity": 0.5
+  },
+  {
+   "target": "NaSrBO3",
+   "kind": "predicted",
+   "precursors": [
+    "NaBO2",
+    "SrO"
+   ],
+   "mean_corpus_freq": 43.0,
+   "measured_purity": 0.35
+  },
+  {
+   "target": "K3Bi2(PO4)3",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "NH4H2PO4",
+    "Bi2O3"
+   ],
+   "mean_corpus_freq": 879.3333333333334,
+   "measured_purity": 0.48
+  },
+  {
+   "target": "K3Bi2(PO4)3",
+   "kind": "predicted",
+   "precursors": [
+    "Bi2O3",
+    "KPO3"
+   ],
+   "mean_corpus_freq": 712.5,
+   "measured_purity": 0.85
+  },
+  {
+   "target": "K2Zr(PO4)2",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "NH4H2PO4",
+    "ZrO2"
+   ],
+   "mean_corpus_freq": 709.3333333333334,
+   "measured_purity": 0.12
+  },
+  {
+   "target": "K2Zr(PO4)2",
+   "kind": "predicted",
+   "precursors": [
+    "KPO3",
+    "ZrO2"
+   ],
+   "mean_corpus_freq": 457.5,
+   "measured_purity": 0.75
+  },
+  {
+   "target": "K3Al2(PO4)3",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "NH4H2PO4",
+    "Al2O3"
+   ],
+   "mean_corpus_freq": 730.0,
+   "measured_purity": 0.47
+  },
+  {
+   "target": "K3Al2(PO4)3",
+   "kind": "predicted",
+   "precursors": [
+    "KPO3",
+    "Al2O3"
+   ],
+   "mean_corpus_freq": 488.5,
+   "measured_purity": 0.59
+  },
+  {
+   "target": "KTiPO5",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "NH4H2PO4",
+    "TiO2"
+   ],
+   "mean_corpus_freq": 1330.3333333333333,
+   "measured_purity": 0.66
+  },
+  {
+   "target": "KTiPO5",
+   "kind": "predicted",
+   "precursors": [
+    "TiO2",
+    "KPO3"
+   ],
+   "mean_corpus_freq": 1389.0,
+   "measured_purity": 0.62
+  },
+  {
+   "target": "KNiPO4",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "NH4H2PO4",
+    "NiO"
+   ],
+   "mean_corpus_freq": 571.0,
+   "measured_purity": 0.25
+  },
+  {
+   "target": "KNiPO4",
+   "kind": "predicted",
+   "precursors": [
+    "KPO3",
+    "NiO"
+   ],
+   "mean_corpus_freq": 250.0,
+   "measured_purity": 0.69
+  },
+  {
+   "target": "K3Fe2(PO4)3",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "NH4H2PO4",
+    "Fe2O3"
+   ],
+   "mean_corpus_freq": 924.3333333333334,
+   "measured_purity": 0.39
+  },
+  {
+   "target": "K3Fe2(PO4)3",
+   "kind": "predicted",
+   "precursors": [
+    "KPO3",
+    "Fe2O3"
+   ],
+   "mean_corpus_freq": 780.0,
+   "measured_purity": 0.68
+  },
+  {
+   "target": "KNbWO6",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "Nb2O5",
+    "WO3"
+   ],
+   "mean_corpus_freq": 831.3333333333334,
+   "measured_purity": 0.66
+  },
+  {
+   "target": "KNbWO6",
+   "kind": "predicted",
+   "precursors": [
+    "WO3",
+    "KNbO3"
+   ],
+   "mean_corpus_freq": 202.5,
+   "measured_purity": 0.61
+  },
+  {
+   "target": "KTa2PO8",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "NH4H2PO4",
+    "Ta2O5"
+   ],
+   "mean_corpus_freq": 586.3333333333334,
+   "measured_purity": 0.21
+  },
+  {
+   "target": "KTa2PO8",
+   "kind": "predicted",
+   "precursors": [
+    "KPO3",
+    "Ta2O5"
+   ],
+   "mean_corpus_freq": 273.0,
+   "measured_purity": 0.16
+  },
+  {
+   "target": "Li3Y2(BO3)3",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "Y2O3",
+    "B2O3"
+   ],
+   "mean_corpus_freq": 950.3333333333334,
+   "measured_purity": 0.12
+  },
+  {
+   "target": "Li3Y2(BO3)3",
+   "kind": "predicted",
+   "precursors": [
+    "LiBO2",
+    "Y2O3"
+   ],
+   "mean_corpus_freq": 553.0,
+   "measured_purity": 0.17
+  },
+  {
+   "target": "Na2Al2B2O7",
+   "kind": "traditional",
+   "precursors": [
+    "Na2CO3",
+    "Al2O3",
+    "B2O3"
+   ],
+   "mean_corpus_freq": 695.0,
+   "measured_purity": 0.46
+  },
+  {
+   "target": "Na2Al2B2O7",
+   "kind": "predicted",
+   "precursors": [
+    "Al2O3",
+    "NaBO2"
+   ],
+   "mean_corpus_freq": 488.5,
+   "measured_purity": 0.6
+  },
+  {
+   "target": "NaSiBO4",
+   "kind": "traditional",
+   "precursors": [
+    "Na2CO3",
+    "SiO2",
+    "B2O3"
+   ],
+   "mean_corpus_freq": 711.3333333333334,
+   "measured_purity": 0.18
+  },
+  {
+   "target": "NaSiBO4",
+   "kind": "predicted",
+   "precursors": [
+    "NaBO2",
+    "SiO2"
+   ],
+   "mean_corpus_freq": 513.0,
+   "measured_purity": 0.0
+  },
+  {
+   "target": "KTiNbO5",
+   "kind": "traditional",
+   "precursors": [
+    "K2CO3",
+    "TiO2",
+    "Nb2O5"
+   ],
+   "mean_corpus_freq": 1625.3333333333333,
+   "measured_purity": 0.27
+  },
+  {
+   "target": "KTiNbO5",
+   "kind": "predicted",
+   "precursors": [
+    "TiO2",
+    "KNbO3"
+   ],
+   "mean_corpus_freq": 1393.5,
+   "measured_purity": 0.18
+  },
+  {
+   "target": "LiSi2BO6",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "SiO2",
+    "B2O3"
+   ],
+   "mean_corpus_freq": 924.3333333333334,
+   "measured_purity": 0.46
+  },
+  {
+   "target": "LiSi2BO6",
+   "kind": "predicted",
+   "precursors": [
+    "LiBO2",
+    "SiO2"
+   ],
+   "mean_corpus_freq": 514.0,
+   "measured_purity": 0.27
+  },
+  {
+   "target": "LiNbWO6",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "Nb2O5",
+    "WO3"
+   ],
+   "mean_corpus_freq": 1204.0,
+   "measured_purity": 0.05
+  },
+  {
+   "target": "LiNbWO6",
+   "kind": "predicted",
+   "precursors": [
+    "LiNbO3",
+    "WO3"
+   ],
+   "mean_corpus_freq": 198.0,
+   "measured_purity": 0.17
+  },
+  {
+   "target": "LiZnBO3",
+   "kind": "traditional",
+   "precursors": [
+    "Li2CO3",
+    "ZnO",
+    "B2O3"
+   ],
+   "mean_corpus_freq": 853.6666666666666,
+   "measured_purity": 0.15
+  },
+  {
+   "target": "LiZnBO3",
+   "kind": "predicted",
+   "precursors": [
+    "LiBO2",
+    "ZnO"
+   ],
+   "mean_corpus_freq": 408.0,
+   "measured_purity": 0.52
+  }
+ ]
+}

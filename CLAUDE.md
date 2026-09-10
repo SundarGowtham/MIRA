@@ -158,6 +158,53 @@ channel must be something the model fails at a meaningful rate.
     - Cost: paired Δp̂@0.9 = −0.037 (95% CI [−0.077, +0.001]), Δmean-reward = −0.008 (CI [−0.016, −0.001]). Small, marginal, expected direction.
     - Note: `adherence` is empty for baseline records (no `max_T_reported`), so the baseline-vs-low_temp temperature comparison uses finding 9's ceiling condition as the reference point.
 
+16. **THREE-MODEL ASTRAL AT n=32 — SFT DESTROYS A BASE CAPABILITY THE VERIFIER WOULD HAVE REWARDED (2026-09-03)**. 35 targets × 32 samples, base / SFT / GDPO-300, identical code path.
+
+    | model | proposes better set | proposes conventional | validator: better | validator: conventional | **gap** | mean max-T |
+    |---|---|---|---|---|---|---|
+    | **base** | **10/35** | 24/35 | 0.993 (n=22) | 0.972 (n=309) | **+0.021** | 1026.5 °C |
+    | **SFT** | **1/35** | 32/35 | 0.852 (n=2) | 0.905 (n=525) | **−0.053** | 963.2 °C |
+    | **GDPO-300** | **3/35** | 31/35 | 0.967 (n=4) | 0.918 (n=530) | **+0.049** | 1017.1 °C |
+
+    - **base → SFT loss is significant**: paired exact McNemar **p = 0.004–0.012**.
+    - **SFT → GDPO recovery is NOT**: p ≈ 0.5–0.6, recovers ~22% of what was lost. Report as "consistent with partial recovery," never as recovery.
+    - base vs GDPO borderline (p = 0.016–0.092) — after RL the model is plausibly still below where it started.
+    - **n=8 was severely underpowered**: base read 3/35 at n=8 vs 10/35 at n=32. The earlier three-model table (old finding 16 / H4) is superseded.
+    - **THE DECISIVE COLUMN IS THE GAP.** SFT is the *only* model that scores the experimentally-superior routes **below** conventional ones. Base prefers them; GDPO prefers them most. **The verifier points the right way; the policy cannot get there.** This is a support problem, not a reward problem.
+    - Temperature overshoot vs the lab's best condition: base **+264 °C**, SFT **+200**, GDPO **+254**. SFT moved toward realistic temperatures; RL pushed back up — finding 6's hack as a three-point arc on unseen data.
+
+17. **THE GEOMETRIC CONSEQUENCE — REVISED 2026-09-06, the original attribution was wrong.**
+
+    **Correction first, verified empirically not read from source:** the GDPO KL reference has **always been base Qwen3-8B, never SFT**. No adapter is ever named `"ref"`, so TRL's `use_adapter` resolves to `disable_adapter()`, which is bit-identical to a freshly loaded base model (`run_debug_and_analysis/verify_ref_model_identity.py`: max |logit diff| vs fresh base = **0.000000**; vs the SFT policy = 10.05). PHASE11_REVISED's "re-anchor the KL to base" Step 1 was therefore a **config no-op** — caught before launch, saving ~5 GPU-days.
+
+    **So the support freeze was never caused by the KL anchor.** The correct mechanism: π\* ∝ π_ref·exp(r/β) is the **optimum, not the trajectory**. Policy gradient does local ascent with 𝔼_{y∼π_θ}[∇log π_θ(y)·A(y)] — the expectation is over the **current policy**, not the reference. A route π_θ never samples is never scored and never reinforced, whatever mass π_ref assigns it; at β=0.001 the pull toward base is negligible. This is the **absorbing boundary** (Vol II Part 1): the gradient for any output is gated by its own sampling probability.
+
+    **The binding axis is the sampling distribution (axis 4), not the reference policy (axis 3).** The revision makes the claim *stronger* — it holds for on-policy RL generally, not only KL-anchored RL — and it predicts the Phase 11 results exactly: changing what gets sampled (the init) worked; changing the reference would not have.
+
+    **Axes MIRA has moved on:** the reward (five interventions) and β (run 2) — both **within-face**, i.e. they reweight inside the current support without changing it. **Support-changing axes:** the **sampling/initialization distribution** (axis 4 — RS-SFT, format-only SFT), the **projection type** (inserting an m-projection; forward KL is *forced* to cover its data's support), and the **sample space Ω** itself (schema / tool-call changes, e.g. Chain-of-Abstraction). The simplex is stratified by support — distributions on a subset S form a face Δ(S) — and e-geodesics cannot leave a face while m-geodesics (mixtures) can. SFT is m-projection and **can** change support; RL is e-projection and, on-policy, **cannot**.
+
+18. **PHASE 11 — RS-SFT FROM BASE RETAINS WHAT CORPUS FINE-TUNING DESTROYS (2026-09-06)**. ASTRAL, 35 targets × 32 samples:
+
+    | model | predicted | conventional | mean reward | max-T | overshoot |
+    |---|---|---|---|---|---|
+    | base | 10/35 | 24/35 | 0.948 | 1026.5 | +264 |
+    | format-only SFT | 11/35 | 31/35 | 0.937 | 1070.8 | +308 |
+    | **RS-SFT from base** | **10/35** | **17/35** | **0.972** | **934.2** | **+171** |
+    | full SFT | 1/35 | 32/35 | 0.888 | 963.2 | +200 |
+    | GDPO-300 (from full SFT) | 3/35 | 31/35 | 0.894 | 1017.1 | +254 |
+
+    - **RS-SFT vs full SFT on predicted hits: p = 0.004–0.012.** Same significance as base-vs-SFT. 295 survivors from 400 base-generated targets, validator bar 0.9, 73.75% survival, fine-tuned from base.
+    - **Conventional 17/35 is the lowest of anything including base** (p = 0.016 best case) — it moved *away* from convention rather than merely avoiding collapse.
+    - **Lowest temperature overshoot (+171 °C).** The strongest number in the table, because temperature is externally checkable while the validator reward is not (H1: chance agreement with experiment). Do not lead with the 0.972.
+    - **Format-only is an interesting negative**: retains base's hit rate (11/35, p = 1.0 vs base) but conventional climbed 24→31 and temperature got *worse* (+308, worst of all). A few hundred examples for one epoch still pulled it toward convention. Format installation is not free.
+    - **Confirms the central claim**: it is fine-tuning *on the external corpus* that closed the loop, not fine-tuning per se.
+
+19. **Ranker v2 FAILED the external gate — with a caveat that must be stated (2026-09-06).** Agreement 21/35 = 60.0% against a pre-registered 24/35 bar; Spearman 0.133, weaker than the plain validator's 0.228. Stopping was correct.
+
+    **But three of eight channels were ungradeable on all 35 pairs** (`temperature_economy`, `slice_competing_phases`, `precursor_decomposition_match`) because ASTRAL supplies precursor *species* without molar ratios or per-route temperature sweeps. The gate tested a ranker running on roughly half its channels. **Honest claim: "failed the gate as evaluated, on a dataset that cannot exercise several of its channels"** — a data-compatibility failure as much as a design failure. Do **not** write "two verifier generations failed external validation" without this caveat.
+
+    **Do not lean on the `n_precursors` result** (9/17 disagreements, reported as "worse than chance"). 9/17 is *exactly* chance at n=17 and is not evidence against ASTRAL's principle 1. A separate real confound: ASTRAL's missing molar ratios make 3-precursor stoichiometry harder for the balance solver to close, systematically favouring 2-precursor routes at the gate stage independent of chemistry.
+
 ## Journey (why things are the way they are)
 
 1. Six checkpoints once "scored identically" — root cause: silent parse-failure fallback; then the sentinel-payout bug. Validator now has None-propagation end to end + 43 tests.
@@ -180,53 +227,45 @@ measured and large, not reward channels that are constant.** Items 1–3 below
 harden the three results; items 4+ are the capability-side track, unblocked but
 lower priority now.
 
-## THE ARM A / ARM B EXPERIMENT (the project's actual frame)
+## PHASE 12 — GDPO FROM RS-SFT
 
-Everything through 2026-08-27 is **Arm A: the control**. Not a failed project — the
-control condition of a one-variable experiment nobody has run.
+Full plan: `misc/some_claude_files/PHASE12_INSTRUCTIONS.md`.
 
-| | verifier | capacity | outcome |
-|---|---|---|---|
-| **Arm A** (complete) | `validator.py` — validity checks | 14% | sharpening: pass@k gap +2.4→+1.0, McNemar p=0.77 |
-| **Arm B** (next) | `ranker.py` — quality ranking | target >40% | ? |
+Findings 17–18 set this up. Every prior GDPO run started from a policy that had already
+lost the good routes; RS-SFT-from-base has them in support (10/35), and the validator
+already scores them **+0.049 above conventional**. The reward points the right way — the
+open question is whether on-policy sampling can now reach them.
 
-Fixed across arms: base model, SFT checkpoint, GDPO config (β=0.001, lr=1e-5, G=8),
-data pipeline, closed-book prompts, 200-target pass@k protocol. **The verifier is the
-independent variable.** The RLVR literature argues sharpening-vs-expansion while
-treating the verifier as given; this tests whether it is the design variable.
+1. **THE RUN: GDPO initialised from `runs/rs-sft-from-base/final`**, existing
+   **validator** (not the ranker — it has not passed a gate), everything else identical
+   to Arm A: β=0.001, lr=1e-5, G=8, batch 1 × accum 16, `epsilon_high=5.0`, closed-book,
+   `data/rl_run3`, `EvalModeGuard`, checkpoints every 100, fixed 30-target probe every
+   50 steps, per-check std logged individually. **One variable: the initialisation.**
+   Evaluate at checkpoint 300 for the matched Arm A comparison.
 
-**Why Arm B is expected to clear the bar** (arithmetic, not hope): `temperature_economy`
-alone measured z-variance **0.72** — the healthiest channel ever produced here — while
-sharing a reward vector with 8 dead channels dragging the denominator. Six channels
-behaving like it → total z-variance 3.5–4.0 over 6 channels → **58–67% capacity**.
-Temperature pressure alone also revived two untouched channels (`operation_order`
-+74%, `precursors_exist` +186%), so effects compound.
+   **Pre-registered (ASTRAL predicted hits, N/35 at n=32, ckpt-300):**
+   **>12/35** → RL amplified what was in support; the project's first positive result.
+   **10–12/35** → preserved but not amplified. **<10/35** → RL degrades even a good
+   starting point; the on-policy collapse is intrinsic, not inherited. All three are
+   findings.
 
-1. **Build `core/ranker.py` (the quality-ranking scorer).** Spec:
-   `misc/some_claude_files/SPEC_ranker.md`. Named the *ranker*, not "validator v2" — version numbers here are overloaded, and the name carries the thesis: **the validator checks; the ranker ranks.** Class `Ranker`, `RANKER_VERSION`, `tests/test_ranker.py`, `misc/ranker_*.json`, CLI `--scorer {validator,ranker}`. Architecture: gates × objectives.
-   Gates (binary, multiplicative, NOT channels): balance, precursors exist, charge
-   neutral, format, temperature physical — the model passes these >99% of the time,
-   so as channels they only drag the capacity denominator. Objectives (the reward
-   vector, all continuous and mutually trading): `temperature_economy` (proven, 0.72),
-   `step_economy`, `precursor_availability`, `volatility_risk`, `phase_purity`,
-   `driving_force_margin`. Gate failure → objectives return **None** (→NaN), never 0.0.
-   **Do not modify `validator.py`** — Arm A must stay reproducible.
-2. **Rail calibration** (~2 h, no new generation): score ~200 archived completions from
-   run 2 with the ranker; tune scales so no objective piles at 0.0/1.0 (>15% at either rail =
-   wasted gradient).
-3. **Capacity probe — THE STOP GATE** (~1 day GPU). `probe_hardening.py --scorer ranker`,
-   same 40 targets and `--seed 0` as the validator baseline. **Pre-registered: >40% → run 4;
-   25–40% → fix scales, re-probe once; <25% → stop, and the structural conclusion is
-   the result.**
-4. **Run 4** (~5 days): GDPO + the ranker, otherwise identical to Arm A. Plus
-   **RS-SFT at equal compute** as the control that isolates "RL objective" from
-   "verifier-filtered data."
-5. **pass@k n=200**, identical protocol to Arm A. The question: does the gap hold at
-   k=16 instead of shrinking?
-6. **Two open probe bugs** (~1 h, CPU, do while GPU is busy): probe B's
-   `held_out_auc_frac_vs_int`/`cohens_d` are None at all 37 layers (held-out refit
-   didn't run); probe C's `layer0_negative_control` reports AUC 0.000 rather than ~0.5
-   (sign convention or constant predictions).
+   Secondary: conventional hits (RS-SFT baseline 17/35 — does RL pull back toward
+   convention?), max-T overshoot (baseline +171 — **does the temperature hack
+   reassert?** full-SFT→GDPO went +200→+254), validator gap, reward capacity, routes per
+   group, pass@k n=200.
+
+2. **Smoke gate, 20 steps, hard asserts** — including **assert the init is RS-SFT, not
+   full SFT**, with the resolved checkpoint path logged.
+
+3. **CPU work while the GPU is busy:** the two open probe bugs; re-report the ranker gate
+   restricted to gradeable channels (finding 19); record RS-SFT provenance (bar 0.9,
+   73.75% survival, 295/400) — it is now a headline method and must be reproducible from
+   the paper alone.
+
+**HEADLINE METRIC CHANGED.** pass@1 against our own validator is inside the closed loop
+(H1: chance agreement with experiment). Primary is now **"proposes the
+experimentally-superior route, N/35" at n=32**. Bar to beat: **base 10/35**. SFT 1, GDPO 3.
+
 4. **Article drafting (IN PROGRESS)** — draft at
    `misc/some_claude_files/PAPER_DRAFT.md`. Needs no new results; the low-T
    probe outcome slots into the "what would have to change" section either way.
@@ -289,6 +328,9 @@ test a specific hypothesis instead of fishing.
   - `frac_reward_zero_std` is an aggregate and read 0 through both runs while 8 channels were dead. Log **per-check** within-group std.
   - Before claiming a capability change, check whether the **gap shrinks with k** (sharpening) or holds (expansion).
 - User preferences: explicit permission before edits in new areas; verify by execution, no fabrication; be candid about null/bad results; minimal diffs; dense replies.
+- **Never delete files.** The user has previously lost analysis outputs and scripts. Every cleanup move is `git mv`; suspected dead code moves to `research/`, it does not get removed.
+- **Repo layout (post-cleanup, 2026-09-08)**: root holds only the shared library surface — `train.py`, `validator.py`, `evaluate_batched.py`, `stratified_difficulty_eval.py`, `gibbs_corrector.py`, `probe_hardening.py`, `reward_geometry.py` (each imported by 5-25 files; moving them breaks call sites). `research/` (was `run_debug_and_analysis/`) holds all diagnostics and probes. `scripts/` holds tmux launchers. `results/` tracks the analysis JSONs that are evidence for every headline number — **untracked artifacts are `generations.jsonl`, `runs/`, triage blobs, chat dumps.** `docs/` holds the tracked narrative (timeline, phase results, decision record); `misc/` stays gitignored wholesale as the working scratch directory.
+- SonarCloud was considered and **skipped** — it measures production-software metrics that do not apply to a research repo. The 43-assertion `tests/test_validator.py` is the quality signal to surface instead.
 
 ## Getting up to speed (token-efficient read order)
 

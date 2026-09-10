@@ -1,0 +1,81 @@
+{
+ "protocol": "35 ASTRAL targets x 32 closed-book samples per model, run_debug_and_analysis/astral_model_generations.py",
+ "source": "Chen/Cross/Sun, Nature Synthesis 2024, arXiv 2304.00743",
+ "models": {
+  "base": {
+   "tag": "base",
+   "source_file": "results/astral_gen_n32_base.json",
+   "n_targets": 35,
+   "any_predicted": 10,
+   "any_traditional": 24,
+   "mean_reward_all": 0.9482933936651539,
+   "mean_reward_predicted_matches": 0.9926318181818182,
+   "mean_reward_traditional_matches": 0.9716488673139163,
+   "validator_gap_predicted_minus_traditional": 0.020982950867901917,
+   "mean_max_T_C": 1026.4705882352941,
+   "median_max_T_C": 1000.0,
+   "parse_rate": 0.9866071428571429,
+   "n_samples": 1120
+  },
+  "full_sft": {
+   "tag": "full_sft",
+   "source_file": "results/astral_gen_n32_sft.json",
+   "n_targets": 35,
+   "any_predicted": 1,
+   "any_traditional": 32,
+   "mean_reward_all": 0.8878516772438746,
+   "mean_reward_predicted_matches": 0.85165,
+   "mean_reward_traditional_matches": 0.9052095238095249,
+   "validator_gap_predicted_minus_traditional": -0.05355952380952489,
+   "mean_max_T_C": 963.2411604714415,
+   "median_max_T_C": 950.0,
+   "parse_rate": 0.9848214285714286,
+   "n_samples": 1120
+  },
+  "gdpo300": {
+   "tag": "gdpo300",
+   "source_file": "results/astral_gen_n32_gdpo300.json",
+   "n_targets": 35,
+   "any_predicted": 3,
+   "any_traditional": 31,
+   "mean_reward_all": 0.8935854927007261,
+   "mean_reward_predicted_matches": 0.9674,
+   "mean_reward_traditional_matches": 0.9182694339622655,
+   "validator_gap_predicted_minus_traditional": 0.04913056603773458,
+   "mean_max_T_C": 1017.0848540145986,
+   "median_max_T_C": 1000.0,
+   "parse_rate": 0.9785714285714285,
+   "n_samples": 1120
+  },
+  "format_only_sft": {
+   "tag": "format_only_sft",
+   "source_file": "results/astral_gen_n32_format_only.json",
+   "n_targets": 35,
+   "any_predicted": 11,
+   "any_traditional": 31,
+   "mean_reward_all": 0.9367919064748157,
+   "mean_reward_predicted_matches": 0.9879823529411764,
+   "mean_reward_traditional_matches": 0.9499717325227959,
+   "validator_gap_predicted_minus_traditional": 0.03801062041838055,
+   "mean_max_T_C": 1070.7643884892086,
+   "median_max_T_C": 1100.0,
+   "parse_rate": 0.9928571428571429,
+   "n_samples": 1120
+  },
+  "rs_sft_from_base": {
+   "tag": "rs_sft_from_base",
+   "source_file": "results/astral_gen_n32_rs_sft.json",
+   "n_targets": 35,
+   "any_predicted": 10,
+   "any_traditional": 17,
+   "mean_reward_all": 0.9724796831314052,
+   "mean_reward_predicted_matches": 0.9948585365853658,
+   "mean_reward_traditional_matches": 0.9882436464088394,
+   "validator_gap_predicted_minus_traditional": 0.006614890176526389,
+   "mean_max_T_C": 934.2031686859273,
+   "median_max_T_C": 950.0,
+   "parse_rate": 0.9580357142857143,
+   "n_samples": 1120
+  }
+ }
+}

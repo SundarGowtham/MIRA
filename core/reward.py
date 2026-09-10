@@ -12,6 +12,76 @@ from validator import (
 THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL)
 FENCE_RE = re.compile(r"^```(?:json)?\s*|\s*```$")
 
+# Model writes fraction literals ("amount": 5/12, "moles_per_formula_unit":
+# 0.75 / 1) instead of decimals wherever it wants a non-terminating value --
+# observed disproportionately on fractional/doped-composition targets, whose
+# real amounts genuinely don't terminate in decimal (Phase 12 smoke gate,
+# 2026-09-09: 18.2% parse-failure rate on the smoke run, concentrated on
+# exactly that stratum). `a/b` is not valid JSON number syntax, so a single
+# occurrence anywhere in the document fails json.loads for the whole object
+# even when the rest -- including precursors/operations we actually need --
+# is fine. Requires no quote directly after ':' so it can't fire inside a
+# string value (a string field starts with '"', a number field doesn't).
+FRACTION_LITERAL_RE = re.compile(
+    r"(:\s*)(-?\d+(?:\.\d+)?)\s*/\s*(-?\d+(?:\.\d+)?)(?=\s*[,}\]])"
+)
+
+
+def _repair_fraction_literals(json_str: str) -> str:
+    def _replace(m: re.Match) -> str:
+        prefix, num, den = m.group(1), float(m.group(2)), float(m.group(3))
+        if den == 0:
+            return m.group(0)  # leave it -- let json.loads raise, don't divide by zero
+        return f"{prefix}{num / den}"
+    return FRACTION_LITERAL_RE.sub(_replace, json_str)
+
+
+def _balanced_json_objects(text: str) -> list[str]:
+    """Top-level {...} substrings via brace matching, ignoring braces inside
+    strings. Ported from reward_geometry.py's analysis-only extractor --
+    handles completions where the naive first-'{'-to-last-'}' span crosses
+    multiple distinct top-level objects (observed failure mode: 'Extra data'
+    JSONDecodeError, the model emits more than one brace-delimited chunk)."""
+    out, depth, start, in_str, esc = [], 0, None, False, False
+    for i, ch in enumerate(text):
+        if in_str:
+            if esc:
+                esc = False
+            elif ch == "\\":
+                esc = True
+            elif ch == '"':
+                in_str = False
+            continue
+        if ch == '"':
+            in_str = True
+        elif ch == "{":
+            if depth == 0:
+                start = i
+            depth += 1
+        elif ch == "}":
+            if depth > 0:
+                depth -= 1
+                if depth == 0 and start is not None:
+                    out.append(text[start:i + 1])
+                    start = None
+    return out
+
+
+def _try_parse_json_object(candidate: str) -> dict | None:
+    """Try straight, then fraction-literal-repaired, then //-comment-stripped
+    (each independently, since the fixes address unrelated failure modes and
+    stacking them unconditionally risks mangling an otherwise-valid string)."""
+    for attempt in (candidate, _repair_fraction_literals(candidate),
+                   re.sub(r"//[^\n]*", "", candidate),
+                   re.sub(r"//[^\n]*", "", _repair_fraction_literals(candidate))):
+        try:
+            data = json.loads(attempt)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(data, dict):
+            return data
+    return None
+
 
 class ParseFailure(Exception):
     """Raised when a completion cannot be turned into a PredictedRoute.
@@ -89,21 +159,36 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
     if start_idx == -1 or end_idx == -1 or end_idx <= start_idx:
         raise ParseFailure(f"no JSON object found in completion (len={len(text)})")
 
+    # Model-inserted // line comments and fraction-literal numbers
+    # ("amount": 5/12) were observed in real completions -- both invalid
+    # per JSON spec, but neither means the rest of the structure is
+    # unreliable, so _try_parse_json_object recovers them rather than
+    # counting a single occurrence as a hard parse failure (Phase 12 smoke
+    # gate, 2026-09-09: 18.2% parse-failure rate, concentrated on
+    # fractional-composition targets).
     json_str = text_cleaned[start_idx : end_idx + 1]
-    # Model-inserted // line comments were observed in real completions
-    # (e.g. a "// Target is metastable, slightly above hull?" inside an
-    # otherwise well-formed object) — invalid per JSON spec, but a single
-    # comment doesn't mean the rest of the structure is unreliable, so we
-    # recover it rather than counting it as a hard parse failure. Only as
-    # a FALLBACK, though: the naive strip mangles "//" inside legitimate
-    # string values, so the unmodified string gets the first attempt.
-    try:
-        data = json.loads(json_str)
-    except json.JSONDecodeError:
-        try:
-            data = json.loads(re.sub(r"//[^\n]*", "", json_str))
-        except json.JSONDecodeError as e:
-            raise ParseFailure(f"JSON decode error: {e}") from e
+    data = _try_parse_json_object(json_str)
+
+    if data is None:
+        # The naive first-'{'-to-last-'}' span can cross multiple distinct
+        # top-level objects (observed failure mode: 'Extra data'
+        # JSONDecodeError -- the model emits more than one brace-delimited
+        # chunk). Fall back to brace-matched candidates and take the
+        # largest one that actually looks like a route, same logic as
+        # reward_geometry.py's analysis-only extract_route_json.
+        candidates = _balanced_json_objects(text_cleaned)
+        route_like = []
+        for c in candidates:
+            obj = _try_parse_json_object(c)
+            if obj is not None and ("precursors" in obj or "operations" in obj):
+                route_like.append((len(c), obj))
+        if route_like:
+            data = max(route_like, key=lambda x: x[0])[1]
+
+    if data is None:
+        raise ParseFailure(f"JSON decode error: no parseable route object found "
+                           f"(naive span + {len(_balanced_json_objects(text_cleaned))} "
+                           f"balanced candidates all failed)")
 
     if not isinstance(data, dict):
         raise ParseFailure(f"parsed JSON is not an object (got {type(data).__name__})")
@@ -244,6 +329,44 @@ def make_reward_fn(validator: SynthesisValidator, verbose: bool = False):
     reward_fn.parse_stats = stats
     return reward_fn
 
+
+# Phase 12 (2026-09-09): a stratum's cumulative parse-failure rate crossing
+# this bar, after enough samples to not be early-training noise, means the
+# non-random attrition the smoke gate found is growing rather than holding
+# -- exactly the case that would silently bias which routes a run can even
+# score. MIN_N=20 chosen so one bad group of 8 can't trip it alone.
+PARSE_FAIL_ALERT_THRESHOLD = 0.30
+PARSE_FAIL_ALERT_MIN_N = 20
+
+
+def _fire_parse_fail_alert(stratum: str, rate: float, n_total: int) -> None:
+    """Best-effort notification, fired once per stratum per run. Two
+    channels, independently wrapped: wandb.alert() (shows on the run page;
+    reaches Slack/email only if the account has that configured) and the
+    same ntfy.sh topic every tmux launcher in this repo already pings
+    (guaranteed delivery regardless of wandb account settings). Neither
+    failure mode may raise -- a broken notification must never crash
+    training."""
+    title = f"parse_fail_rate/{stratum} = {rate:.0%} (n={n_total})"
+    try:
+        import wandb
+        if wandb.run is not None:
+            wandb.alert(title="MIRA parse-failure bias growing", text=title,
+                       level=wandb.AlertLevel.WARN)
+    except Exception:
+        pass
+    try:
+        import urllib.request
+        req = urllib.request.Request(
+            "https://ntfy.sh/mira-g5x7k2-status",
+            data=f"MIRA parse-fail alert: {title}".encode(),
+            method="POST",
+        )
+        urllib.request.urlopen(req, timeout=10)
+    except Exception:
+        pass
+
+
 # Run-3 reward vector (gdpo_v4_next_steps_claude_recommendation.md §5, step 4).
 # The five live-or-revivable channels. Dropped:
 #   target_stability, target_match — prompt-determined / constant, so zero
@@ -262,7 +385,8 @@ RUN3_CHECKS = (
 
 def make_check_reward_fns(validator: SynthesisValidator, dump_path: str | None = None,
                           checks: tuple[str, ...] = RUN3_CHECKS,
-                          format_weight: float = 0.2):
+                          format_weight: float = 0.2,
+                          target_strata: dict[str, str] | None = None):
     """
     Per-check reward functions for multi-reward (GDPO) training via TRL's
     multi_objective_aggregation.
@@ -294,6 +418,14 @@ def make_check_reward_fns(validator: SynthesisValidator, dump_path: str | None =
         keyed on target_formula, robust to batch ordering. This is the
         per-channel dead-channel diagnostic that the aggregate
         frac_reward_zero_std hid in runs 1-2.
+      - If `target_strata` is given (target_formula -> stratum, e.g. from
+        data/rl_run3's own `stratum` field), `bank()` also logs
+        parse_fail_rate/<stratum> per batch. Phase 12 smoke gate
+        (2026-09-09) found an 18.2% parse-failure rate concentrated on the
+        fractional/doped stratum specifically -- non-random attrition
+        correlated with the outcome variable the run is meant to measure.
+        This makes that bias visible while training, not reconstructed
+        from generations.jsonl after the fact.
 
     Returns (funcs, names, weights) for GRPOTrainer(reward_funcs=funcs)
     and GRPOConfig(reward_weights=weights): uniform 1.0 per retained check,
@@ -308,8 +440,10 @@ def make_check_reward_fns(validator: SynthesisValidator, dump_path: str | None =
 
     cache: dict[tuple[str, str], dict | None] = {}
     dump_fp = open(dump_path, "a", buffering=1) if dump_path else None
+    strata_counts: dict[str, list[int]] = {}  # stratum -> [n_total, n_failed]
+    alerted_strata: set[str] = set()
 
-    def bank(completions, target_formula, trainer_state=None, **kwargs):
+    def bank(completions, target_formula, trainer_state=None, log_metric=None, **kwargs):
         out = []
         new = []
         for c, t in zip(completions, target_formula):
@@ -330,6 +464,21 @@ def make_check_reward_fns(validator: SynthesisValidator, dump_path: str | None =
                 dump_fp.write(json.dumps(
                     {"step": step, "target": t, "completion": c, "breakdown": bd},
                     default=str) + "\n")
+        if target_strata is not None and new:
+            for _c, t, bd in new:
+                stratum = target_strata.get(t, "unknown")
+                counts = strata_counts.setdefault(stratum, [0, 0])
+                counts[0] += 1
+                if bd is None:
+                    counts[1] += 1
+            for stratum, (n_total, n_failed) in strata_counts.items():
+                rate = n_failed / n_total
+                if log_metric is not None:
+                    log_metric(f"parse_fail_rate/{stratum}", rate)
+                if (stratum not in alerted_strata and n_total >= PARSE_FAIL_ALERT_MIN_N
+                        and rate > PARSE_FAIL_ALERT_THRESHOLD):
+                    alerted_strata.add(stratum)
+                    _fire_parse_fail_alert(stratum, rate, n_total)
         return out
 
     checks = list(checks)

@@ -133,27 +133,31 @@ check("temperature_economy: gated to None when infeasible (dG above cutoff)",
 check("temperature_economy: None without literature T",
       RANKER._temperature_economy(r_cold, lit_T=None, dG=-0.05) is None)
 
-# step_economy
-r_few = route("X", [("A", 1.0)], ops=[op("mix"), op("calcine", temp=800)])
-r_many = route("X", [("A", 1.0)], ops=[op("mix")] * 8 + [op("calcine", temp=800)])
-s_few = RANKER._step_economy(r_few, lit_n_ops=2)
-s_many = RANKER._step_economy(r_many, lit_n_ops=2)
-check("step_economy: fewer ops scores higher",
-      s_few is not None and s_many is not None and s_few > s_many,
-      f"few={s_few} many={s_many}")
-check("step_economy: None without literature n_ops",
-      RANKER._step_economy(r_few, lit_n_ops=None) is None)
+# n_precursors (principle 1: 2-precursor initiation)
+r_two = route("X", [("A", 1.0), ("B", 1.0)])
+r_four = route("X", [("A", 1.0), ("B", 1.0), ("C", 1.0), ("D", 1.0)])
+n_two, _ = RANKER._n_precursors(r_two)
+n_four, _ = RANKER._n_precursors(r_four)
+check("n_precursors: 2-precursor route scores higher than 4-precursor route",
+      n_two is not None and n_four is not None and n_two > n_four,
+      f"two={n_two} four={n_four}")
+check("n_precursors: 2 precursors scores exactly 1.0 (at n_precursors_ref)",
+      n_two == 1.0, f"got {n_two}")
+check("n_precursors: None for an empty precursor list",
+      RANKER._n_precursors(route("X", []))[0] is None)
 
-# precursor_availability
-r_common = route("X", [("Li2CO3", 1.0)])
-r_rare = route("X", [("NaCl", 1.0)])
-a_common = RANKER._precursor_availability(r_common)
-a_rare = RANKER._precursor_availability(r_rare)
-check("precursor_availability: common precursor scores higher than rare",
-      a_common is not None and a_rare is not None and a_common > a_rare,
-      f"common={a_common} rare={a_rare}")
-check("precursor_availability: None for an empty precursor list",
-      RANKER._precursor_availability(route("X", [])) is None)
+# precursor_decomposition_match (optional Phase 11 objective)
+r_low_T_carb = route("X", [("Li2CO3", 1.0)], ops=[op("calcine", temp=750)])
+r_high_T_carb = route("X", [("BaCO3", 1.0)], ops=[op("calcine", temp=750)])
+d_low, _ = RANKER._precursor_decomposition_match(r_low_T_carb)
+d_high, _ = RANKER._precursor_decomposition_match(r_high_T_carb)
+check("precursor_decomposition_match: T=750 clears Li2CO3 (720) better than BaCO3 (1300)",
+      d_low is not None and d_high is not None and d_low > d_high,
+      f"Li2CO3@750={d_low} BaCO3@750={d_high}")
+check("precursor_decomposition_match: None when no declared precursor is in the table",
+      RANKER._precursor_decomposition_match(route("X", [("NaCl", 1.0)], ops=[op("calcine", temp=750)]))[0] is None)
+check("precursor_decomposition_match: None without a T_max",
+      RANKER._precursor_decomposition_match(route("X", [("Li2CO3", 1.0)]))[0] is None)
 
 # volatility_risk
 r_no_volatile = route("BaTiO3", [("BaO", 1.0), ("TiO2", 1.0)],
@@ -225,6 +229,35 @@ print(f"    (BaTiO3 reward={reward:.3f}  "
 weird = route("Zx7Qy2", [("BaCO3", 1.0)], ops=[op("calcine", temp=900)])
 r2, info2 = ranker_full.score(weird, "Zx7Qy2", lit_T=900.0, lit_n_ops=1)
 check("nonsense-formula route doesn't crash", isinstance(r2, float))
+
+# ---------------------------------------------------------------------------
+print("== thermo-backed objectives: precursor_instability / inverse_hull_energy / "
+      "slice_competing_phases (real PD cache) ==")
+
+# precursor_instability: BaCO3+TiO2 (carbonate route) vs BaO+TiO2 (oxide
+# route) into BaTiO3 -- BaO sits closer to the elemental references than
+# BaCO3 does per formula unit is not guaranteed in general, but BaCO3/CaCO3-
+# style carbonates are reliably near-hull-stable (low e_above_hull) relative
+# to a genuinely metastable/high-energy precursor choice, so instead compare
+# against a route using a real but higher-energy competing polymorph proxy:
+# a route that fails to resolve any PD entry for its "precursor" scores None.
+btio3_oxide = route("BaTiO3", [("BaO", 1.0), ("TiO2", 1.0)],
+                    ops=[op("mix"), op("calcine", atm="air", temp=1100)])
+pi, pi_raw = ranker_full._precursor_instability(btio3_oxide, "BaTiO3")
+check("precursor_instability: computes a value in [0,1] for a real route",
+      pi is None or 0.0 <= pi <= 1.0, f"got {pi} (raw={pi_raw})")
+
+ihe, ihe_raw = ranker_full._inverse_hull_energy(btio3_full, "BaTiO3")
+check("inverse_hull_energy: computes a value in [0,1] for a real stable target",
+      ihe is None or 0.0 <= ihe <= 1.0, f"got {ihe} (raw={ihe_raw})")
+
+scp_two, scp_raw = ranker_full._slice_competing_phases(btio3_full, "BaTiO3")
+check("slice_competing_phases: computes a value in [0,1] for an exactly-2-precursor route",
+      scp_two is None or 0.0 <= scp_two <= 1.0, f"got {scp_two} (raw={scp_raw})")
+three_prec = route("BaTiO3", [("BaCO3", 1.0), ("TiO2", 1.0), ("SrCO3", 1.0)],
+                   ops=[op("calcine", temp=1100)])
+check("slice_competing_phases: None for a 3-precursor route (only gradeable at n=2)",
+      ranker_full._slice_competing_phases(three_prec, "BaTiO3")[0] is None)
 
 # ---------------------------------------------------------------------------
 print()

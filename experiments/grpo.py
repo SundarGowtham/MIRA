@@ -4,7 +4,7 @@ from pathlib import Path
 from trl import GRPOConfig, GRPOTrainer
 
 from experiments.base import Experiment
-from core.data import build_grpo_dataset
+from core.data import build_grpo_dataset, get_target, load_jsonl
 from core.model import load_with_adapter
 from core.reward import load_validator, make_check_reward_fns
 from core.observability import EvalModeGuard, GradientStatsCallback
@@ -103,6 +103,23 @@ class GRPOExperiment(Experiment):
               f"train={len(train_ds)} val={len(val_ds)} "
               f"probe={len(eval_ds) if eval_ds is not None else 0}")
 
+        # target -> stratum (e.g. "fracxinterpolated"), for parse_fail_rate/<stratum>
+        # logging in make_check_reward_fns -- makes non-random parse-failure
+        # attrition by stratum visible during training instead of only
+        # reconstructable from generations.jsonl afterward (Phase 12 smoke
+        # gate, 2026-09-09: 18.2% overall, concentrated on the fractional
+        # stratum specifically). Missing/absent `stratum` field -> that
+        # target is simply omitted, bank() logs it under "unknown".
+        target_strata: dict[str, str] = {}
+        for p in (train_path, val_path, probe_path):
+            if not p.exists():
+                continue
+            for rec in load_jsonl(p):
+                t = get_target(rec)
+                s = rec.get("stratum")
+                if t and s:
+                    target_strata[t] = s
+
         scorer = getattr(self.args, "scorer", "validator")
         dump_path = str(self.output_dir / "generations.jsonl")
         if scorer == "ranker":
@@ -134,13 +151,14 @@ class GRPOExperiment(Experiment):
                 project_root=Path("."),
             )
             reward_funcs, reward_names, reward_weights = make_check_reward_fns(
-                validator, dump_path=dump_path)
+                validator, dump_path=dump_path, target_strata=target_strata)
         print(f"[{self.run_name}] scorer={scorer} reward funcs: {reward_names} "
               f"(aggregation={reward_aggregation})")
 
         grpo_config = GRPOConfig(
             output_dir=str(self.output_dir),
             num_train_epochs=h["epochs"],
+            max_steps=getattr(self.args, "max_steps", None) or -1,
             per_device_train_batch_size=h["batch_size"],
             gradient_accumulation_steps=h["accum"],
             learning_rate=h["lr"],
