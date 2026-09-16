@@ -128,3 +128,115 @@ that continuation is exploratory and must be labeled as such, separately
 from the checkpoint-300 result already on record in `misc/PHASE12_RESULTS.md`.
 This also means Phase 14's launch does not wait on Phase 12 reaching 600 —
 checkpoint 300 is Phase 12's final answer.
+
+---
+
+## Addendum, 2026-09-16 — C3's melting-point data source
+
+*Written and committed before `core/comparator.py` exists or any channel is
+scored. This is an addendum, not a revision — the sections above are
+unchanged. Follows the investigation ordered by regular Claude: confirm the
+data gap, test the preferred fix, measure gradeability by side before
+choosing among the remaining options.*
+
+**The gap.** C3's Tammann window needs a melting point for every precursor.
+Materials Project has none: a direct query of
+`mpr.materials.summary.available_fields` for melt/boil/thermal fields
+returned zero results. MP is a DFT ground-state energetics database; it does
+not carry experimental thermal data for compounds (`Element.melting_point`
+covers elements only, not compounds).
+
+**Option 1 (regression from MP formation energy per atom) — tested, rejected.**
+Fit `T_melt ~ a + b * E_f/atom` on 16 real, individually-verified reference
+compounds (Wikipedia infobox, WebFetch-checked) pulled through the same PD
+cache the validator uses. Global fit R² = 0.229. Stratified by anion class:
+oxides R² = 0.551 (n=12, resid. std 395 K), halides R² = 0.816 (n=4, almost
+certainly overfit at that n). Residual uncertainty (±400–600 K for oxides) is
+comparable to or larger than C3's own window width (100–340 K depending on
+sweep arm) — a regression this noisy would misplace compounds inside/outside
+the window essentially at random. Rejected on the numbers, not on principle.
+
+**Option 2 (chemistry-class-driven table) — adopted, built target-driven
+rather than corpus-frequency-driven.** The failure mode regular Claude
+flagged for a hand-curated table is corpus-frequency bias: dense coverage for
+precursors common in the Kononova/SFT training corpus, sparse for
+ASTRAL-novel ones — reproducing finding 8's gradeability asymmetry in a new
+channel. The table built here avoids that by construction: it was not built
+from corpus frequency at all. It was built by enumerating every unique
+precursor formula that actually appears across all 35 ASTRAL target pairs —
+both the traditional and predicted side — and sourcing a melting point for
+each one, regardless of how common or novel that compound is.
+
+Enumeration of `misc/astral_validation_set.json`: 26 unique formulas on the
+traditional side, 28 on the predicted side, 34 unique in the union (20
+shared, 5 traditional-only — carbonates and one phosphate — 8 predicted-only
+— the niobates/borates/metaphosphates ASTRAL favors).
+
+**Measured gradeability: 34/34 precursors covered, both sides, no
+drop-out.** Every formula on both the traditional and predicted side now has
+a sourced melting point. There is no asymmetry to adjudicate — coverage is
+100% and symmetric by construction, which is what "target-driven, not
+corpus-frequency-driven" is supposed to guarantee. Per regular Claude's own
+rule ("if the ASTRAL side drops out materially more often, that decides it
+without a judgment call"): it doesn't drop out at all, on either side, so
+Option 2 is adopted outright. Option 3 (dropping C3 from Phase 13 scoring)
+is not needed.
+
+Sources: Wikipedia infoboxes via WebFetch for 32/34 compounds; 2 compounds
+(K3PO4, LiPO3) had no Wikipedia thermal data and were sourced via WebSearch
+from secondary chemical-supplier/literature pages instead — flagged below as
+lower-confidence, same posture as the Tammann citation hedge above.
+
+Full table (°C, matching `VOLATILE_T`/`PRECURSOR_DECOMP_T` convention in
+`core/ranker.py`; keys normalized via `SynthesisValidator._normalize_formula`
+when this is implemented in `core/comparator.py`):
+
+| formula | T_melt (°C) | note |
+|---|---|---|
+| Al2O3 | 2054 | |
+| BaO | 1923 | |
+| Bi2O3 | 817 | |
+| B2O3 | 450 | trigonal crystalline form; common amorphous/glass form has no distinct mp |
+| CuO | 1326 | |
+| Fe2O3 | 1539 | |
+| GeO2 | 1115 | |
+| K2CO3 | 891 | |
+| K3PO4 | 1340 | lower confidence — single non-Wikipedia source, not cross-checked |
+| KNbO3 | 1100 | |
+| KPO3 | 807 | |
+| Li2CO3 | 723 | concurrent decomposition reported near 1300°C in some sources |
+| Li2TiO3 | 1533 | |
+| LiBO2 | 849 | |
+| LiNbO3 | 1240 | |
+| LiPO3 | 656 | lower confidence — two sources disagree (656 vs. 669°C), split difference not taken, lower value used |
+| MgO | 2852 | |
+| MnO | 1945 | |
+| Na2CO3 | 851 | anhydrous form (hydrates decompose well below this) |
+| NaBO2 | 966 | |
+| NH4H2PO4 | 190 | reported "melting point" is concurrent with onset of decomposition to NH3 + molten H3PO4 |
+| NiO | 1955 | |
+| Pr6O11 | 2183 | |
+| Sc2O3 | 2485 | |
+| SiO2 | 1713 | |
+| SrO | 2531 | |
+| Ta2O5 | 1872 | |
+| TiO2 | 1843 | |
+| V2O3 | 1940 | |
+| WO3 | 1473 | |
+| Y2O3 | 2425 | |
+| ZnO | 1974 | reported value is a decomposition point, not a clean liquid-phase melt |
+| ZrO2 | 2715 | |
+
+**Caveat carried forward, not resolved here**: several entries (Li2CO3,
+NH4H2PO4, ZnO) report a temperature where decomposition and melting are
+concurrent rather than a clean solid→liquid transition. This doesn't block
+C3's usability — the channel only needs a boundary temperature past which
+the window closes, and a decomposition onset serves that role exactly like a
+melting point does. It is flagged here as a factual caveat about what the
+number means, not a gap in coverage. K3PO4 and LiPO3's single/conflicting
+sources are flagged for chemist spot-check before any writeup states them
+without qualification, same posture as the unread Merkle & Maier citation
+above.
+
+**Next step**: build `core/comparator.py` using this table for C3, per the
+rest of this pre-registration, unchanged.
