@@ -1,0 +1,67 @@
+{
+ "protocol": "35 ASTRAL targets x 32 closed-book samples, checkpoint 300, pre-registered settled read (misc/PHASE13_PREREG.md 'Phase 12 note')",
+ "rs_sft_baseline": {
+  "n_targets": 35,
+  "any_predicted": 10,
+  "any_traditional": 17,
+  "mean_reward_all": 0.9724796831314052,
+  "mean_reward_predicted_matches": 0.9948585365853658,
+  "mean_reward_traditional_matches": 0.9882436464088394,
+  "validator_gap_predicted_minus_traditional": 0.006614890176526389,
+  "mean_max_T_C": 934.2031686859273,
+  "median_max_T_C": 950.0,
+  "parse_rate": 0.9580357142857143,
+  "n_samples": 1120
+ },
+ "phase12_gdpo_beta0_ckpt300": {
+  "n_targets": 35,
+  "any_predicted": 14,
+  "any_traditional": 17,
+  "mean_reward_all": 0.9817175712971462,
+  "mean_reward_predicted_matches": 0.9921486486486486,
+  "mean_reward_traditional_matches": 0.9848104166666668,
+  "validator_gap_predicted_minus_traditional": 0.007338231981981802,
+  "mean_max_T_C": 976.099356025759,
+  "median_max_T_C": 1000.0,
+  "parse_rate": 0.9705357142857143,
+  "n_samples": 1120
+ },
+ "verdict": "AMPLIFIED (14/35 > 12) -- RL amplified what was in RS-SFT's support. First positive result.",
+ "thresholds": {
+  "amplified_gt": 12,
+  "preserved_low": 10
+ },
+ "mcnemar_predicted_hit": {
+  "n_targets": 35,
+  "rs_sft_only": [],
+  "rs_sft_only_n": 0,
+  "phase12_beta0_only": [
+   "BaLiBO3",
+   "KLi(PO3)2",
+   "Li2TiSiO5",
+   "NaSrBO3"
+  ],
+  "phase12_beta0_only_n": 4,
+  "both_n": 10,
+  "neither_n": 21,
+  "mcnemar_p": 0.125
+ },
+ "mcnemar_conventional_hit": {
+  "n_targets": 35,
+  "rs_sft_only": [
+   "K3Al2(PO4)3",
+   "KNbWO6",
+   "LiZnPO4"
+  ],
+  "rs_sft_only_n": 3,
+  "phase12_beta0_only": [
+   "K3Bi2(PO4)3",
+   "LiMgPO4",
+   "NaSrBO3"
+  ],
+  "phase12_beta0_only_n": 3,
+  "both_n": 14,
+  "neither_n": 15,
+  "mcnemar_p": 1.0
+ }
+}
