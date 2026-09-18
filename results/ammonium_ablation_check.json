@@ -1,0 +1,135 @@
+{
+ "ammonium_affected_targets": [
+  "K2Zr(PO4)2",
+  "K3Al2(PO4)3",
+  "K3Bi2(PO4)3",
+  "K3Fe2(PO4)3",
+  "K3LiP2O7",
+  "KBaPO4",
+  "KLi(PO3)2",
+  "KMgPO4",
+  "KNiPO4",
+  "KTa2PO8",
+  "KTiPO5",
+  "Li2CuP2O7",
+  "Li3Fe2(PO4)3",
+  "Li3Sc2(PO4)3",
+  "Li3V2(PO4)3",
+  "LiMgPO4",
+  "LiMnPO4",
+  "LiZnPO4"
+ ],
+ "not_affected_targets": [
+  "BaLiBO3",
+  "BaNaBO3",
+  "KNbWO6",
+  "KTiNbO5",
+  "Li2TiGeO5",
+  "Li2TiSiO5",
+  "Li3Pr2(BO3)3",
+  "Li3Y2(BO3)3",
+  "LiGeBO4",
+  "LiNbGeO5",
+  "LiNbWO6",
+  "LiSi2BO6",
+  "LiZnBO3",
+  "Na2Al2B2O7",
+  "NaSiBO4",
+  "NaSrBO3",
+  "SrLiBO3"
+ ],
+ "per_model_group_rates": {
+  "base": {
+   "ammonium_affected": {
+    "n": 18,
+    "n_hit": 2,
+    "rate": 0.1111111111111111,
+    "hit_targets": [
+     "K3LiP2O7",
+     "KTa2PO8"
+    ]
+   },
+   "not_affected": {
+    "n": 17,
+    "n_hit": 8,
+    "rate": 0.47058823529411764,
+    "hit_targets": [
+     "BaLiBO3",
+     "BaNaBO3",
+     "Li3Y2(BO3)3",
+     "LiGeBO4",
+     "LiSi2BO6",
+     "LiZnBO3",
+     "Na2Al2B2O7",
+     "NaSiBO4"
+    ]
+   }
+  },
+  "rs_sft": {
+   "ammonium_affected": {
+    "n": 18,
+    "n_hit": 1,
+    "rate": 0.05555555555555555,
+    "hit_targets": [
+     "K3LiP2O7"
+    ]
+   },
+   "not_affected": {
+    "n": 17,
+    "n_hit": 9,
+    "rate": 0.5294117647058824,
+    "hit_targets": [
+     "BaNaBO3",
+     "Li3Y2(BO3)3",
+     "LiGeBO4",
+     "LiNbGeO5",
+     "LiNbWO6",
+     "LiSi2BO6",
+     "LiZnBO3",
+     "NaSiBO4",
+     "SrLiBO3"
+    ]
+   }
+  },
+  "gdpo_phase12_beta0_ckpt300": {
+   "ammonium_affected": {
+    "n": 18,
+    "n_hit": 2,
+    "rate": 0.1111111111111111,
+    "hit_targets": [
+     "K3LiP2O7",
+     "KLi(PO3)2"
+    ]
+   },
+   "not_affected": {
+    "n": 17,
+    "n_hit": 12,
+    "rate": 0.7058823529411765,
+    "hit_targets": [
+     "BaLiBO3",
+     "BaNaBO3",
+     "Li2TiSiO5",
+     "Li3Y2(BO3)3",
+     "LiGeBO4",
+     "LiNbGeO5",
+     "LiNbWO6",
+     "LiSi2BO6",
+     "LiZnBO3",
+     "NaSiBO4",
+     "NaSrBO3",
+     "SrLiBO3"
+    ]
+   }
+  }
+ },
+ "rs_sft_to_gdpo_gains": [
+  "BaLiBO3",
+  "KLi(PO3)2",
+  "Li2TiSiO5",
+  "NaSrBO3"
+ ],
+ "rs_sft_to_gdpo_gains_ammonium_affected": [
+  "KLi(PO3)2"
+ ],
+ "rs_sft_to_gdpo_losses": []
+}

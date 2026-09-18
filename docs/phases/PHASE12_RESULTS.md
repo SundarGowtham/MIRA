@@ -316,6 +316,37 @@ actually retained are real, and GDPO's amplification of them (10/35 →
 this footnote adds: RS-SFT's "convention-avoidance" property (finding 18)
 may be partly an artifact of which routes could pass a broken gate to be
 counted at all, not purely a chemistry preference the filtering correctly
-identified. Not re-verified by rebuilding RS-SFT with the fixed solver —
-flagged as a provenance caveat for any future reference to this result,
-not acted on further here.
+identified.
+
+### The decisive check (2026-09-19): the positive result does NOT concentrate on the bug-affected targets
+
+Regular Claude's sharper version of this concern: 18/35 ASTRAL targets
+have `NH4H2PO4` in their traditional route, and the balance bug zeroed
+those — so RS-SFT's rejection filter may have systematically deleted the
+dominant *conventional* route for exactly those targets, an "accidental
+ablation." If that mechanism drove the 10→14 predicted-hit gain, the gain
+should concentrate on those 18 targets.
+
+**It does not — `research/ammonium_ablation_check.py`, run directly:**
+
+| model | ammonium-affected (n=18) | not affected (n=17) |
+|---|---|---|
+| base | 2/18 (11.1%) | 8/17 (47.1%) |
+| RS-SFT | 1/18 (5.6%) | 9/17 (52.9%) |
+| GDPO-phase12-β0 (ckpt 300) | 2/18 (11.1%) | **12/17 (70.6%)** |
+
+**3 of the 4 targets GDPO gained over RS-SFT (`BaLiBO3`, `Li2TiSiO5`,
+`NaSrBO3`) are in the NOT-affected group; only 1 (`KLi(PO3)2`) is
+ammonium-affected.** The entire base→RS-SFT→GDPO improvement trajectory
+(47.1%→52.9%→70.6%) sits in the group where the bug is irrelevant; the
+ammonium-affected group is flat and low throughout (11.1%→5.6%→11.1%,
+never exceeding base). This is the opposite of what the "accidental
+ablation" mechanism predicts.
+
+**Conclusion: the alternative explanation is checked and cleared.** Phase
+12's positive result is not an artifact of the balance-solver bug's
+effect on RS-SFT's training data — it is concentrated exactly where that
+bug has no purchase. The RS-SFT provenance caveat above (ammonium
+prevalence 12.14%→2.03%) stands as a real, disclosed limitation on what
+RS-SFT's filter selected for in general, but it does not explain Phase
+12's measured amplification.
