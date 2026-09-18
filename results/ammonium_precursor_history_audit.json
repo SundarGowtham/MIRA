@@ -1,0 +1,111 @@
+{
+ "pattern": "NH4|\\(NH4\\)|NH3\\s*[\u00b7.]",
+ "seed": 20260918,
+ "sample_n_per_dump": 200,
+ "per_dump": {
+  "runs/gdpo-qlora-gdpo-v3/generations.jsonl": {
+   "n_total": 5264,
+   "n_ammonium_mentioned": 527,
+   "pct_ammonium_mentioned": 10.01,
+   "impact_sample": {
+    "sample_size": 200,
+    "n_parsed": 180,
+    "n_no_ammonium_precursor_declared": 59,
+    "n_original_balances_fail": 97,
+    "n_original_pass_already": 24,
+    "n_fixed_recovers": 93,
+    "recovery_rate_of_failures": 0.959
+   }
+  },
+  "runs/gdpo-qlora-gdpo-v4/generations.jsonl": {
+   "n_total": 1364,
+   "n_ammonium_mentioned": 27,
+   "pct_ammonium_mentioned": 1.98,
+   "impact_sample": {
+    "sample_size": 27,
+    "n_parsed": 22,
+    "n_no_ammonium_precursor_declared": 7,
+    "n_original_balances_fail": 0,
+    "n_original_pass_already": 15,
+    "n_fixed_recovers": 0,
+    "recovery_rate_of_failures": null
+   }
+  },
+  "runs/gdpo-qlora-beta-ablation-probe/generations.jsonl": {
+   "n_total": 4896,
+   "n_ammonium_mentioned": 445,
+   "pct_ammonium_mentioned": 9.09,
+   "impact_sample": {
+    "sample_size": 200,
+    "n_parsed": 189,
+    "n_no_ammonium_precursor_declared": 51,
+    "n_original_balances_fail": 109,
+    "n_original_pass_already": 29,
+    "n_fixed_recovers": 106,
+    "recovery_rate_of_failures": 0.972
+   }
+  },
+  "runs/gdpo-qlora-gdpo-phase12-smoke/generations.jsonl": {
+   "n_total": 380,
+   "n_ammonium_mentioned": 11,
+   "pct_ammonium_mentioned": 2.89,
+   "impact_sample": {
+    "sample_size": 11,
+    "n_parsed": 8,
+    "n_no_ammonium_precursor_declared": 7,
+    "n_original_balances_fail": 0,
+    "n_original_pass_already": 1,
+    "n_fixed_recovers": 0,
+    "recovery_rate_of_failures": null
+   }
+  },
+  "runs/gdpo-qlora-gdpo-phase12-rssft/generations.jsonl": {
+   "n_total": 1612,
+   "n_ammonium_mentioned": 28,
+   "pct_ammonium_mentioned": 1.74,
+   "impact_sample": {
+    "sample_size": 28,
+    "n_parsed": 22,
+    "n_no_ammonium_precursor_declared": 22,
+    "n_original_balances_fail": 0,
+    "n_original_pass_already": 0,
+    "n_fixed_recovers": 0,
+    "recovery_rate_of_failures": null
+   }
+  },
+  "runs/gdpo-qlora-gdpo-phase12-rssft-beta0/generations.jsonl": {
+   "n_total": 5704,
+   "n_ammonium_mentioned": 67,
+   "pct_ammonium_mentioned": 1.17,
+   "impact_sample": {
+    "sample_size": 67,
+    "n_parsed": 55,
+    "n_no_ammonium_precursor_declared": 52,
+    "n_original_balances_fail": 1,
+    "n_original_pass_already": 2,
+    "n_fixed_recovers": 1,
+    "recovery_rate_of_failures": 1.0
+   }
+  },
+  "runs/gdpo-qlora-gdpo-run4-ranker/generations.jsonl": {
+   "n_total": 160,
+   "n_ammonium_mentioned": 8,
+   "pct_ammonium_mentioned": 5.0,
+   "impact_sample": {
+    "sample_size": 8,
+    "n_parsed": 7,
+    "n_no_ammonium_precursor_declared": 0,
+    "n_original_balances_fail": 0,
+    "n_original_pass_already": 7,
+    "n_fixed_recovers": 0,
+    "recovery_rate_of_failures": null
+   }
+  }
+ },
+ "totals": {
+  "total_completions": 19380,
+  "total_ammonium_mentioned": 1113,
+  "total_original_balances_fail_sampled": 207,
+  "total_fixed_recovers_sampled": 200
+ }
+}

@@ -67,10 +67,15 @@ COMPARATOR = load_comparator(
 )
 assert COMPARATOR.thermo is not None, "real PD cache required for these tests"
 
-# Uniform scale=1.0 for every channel -- these tests check sign/structure,
-# not the calibrated MAD values (those live in misc/comparator_scales_v1.json
-# and are exercised by the Phase 13 scoring run itself, not by unit tests).
-UNIT_SCALES = {c: 1.0 for c in CHANNEL_NAMES}
+# A wide, fine-grained reference range shared by every channel -- these
+# tests check sign/structure, not the calibrated rank distributions (those
+# live in misc/comparator_scales_v2.json, computed by
+# research/compute_comparator_scales.py, and are exercised by the Phase 13
+# scoring run itself, not by unit tests). -100,000 to 100,000 in steps of
+# 100 comfortably spans every raw channel's realistic test-value magnitude
+# without collapsing distinct values to the same rank.
+_UNIT_SORTED_VALS = [i * 100.0 for i in range(-1000, 1001)]
+UNIT_SCALES = {c: _UNIT_SORTED_VALS for c in CHANNEL_NAMES}
 
 
 # ---------------------------------------------------------------------------

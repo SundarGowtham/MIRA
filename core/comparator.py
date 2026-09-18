@@ -25,15 +25,45 @@ reproducible. Nothing here is fitted to ASTRAL: every functional form and
 parameter below traces to a physical relationship (Tammann, Trouton/
 Clausius-Clapeyron, combinatorics, DFT formation/reaction energetics) or a
 sourced table, per PHASE13_14_SPEC.md's four design rules.
+
+ITERATION 2 (misc/PHASE13_PREREG.md addendum 2, 2026-09-18), applied after
+iteration 1's N_pref primary endpoint turned out to be satisfiable by a
+constant comparator (misc/PHASE13_RESULTS.md has the full diagnosis):
+  - Normalization is now RANK-TRANSFORM, not raw-diff/MAD-scale. Iteration
+    1's MAD scale for C7 was 2.085e-05 (most calibration completions
+    release no gas at all), inflating a raw diff of ~1 by ~50,000x and
+    dominating every margin. A channel's raw value now maps to its
+    percentile rank (0-1) within the calibration corpus's distribution for
+    that channel; the pairwise diff is percentile(a) - percentile(b),
+    bounded in [-1, 1] regardless of the channel's own scale -- this also
+    fixes C4's exact-zero MAD (a rank is well-defined even when >50% of
+    the corpus shares one value) and C6's saturation.
+  - The balance-solver candidate-set gap (validator.py's
+    _find_balanced_reaction never tries a candidate that includes NH3
+    without N2, so any NH4H2PO4-containing route spuriously fails the
+    `balances` gate) is fixed HERE ONLY, via _ComparatorValidator below --
+    validator.py and ranker.py are not touched, Arm A/B stay reproducible.
+  - C1_selectivity_margin is demoted to diagnostic-only (computed, logged,
+    excluded from the scored aggregate): 0/35 gradeable on ASTRAL, 5.4% on
+    the calibration corpus -- the n>2 pairwise-interface generalization
+    does not hold up in practice.
+  - C4_interface_count and C7_gas_evolution stay in the scored aggregate
+    but are LABEL_CONFOUNDED on the ASTRAL dataset (every traditional
+    route there has exactly 3 precursors, every predicted route exactly
+    2, so both channels reproduce ASTRAL's own principle 1 by
+    construction) -- callers must state this whenever reporting a result
+    driven by either.
 """
 from __future__ import annotations
 
+import bisect
 import itertools
 import math
 from dataclasses import dataclass
 from typing import Optional
 
 from pymatgen.core import Composition, Element
+from pymatgen.analysis.reaction_calculator import Reaction, ReactionError
 
 from validator import (
     PredictedRoute,
@@ -50,10 +80,12 @@ from core.ranker import (
     _route_max_T,
 )
 
-COMPARATOR_VERSION = "2026-09-16-v1-phase13"
+COMPARATOR_VERSION = "2026-09-18-v2-phase13-iteration2"
 
-CHANNEL_NAMES = [
+DIAGNOSTIC_CHANNEL_NAMES = [
     "C1_selectivity_margin",
+]
+SCORED_CHANNEL_NAMES = [
     "C2_unspent_driving_force",
     "C3_reactive_temperature_window",
     "C4_interface_count",
@@ -61,10 +93,80 @@ CHANNEL_NAMES = [
     "C6_decomposition_clearance",
     "C7_gas_evolution",
 ]
+CHANNEL_NAMES = DIAGNOSTIC_CHANNEL_NAMES + SCORED_CHANNEL_NAMES
 # C8_diversity is deliberately absent: it is group-level (needs the other 7
 # completions in a GDPO group), ASTRAL routes were not generated in groups
 # (spec, C8 section), and it is validated only by Phase 14's manipulation
 # check -- never scored in Phase 13's pairwise comparison.
+
+# Channels whose sign is confounded with the label on the ASTRAL dataset
+# specifically (every traditional route has exactly 3 precursors, every
+# predicted route exactly 2 -- verified directly, no exceptions). Kept in
+# the scored aggregate per the addendum, but every caller reporting a
+# result driven by either must state this.
+LABEL_CONFOUNDED_CHANNELS = frozenset({
+    "C4_interface_count", "C7_gas_evolution",
+})
+
+
+class _ComparatorValidator(SynthesisValidator):
+    """A `SynthesisValidator` subclass local to this module ONLY --
+    validator.py is never modified, so Arm A/B stay reproducible. Fixes
+    one diagnosed gap in `_find_balanced_reaction` (misc/PHASE13_RESULTS.md
+    iteration 1): the candidate volatile-sets list jumps from
+    ["CO2","H2O","O2"] straight to the full VOLATILE_FORMULAS
+    (["CO2","H2O","O2","N2","NH3"]), skipping the one combination that
+    balances an ammonium-salt precursor (e.g. NH4H2PO4) cleanly with NO
+    gas uptake at all. Without it, pymatgen's null-space solver instead
+    finds a mathematically valid but chemically gratuitous balance that
+    consumes N2, which then correctly fails the atmosphere-supplier check
+    (air does not count as an N2 source) -- so the whole route fails the
+    `balances` gate for a software reason, not a chemistry one. Verified
+    directly: this hits 18/35 ASTRAL traditional routes (every one
+    containing NH4H2PO4), 0/35 predicted routes.
+
+    Only `_find_balanced_reaction` is overridden; every other check is
+    inherited unchanged."""
+
+    def _find_balanced_reaction(self, predicted: PredictedRoute):
+        reactants = [Composition(p.formula) for p in predicted.precursors]
+        if not reactants:
+            return None, reactants
+        target_comp = Composition(predicted.target_formula)
+
+        candidate_volatile_sets = [
+            [],                                # no volatiles
+            ["CO2"],                           # carbonate routes
+            ["H2O"],                           # hydrate routes
+            ["O2"],                            # redox routes
+            ["CO2", "H2O", "O2"],              # full common set
+            ["CO2", "H2O", "O2", "NH3"],       # + ammonium-salt routes
+                                                # (the fix -- see class docstring)
+            VOLATILE_FORMULAS,                 # everything (incl. N2)
+        ]
+
+        for volatile_strs in candidate_volatile_sets:
+            volatile_set = [Composition(v) for v in volatile_strs]
+            products = [target_comp] + volatile_set
+            try:
+                reaction = Reaction(reactants, products)
+            except ReactionError:
+                continue
+            target_coeff = reaction.get_coeff(target_comp)
+            if target_coeff <= 1e-6:
+                continue
+            all_used = all(
+                reaction.get_coeff(r) < -1e-6 for r in reactants
+            )
+            if not all_used:
+                continue
+            consumed = [s for s, c in zip(volatile_strs, volatile_set)
+                        if reaction.get_coeff(c) < -1e-6]
+            if consumed and not self._volatiles_supplied(consumed, predicted):
+                continue
+            return reaction, reactants
+
+        return None, reactants
 
 _C_TO_K = 273.15
 
@@ -177,6 +279,21 @@ class ComparatorParams:
     c3_fraction: Optional[float] = 0.17  # pre-registered read: arm B
 
 
+def _percentile_rank(value: float, sorted_vals: list[float]) -> float:
+    """Mid-rank of `value` within `sorted_vals` (already sorted ascending),
+    as a fraction in [0, 1]. Ties get the average of the low/high insertion
+    points (standard mid-rank convention) rather than an arbitrary side. A
+    value outside the calibration range extrapolates to 0.0 or 1.0 rather
+    than raising -- an out-of-distribution route is exactly the case a
+    rank-based scale should still order sensibly at the extreme."""
+    n = len(sorted_vals)
+    if n == 0:
+        return 0.5
+    lo = bisect.bisect_left(sorted_vals, value)
+    hi = bisect.bisect_right(sorted_vals, value)
+    return ((lo + hi) / 2.0) / n
+
+
 class Comparator:
     """Gate-and-channel scorer, then a pairwise diff. Mirrors `Ranker`'s
     posture (gate machinery reused verbatim via an internal `Ranker`
@@ -184,13 +301,24 @@ class Comparator:
     method returns a single unclipped Optional[float] raw quantity, not a
     (clipped score, raw) pair: there is no clip step in this module by
     design (PHASE13_14_SPEC.md design rule 2 -- physics-shaped, no
-    clip(0,1) chosen for convenience). Scale/normalization happens once,
-    in `compare()`, from MAD values computed over unlabeled generations."""
+    clip(0,1) chosen for convenience). Normalization happens once, in
+    `compare()`, via RANK-TRANSFORM against sorted calibration values from
+    unlabeled generations (iteration 2 -- see module docstring; iteration
+    1 used a raw-diff/MAD scale, which degenerated for at least one
+    channel and is kept only as the historical record in
+    misc/comparator_scales_v1.json)."""
 
     def __init__(self, mp_formula_set: set[str], thermo_checker: Optional[ThermoChecker]):
         # Gate machinery only -- precursor_freq is irrelevant here since no
         # ranker objective is ever read off this instance.
         self._gater = Ranker(mp_formula_set, thermo_checker, precursor_freq={})
+        # Iteration 2 fix: swap in the balance-solver-patched validator
+        # instance (see _ComparatorValidator above) for BOTH the gate check
+        # (Ranker._gate_balances reads self._v) and C7's own balance lookup
+        # below (self._v._find_balanced_reaction) -- validator.py and
+        # ranker.py source files are never edited; only this locally-held
+        # instance differs.
+        self._gater._v = _ComparatorValidator(mp_formula_set, thermo_checker=None)
         self._v = self._gater._v
         self.thermo = thermo_checker
 
@@ -230,16 +358,21 @@ class Comparator:
         a: Optional[PredictedRoute],
         b: Optional[PredictedRoute],
         target_formula: str,
-        scales: dict[str, float],
+        scales: dict[str, list[float]],
         params: Optional[ComparatorParams] = None,
     ) -> tuple[float, dict]:
-        """(margin, breakdown). margin = sum over symmetrically-gradeable
-        channels of (raw_a - raw_b) / MAD_scale[channel]. A channel enters
-        the sum only if BOTH routes have a non-None value for it -- no
-        renormalization, no payout for None (PHASE13_14_SPEC.md
-        Aggregation section). Weights are uniform (1/MAD, no further
-        per-channel weight) per the same section: "Weights. Uniform. Do
-        not tune."
+        """(margin, breakdown). margin = sum over symmetrically-gradeable,
+        SCORED channels (SCORED_CHANNEL_NAMES -- excludes the diagnostic-
+        only C1) of percentile_rank(raw_a) - percentile_rank(raw_b), each
+        term bounded in [-1, 1] regardless of the channel's own scale
+        (iteration 2's rank-transform; see module docstring). `scales[c]`
+        is the SORTED array of that channel's calibration raw values. A
+        channel enters the sum only if BOTH routes have a non-None value
+        for it -- no renormalization, no payout for None (PHASE13_14_SPEC.md
+        Aggregation section). Weights are uniform (no further per-channel
+        weight) per the same section: "Weights. Uniform. Do not tune."
+        Diagnostic channels (C1) are still computed and written to the
+        breakdown, just never summed into `margin`.
 
         Exactly antisymmetric: compare(b, a, ...) == (-margin, ...) with
         each per-channel diff negated -- enforced by
@@ -253,21 +386,24 @@ class Comparator:
             va, vb = sa[c], sb[c]
             breakdown[f"{c}_a"] = va
             breakdown[f"{c}_b"] = vb
+            breakdown[f"{c}_label_confounded"] = c in LABEL_CONFOUNDED_CHANNELS
             if va is None or vb is None:
                 breakdown[f"{c}_gradeable"] = False
                 breakdown[f"{c}_diff"] = None
                 continue
-            scale = scales.get(c)
-            if not scale or scale <= 0:
+            sorted_vals = scales.get(c)
+            if not sorted_vals:
                 breakdown[f"{c}_gradeable"] = False
                 breakdown[f"{c}_diff"] = None
                 continue
             diff = va - vb
+            rank_diff = _percentile_rank(va, sorted_vals) - _percentile_rank(vb, sorted_vals)
             breakdown[f"{c}_gradeable"] = True
             breakdown[f"{c}_diff"] = diff
-            breakdown[f"{c}_diff_scaled"] = diff / scale
-            margin += diff / scale
-            n_gradeable += 1
+            breakdown[f"{c}_diff_scaled"] = rank_diff
+            if c in SCORED_CHANNEL_NAMES:
+                margin += rank_diff
+                n_gradeable += 1
         breakdown["n_gradeable_channels"] = n_gradeable
         breakdown["margin"] = margin
         return margin, breakdown

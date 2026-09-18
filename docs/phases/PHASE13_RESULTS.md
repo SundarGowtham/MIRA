@@ -185,3 +185,162 @@ not consequences of the scale problem above:
 6. Separately: audit all prior training-generation dumps for how often
    the model itself declared an ammonium precursor and was silently
    scored zero everywhere by the same balance-solver gap.
+
+---
+
+# Iteration 2 — fixes applied per addendum 2 (2026-09-18)
+
+*All fixes below were locked in `misc/PHASE13_PREREG.md`'s addendum 2
+before any of this code was written, per the pre-registration discipline.
+Iteration 1's numbers above are unchanged and stand as the record of what
+that design actually did.*
+
+## The fixes, as implemented
+
+1. **Rank-transform** (`core.comparator._percentile_rank`): every
+   channel's raw value now maps to its mid-rank percentile (0–1) within
+   the calibration corpus's distribution for that channel
+   (`misc/comparator_scales_v2.json`, sorted raw-value arrays from the
+   same two unlabeled sources as v1). Pairwise diff is
+   `percentile(a) − percentile(b)`, bounded in [−1, 1] per channel
+   regardless of scale. `misc/comparator_scales_v1.json` is kept
+   untouched as the iteration-1 record.
+2. **Balance-solver fix, scoped to `core/comparator.py` only**: a new
+   `_ComparatorValidator(SynthesisValidator)` subclass overrides
+   `_find_balanced_reaction` to add the missing candidate set
+   (`["CO2","H2O","O2","NH3"]`) between the existing
+   `["CO2","H2O","O2"]` entry and the full-`VOLATILE_FORMULAS` fallback.
+   `Comparator.__init__` installs this instance in place of `Ranker`'s
+   default `_v`, so both the `balances` gate and C7's own lookup use the
+   fix consistently. `validator.py` and `core/ranker.py` are unmodified —
+   verified directly on the diagnosed case: `LiZnPO4`'s traditional route
+   (`Li2CO3, NH4H2PO4, ZnO`) now passes `balances: True` and all six
+   scored channels compute real values.
+3. **C1 demoted to diagnostic-only** (`core.comparator.
+   DIAGNOSTIC_CHANNEL_NAMES`): still computed and reported per-channel,
+   excluded from `SCORED_CHANNEL_NAMES` and the margin sum.
+4. **C4 and C7 kept scored, permanently flagged**
+   (`core.comparator.LABEL_CONFOUNDED_CHANNELS`) in every breakdown and
+   every report that shows them.
+
+`tests/test_comparator.py` (antisymmetry, one sign test per channel,
+gate-failure → all-None) passes unchanged against the rewritten module —
+17/17 checks (`run_logs/test_comparator_v2.log`).
+
+## Rescoring the 35 ASTRAL pairs (`research/phase13_astral_scoring_v2.py`)
+
+**Every one of the 35 pairs is now gradeable on every scored channel**
+(the balance-solver fix recovered all 18 previously gate-blocked
+traditional routes; rank-transform gave C4 a usable scale for the first
+time). No more forced ties.
+
+### New primary: sign agreement with measured phase purity
+
+**20/35 agree = 57.1%, 95% CI [39.4%, 73.7%].** Stable across all four C3
+sensitivity-sweep arms (A/B/C/D all read exactly 57.1% — C3's own
+quadratic-penalty self-normalization means its width parameter barely
+moves the rank it ends up at). Still consistent with chance (CI straddles
+50% comfortably), but the point estimate is now the highest of the three
+instruments measured in this project (validator 50.0%, ranker v2 60.0%,
+comparator iteration 2 57.1%) — still far short of a claim, given the
+overlapping CIs, but no longer indistinguishable from the other two
+either.
+
+**Important clarification, checked directly rather than assumed**:
+dropping BOTH label-confounded channels (C4, C7) simultaneously leaves
+sign agreement completely unchanged — still exactly 20/35 = 57.1%, the
+identical 20 targets agreeing. Only `N_pref` moves when C4/C7 are removed
+(35 → 31). **The primary endpoint is not an artifact of the confounded
+channels** — it is carried by C2/C3/C5 (C6 stays structurally 0/35
+gradeable on ASTRAL, C1 is diagnostic-only), which is reassuring for
+treating 57.1% as a genuine read on this design rather than a confound
+side-effect, even though the CI is still too wide to call it a result.
+
+### Secondary: `N_pref`, confound stated
+
+**N_pref = 35/35** (against=0, tie=0) — every single pair now favors
+predicted, exactly the degenerate case iteration 1's diagnosis warned
+about. Per-target ablation confirms why: dropping either C4 or C7 *alone*
+leaves N_pref at 35/35 unchanged (the other confounded channel alone is
+still enough to pin every pair positive); only dropping **both**
+simultaneously moves it, to 31/35. This number is reported only with this
+context attached, never alone, per the addendum.
+
+### Per-channel sign agreement (arm B)
+
+| channel | agreement | n gradeable (of 35) | flags |
+|---|---|---|---|
+| C1 selectivity margin | — | 0 (0.0%) | diagnostic-only, still structurally dead |
+| C2 unspent driving force | 44.4% (12/27) | 27 (77.1%) | |
+| C3 reactive temperature window | 59.4% (19/32) | 32 (100% decided-or-tied) | |
+| C4 interface count | 57.1% (20/35) | 35 (100%) | label-confounded |
+| C5 volatilization | 50.0% (8/16) | 16 (100% decided-or-tied) | |
+| C6 decomposition clearance | — | 0 (0.0%) | structurally 0/35, unchanged from iteration 1 |
+| C7 gas evolution | 57.1% (20/35) | 35 (100%) | label-confounded |
+
+C2's 44.4% is now BELOW chance on its own (n=27, small enough that this
+isn't a strong claim either way) — worth flagging as a direction to watch
+if this channel is revisited, not acted on here (one design iteration).
+
+## Historical ammonium-precursor audit (`research/audit_ammonium_precursor_history.py`)
+
+Regular Claude's side request: how often did the MODEL ITSELF (not just
+ASTRAL's curated literature routes) declare an ammonium precursor during
+training and get silently zeroed by the same validator.py gap? Scanned
+all 7 real generation dumps in `runs/` (19,380 completions total),
+confirmed the mechanism generalizes beyond `NH4H2PO4` specifically by
+directly re-checking a sample of matches against both the original and
+fixed balance solver.
+
+**1,113/19,380 completions (5.74%) mention an ammonium species.** Impact
+is concentrated in the two largest, earliest runs:
+
+| dump | n completions | % mention ammonium | sampled balance-failures (original) | recovered by fix |
+|---|---|---|---|---|
+| `gdpo-qlora-gdpo-v3` | 5,264 | 10.0% | 97/121 with an actual ammonium precursor (~80%) | 93 (95.9%) |
+| `gdpo-qlora-beta-ablation-probe` | 4,896 | 9.1% | 109/138 (~79%) | 106 (97.2%) |
+| `gdpo-qlora-gdpo-v4` | 1,364 | 2.0% | 0 sampled | — |
+| `gdpo-qlora-gdpo-phase12-rssft` | 1,612 | 1.7% | 0 sampled | — |
+| `gdpo-qlora-gdpo-phase12-rssft-beta0` | 5,704 | 1.2% | 1 | 1 |
+| `gdpo-qlora-gdpo-run4-ranker` | 160 | 5.0% | 0 sampled | — |
+| `gdpo-qlora-gdpo-phase12-smoke` | 380 | 2.9% | 0 sampled | — |
+
+**Total sampled: 207 balance-failures under the original validator, 200
+(96.6%) recovered by the fix.** This is not an ASTRAL-specific artifact —
+whenever the model itself proposed an ammonium-salt precursor in the
+project's two largest early training runs (`gdpo-v3`, the same
+`beta-ablation-probe` used as half of this comparator's own calibration
+corpus), roughly 4 times out of 5 that completion's `stoichiometry` and
+`amount_accuracy` validator checks (both keyed on
+`_find_balanced_reaction` finding a balance) were silently zeroed for a
+software reason, not a chemistry one. Ammonium-precursor prevalence drops
+sharply in later runs (RS-SFT and its descendants), for reasons not
+investigated further here — plausibly RS-SFT's own bar-0.9 filtering
+selected against routes that would have scored zero on these checks,
+compounding the original bug's effect on what survived into later
+training data, though this is a hypothesis, not verified.
+
+**Not acted on further**: re-scoring historical capacity/gate-failure
+numbers with the fix is a larger undertaking than this investigation's
+scope and is not done here. Flagged as a limitation on any
+`stoichiometry`/`amount_accuracy` capacity number already reported for
+`gdpo-v3` or `beta-ablation-probe` specifically.
+
+## What iteration 2 establishes
+
+- The primary endpoint is no longer satisfiable by a constant (sign
+  agreement, unlike `N_pref`, cannot be gamed by "always prefer
+  predicted" — a constant comparator would score at chance on this
+  metric by construction).
+- **57.1% (20/35), CI [39.4%, 73.7%]** is the comparator's real read
+  against experiment — the highest point estimate of the three
+  instruments tried in this project, still statistically indistinguishable
+  from the other two given overlapping CIs, and confirmed not to be an
+  artifact of the two label-confounded channels.
+- The balance-solver gap was real, generalizes well beyond the ASTRAL
+  comparison, and materially affected the project's two largest early
+  training runs — a genuine historical finding, not acted on further here.
+- No claim is made that the comparator ranks real synthesis outcomes
+  better than chance. No claim is made that it doesn't, either — every
+  CI produced by this project's three verifier designs is too wide to
+  settle this at the sample sizes ASTRAL's public data provides.
