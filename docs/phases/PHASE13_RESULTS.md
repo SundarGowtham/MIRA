@@ -234,37 +234,96 @@ gate-failure → all-None) passes unchanged against the rewritten module —
 traditional routes; rank-transform gave C4 a usable scale for the first
 time). No more forced ties.
 
-### New primary: sign agreement with measured phase purity
+### CORRECTION (2026-09-19): the "new primary" section below was wrong
 
-**20/35 agree = 57.1%, 95% CI [39.4%, 73.7%].** Stable across all four C3
-sensitivity-sweep arms (A/B/C/D all read exactly 57.1% — C3's own
-quadratic-penalty self-normalization means its width parameter barely
-moves the rank it ends up at). Still consistent with chance (CI straddles
-50% comfortably), but the point estimate is now the highest of the three
-instruments measured in this project (validator 50.0%, ranker v2 60.0%,
-comparator iteration 2 57.1%) — still far short of a claim, given the
-overlapping CIs, but no longer indistinguishable from the other two
-either.
+*The text immediately below this note is the ORIGINAL iteration-2 writeup,
+kept verbatim (not deleted) per the pre-registration's own discipline
+("this file is not edited after scoring... a stated limitation, not a
+quiet revision") — struck through in spirit, corrected in the section
+that follows it. No re-scoring was done to produce this correction; only
+the interpretation was wrong, caught on review by regular Claude and
+verified directly against the data already on hand.*
 
-**Important clarification, checked directly rather than assumed**:
-dropping BOTH label-confounded channels (C4, C7) simultaneously leaves
-sign agreement completely unchanged — still exactly 20/35 = 57.1%, the
-identical 20 targets agreeing. Only `N_pref` moves when C4/C7 are removed
-(35 → 31). **The primary endpoint is not an artifact of the confounded
-channels** — it is carried by C2/C3/C5 (C6 stays structurally 0/35
-gradeable on ASTRAL, C1 is diagnostic-only), which is reassuring for
-treating 57.1% as a genuine read on this design rather than a confound
-side-effect, even though the CI is still too wide to call it a result.
+~~**20/35 agree = 57.1%, 95% CI [39.4%, 73.7%].** ... the point estimate is
+now the highest of the three instruments measured in this project
+(validator 50.0%, ranker v2 60.0%, comparator iteration 2 57.1%)~~
 
-### Secondary: `N_pref`, confound stated
+**This comparison to 50% was the error.** `N_pref = 35/35` means
+`sign(margin) > 0` on every single pair — the comparator prefers
+"predicted" unconditionally on this dataset. Once that is true, "sign
+agreement with measured purity" reduces exactly to counting how often
+predicted purity actually beats traditional purity, because the
+comparator's own sign never varies to disagree with anything. That count
+is a property of ASTRAL's 35 curated pairs, not a measurement of the
+comparator: **verified directly, 20/35 targets have measured predicted
+purity > traditional purity** (0 exact ties) — the identical number, on
+the identical targets, as the "sign agreement" figure above. `C4` alone,
+a pure constant (+2.0 on every pair, no per-target information
+whatsoever), reproduces this exact 20/35 by itself.
 
-**N_pref = 35/35** (against=0, tie=0) — every single pair now favors
-predicted, exactly the degenerate case iteration 1's diagnosis warned
-about. Per-target ablation confirms why: dropping either C4 or C7 *alone*
-leaves N_pref at 35/35 unchanged (the other confounded channel alone is
-still enough to pin every pair positive); only dropping **both**
-simultaneously moves it, to 31/35. This number is reported only with this
-context attached, never alone, per the addendum.
+**The correct statement: on these 35 pairs, the comparator's measured
+discriminative power is zero.** The right baseline for this dataset was
+never 50% — it is 57.1%, the base rate of "predicted wins on purity," and
+the comparator's full aggregate sits exactly on that base rate with zero
+pairs differing from what a constant "always prefer predicted" rule would
+say. This is not "the highest point estimate of three instruments"; it is
+not an estimate of the comparator at all.
+
+**Why this happened, structurally, not as a channel-design flaw**: all 35
+pairs are 3-precursor-traditional vs. 2-precursor-predicted, with no
+exceptions (verified, iteration 1). Any channel keyed to precursor count,
+interface count, or total gas release is therefore a CONSTANT on this
+specific comparison by construction — and a constant channel scores
+exactly the dataset's base rate, not "chance." **The 35 curated ASTRAL
+pairs cannot evaluate a comparator of this kind at all** — this is a
+dataset-confound limitation, not a defect in C1–C7's design.
+
+**The within-target pair enumeration — the only design that could compare
+routes on the same side of that divide — was checked formally
+(`research/astral_pair_enumeration.py`, run 2026-09-19, not assumed from
+the earlier ad hoc inspection): every one of the 35 targets carries
+exactly 2 named routes with measured purity (traditional, predicted), so
+the enumeration is identically the same 35 pairs already scored, not a
+larger set. `|Δ purity|` distribution across these 35: min 0.020, median
+0.120, mean 0.193, max 0.630 (`results/astral_pair_enumeration.json`).
+ASTRAL's own `headline_numbers` field records 224 total reactions in the
+underlying screen, but that fuller dataset is not present anywhere in
+this repository (confirmed by listing every astral-related file — 53 of
+them, all tracing back to this same 35-target extract). **The ~150-pair
+enumeration that would give this endpoint real power, and let it compare
+same-precursor-count routes, does not exist in this repo. This is the
+finding**, not a step that was skipped: ASTRAL's public data, as held
+here, cannot validate a comparator whose channels are sensitive to
+precursor count or class, because the dataset's only comparison axis IS
+precursor count and class.
+
+### Secondary: `N_pref`, confound stated, ablation inconsistency resolved
+
+**N_pref = 35/35** (against=0, tie=0) — every single pair favors
+predicted, the fully degenerate case. Per-target ablation: dropping
+either C4 or C7 *alone* leaves N_pref at 35/35 unchanged (the other
+confounded channel alone still pins every pair positive); dropping
+**both** simultaneously moves it to 31/35 (4 targets flip sign:
+`Li3Sc2(PO4)3`, `KNbWO6`, `KTiNbO5`, `LiNbWO6`).
+
+**Apparent inconsistency, checked and resolved, not asserted away**:
+dropping both C4 and C7 leaves sign agreement unchanged at 20/35 even
+though 4 pairs flip margin sign — flagged by regular Claude as needing a
+direct check, since a flipped pair should change its own agreement
+status unless its `Δpurity` is exactly zero. None of the 4 flipped
+targets has a purity tie (`Li3Sc2(PO4)3`: Δpurity=+0.53;
+`LiNbWO6`: Δpurity=+0.12; `KNbWO6`: Δpurity=−0.05; `KTiNbO5`:
+Δpurity=−0.09 — verified directly against the scored data). What actually
+happens: **2 of the 4 flip from agree→disagree** (`Li3Sc2(PO4)3`,
+`LiNbWO6`, both Δpurity>0, margin flips from favoring-predicted to
+favoring-traditional) **and the other 2 flip from disagree→agree**
+(`KNbWO6`, `KTiNbO5`, both Δpurity<0, same margin flip now happens to
+match). Net change = 0, exactly and only because the flips split 2-and-2
+in opposite directions on this specific set of 4 targets — not a bug, not
+a coincidence requiring purity ties, a real cancellation confirmed by
+direct arithmetic. Given the interpretation above, `N_pref` was already
+known to be uninformative on this dataset regardless of this specific
+arithmetic point.
 
 ### Per-channel sign agreement (arm B)
 
@@ -314,33 +373,81 @@ corpus), roughly 4 times out of 5 that completion's `stoichiometry` and
 `amount_accuracy` validator checks (both keyed on
 `_find_balanced_reaction` finding a balance) were silently zeroed for a
 software reason, not a chemistry one. Ammonium-precursor prevalence drops
-sharply in later runs (RS-SFT and its descendants), for reasons not
-investigated further here — plausibly RS-SFT's own bar-0.9 filtering
-selected against routes that would have scored zero on these checks,
-compounding the original bug's effect on what survived into later
-training data, though this is a hypothesis, not verified.
+sharply in later runs (RS-SFT and its descendants).
+
+### RS-SFT propagation test (`research/test_rssft_ammonium_propagation.py`, 2026-09-19)
+
+Regular Claude's hypothesis, tested directly rather than left open: if
+RS-SFT's bar-0.9 filter selected against routes the balance-solver bug
+was zeroing, ammonium-precursor prevalence should collapse between base
+model's raw generations and RS-SFT's kept survivors. Detection corrected
+from the historical audit's text-substring method to a chemistry-based
+one: a precursor counts as ammonium-like if its parsed composition
+contains BOTH nitrogen and hydrogen (substring matching on `"NH4"` missed
+cases where a formula is stored in expanded elemental form — e.g.
+`NH4H2PO4`'s own pymatgen reduced formula is `PH6NO4`, containing neither
+`"NH4"` nor `"NH3"` as text).
+
+**Base model, unfiltered (`results/astral_gen_n32_base.json`, 1120
+completions): 136/1120 = 12.14%.**
+**RS-SFT survivors (`data/rs_sft/rs_sft_train.jsonl` +
+`rs_sft_val.jsonl`, 295 completions): 6/295 = 2.03%.**
+**Ratio: 0.17 — a ~6x drop.** Directionally strongly consistent with the
+propagation hypothesis.
+
+**Caveat, stated plainly**: this is a proxy comparison, not a matched
+pre/post-filter test — `build_rs_sft_dataset.py` never persisted rejected
+(non-survivor) samples, so RS-SFT's own exact pre-filter distribution
+cannot be reconstructed from anything on disk. The base-model figure comes
+from ASTRAL's 35-target evaluation, a different target universe from
+RS-SFT's `data/rl` 400-target sample. The result is a strong directional
+signal, not a controlled measurement — reported as such, not overclaimed
+as proof.
+
+**Implication for Phase 12, flagged not retracted**: RS-SFT is Phase 12's
+initialization, and its positive result (14/35 amplified,
+`docs/phases/PHASE12_RESULTS.md`) rests on RS-SFT's own filtered survivor
+set. If that set under-represents ammonium-precursor routes because of a
+software bug rather than real chemistry, RS-SFT's "convention-avoidance"
+property (finding 18) may be partly an artifact of which routes could
+even pass the gate to be counted, not purely a preference the filtering
+correctly identified. This does not undo Phase 12's measured result — the
+routes RS-SFT did retain are real and the RL amplification measured
+against them is real — but it is a footnote every future reference to
+RS-SFT's provenance should carry.
 
 **Not acted on further**: re-scoring historical capacity/gate-failure
-numbers with the fix is a larger undertaking than this investigation's
-scope and is not done here. Flagged as a limitation on any
-`stoichiometry`/`amount_accuracy` capacity number already reported for
-`gdpo-v3` or `beta-ablation-probe` specifically.
+numbers with the fix, or rebuilding RS-SFT with the fixed balance solver,
+are both larger undertakings than this investigation's scope and are not
+done here.
 
 ## What iteration 2 establishes
 
-- The primary endpoint is no longer satisfiable by a constant (sign
-  agreement, unlike `N_pref`, cannot be gamed by "always prefer
-  predicted" — a constant comparator would score at chance on this
-  metric by construction).
-- **57.1% (20/35), CI [39.4%, 73.7%]** is the comparator's real read
-  against experiment — the highest point estimate of the three
-  instruments tried in this project, still statistically indistinguishable
-  from the other two given overlapping CIs, and confirmed not to be an
-  artifact of the two label-confounded channels.
+- **The primary endpoint, as originally written up in this iteration, was
+  itself wrong** — see the correction above. `N_pref = 35/35` means the
+  comparator's sign never varies, so "sign agreement" collapses to
+  counting the dataset's own base rate (20/35 = 57.1%), not measuring the
+  comparator. **The comparator's demonstrated discriminative power on
+  these 35 pairs is zero.**
+- The within-target pair enumeration was run formally and confirms this
+  is a hard data-availability ceiling, not a step that was skipped: only
+  35 pairs exist anywhere in this repository, and any channel sensitive
+  to precursor count or class is a constant on this specific comparison
+  by construction. **ASTRAL's 35 curated pairs, as held in this
+  repository, cannot evaluate a comparator of this kind at all** — this
+  is the finding, not a limitation to work around.
+- The RS-SFT ammonium-propagation test is directionally strong (12.14% →
+  2.03%, ratio 0.17) though a proxy, not a matched comparison — the
+  balance-solver bug plausibly shaped what RS-SFT's own filtering kept,
+  with a stated but unresolved implication for Phase 12's provenance.
 - The balance-solver gap was real, generalizes well beyond the ASTRAL
   comparison, and materially affected the project's two largest early
   training runs — a genuine historical finding, not acted on further here.
 - No claim is made that the comparator ranks real synthesis outcomes
-  better than chance. No claim is made that it doesn't, either — every
-  CI produced by this project's three verifier designs is too wide to
-  settle this at the sample sizes ASTRAL's public data provides.
+  better or worse than a trivial rule. This specific dataset cannot
+  settle that question either way, for a structural reason (the label is
+  confounded with precursor count) rather than a statistical-power one —
+  a stronger and more useful negative than "underpowered," because it
+  says what evidence would actually be needed (routes matched on
+  precursor count, which ASTRAL's public 35-pair extract does not
+  provide) rather than just "more of the same data."

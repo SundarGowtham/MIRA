@@ -294,3 +294,28 @@ far less aggressively than from a corpus-converged one.
 (`misc/PHASE13_14_SPEC.md`) has a genuine positive result to try to build
 on — the RS-SFT retention result (finding 18) does not stand alone as the
 project's only positive finding.
+
+## Footnote on RS-SFT's provenance, added 2026-09-19 (Phase 13's ammonium-precursor bug bears on Phase 12's init)
+
+Phase 13's investigation (`misc/PHASE13_RESULTS.md`) found that
+`validator.py`'s balance-solver has a gap causing any ammonium-precursor
+route (e.g. containing `NH4H2PO4`) to silently fail `stoichiometry`/
+`amount_accuracy` for a software reason, not a chemistry one — confirmed
+across the project's largest early training dumps. A direct test
+(`research/test_rssft_ammonium_propagation.py`) found ammonium-precursor
+prevalence dropped from 12.14% in unfiltered base-model generations to
+2.03% in RS-SFT's own bar-0.9 survivor set — a ~6x reduction, directionally
+consistent with the bug shaping which routes could even pass RS-SFT's
+filter (caveat: a proxy comparison across different target universes, not
+a matched pre/post-filter test — see the Phase 13 doc for the full
+caveat).
+
+**This does not undo Phase 12's measured result.** The routes RS-SFT
+actually retained are real, and GDPO's amplification of them (10/35 →
+14/35 predicted hits) is a real, measured effect on that real data. What
+this footnote adds: RS-SFT's "convention-avoidance" property (finding 18)
+may be partly an artifact of which routes could pass a broken gate to be
+counted at all, not purely a chemistry preference the filtering correctly
+identified. Not re-verified by rebuilding RS-SFT with the fixed solver —
+flagged as a provenance caveat for any future reference to this result,
+not acted on further here.

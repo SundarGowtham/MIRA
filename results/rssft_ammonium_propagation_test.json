@@ -1,0 +1,21 @@
+{
+ "detection_method": "pymatgen Composition: precursor contains both N and H elements",
+ "base_unfiltered": {
+  "source": "results/astral_gen_n32_base.json",
+  "n_total": 1120,
+  "n_mentioned": 136,
+  "pct": 12.142857142857142
+ },
+ "rs_sft_survivors": {
+  "source": [
+   "data/rs_sft/rs_sft_train.jsonl",
+   "data/rs_sft/rs_sft_val.jsonl"
+  ],
+  "n_total": 295,
+  "n_mentioned": 6,
+  "n_parse_fail": 0,
+  "pct": 2.0338983050847457
+ },
+ "verdict": "CONSISTENT with the propagation hypothesis: prevalence roughly halved or more.",
+ "caveat": "Different target universes (ASTRAL 35 vs RS-SFT's data/rl 400); build_rs_sft_dataset.py never persisted rejected samples, so no matched pre/post-filter comparison exists on disk. This is the best available proxy, not a clean test."
+}
