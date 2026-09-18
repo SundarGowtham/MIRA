@@ -240,3 +240,116 @@ above.
 
 **Next step**: build `core/comparator.py` using this table for C3, per the
 rest of this pre-registration, unchanged.
+
+---
+
+## Addendum 2, 2026-09-18 — iteration 2: the primary endpoint was a design error
+
+*Written and committed before any of the fixes below are applied to
+`core/comparator.py`, per the same discipline as addendum 1: this locks
+the new design first, iteration 1's number stands as reported
+(`misc/PHASE13_RESULTS.md`), and this is a disclosed second iteration —
+"a new pre-registration and a stated limitation, not a quiet revision,"
+per this file's own rule above.*
+
+**Why iteration 1 is being reopened.** `N_pref ≥ 25/35` can be satisfied
+by a constant comparator that always prefers the predicted set, with zero
+physics inside it — the metric cannot distinguish that degenerate case
+from a working ranker. What was measured (17 preferences, 0 against, 18
+forced ties) is close to that degenerate case for a diagnosed reason: one
+channel's calibration scale was miscalibrated by a factor of ~50,000
+(C7's MAD scale, 2.085e-05, computed from a corpus where nearly every
+completion releases no gas), and two channels (C4, C7) are perfectly
+confounded with the label on this dataset (every traditional route has
+exactly 3 precursors, every predicted route exactly 2). Full diagnosis:
+`misc/PHASE13_RESULTS.md`.
+
+**The full-enumeration primary endpoint does not have the power originally
+hoped for, and this is now a settled fact, not an open question.**
+`misc/astral_validation_set.json`'s own `headline_numbers` records 224
+total reactions in ASTRAL's underlying screen, but this file extracts only
+the best-traditional and best-predicted route per target — 35 pairs, no
+more, confirmed by exhaustive key-set inspection of all 35 target records
+and a repo-wide search that found no fuller ASTRAL dataset anywhere in
+this codebase. The "full within-target pair enumeration" (Step 0) is
+therefore capped at the same 35 pairs already scored, not the ~150 a power
+calculation would want:
+
+| n | agreement rate needed to detect anything (80% power, α=0.05, two-sided, vs. chance=50%) |
+|---|---|
+| 17 (iteration 1's gradeable count) | 84.0% |
+| 35 (ceiling with the data on hand) | 73.7% |
+| 150 (hoped-for) | 61.4% |
+| 224 (ASTRAL's full screen, not available here) | 59.4% |
+
+Every agreement rate this project has measured across three independent
+physics-grounded verifiers (validator 50.0%, ranker v2 60.0%, comparator
+47.1%) is below what n=35 could detect at 80% power. **Conclusion: no
+binary bar at n≤35 is both achievable by any historically-observed effect
+size and statistically meaningful.** This is itself the finding — about
+ASTRAL data availability, not about the comparator — and is reported as
+such rather than forcing a bar that no real effect in this project's
+history could clear.
+
+### New primary endpoint: descriptive, not a binary bar
+
+Sign agreement between the comparator's margin and the sign of measured
+phase-purity difference, on every gradeable pair in the 35-pair set (not
+just predicted-vs-conventional — this is unchanged from iteration 1's
+Step 0 scope, since no larger enumeration exists), reported as a point
+estimate with a 95% binomial CI. No pass/fail bar is set, for the power
+reason above. This mirrors exactly how the validator's 50.0% and ranker
+v2's 60.0% have been reported in this project — descriptively, with the
+CI doing the work a binary bar cannot at this n.
+
+### New secondary endpoint: `N_pref`, confound stated every time
+
+`N_pref` is retained and reported, but every report showing it must state
+the label confound explicitly: on this specific 35-pair set, traditional
+routes are always 3-precursor and predicted routes are always 2-precursor,
+so any channel keyed to precursor count or total gas release reproduces
+ASTRAL's own principle 1 by construction, not by an independent physics
+read. `N_pref` is never reported alone after this addendum.
+
+### The fixes, locked before implementation, in order
+
+1. **Rank-transform every channel** over the calibration corpus
+   (`runs/gdpo-qlora-beta-ablation-probe/generations.jsonl` +
+   `runs/gdpo-qlora-gdpo-phase12-rssft-beta0/generations.jsonl`, unchanged
+   sources) instead of raw-diff/MAD-scale. Per channel: store the sorted
+   array of calibration raw values; at scoring time, a route's value maps
+   to its percentile rank within that distribution (0 to 1); the pairwise
+   diff is `percentile(a) − percentile(b)`, bounded in [−1, 1] regardless
+   of the channel's raw scale. This fixes C7's ~50,000x scale blowup,
+   C4's exact-zero MAD, and C6's saturation in the same change, because
+   none of the three depend on a MAD estimate any more. Stored as
+   `misc/comparator_scales_v2.json` — v1 is kept, not overwritten, as the
+   iteration-1 record.
+2. **Fix the balance-solver candidate-set gap inside `core/comparator.py`
+   only.** A `SynthesisValidator` subclass local to `comparator.py`
+   overrides `_find_balanced_reaction` to add the one missing candidate
+   diagnosed in `misc/PHASE13_RESULTS.md` (`["CO2","H2O","O2","NH3"]`,
+   which balances NH4H2PO4-containing routes cleanly with no spurious gas
+   uptake) between the existing `["CO2","H2O","O2"]` entry and the
+   full-`VOLATILE_FORMULAS` fallback. `validator.py` and `core/ranker.py`
+   are not touched — Arm A and Arm B stay reproducible, per this file's
+   restated rule above. Separately (not a comparator change): audit every
+   prior training-generation dump for how often the model itself declared
+   an ammonium precursor and was silently scored zero everywhere by this
+   same gap — reported in `misc/PHASE13_RESULTS.md`'s iteration-2 section,
+   not acted on further here.
+3. **Demote C1 to diagnostic-only.** Computed and logged in every
+   breakdown, excluded from the scored aggregate and from `N_pref`. 0/35
+   gradeable on ASTRAL and 5.4% on the calibration corpus — the n>2
+   pairwise-interface generalization does not hold up in practice, per
+   addendum 1's discussion of C1 as a documented extension "kept as
+   specified"; iteration 2 stops scoring it rather than re-deriving it.
+4. **Keep C4 and C7 in the scored aggregate**, both permanently flagged
+   as label-confounded on the ASTRAL dataset in every table that shows
+   them (this addendum's "New secondary" section above applies to any
+   result driven substantially by either channel, not only to `N_pref`
+   itself).
+
+**One design iteration per addendum, restated**: this file is not edited
+again after iteration 2's scoring begins. A third iteration would be a new
+addendum and a stated limitation, exactly as this one is for iteration 1.
