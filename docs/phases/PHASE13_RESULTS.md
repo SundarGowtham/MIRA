@@ -451,3 +451,50 @@ done here.
   says what evidence would actually be needed (routes matched on
   precursor count, which ASTRAL's public 35-pair extract does not
   provide) rather than just "more of the same data."
+
+## The ASTRAL paper's own supplementary information does not have the missing data (checked directly, 2026-09-19)
+
+Regular Claude's proposed escape hatch: the 224 total reactions include
+temperature sweeps of the *same* precursor set — same target, same
+precursor count on both sides, no confound — so if per-reaction
+temperature and purity are tabulated in the paper's SI, that is a clean,
+unconfounded test of C3 specifically (~100+ within-set temperature
+pairs). Checked directly rather than left open: downloaded the arXiv
+preprint (`2304.00743`, which bundles the full SI into one 75-page PDF —
+Nature.com's own copy is login-gated), extracted the full text, and
+searched exhaustively.
+
+**Result: the per-temperature data does not exist in extractable form
+anywhere in this paper.** There are exactly four supplementary tables
+(S2–S5). Table S4 is the same single best-temperature/best-purity summary
+per target already captured in `misc/astral_validation_set.json` — not a
+sweep. Table S5 (the paper reuses this label for two different things) is
+(a) a list of thermodynamically-metastable targets and (b) a Materials
+Project-derived ΔS/ΔH/ΔG analysis of 100 *generic* oxide reactions
+unrelated to ASTRAL's own robotic experiments — not experimental purity
+data at all. The actual temperature sweep is described in exactly one
+place: "Figure 4b: Heatmap of phase purity of predicted precursors at
+different calcination temperatures" — a **heatmap image, never
+tabulated**. No Zenodo/Figshare/GitHub dataset for the raw reaction
+results was found via search either (checked directly, not assumed).
+
+**Conclusion, per regular Claude's own stated conditional ("if no, Phase
+13 is terminal")**: Phase 13 is terminal on the available ASTRAL data.
+The ~100+-pair, precursor-count-matched temperature-sweep test that could
+cleanly validate C3 alone does not exist as usable data outside a
+heatmap image, and extracting real purity numbers from a color gradient
+is not a rigorous method this project uses elsewhere and is not
+attempted here. **ARROWS³** (Nature, 188 synthesis experiments on
+YBa₂Cu₃O₆.₅ plus two metastable-target datasets, including recorded
+negative results) is a genuinely different, larger, positive-and-negative
+corpus that could make a verifier evaluable — noted here as the concrete
+next step for future work, not attempted in this project (new chemical
+space, new parser, weeks of work, out of scope for shipping this phase).
+
+**Phase 14 does not launch.** The pre-registration's own rule: Phase 13's
+gate decides Phase 14. The gate was not cleared — iteration 2 showed the
+comparator's demonstrated discriminative power on the only data available
+is zero, for a structural reason no further iteration on this dataset can
+fix. This is reported as a pre-registered stopping decision, not an
+abandoned effort: the bar was set in advance, it was not met, and the
+project stops here per its own rule.
