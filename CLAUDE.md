@@ -163,8 +163,10 @@ channel must be something the model fails at a meaningful rate.
     | model | proposes better set | proposes conventional | validator: better | validator: conventional | **gap** | mean max-T |
     |---|---|---|---|---|---|---|
     | **base** | **10/35** | 24/35 | 0.993 (n=22) | 0.972 (n=309) | **+0.021** | 1026.5 °C |
-    | **SFT** | **1/35** | 32/35 | 0.852 (n=2) | 0.905 (n=525) | **−0.053** | 963.2 °C |
+    | **SFT** | **1/35**¹ | 32/35 | 0.852 (n=2) | 0.905 (n=525) | **−0.053** | 963.2 °C |
     | **GDPO-300** | **3/35** | 31/35 | 0.967 (n=4) | 0.918 (n=530) | **+0.049** | 1017.1 °C |
+
+    ¹ Exact match is 0/35; 1/35 only counts if a strict superset of the predicted precursor set (LiZnBO3: model adds Li2CO3 to the predicted LiBO2+ZnO) is also treated as a hit. See `docs/phases/PHASE15_DISTRIBUTIONAL.md`. base-vs-SFT collapse is significant either way (exact McNemar p=0.0020 exact match, p=0.0039 superset-inclusive).
 
     - **base → SFT loss is significant**: paired exact McNemar **p = 0.004–0.012**.
     - **SFT → GDPO recovery is NOT**: p ≈ 0.5–0.6, recovers ~22% of what was lost. Report as "consistent with partial recovery," never as recovery.
@@ -190,8 +192,10 @@ channel must be something the model fails at a meaningful rate.
     | base | 10/35 | 24/35 | 0.948 | 1026.5 | +264 |
     | format-only SFT | 11/35 | 31/35 | 0.937 | 1070.8 | +308 |
     | **RS-SFT from base** | **10/35** | **17/35** | **0.972** | **934.2** | **+171** |
-    | full SFT | 1/35 | 32/35 | 0.888 | 963.2 | +200 |
+    | full SFT | 1/35¹ | 32/35 | 0.888 | 963.2 | +200 |
     | GDPO-300 (from full SFT) | 3/35 | 31/35 | 0.894 | 1017.1 | +254 |
+
+    ¹ Exact match is 0/35; 1/35 only counts if a strict superset of the predicted precursor set (LiZnBO3: model adds Li2CO3 to the predicted LiBO2+ZnO) is also treated as a hit. See `docs/phases/PHASE15_DISTRIBUTIONAL.md`. base-vs-SFT collapse is significant either way (exact McNemar p=0.0020 exact match, p=0.0039 superset-inclusive).
 
     - **RS-SFT vs full SFT on predicted hits: p = 0.004–0.012.** Same significance as base-vs-SFT. 295 survivors from 400 base-generated targets, validator bar 0.9, 73.75% survival, fine-tuned from base.
     - **Conventional 17/35 is the lowest of anything including base** (p = 0.016 best case) — it moved *away* from convention rather than merely avoiding collapse.
