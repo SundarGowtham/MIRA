@@ -310,37 +310,64 @@ in magnitude than the naive numbers suggested.
 
 # Task 2b — three checks on the bare-oxide/carbonate mechanism [E]
 
-## (a) RS-SFT step: does one round of bar-0.9 filtering explain it?
+## (a) RS-SFT step — CORRECTED 2026-09-23: the original comparison crossed prompt distributions
 
-*Script: `research/distributional/rs_sft_bareoxide_step.py`. Output:
-`results/distributional/rs_sft_bareoxide_step.json`.*
+*Original script/output kept as the record of what was measured;
+superseded by the corrected metric below, not deleted, per this
+project's own discipline for reopened findings.*
 
-**No — and the actual training-set share moves in the opposite direction
-than a simple selection story predicts.**
+**The original 8.6%-vs-6.4% comparison was flawed, caught on review**:
+it measured "contains ≥1 bare-oxide precursor anywhere in the route" as a
+share of ALL samples, including samples on targets that contain no
+alkali metal at all and could not source one via either route regardless
+of model behavior. RS-SFT's training universe (`data/rl`, 400 general
+targets) and ASTRAL's 35 targets have different alkali-target
+proportions, so the raw percentages were not comparable.
 
-| quantity | value |
-|---|---|
-| base share (ASTRAL proxy, same source as the Phase 13 ammonium-propagation test) | 8.6% |
-| pass@0.9: bare-oxide-containing samples | 95.8% |
-| pass@0.9: non-bare-oxide samples | 69.0% |
-| **one-round-filter Bayes prediction** (applying those two pass rates to the base share) | **11.5%** |
-| **RS-SFT's ACTUAL training-set share** (`data/rs_sft/rs_sft_train.jsonl`+`rs_sft_val.jsonl`, 295 real survivors, parsed directly) | **6.4%** |
-| RS-SFT's ASTRAL-inference-time share (analyze3.py, model generating on ASTRAL prompts) | 25.1% |
+**Corrected script**: `research/distributional/alkali_source_share.py`.
+Output: `results/distributional/alkali_source_share.json`. Restricted to
+targets that actually contain an alkali metal (Li/Na/K/Rb/Cs); for each
+`(target, sample, alkali-element)` triple, classifies how that element is
+sourced: `bare_oxide` / `carbonate` / `other`. A target needing 2 alkali
+elements contributes 2 triples — reported as a fraction of triples, not
+samples, stated explicitly rather than hidden.
 
-The one-round Bayes prediction (11.5%) is close to the ballpark regular
-Claude estimated (~10–11%) — that part of the reasoning was right. But
-**the real training set has LESS bare-oxide content (6.4%) than base's
-own unfiltered rate (8.6%), not more** — 5.1 points below the one-round
-prediction. Simple survivor-selection frequency does not explain RS-SFT's
-eventual behavior at all.
+**RS-SFT trained on 295 examples** (`rs_sft_train.jsonl` 283 +
+`rs_sft_val.jsonl` 12).
 
-**The dramatic number is the next gap**: training-set share (6.4%) to
-ASTRAL-inference share (25.1%) is a **+18.7 point, ~4x jump** that
-training-set *composition* cannot produce by itself — something in the
-fine-tuning step (learning a generalizable pattern from a minority of
-examples, not the frequency of those examples) is doing the amplifying.
-Task 2b(b) below identifies a concrete, later-stage mechanism consistent
-with this.
+| corpus | n triples | bare_oxide | carbonate | other |
+|---|---|---|---|---|
+| 1. base-on-ASTRAL | 1166 | **9.1%** | 72.9% | 18.0% |
+| 2. RS-SFT training set | 66 | **28.8%** | 50.0% | 21.2% |
+| 3. RS-SFT-on-ASTRAL | 1134 | **25.8%** | 45.9% | 28.2% |
+| 4. GDPO-on-ASTRAL | 1151 | **56.9%** | 18.1% | 25.0% |
+
+**Only 64/295 (21.7%) of RS-SFT's distinct training targets contain an
+alkali metal at all** — the training set's alkali-relevant signal comes
+from a small fraction of its 295 examples (66 alkali-source decisions
+total, since a few targets need 2 alkali elements).
+
+**This completely changes the story from the flawed original
+comparison.** RS-SFT's training set does not under-represent bare-oxide —
+restricted to the examples where the choice is even possible, it is
+substantially OVER-represented (28.8%) relative to base's own rate
+(9.1%), a real ~3x enrichment among the alkali-relevant training
+examples. **And RS-SFT's own ASTRAL-inference-time share (25.8%,
+consistent with analyze3.py's 25.1% under the coarser whole-sample
+definition) sits almost exactly at its training set's share (28.8%) — no
+mysterious further amplification between training-set composition and
+RS-SFT's own generation behavior.** The "+18.7pp, ~4x jump" and "the
+fine-tuning step itself amplifies beyond training-set representation"
+claim in the original (a) write-up above was **wrong — an artifact of
+the flawed, distribution-crossing metric**, not a real finding; retracted
+here, not quietly dropped.
+
+**The real amplification happens at the GDPO step**: RS-SFT-on-ASTRAL
+(25.8%) → GDPO-on-ASTRAL (56.9%) is a genuine ~2.2x further increase,
+and Task 2b(b) below identifies the concrete mechanism for exactly this
+step (a within-group `thermodynamic_favorable` reward advantage during
+RL training) — the mechanism survives the correction; it just belongs to
+a different training stage than originally attributed.
 
 ## (b) GDPO step: raw gaps are small, z-advantages are large
 
@@ -378,19 +405,26 @@ confound found in Task 2 (this dump's `thermodynamic_favorable` numbers
 here are on GENERAL `data/rl_run3` training targets, not the phosphate
 ASTRAL subset where the ammonium bug lives).
 
-**Step-wise trend (bucketed into 5 ranges over 334 steps)**: the
-`thermodynamic_favorable` z-gap is positive in every bucket and
-*strengthens* over training — 1.75 (steps 0–65) → 0.85 → 1.94 → 2.14 →
-2.07 (steps 267–333). This is not a transient early-training artifact;
-it persists and grows, consistent with compounding policy-gradient
-pressure over the whole run rather than a one-time nudge. The other four
-channels show no comparable trend (near-zero or too few gradeable mixed
-groups per bucket to read).
+**Step-wise trend, CORRECTED 2026-09-23** (bucketed into 5 ranges over 334
+steps; n mixed groups per bucket, from `run_logs/gdpo_bucket_counts.log`:
+**17, 10, 4, 11, 8** — 50 total): the `thermodynamic_favorable` z-gap is
+**positive in every bucket** — 1.75 (n=17) → 0.85 (n=10) → 1.94 (n=4) →
+2.14 (n=11) → 2.07 (n=8) — but **too few groups per bucket (as low as 4)
+to establish a trend**. The original "strengthens over training" claim
+overstated what 4–17 groups per bucket can support; retracting that
+specific characterization, not the underlying positive-z-gap finding
+itself, which is real and consistent across all five buckets regardless
+of trend direction. The other four channels show no comparable signal
+(near-zero or too few gradeable mixed groups per bucket to read).
 
-**This is the mechanism that closes the gap left by (a)**: training-set
-composition doesn't explain the 6.4%→25.1% jump, but a real, growing,
-within-group reward advantage for bare-oxide over carbonate during GDPO
-training does.
+**Updated per (a)'s correction**: this is the mechanism for the REAL
+remaining gap — RS-SFT-on-ASTRAL (25.8%) to GDPO-on-ASTRAL (56.9%), not
+the training-set-to-RS-SFT-inference gap originally attributed to it
+(that gap turned out not to exist once (a) was corrected). A real,
+positive-in-every-bucket within-group reward advantage for bare-oxide
+over carbonate during GDPO training is the mechanism for this later
+stage; whether it *grows* over training is not established at this
+group count.
 
 ## (c) Ungradeability: how does the production reward handle it, and does it differ by precursor class?
 
@@ -410,3 +444,86 @@ low in absolute terms. Direction is consistent with (adds a small amount
 to, doesn't drive) the same story: carbonate completions are somewhat
 more likely to lose their `thermodynamic_favorable` signal entirely to
 exclusion, on top of scoring lower when it IS gradeable.
+
+---
+
+# Task 2c — what does `thermodynamic_favorable` actually compute? [E]
+
+*Script: `research/distributional/task2c_gibbs_check.py`. Output:
+`results/distributional/task2c_gibbs_check.json`.*
+
+## What it computes, and where
+
+**It is already a temperature-dependent ΔG_rxn(T), not a 0K DFT reaction
+energy — and gaseous CO2 entropy already enters directly.** Confirmed by
+reading the code, not assumed:
+
+- `validator.py:1215-1218` (`_check_thermodynamics`) calls
+  `self.thermo_checker.reaction_energy_per_atom(precursor_pairs,
+  predicted.target_formula, predicted_route=predicted)` — `predicted_route`
+  is **always** passed in production (never `None`), which routes to the
+  "Tier 3.1" Gibbs-corrected codepath (`validator.py:514-532`), not the
+  legacy 0K path (`validator.py:534-577`, reachable only when
+  `predicted_route=None` — a diagnostic-only path per its own docstring,
+  never used in training or evaluation scoring).
+- `gibbs_corrector.py` (module docstring, lines 1-56) implements this
+  Tier-3.1 path: **Bartel et al. (2018) SISSO descriptor**
+  (`GibbsComputedStructureEntry`) for solid entries, wrapped at the
+  synthesis temperature (max heating-op temperature, `°C→K`), **plus NIST-JANAF
+  tabulated ΔfG°(T) values with linear interpolation for gas-phase
+  species** (`_NIST_DFG_KJMOL`, lines 126-190).
+- **CO2 is explicitly one of those five tabulated gas species**
+  (`_GAS_SPECIES = {"CO2", "H2O", "O2", "N2", "NH3"}`, line 111; CO2's own
+  17-point ΔfG°(T) table spans 298–2000 K, lines 127-146). NIST-JANAF's
+  ΔfG°(T) values are experimentally-assessed free energies, which by
+  definition already fold in the gas's entropy contribution (ΔG = ΔH −
+  TΔS) — there is no separate "entropy term" to add on top; it is already
+  inside the tabulated numbers this codepath uses whenever carbon and
+  oxygen are both present in the reactant element set (`gibbs_corrector.py`
+  step 4, lines 420-433).
+
+**This means the Task 2 carbonate-vs-bare-oxide measurements already
+used this Gibbs-corrected, CO2-entropy-aware ΔG**, not a naive 0K value —
+my earlier reconstructed routes correctly triggered this path (single
+`"HeatingOperation"` matches `_HEATING_OP_NAMES` case-insensitively).
+
+## Does the penalty survive a finite-temperature correction? Yes.
+
+Since production scoring is already Gibbs-corrected, "with a
+finite-temperature correction" is interpreted here as: compare the
+CURRENT PRODUCTION value (Gibbs-corrected) against the NAIVE 0K value
+(legacy path, no temperature or gas-entropy treatment at all) — showing
+the size of the correction the pipeline already applies, and whether
+that correction is enough to close the bare-oxide/carbonate gap.
+**`finite-temperature-estimation.md`, referenced in the task, was
+searched for directly and does not exist anywhere in this repository** —
+noted, not assumed to exist elsewhere.
+
+5 pairs, same target, same co-precursor, only the alkali source differs
+(2 hand-specified per the task's own examples, 3 pulled from real GDPO
+training completions in the 50 mixed groups — `run_logs/find_real_pairs.log`):
+
+| target | co-precursor | naive 0K gap (bare−carb) | **Gibbs-corrected gap (bare−carb)** | shrink | verdict |
+|---|---|---|---|---|---|
+| LiBO2 | B2O3 | −0.249 | **−0.187** | 25% | survives |
+| KNbO3 | Nb2O5 | −0.365 | **−0.317** | 13% | survives |
+| Li2Mn2O4 | Mn2O3 | −0.249 | **−0.187** | 25% | survives |
+| Li1.1V3O8 | V2O5 | ungradeable both ways | ungradeable both ways | — | fractional target, no clean PD entry either path |
+| Li2Si2O5 | SiO2 | −0.222 | **−0.197** | 11% | survives |
+
+(Negative gap = bare-oxide route has the more negative, more
+thermodynamically favorable, ΔG — i.e. bare-oxide is preferred under
+both the naive and corrected calculation, in every computable pair.)
+
+**Verdict: the carbonate penalty SURVIVES the finite-temperature
+correction in every computable pair** — it shrinks by a modest 11–25%
+(CO2's entropy release at synthesis temperature does help close part of
+the gap, exactly as physically expected) but never reverses or
+approaches zero. This is a genuine thermodynamic preference the
+validator is scoring correctly, not an artifact of a missing entropy
+term: liberating CO2 from a stable carbonate costs real formation
+enthalpy that the entropy gain from gas release does not fully repay at
+these synthesis temperatures. `Li1.1V3O8` (a fractional/doped
+composition) is ungradeable under both methods — expected, consistent
+with this project's repeated finding that non-stoichiometric targets
+often lack a clean PD entry for either treatment.

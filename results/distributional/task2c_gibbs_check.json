@@ -1,0 +1,131 @@
+[
+ {
+  "target": "LiBO2",
+  "carbonate_precursors": [
+   "Li2CO3",
+   "B2O3"
+  ],
+  "bare_oxide_precursors": [
+   "Li2O",
+   "B2O3"
+  ],
+  "max_T_C": 800.0,
+  "naive_0K": {
+   "carbonate": 0.015173072708329247,
+   "carbonate_gradeability": "discrete",
+   "bare_oxide": -0.2342701272916646,
+   "bare_oxide_gradeability": "discrete",
+   "gap_bare_minus_carb": -0.24944319999999384
+  },
+  "production_gibbs_corrected": {
+   "carbonate": 0.0006105465361720959,
+   "T_K": 1073.15,
+   "bare_oxide": -0.1859434244985773,
+   "gap_bare_minus_carb": -0.18655397103474938
+  },
+  "verdict": "SURVIVES (similar magnitude/sign)"
+ },
+ {
+  "target": "KNbO3",
+  "carbonate_precursors": [
+   "K2CO3",
+   "Nb2O5"
+  ],
+  "bare_oxide_precursors": [
+   "K2O",
+   "Nb2O5"
+  ],
+  "max_T_C": 800.0,
+  "naive_0K": {
+   "carbonate": 0.0070201120357103,
+   "carbonate_gradeability": "discrete",
+   "bare_oxide": -0.3580205772142886,
+   "bare_oxide_gradeability": "discrete",
+   "gap_bare_minus_carb": -0.3650406892499989
+  },
+  "production_gibbs_corrected": {
+   "carbonate": -0.014801180034247616,
+   "T_K": 1073.15,
+   "bare_oxide": -0.3317627402320023,
+   "gap_bare_minus_carb": -0.3169615601977547
+  },
+  "verdict": "SURVIVES (similar magnitude/sign)"
+ },
+ {
+  "target": "Li2Mn2O4",
+  "carbonate_precursors": [
+   "Li2CO3",
+   "Mn2O3"
+  ],
+  "bare_oxide_precursors": [
+   "Li2O",
+   "Mn2O3"
+  ],
+  "max_T_C": 800.0,
+  "naive_0K": {
+   "carbonate": 0.1213723558593706,
+   "carbonate_gradeability": "discrete",
+   "bare_oxide": -0.12807084414062486,
+   "bare_oxide_gradeability": "discrete",
+   "gap_bare_minus_carb": -0.24944319999999548
+  },
+  "production_gibbs_corrected": {
+   "carbonate": 0.07616055920749959,
+   "T_K": 1073.15,
+   "bare_oxide": -0.11039341182725057,
+   "gap_bare_minus_carb": -0.18655397103475016
+  },
+  "verdict": "SURVIVES (similar magnitude/sign)"
+ },
+ {
+  "target": "Li1.1V3O8",
+  "carbonate_precursors": [
+   "Li2CO3",
+   "V2O5"
+  ],
+  "bare_oxide_precursors": [
+   "Li2O",
+   "V2O5"
+  ],
+  "max_T_C": 200.0,
+  "naive_0K": {
+   "carbonate": null,
+   "carbonate_gradeability": "ungradeable",
+   "bare_oxide": null,
+   "bare_oxide_gradeability": "ungradeable",
+   "gap_bare_minus_carb": null
+  },
+  "production_gibbs_corrected": {
+   "carbonate": null,
+   "T_K": 473.15,
+   "bare_oxide": null,
+   "gap_bare_minus_carb": null
+  }
+ },
+ {
+  "target": "Li2Si2O5",
+  "carbonate_precursors": [
+   "Li2CO3",
+   "SiO2"
+  ],
+  "bare_oxide_precursors": [
+   "Li2O",
+   "SiO2"
+  ],
+  "max_T_C": 600.0,
+  "naive_0K": {
+   "carbonate": 0.0749018287037088,
+   "carbonate_gradeability": "discrete",
+   "bare_oxide": -0.14682546018518597,
+   "bare_oxide_gradeability": "discrete",
+   "gap_bare_minus_carb": -0.22172728888889476
+  },
+  "production_gibbs_corrected": {
+   "carbonate": 0.05435493087468134,
+   "T_K": 873.15,
+   "bare_oxide": -0.14283714913401657,
+   "gap_bare_minus_carb": -0.19719208000869792
+  },
+  "verdict": "SURVIVES (similar magnitude/sign)"
+ }
+]

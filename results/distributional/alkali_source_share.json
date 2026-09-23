@@ -1,0 +1,68 @@
+{
+ "n_rssft_training_examples": 295,
+ "base_on_astral": {
+  "counts": {
+   "bare_oxide": 106,
+   "carbonate": 850,
+   "other": 210,
+   "missing": 0
+  },
+  "n_triples": 1166,
+  "shares": {
+   "bare_oxide": 0.09090909090909091,
+   "carbonate": 0.7289879931389366,
+   "other": 0.18010291595197256,
+   "missing": 0.0
+  }
+ },
+ "rs_sft_training_set": {
+  "counts": {
+   "bare_oxide": 19,
+   "carbonate": 33,
+   "other": 14,
+   "missing": 0
+  },
+  "n_triples": 66,
+  "shares": {
+   "bare_oxide": 0.2878787878787879,
+   "carbonate": 0.5,
+   "other": 0.21212121212121213,
+   "missing": 0.0
+  },
+  "n_training_examples": null,
+  "n_distinct_targets": 295,
+  "n_distinct_targets_with_alkali": 64,
+  "frac_targets_with_alkali": 0.21694915254237288,
+  "n_parse_fail": 0
+ },
+ "rs_sft_on_astral": {
+  "counts": {
+   "bare_oxide": 293,
+   "carbonate": 521,
+   "other": 320,
+   "missing": 0
+  },
+  "n_triples": 1134,
+  "shares": {
+   "bare_oxide": 0.2583774250440917,
+   "carbonate": 0.45943562610229277,
+   "other": 0.2821869488536155,
+   "missing": 0.0
+  }
+ },
+ "gdpo_on_astral": {
+  "counts": {
+   "bare_oxide": 655,
+   "carbonate": 208,
+   "other": 288,
+   "missing": 0
+  },
+  "n_triples": 1151,
+  "shares": {
+   "bare_oxide": 0.5690703735881842,
+   "carbonate": 0.18071242397914858,
+   "other": 0.25021720243266726,
+   "missing": 0.0
+  }
+ }
+}
