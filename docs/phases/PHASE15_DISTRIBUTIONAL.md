@@ -188,3 +188,120 @@ the full SFT row:
 ```
 (reusing footnote ¹ above, or a fresh one if finding 16's footnote isn't
 in scope of the same page)
+
+---
+
+# Task 2 — which validator channel penalizes carbonates? [E]
+
+*Script: `research/distributional/carbonate_penalty_analysis.py`. Output:
+`results/distributional/carbonate_penalty_by_channel.json`. Run against
+the CURRENT, unmodified `SynthesisValidator` (`core.reward.load_validator`,
+thermo-aware, real PD cache) — not `core/comparator.py`'s balance-solver
+patch, which is scoped to the comparator only and irrelevant to what
+production training actually scored against.*
+
+**Reconstruction limitation, stated up front**: `results/
+astral_gen_n32_base.json` stores only the analyzed summary per sample
+(`precursors`, `max_T`, `reward`, `match`) — the raw completion and the
+model's real operation sequence/atmosphere were not persisted. Each
+sample is re-scored as a single `HeatingOperation` at the reported
+`max_T`, atmosphere defaulted to `"air"` (the same convention `research/
+ranker_v2_astral_gate.py` and `research/phase13_astral_scoring*.py` use
+for constructed ASTRAL routes). This is symmetric across every group
+compared below, so it cannot manufacture a fake between-group gap, but it
+does wash out any signal that depends on the real operation sequence or a
+non-air atmosphere — confirmed directly: `chempot_atmosphere`,
+`operation_order`, and `temperature_plausible` all read a flat, identical
+1.000 across every group in every comparison below. **If the true
+mechanism is atmosphere-dependent (e.g. an analogous "wrong gas assumed
+consumed" issue), this analysis cannot see it.**
+
+## Re-derived pass@0.9 rate: close to, not identical to, Task 1's claim
+
+**Bare-oxide-only 95.8% (n=95) vs carbonate-only 75.9% (n=825)** — Task
+1's README claimed 98.9%/78.2%. Same story, similar magnitude, not an
+exact match; the residual difference is plausibly explained by the
+reconstruction limitation above (real atmosphere/operations vs the
+`"air"`-default single-op reconstruction used here). Reported, not
+silently reconciled.
+
+## The naive gap is substantially the ALREADY-DIAGNOSED ammonium/balance-solver bug, not a new carbonate mechanism
+
+**Confound found and checked directly, not assumed**: 130/825 (15.8%) of
+"carbonate-only" samples ALSO declare an ammonium precursor (N+H, not
+nitrate) — e.g. `LiZnPO4` via `Li2CO3, PH9(NO2)2, ZnO` (`PH9(NO2)2` is an
+ammonium-phosphate salt in expanded elemental notation — the same
+representation issue noted in the Phase 13 ammonium-propagation test).
+Phosphate targets need both an alkali source (often a carbonate) and a
+phosphorus source (often ammonium phosphate) in the same route, so the
+two precursor classes co-occur.
+
+**Per-channel table, all samples** (mean score / % scoring <1.0 / %
+ungradeable / n):
+
+| channel | weight | bare-oxide | carbonate | \|gap\| rank |
+|---|---|---|---|---|
+| stoichiometry | 0.100 | 1.000 / 0.0% / 0.0% / 95 | 0.845 / 15.5% / 0.0% / 825 | **1st: +0.155** |
+| thermodynamic_favorable | 0.200 | 1.000 / 0.0% / 8.4% / 95 | 0.947 / 17.1% / 23.4% / 825 | 2nd: +0.053 |
+| amount_accuracy | 0.100 | 0.530 / 88.4% / 0.0% / 95 | 0.556 / 83.9% / 15.5% / 825 | 3rd: −0.026 (both groups bad; not the driver) |
+| precursors_exist, target_stability | -- | ~identical | ~identical | negligible |
+| chempot_atmosphere, charge_neutrality, operation_order, temperature_plausible | -- | 1.000 flat | 1.000 flat | 0 (washed out, see limitation above) |
+
+**Cleaned re-run, ammonium-containing samples excluded from both groups**
+(bare-oxide n=95 unchanged, carbonate n=825→695): **pass@0.9 rate jumps
+to 89.1%** (carbonate) vs 95.8% (bare-oxide) — most of the raw 20-point
+gap closes to 6.7 points once the ammonium confound is removed.
+`stoichiometry`'s gap collapses from +0.155 to **+0.007** (carbonate mean
+0.845→0.993) — **essentially gone**. The new top channel is
+**`thermodynamic_favorable`** (gap +0.046, carbonate mean 0.954, 16.0%
+below 1.0, 18.1% ungradeable) — a real, smaller, independent residual
+effect, consistent with CO2 release genuinely costing reaction
+thermodynamics (ΔE_rxn), distinct from a balance-solver mechanics issue.
+
+**5 example carbonate routes failing `stoichiometry` (all samples,
+before cleaning)** — every one of them is exactly the ammonium-confound
+case, not a "clean" carbonate failure:
+```
+LiZnPO4  Li2CO3, PH9(NO2)2, ZnO    stoichiometry=0.000  reward=0.889
+LiZnPO4  Li2CO3, PH9(NO2)2, ZnO    stoichiometry=0.000  reward=0.889
+LiZnPO4  Li2CO3, PH9(NO2)2, ZnCO3  stoichiometry=0.000  reward=0.889
+LiZnPO4  Li2CO3, PH9(NO2)2, ZnO    stoichiometry=0.000  reward=0.889
+LiZnPO4  Li2CO3, PH12N3O4, ZnO     stoichiometry=0.000  reward=0.857
+```
+
+## Ammonium-phosphate vs H3PO4, phosphate targets: same mechanism, much larger, confirmed independently
+
+**pass@0.9: ammonium-phosphate-only 9.5% (n=137) vs H3PO4-only 99.1%
+(n=215).** `stoichiometry` is overwhelmingly the top channel by
+magnitude — **gap = −0.905** (ammonium mean 0.095, 90.5% below 1.0;
+H3PO4 mean 1.000, perfect). This is the Phase 13-diagnosed balance-solver
+gap (`_find_balanced_reaction` never tries a candidate including NH3
+without N2), now confirmed directly on the **base model's own
+spontaneous generations** on ASTRAL prompts — not only the curated
+literature routes Phase 13 examined, and not only the training dumps the
+historical audit scanned. This is a broader, more pervasive confirmation
+than either prior investigation established.
+
+**Is it the same channel as the carbonate/bare-oxide comparison?**
+**Yes, for the uncleaned comparison** (`stoichiometry` tops both) — this
+is exactly why the naive carbonate gap looked large: it was substantially
+re-detecting this same bug through the co-occurring ammonium precursor.
+**No, for the cleaned comparison** — once ammonium-containing samples are
+excluded, carbonate's own residual effect is `thermodynamic_favorable`,
+a different and much smaller mechanism.
+
+**Ranking note, caught and fixed during this task**: the first pass
+ranked channels by signed gap (`ammonium_P mean − H3PO4 mean`), which
+sorted `stoichiometry`'s −0.905 to the bottom of a "largest first"
+list — a large real effect nearly missed because of its sign. Reranked
+by absolute magnitude; both tables above use the corrected ranking.
+
+## Answer to Task 2's question
+
+**Two distinct mechanisms, not one**: (1) the dominant apparent
+"carbonate penalty" is mostly the already-known ammonium/balance-solver
+bug riding along on phosphate targets that need both precursor classes
+at once — not new; (2) a real, smaller, independent carbonate-specific
+effect exists via `thermodynamic_favorable` once that confound is
+removed, consistent with the CO2-release-cost hypothesis but far weaker
+in magnitude than the naive numbers suggested.

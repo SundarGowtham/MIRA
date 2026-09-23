@@ -1,0 +1,635 @@
+{
+ "bare_oxide_vs_carbonate_all_samples": {
+  "pass_rate_bare_oxide": 0.9578947368421052,
+  "n_bare_oxide": 95,
+  "pass_rate_carbonate": 0.7587878787878788,
+  "n_carbonate": 825,
+  "n_carbonate_with_ammonium_precursor": 130,
+  "n_bare_oxide_with_ammonium_precursor": 0,
+  "channel_table": {
+   "stoichiometry": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 825,
+     "n_gradeable": 825,
+     "mean_score": 0.8448484848484848,
+     "frac_below_1": 0.15515151515151515,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "amount_accuracy": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 0.5303118908382062,
+     "frac_below_1": 0.8842105263157894,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 825,
+     "n_gradeable": 697,
+     "mean_score": 0.5562080663005853,
+     "frac_below_1": 0.8393113342898135,
+     "frac_ungradeable": 0.15515151515151515
+    }
+   },
+   "thermodynamic_favorable": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 87,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.08421052631578947
+    },
+    "carbonate": {
+     "n": 825,
+     "n_gradeable": 632,
+     "mean_score": 0.9474226935430392,
+     "frac_below_1": 0.17088607594936708,
+     "frac_ungradeable": 0.23393939393939395
+    }
+   },
+   "target_stability": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 87,
+     "mean_score": 0.9989186834234843,
+     "frac_below_1": 0.011494252873563218,
+     "frac_ungradeable": 0.08421052631578947
+    },
+    "carbonate": {
+     "n": 825,
+     "n_gradeable": 735,
+     "mean_score": 0.9966721930665615,
+     "frac_below_1": 0.03537414965986395,
+     "frac_ungradeable": 0.10909090909090909
+    }
+   },
+   "chempot_atmosphere": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 87,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.08421052631578947
+    },
+    "carbonate": {
+     "n": 825,
+     "n_gradeable": 735,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.10909090909090909
+    }
+   },
+   "charge_neutrality": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 825,
+     "n_gradeable": 825,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "precursors_exist": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 0.9964912280701755,
+     "frac_below_1": 0.010526315789473684,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 825,
+     "n_gradeable": 825,
+     "mean_score": 0.9993939393939394,
+     "frac_below_1": 0.0012121212121212121,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "operation_order": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 825,
+     "n_gradeable": 825,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "temperature_plausible": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 825,
+     "n_gradeable": 825,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    }
+   }
+  },
+  "channel_gaps_sorted_by_abs": [
+   [
+    "stoichiometry",
+    0.15515151515151515
+   ],
+   [
+    "thermodynamic_favorable",
+    0.05257730645696079
+   ],
+   [
+    "amount_accuracy",
+    -0.0258961754623791
+   ],
+   [
+    "precursors_exist",
+    -0.0029027113237638513
+   ],
+   [
+    "target_stability",
+    0.0022464903569228145
+   ],
+   [
+    "chempot_atmosphere",
+    0.0
+   ],
+   [
+    "charge_neutrality",
+    0.0
+   ],
+   [
+    "operation_order",
+    0.0
+   ],
+   [
+    "temperature_plausible",
+    0.0
+   ]
+  ],
+  "top_channel": "stoichiometry",
+  "examples_failing_top_channel": [
+   {
+    "target": "LiZnPO4",
+    "precursors": [
+     "Li2CO3",
+     "PH9(NO2)2",
+     "ZnO"
+    ],
+    "channel_value": 0.0,
+    "reward": 0.8889,
+    "gradeability": null
+   },
+   {
+    "target": "LiZnPO4",
+    "precursors": [
+     "Li2CO3",
+     "PH9(NO2)2",
+     "ZnO"
+    ],
+    "channel_value": 0.0,
+    "reward": 0.8889,
+    "gradeability": null
+   },
+   {
+    "target": "LiZnPO4",
+    "precursors": [
+     "Li2CO3",
+     "PH9(NO2)2",
+     "ZnCO3"
+    ],
+    "channel_value": 0.0,
+    "reward": 0.8889,
+    "gradeability": null
+   },
+   {
+    "target": "LiZnPO4",
+    "precursors": [
+     "Li2CO3",
+     "PH9(NO2)2",
+     "ZnO"
+    ],
+    "channel_value": 0.0,
+    "reward": 0.8889,
+    "gradeability": null
+   },
+   {
+    "target": "LiZnPO4",
+    "precursors": [
+     "Li2CO3",
+     "PH12N3O4",
+     "ZnO"
+    ],
+    "channel_value": 0.0,
+    "reward": 0.8571,
+    "gradeability": null
+   }
+  ]
+ },
+ "bare_oxide_vs_carbonate_ammonium_excluded": {
+  "pass_rate_bare_oxide": 0.9578947368421052,
+  "n_bare_oxide": 95,
+  "pass_rate_carbonate": 0.8906474820143885,
+  "n_carbonate": 695,
+  "channel_table": {
+   "stoichiometry": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 695,
+     "n_gradeable": 695,
+     "mean_score": 0.9928057553956835,
+     "frac_below_1": 0.007194244604316547,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "amount_accuracy": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 0.5303118908382062,
+     "frac_below_1": 0.8842105263157894,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 695,
+     "n_gradeable": 690,
+     "mean_score": 0.5557780453207782,
+     "frac_below_1": 0.8391304347826087,
+     "frac_ungradeable": 0.007194244604316547
+    }
+   },
+   "thermodynamic_favorable": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 87,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.08421052631578947
+    },
+    "carbonate": {
+     "n": 695,
+     "n_gradeable": 569,
+     "mean_score": 0.9541223558609607,
+     "frac_below_1": 0.15992970123022848,
+     "frac_ungradeable": 0.18129496402877698
+    }
+   },
+   "target_stability": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 87,
+     "mean_score": 0.9989186834234843,
+     "frac_below_1": 0.011494252873563218,
+     "frac_ungradeable": 0.08421052631578947
+    },
+    "carbonate": {
+     "n": 695,
+     "n_gradeable": 616,
+     "mean_score": 0.9960293212725998,
+     "frac_below_1": 0.04220779220779221,
+     "frac_ungradeable": 0.11366906474820145
+    }
+   },
+   "chempot_atmosphere": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 87,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.08421052631578947
+    },
+    "carbonate": {
+     "n": 695,
+     "n_gradeable": 616,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.11366906474820145
+    }
+   },
+   "charge_neutrality": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 695,
+     "n_gradeable": 695,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "precursors_exist": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 0.9964912280701755,
+     "frac_below_1": 0.010526315789473684,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 695,
+     "n_gradeable": 695,
+     "mean_score": 0.9992805755395684,
+     "frac_below_1": 0.0014388489208633094,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "operation_order": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 695,
+     "n_gradeable": 695,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "temperature_plausible": {
+    "bare_oxide": {
+     "n": 95,
+     "n_gradeable": 95,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "carbonate": {
+     "n": 695,
+     "n_gradeable": 695,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    }
+   }
+  },
+  "channel_gaps_sorted_by_abs": [
+   [
+    "thermodynamic_favorable",
+    0.045877644139039275
+   ],
+   [
+    "amount_accuracy",
+    -0.025466154482572056
+   ],
+   [
+    "stoichiometry",
+    0.007194244604316502
+   ],
+   [
+    "target_stability",
+    0.0028893621508845335
+   ],
+   [
+    "precursors_exist",
+    -0.0027893474693928555
+   ],
+   [
+    "chempot_atmosphere",
+    0.0
+   ],
+   [
+    "charge_neutrality",
+    0.0
+   ],
+   [
+    "operation_order",
+    0.0
+   ],
+   [
+    "temperature_plausible",
+    0.0
+   ]
+  ]
+ },
+ "ammonium_vs_h3po4": {
+  "pass_rate_ammonium": 0.0948905109489051,
+  "n_ammonium": 137,
+  "pass_rate_h3po4": 0.9906976744186047,
+  "n_h3po4": 215,
+  "channel_table": {
+   "stoichiometry": {
+    "ammonium_P": {
+     "n": 137,
+     "n_gradeable": 137,
+     "mean_score": 0.0948905109489051,
+     "frac_below_1": 0.9051094890510949,
+     "frac_ungradeable": 0.0
+    },
+    "H3PO4": {
+     "n": 215,
+     "n_gradeable": 215,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "amount_accuracy": {
+    "ammonium_P": {
+     "n": 137,
+     "n_gradeable": 13,
+     "mean_score": 0.7710387902695578,
+     "frac_below_1": 0.5384615384615384,
+     "frac_ungradeable": 0.9051094890510949
+    },
+    "H3PO4": {
+     "n": 215,
+     "n_gradeable": 215,
+     "mean_score": 0.5082060919270213,
+     "frac_below_1": 0.9906976744186047,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "thermodynamic_favorable": {
+    "ammonium_P": {
+     "n": 137,
+     "n_gradeable": 65,
+     "mean_score": 0.8903926436048313,
+     "frac_below_1": 0.26153846153846155,
+     "frac_ungradeable": 0.5255474452554745
+    },
+    "H3PO4": {
+     "n": 215,
+     "n_gradeable": 175,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.18604651162790697
+    }
+   },
+   "target_stability": {
+    "ammonium_P": {
+     "n": 137,
+     "n_gradeable": 125,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.08759124087591241
+    },
+    "H3PO4": {
+     "n": 215,
+     "n_gradeable": 206,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.04186046511627907
+    }
+   },
+   "chempot_atmosphere": {
+    "ammonium_P": {
+     "n": 137,
+     "n_gradeable": 125,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.08759124087591241
+    },
+    "H3PO4": {
+     "n": 215,
+     "n_gradeable": 206,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.04186046511627907
+    }
+   },
+   "charge_neutrality": {
+    "ammonium_P": {
+     "n": 137,
+     "n_gradeable": 137,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "H3PO4": {
+     "n": 215,
+     "n_gradeable": 215,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "precursors_exist": {
+    "ammonium_P": {
+     "n": 137,
+     "n_gradeable": 137,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "H3PO4": {
+     "n": 215,
+     "n_gradeable": 215,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "operation_order": {
+    "ammonium_P": {
+     "n": 137,
+     "n_gradeable": 137,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "H3PO4": {
+     "n": 215,
+     "n_gradeable": 215,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    }
+   },
+   "temperature_plausible": {
+    "ammonium_P": {
+     "n": 137,
+     "n_gradeable": 137,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    },
+    "H3PO4": {
+     "n": 215,
+     "n_gradeable": 215,
+     "mean_score": 1.0,
+     "frac_below_1": 0.0,
+     "frac_ungradeable": 0.0
+    }
+   }
+  },
+  "channel_gaps_sorted_by_abs": [
+   [
+    "stoichiometry",
+    -0.9051094890510949
+   ],
+   [
+    "amount_accuracy",
+    0.26283269834253653
+   ],
+   [
+    "thermodynamic_favorable",
+    -0.10960735639516872
+   ],
+   [
+    "target_stability",
+    0.0
+   ],
+   [
+    "chempot_atmosphere",
+    0.0
+   ],
+   [
+    "charge_neutrality",
+    0.0
+   ],
+   [
+    "precursors_exist",
+    0.0
+   ],
+   [
+    "operation_order",
+    0.0
+   ],
+   [
+    "temperature_plausible",
+    0.0
+   ]
+  ],
+  "top_channel": "stoichiometry",
+  "same_top_channel_as_carbonate_all_samples": true,
+  "same_top_channel_as_carbonate_ammonium_excluded": false
+ }
+}
