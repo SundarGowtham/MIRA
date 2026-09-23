@@ -305,3 +305,108 @@ at once — not new; (2) a real, smaller, independent carbonate-specific
 effect exists via `thermodynamic_favorable` once that confound is
 removed, consistent with the CO2-release-cost hypothesis but far weaker
 in magnitude than the naive numbers suggested.
+
+---
+
+# Task 2b — three checks on the bare-oxide/carbonate mechanism [E]
+
+## (a) RS-SFT step: does one round of bar-0.9 filtering explain it?
+
+*Script: `research/distributional/rs_sft_bareoxide_step.py`. Output:
+`results/distributional/rs_sft_bareoxide_step.json`.*
+
+**No — and the actual training-set share moves in the opposite direction
+than a simple selection story predicts.**
+
+| quantity | value |
+|---|---|
+| base share (ASTRAL proxy, same source as the Phase 13 ammonium-propagation test) | 8.6% |
+| pass@0.9: bare-oxide-containing samples | 95.8% |
+| pass@0.9: non-bare-oxide samples | 69.0% |
+| **one-round-filter Bayes prediction** (applying those two pass rates to the base share) | **11.5%** |
+| **RS-SFT's ACTUAL training-set share** (`data/rs_sft/rs_sft_train.jsonl`+`rs_sft_val.jsonl`, 295 real survivors, parsed directly) | **6.4%** |
+| RS-SFT's ASTRAL-inference-time share (analyze3.py, model generating on ASTRAL prompts) | 25.1% |
+
+The one-round Bayes prediction (11.5%) is close to the ballpark regular
+Claude estimated (~10–11%) — that part of the reasoning was right. But
+**the real training set has LESS bare-oxide content (6.4%) than base's
+own unfiltered rate (8.6%), not more** — 5.1 points below the one-round
+prediction. Simple survivor-selection frequency does not explain RS-SFT's
+eventual behavior at all.
+
+**The dramatic number is the next gap**: training-set share (6.4%) to
+ASTRAL-inference share (25.1%) is a **+18.7 point, ~4x jump** that
+training-set *composition* cannot produce by itself — something in the
+fine-tuning step (learning a generalizable pattern from a minority of
+examples, not the frequency of those examples) is doing the amplifying.
+Task 2b(b) below identifies a concrete, later-stage mechanism consistent
+with this.
+
+## (b) GDPO step: raw gaps are small, z-advantages are large
+
+*Script: `research/distributional/gdpo_within_group_bareoxide.py`.
+Output: `results/distributional/gdpo_within_group_bareoxide.json`. Source:
+`runs/gdpo-qlora-gdpo-phase12-rssft-beta0/generations.jsonl` (confirmed
+structure: 2 targets/step x 8 completions = 16 lines/step, matching
+G=8, batch 1 x accum 2 groups — a "group" here is `(step, target)`).
+Channels: `RUN3_CHECKS`, the five channels Phase 12's reward vector
+actually used.*
+
+841 total groups; **50 contain at least one bare-oxide AND at least one
+carbonate completion** — the direct, within-group competition the
+hypothesis is about.
+
+| channel | n mixed groups | raw gap | within-group std | **z-gap** | bare z | carb z |
+|---|---|---|---|---|---|---|
+| `thermodynamic_favorable` | 49 | 0.250 | 0.135 | **1.292** | +0.434 | −0.809 |
+| `stoichiometry` | 50 | 0.053 | 0.158 | 0.099 | +0.048 | +0.032 |
+| `amount_accuracy` | 46 | 0.017 | 0.054 | 0.056 | +0.029 | −0.043 |
+| `chempot_atmosphere` | 50 | −0.017 | 0.015 | −0.038 | −0.001 | +0.013 |
+| `operation_order` | 50 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+
+**Hypothesis confirmed, one channel accounts for essentially all of
+it**: `thermodynamic_favorable`'s raw gap (0.250, not actually tiny in
+absolute terms) becomes a **1.29 standard-deviation within-group
+advantage** because the within-group std (0.135) is small — bare-oxide
+completions get pushed up (+0.434 z) and carbonate completions get
+pushed down (−0.809 z) *within the same training group*, which is
+exactly the signal that drives policy-gradient advantage in GDPO. Every
+other channel's z-gap is near zero; `operation_order` is a dead channel
+throughout (confirms `docs/phases/PHASE12_RESULTS.md`'s training-health
+note). This is a real, distinct, additional mechanism from the ammonium
+confound found in Task 2 (this dump's `thermodynamic_favorable` numbers
+here are on GENERAL `data/rl_run3` training targets, not the phosphate
+ASTRAL subset where the ammonium bug lives).
+
+**Step-wise trend (bucketed into 5 ranges over 334 steps)**: the
+`thermodynamic_favorable` z-gap is positive in every bucket and
+*strengthens* over training — 1.75 (steps 0–65) → 0.85 → 1.94 → 2.14 →
+2.07 (steps 267–333). This is not a transient early-training artifact;
+it persists and grows, consistent with compounding policy-gradient
+pressure over the whole run rather than a one-time nudge. The other four
+channels show no comparable trend (near-zero or too few gradeable mixed
+groups per bucket to read).
+
+**This is the mechanism that closes the gap left by (a)**: training-set
+composition doesn't explain the 6.4%→25.1% jump, but a real, growing,
+within-group reward advantage for bare-oxide over carbonate during GDPO
+training does.
+
+## (c) Ungradeability: how does the production reward handle it, and does it differ by precursor class?
+
+**Code**: `core/reward.py:498-499`, inside `make_check_reward_fns`'s
+`make_fn(check)` closure — when `bd.get(f"{check}_gradeability")` is in
+`SynthesisValidator.SENTINEL_TAGS`, the function appends `None` for that
+completion on that channel, **not 0.0**. Per the docstring immediately
+above (lines 398-403): "TRL converts None -> NaN ... excludes it from
+that check's group mean/std, and drops it from the nansum aggregation."
+**Ungradeable = excluded (None-propagation), not scored zero** — the
+same discipline used everywhere else in this project.
+
+**Ungradeable rate for `thermodynamic_favorable`, whole GDPO dump** (not
+just the 50 mixed groups): **bare-oxide 1.2% (8/655) vs carbonate 2.6%
+(15/576)**. A real but small difference — roughly 2x, but both rates are
+low in absolute terms. Direction is consistent with (adds a small amount
+to, doesn't drive) the same story: carbonate completions are somewhat
+more likely to lose their `thermodynamic_favorable` signal entirely to
+exclusion, on top of scoring lower when it IS gradeable.

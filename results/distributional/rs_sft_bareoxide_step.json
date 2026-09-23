@@ -1,0 +1,13 @@
+{
+ "base_share_astral_proxy": 0.08597285067873303,
+ "n_bare": 95,
+ "n_nonbare": 1010,
+ "pass_rate_bare": 0.9578947368421052,
+ "pass_rate_nonbare": 0.69009900990099,
+ "one_round_filter_prediction": 0.11548223350253807,
+ "rs_sft_actual_training_set_share": 0.06440677966101695,
+ "n_rssft": 295,
+ "rs_sft_astral_inference_share": 0.251,
+ "gap_prediction_vs_actual_training_set": -0.05107545384152112,
+ "gap_actual_training_set_vs_astral_inference": 0.18659322033898307
+}

@@ -1,0 +1,91 @@
+{
+ "n_groups_total": 841,
+ "n_mixed_groups": 50,
+ "per_channel": {
+  "amount_accuracy": {
+   "n_mixed_groups_with_both_gradeable": 46,
+   "mean_raw_gap": 0.016713698437417556,
+   "mean_within_group_std": 0.053791580689263874,
+   "mean_z_gap": 0.05564796785763865,
+   "mean_bare_z": 0.028988870280713792,
+   "mean_carb_z": -0.042775082298425936
+  },
+  "thermodynamic_favorable": {
+   "n_mixed_groups_with_both_gradeable": 49,
+   "mean_raw_gap": 0.25038722908921074,
+   "mean_within_group_std": 0.1346899390008551,
+   "mean_z_gap": 1.291937762340022,
+   "mean_bare_z": 0.43398239702229713,
+   "mean_carb_z": -0.8090726964786485
+  },
+  "stoichiometry": {
+   "n_mixed_groups_with_both_gradeable": 50,
+   "mean_raw_gap": 0.05319047619047619,
+   "mean_within_group_std": 0.1578714318572102,
+   "mean_z_gap": 0.09879482590109595,
+   "mean_bare_z": 0.048452928804077054,
+   "mean_carb_z": 0.032047948966476045
+  },
+  "chempot_atmosphere": {
+   "n_mixed_groups_with_both_gradeable": 50,
+   "mean_raw_gap": -0.017142857142857144,
+   "mean_within_group_std": 0.015274632315505863,
+   "mean_z_gap": -0.037548833580673444,
+   "mean_bare_z": -0.0009969289809019938,
+   "mean_carb_z": 0.013275356221173042
+  },
+  "operation_order": {
+   "n_mixed_groups_with_both_gradeable": 50,
+   "mean_raw_gap": 0.0,
+   "mean_within_group_std": 0.0,
+   "mean_z_gap": 0.0,
+   "mean_bare_z": 0.0,
+   "mean_carb_z": 0.0
+  }
+ },
+ "step_trend_z_gap_by_channel": {
+  "amount_accuracy": [
+   0.11969033859557299,
+   -0.4587396703540241,
+   -5.995204332975845e-15,
+   0.8399210511316161,
+   null
+  ],
+  "thermodynamic_favorable": [
+   1.7501169612863476,
+   0.8532544220515321,
+   1.944832559266109,
+   2.139688366502923,
+   2.0730484331040615
+  ],
+  "stoichiometry": [
+   -0.2628596223877831,
+   1.204584379733157,
+   0.375,
+   1.0,
+   0.0
+  ],
+  "chempot_atmosphere": [
+   null,
+   null,
+   null,
+   null,
+   -0.9387208395168362
+  ],
+  "operation_order": [
+   null,
+   null,
+   null,
+   null,
+   null
+  ]
+ },
+ "bucket_edges": [
+  0,
+  66,
+  133,
+  200,
+  267,
+  334
+ ]
+}
