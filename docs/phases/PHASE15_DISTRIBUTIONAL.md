@@ -65,14 +65,43 @@ provided reference `per_target.json` was never touched; console output in
    etc.) — the bare-oxide shift is not confined to hit/near-hit targets, it
    is the dominant mode of GDPO's whole output distribution. ~22–26% of
    `OTHER`-category (target, precursor-set) pairs across SFT/RS-SFT/GDPO
-   were never proposed by base at all — genuinely novel precursor
-   combinations, not just reweighted base behavior.
+   were never proposed by base at all — precursor sets not observed in
+   base's 32 samples; this does not establish they lie outside base's
+   support (see finding 3's noise floor). Full SFT shows the same rate
+   (22.0%), so this metric does not measure novelty.
 7. **Solution-space size and overlap**: mean distinct precursor sets per
    target ranges 4.14 (full SFT, most collapsed) to 6.80 (RS-SFT, most
-   diverse); GDPO sits at 6.23. Jaccard overlap of precursor-set solutions:
-   base–RS-SFT 0.52, RS-SFT–GDPO 0.59 (RL moves within RS-SFT's support
-   more than it replaces it), base–SFT only 0.30 and SFT–GDPO only 0.20
-   (full SFT's solution space is the most different from everything else).
+   diverse); GDPO sits at 6.23. Full-32-vs-full-32 Jaccard overlap of
+   precursor-set solutions: base–RS-SFT 0.52, RS-SFT–GDPO 0.59 (RL moves
+   within RS-SFT's support more than it replaces it), base–SFT only 0.30
+   and SFT–GDPO only 0.20 (full SFT's solution space is the most
+   different from everything else).
+
+   **Split-half noise baseline** (`research/distributional/analyze4.py`,
+   run against the real data, not just transcribed — reproduces the
+   given numbers to 3 decimals): the raw Jaccard values above conflate
+   real distributional difference with sampling noise (32 samples per
+   target is not a lot). Resampling at matched size (16 vs 16, 200
+   splits/draws per target, mean over 35 targets) gives a noise floor:
+
+   | | self (16 vs 16 within model) | cross (16 vs 16 across models) |
+   |---|---|---|
+   | base | 0.544 | base–RS-SFT: 0.484 |
+   | SFT | 0.680 | base–GDPO: 0.363 |
+   | RS-SFT | 0.588 | base–SFT: 0.328 |
+   | GDPO | 0.523 | RS-SFT–GDPO: 0.525 |
+
+   **[E] RS-SFT→GDPO's cross-model Jaccard (0.525) sits inside both
+   models' own self-noise range ([0.523, 0.588]) — indistinguishable from
+   resampling GDPO against itself.** Every other cross-model pair
+   involving base (base–RS-SFT, base–GDPO, base–SFT) falls clearly below
+   both self-noise floors — a real distributional shift from base,
+   confirmed as such by this baseline. Combined with finding 4 (bare-oxide
+   share continuing to climb from RS-SFT to GDPO) and finding 6
+   (base-novelty is not GDPO-specific), the picture is: **RL reweighted
+   the routes already present in RS-SFT's support rather than adding
+   qualitatively new ones** — the base→RS-SFT step is where the solution
+   space actually changed; GDPO redistributes probability mass within it.
 8. **Hit-definition resolution** (see below): full SFT is **0/35 under
    exact match**, **1/35 if superset matches count** (the superset is
    `LiZnBO3`: model proposes `Li2CO3, LiBO2, ZnO`, ASTRAL's predicted set is
@@ -90,6 +119,18 @@ respectively across the four models, with the SFT one being the
 match, the same standard `match=='PREDICTED'` criterion used for every other
 number in this project) and will footnote the discrepancy where "1/35" was
 previously written under a superset-inclusive count.
+
+**This is not a trivial relabeling — the base-vs-full-SFT collapse is
+independently significant either way**, verified via exact McNemar
+(`research/distributional/analyze4.py`'s hit-definition check; b/c defined
+as in `research/analyze_passk.py`'s `mcnemar()`):
+- **Exact match**: base hits 10/35, full SFT hits 0/35, all 10 discordant
+  favor base (`b=10, c=0`) — exact two-sided McNemar **p = 0.0020**.
+- **Superset-inclusive match**: `LiZnBO3` becomes concordant (both models
+  now count it), so `b=9, c=0` — exact two-sided McNemar **p = 0.0039**.
+Both are far inside significance under either definition; the exact-match
+choice affects which specific number is quoted, not whether the collapse
+is real.
 
 **Every place in `CLAUDE.md` / `docs/` that cites full SFT's ASTRAL hit rate
 as "1/35" (grep'd precisely for the standalone token `1/35`, not substrings
@@ -111,8 +152,39 @@ n=8-vs-n=32 comparison table (`| GDPO-300 | 1/35 | **3/35** | ...`) — an
 unrelated, correctly-reported earlier undersampled measurement of a
 *different* model, not a full-SFT superset artifact. Not footnoted.
 
-Not yet done (out of scope for Task 1, not attempted): editing `CLAUDE.md`
-itself — it is read-only for this agent (a separate, bigger-model session
-owns it) — or editing the `docs/` files' historical numbers, since Task 1
-asks only to *list* the citations "so they can be footnoted," not to footnote
-them here.
+## Footnotes applied to `docs/phases/PHASE11_RESULTS.md` (2026-09-23)
+
+Per instruction, added a minimal, additive footnote at each of the four
+`docs/` locations above — the reported numbers themselves are unchanged,
+only an annotation pointing to this file's hit-definition section was
+added directly below each table/sentence.
+
+## Proposed edit for `CLAUDE.md` — NOT APPLIED, for approval
+
+`CLAUDE.md` is read-only for this agent (a separate, bigger-model session
+owns it). The exact text below is the proposed change for both citations —
+copy into `CLAUDE.md` if approved, this file does not touch it.
+
+**Line 166** (finding 16's three-model table) — append a footnote line
+immediately after the table:
+
+```
+| **base** | **10/35** | 24/35 | 0.993 (n=22) | 0.972 (n=309) | **+0.021** | 1026.5 °C |
+| **SFT** | **1/35**¹ | 32/35 | 0.852 (n=2) | 0.905 (n=525) | **−0.053** | 963.2 °C |
+| **GDPO-300** | **3/35** | 31/35 | 0.967 (n=4) | 0.918 (n=530) | **+0.049** | 1017.1 °C |
+
+¹ Exact match is 0/35; 1/35 only counts if a strict superset of the
+predicted precursor set (LiZnBO3: model adds Li2CO3 to the predicted
+LiBO2+ZnO) is also treated as a hit. See `docs/phases/
+PHASE15_DISTRIBUTIONAL.md`. base-vs-SFT collapse is significant either
+way (exact McNemar p=0.0020 exact match, p=0.0039 superset-inclusive).
+```
+
+**Line 193** (finding 18's five-model table) — same footnote marker on
+the full SFT row:
+
+```
+| full SFT | 1/35¹ | 32/35 | 0.888 | 963.2 | +200 |
+```
+(reusing footnote ¹ above, or a fresh one if finding 16's footnote isn't
+in scope of the same page)

@@ -155,8 +155,12 @@ regenerated) on the unchanged, already-correct code for comparability.
 | model | any_predicted/35 (n=8) | any_predicted/35 (n=32) | any_traditional/35 (n=32) | mean_reward (n=32) | mean max-T (n=32) |
 |---|---|---|---|---|---|
 | base | 3/35 | **10/35** | 24/35 | 0.948 | 1026.5 |
-| SFT | 0/35 | **1/35** | 32/35 | 0.888 | 963.2 |
+| SFT | 0/35 | **1/35**¹ | 32/35 | 0.888 | 963.2 |
 | GDPO-300 | 1/35 | **3/35** | 31/35 | 0.894 | 1017.1 |
+
+¹ Exact match is 0/35; 1/35 only counts a strict superset (LiZnBO3) as a
+hit. Paper uses exact match. See `docs/phases/PHASE15_DISTRIBUTIONAL.md`
+(2026-09-23 footnote, not a revision of the number reported at the time).
 
 **n=8 was severely underpowered, base most of all**: 3/35 -> 10/35 -- nearly
 3.5x. This is now the headline result of the whole phase and the reason
@@ -280,12 +284,16 @@ Clears the ≳95% bar cleanly.
 |---|---|---|---|---|---|---|---|
 | base | 10/35 | 24/35 | -- | -- | **+0.021** (validator, CLAUDE.md finding 16) | 1026.5 | 1000 |
 | **format-only SFT** | **11/35** | 31/35 | 0.988 | 0.950 | **+0.038** | 1070.8 | 1100 |
-| full SFT | 1/35 | 32/35 | -- | -- | **-0.053** | 963.2 | 950 |
+| full SFT | 1/35¹ | 32/35 | -- | -- | **-0.053** | 963.2 | 950 |
+
+¹ Exact match is 0/35; 1/35 only counts a strict superset (LiZnBO3) as a
+hit. Paper uses exact match. See `docs/phases/PHASE15_DISTRIBUTIONAL.md`
+(2026-09-23 footnote, not a revision of the number reported at the time).
 
 **Both of Step 2's pass conditions are met, cleanly:**
 - Parse rate 99.3% >> 95%.
 - **Retains (and slightly exceeds) base's ASTRAL hit rate: 11/35 vs. base's
-  10/35** -- in sharp contrast to full SFT's collapse to 1/35. The reward
+  10/35** -- in sharp contrast to full SFT's collapse to 1/35¹. The reward
   gap is positive and *larger* than base's (+0.038 vs. +0.021), also
   unlike full SFT's negative gap.
 - The one softer criterion ("conventional N/35 should stay near base's
@@ -350,8 +358,12 @@ are not `PARSE_FAILURE`):
 | base | 10/35 | 24/35 | 0.948 | +0.021 | 1026.5 | 1000 | 98.7% |
 | format-only SFT | 11/35 | 31/35 | 0.937 | +0.038 | 1070.8 | 1100 | 99.3% |
 | **RS-SFT from base** | **10/35** | **17/35** | **0.972** | +0.007 | **934.2** | **950** | 95.8% |
-| full SFT | 1/35 | 32/35 | 0.888 | -0.053 | 963.2 | 950 | 98.5% |
+| full SFT | 1/35¹ | 32/35 | 0.888 | -0.053 | 963.2 | 950 | 98.5% |
 | GDPO-300 | 3/35 | 31/35 | 0.894 | +0.049 | 1017.1 | 1000 | 97.9% |
+
+¹ Exact match is 0/35; 1/35 only counts a strict superset (LiZnBO3) as a
+hit. Paper uses exact match. See `docs/phases/PHASE15_DISTRIBUTIONAL.md`
+(2026-09-23 footnote, not a revision of the number reported at the time).
 
 **RS-SFT matches base's predicted-set hit rate exactly (10/35) while
 *dropping* the conventional-set rate to 17/35 -- the lowest of any model,
