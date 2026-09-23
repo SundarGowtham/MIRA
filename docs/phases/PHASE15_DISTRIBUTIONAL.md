@@ -497,7 +497,8 @@ the size of the correction the pipeline already applies, and whether
 that correction is enough to close the bare-oxide/carbonate gap.
 **`finite-temperature-estimation.md`, referenced in the task, was
 searched for directly and does not exist anywhere in this repository** —
-noted, not assumed to exist elsewhere.
+resolved on review: the reference was to external Materials Project
+documentation, not a repo file. No action needed.
 
 5 pairs, same target, same co-precursor, only the alkali source differs
 (2 hand-specified per the task's own examples, 3 pulled from real GDPO
@@ -527,3 +528,55 @@ these synthesis temperatures. `Li1.1V3O8` (a fractional/doped
 composition) is ungradeable under both methods — expected, consistent
 with this project's repeated finding that non-stoichiometric targets
 often lack a clean PD entry for either treatment.
+
+## Open item, deliberately not chased [E]
+
+The 28.8% RS-SFT training-set bare-oxide share (Task 2b(a), corrected) is
+compared against base-on-ASTRAL (9.1%) — a different prompt set (`data/rl`'s
+400-target training universe vs ASTRAL's 35 targets). Whether 28.8%
+reflects base's own natural bare-oxide rate on the actual RS-SFT training
+prompts, or is itself already a product of bar-0.9 filter selection
+within that universe, is unresolved: base's unfiltered generations on the
+RS-SFT training prompts were never persisted (`data_curation/
+build_rs_sft_dataset.py` only writes survivors). Recorded as an open
+item, not chased further — no base-on-training-prompts dump exists to
+settle it.
+
+---
+
+# Causal chain [E]
+
+*Links 1–4, established by Tasks 2/2b/2c. Link 5 (does real
+solid-state-synthesis practice avoid bare alkali oxides, making the
+model's shift AWAY from practice rather than toward it) is pending Task
+3's Lee et al. comparison.*
+
+1. **`thermodynamic_favorable` scores Gibbs-corrected total ΔG(T)**
+   (Task 2c) — Bartel-descriptor solid entries (Bartel et al. 2018) plus
+   NIST-JANAF tabulated gas-phase ΔfG°(T) for CO2/H2O/O2/N2/NH3, evaluated
+   at the route's own synthesis temperature. Not a raw 0K DFT energy.
+2. **Bare-oxide routes are 0.19–0.32 eV/atom more thermodynamically
+   favorable than matched carbonate routes, and this survives the
+   finite-temperature correction** (Task 2c) — shrinks 11–25% from the
+   naive 0K gap but never reverses, across every computable one of 5
+   same-target, same-co-precursor pairs tested.
+3. **Within the 50 GDPO training groups that pit a bare-oxide completion
+   against a carbonate completion for the same target,
+   `thermodynamic_favorable` is the only channel that meaningfully
+   separates them** (Task 2b(b)) — z-gap 1.29 SD, versus near-zero for
+   `stoichiometry`, `amount_accuracy`, `chempot_atmosphere`, and a
+   completely dead `operation_order`.
+4. **GDPO roughly doubles alkali bare-oxide sourcing on ASTRAL, from
+   RS-SFT's 25.8% to 56.9%, while ASTRAL-predicted-set share stays flat
+   at 2–4%** (Task 1 finding 4, Task 2b(a) corrected) — the single
+   largest distributional shift training produces is invisible to the
+   headline ASTRAL hit-rate metric entirely.
+5. **Pending Task 3**: does real solid-state-synthesis practice (Lee et
+   al. 2025, 80k literature syntheses) predominantly use carbonates over
+   bare alkali oxides for exactly this reason (bare alkali oxides are
+   hygroscopic/reactive and awkward to handle in practice despite being
+   thermodynamically cleaner), and if so, does bare-oxide sourcing in
+   practice actually show a HIGHER impurity-phase rate than the
+   validator's ΔG-only view would predict — i.e., is the model's shift
+   moving toward better validator-graded chemistry but away from what
+   actually works in a real lab?
