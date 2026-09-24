@@ -571,12 +571,17 @@ model's shift AWAY from practice rather than toward it) is pending Task
    at 2–4%** (Task 1 finding 4, Task 2b(a) corrected) — the single
    largest distributional shift training produces is invisible to the
    headline ASTRAL hit-rate metric entirely.
-5. **Pending Task 3**: does real solid-state-synthesis practice (Lee et
-   al. 2025, 80k literature syntheses) predominantly use carbonates over
-   bare alkali oxides for exactly this reason (bare alkali oxides are
-   hygroscopic/reactive and awkward to handle in practice despite being
-   thermodynamically cleaner), and if so, does bare-oxide sourcing in
-   practice actually show a HIGHER impurity-phase rate than the
-   validator's ΔG-only view would predict — i.e., is the model's shift
-   moving toward better validator-graded chemistry but away from what
-   actually works in a real lab?
+5. **Resolved by Task 3** (`docs/phases/PHASE15_EXTERNAL.md`,
+   pre-registered `docs/phases/PHASE15_LEE_PREREG.md`), with nuance —
+   **real practice avoids bare alkali oxides strongly** (2.5% vs 60.0%
+   carbonate among Lee et al.'s 80k literature syntheses; zero bare-oxide
+   instances among the 20 ASTRAL targets that overlap with that corpus),
+   confirming the first half of this link. **But that avoidance is NOT
+   shown to be justified by worse outcomes** — bare-oxide and carbonate
+   impurity rates are statistically indistinguishable in this dataset
+   (pooled difference −0.3%, 95% CI [−3.0%,+2.3%]; target-matched +0.5%,
+   CI [−3.9%,+5.0%]). GDPO's shift toward bare-oxide sourcing moves the
+   model away from real practice, not demonstrably away from what works —
+   plausibly because bare alkali oxides are hygroscopic/awkward to handle
+   at bench scale, a practical constraint no validator channel captures,
+   rather than because they perform worse when used.
