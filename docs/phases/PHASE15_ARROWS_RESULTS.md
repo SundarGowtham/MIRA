@@ -222,14 +222,59 @@ All 30 distinct precursor formulas, across every target, parse without
 error via pymatgen `Composition()`. **(b) does not dominate; it does not
 occur at all** — stated plainly, as instructed, in the negative.
 
+**16 of YBCO's 47 precursor sets (34%) contain `Y2(CO3)3`** — this is not
+a marginal edge case; over a third of the dataset's precursor space is
+invisibly excluded from `precursors_exist`-gated scoring.
+
+**Does `Y2(CO3)3` actually perform worse in the real experiment? No —
+if anything, slightly better**, at the temperatures where the reaction
+proceeds at all (matched by temperature, not pooled, since pooling would
+conflate the huge temperature effect with any precursor-choice effect):
+
+| temperature | `Y2(CO3)3` mean yield (n) | other-Y-source mean yield (n) |
+|---|---|---|
+| 600–700°C | 0.0% (both) | 0.0% (both) — uninformative, neither works yet |
+| 800°C | **26.2%** (n=16) | 24.7% (n=31) |
+| 900°C | **66.2%** (n=16) | 62.1% (n=31) |
+| 1000°C | 22.8% (n=3) | 42.6% (n=9) — small n, reversed |
+
+**Recorded finding: `precursors_exist` tests Materials Project coverage,
+not chemical existence.** `Y2(CO3)3` is a real compound used in a real,
+published robotic synthesis — it works about as well as, or slightly
+better than, the alternative Y sources at the temperatures where YBCO
+actually forms. Its absence from MP's database (a DFT-computed materials
+database, not an exhaustive registry of known chemistry) is a coverage
+gap in the reference data, not a signal about whether the precursor is
+sound. Every route using it is currently invisible to `precursors_exist`-
+gated scoring for a database-completeness reason unrelated to its real
+performance.
+
+## Is "avoid carbonates" itself a real signal, or just a trivial baseline?
+
+**Real signal, confirmed**: the carbonate-free baseline's own agreement
+(0.583) is significantly better than chance — **diff from 0.5 = +0.083,
+95% CI (cluster bootstrap over precursor sets) [+0.010, +0.154], lower
+bound above zero.** "Avoid carbonates" is not merely a convenient
+strawman baseline that happens to look good by construction; on this
+robot-lab dataset it is itself a real, if modest, predictor of which
+route yields more target phase. Neither verifier managed to add anything
+measurable on top of this already-real signal — which sharpens, rather
+than undermines, the negative result: the validator and comparator are
+not failing to find a real effect that isn't there; they are failing to
+improve on a real effect a two-line heuristic already captures.
+
 **Comparator agreement restricted to the channel-decided-only pairs**
 (both gates pass, YBCO, primary threshold, n=704 — excluding the
 gate-decided/excluded majority): **0.513** — barely above chance, and
-still far short of the 0.583 baseline. The pooled figure (0.474, *below*
-chance) is actually *worse* than the channel-only figure, meaning the
-gate-decided subset performs even worse than the channels alone would —
-the comparator's gates are actively hurting its agreement on this
-dataset, not merely diluting an otherwise-good signal.
+still far short of the 0.583 baseline. **Directly computed (not
+inferred), the one-sided gate-decided subset (n=943) agrees only 0.445
+of the time** — worse than chance itself, and worse than the pooled
+figure (0.474) and the channel-decided figure (0.513) alike. Since
+channel-decided (0.513) is better than pooled (0.474), gate-decided
+necessarily had to be worse than both — now confirmed directly rather
+than left as an inference: **the comparator's gates are actively hurting
+its agreement on this dataset, not merely diluting an otherwise-good
+channel signal.**
 
 ## GDPO-vote rule: gradeability-tag verification
 
@@ -278,7 +323,17 @@ shows no established signal beyond the carbonate dimension once that
 dimension is held constant (0.522, CI centered on chance). The
 comparator's specific weakness here is diagnosed concretely: its gates,
 not its scored channels, decide most pairs on this dataset, and they
-decide badly (channel-only agreement 0.513 vs. pooled 0.474 — the gates
-make things worse, not just noisier). The Ba-source controlled test
-adds a genuine robot-lab experiment pointing the same direction, though
-inconclusively at n=10 groups (see the corrected framing above).
+decide badly (channel-decided agreement 0.513 vs. gate-decided 0.445,
+directly computed — the gates make things worse, not just noisier). And
+the bar itself is real: the carbonate-free baseline alone is
+significantly better than chance (+0.083, CI [+0.010, +0.154]) — neither
+verifier improves on an effect a two-line heuristic already captures.
+The Ba-source controlled test adds a genuine robot-lab experiment
+pointing the same direction, though inconclusively at n=10 groups (see
+the corrected framing above).
+
+---
+
+**Task 6 (Precursor Genome check) is cancelled for this paper** — noted
+as future work, not attempted. No data was downloaded and no analysis
+was started.

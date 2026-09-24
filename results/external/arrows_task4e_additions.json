@@ -1,0 +1,65 @@
+{
+ "gate_decided_direct": {
+  "n": 943,
+  "agreement": 0.44538706256627786
+ },
+ "channel_decided_crosscheck": {
+  "n": 704,
+  "agreement": 0.5127840909090909
+ },
+ "y2co3_3_yield_comparison": {
+  "per_temperature": {
+   "600 C": {
+    "y2co3_3_mean": 0.0,
+    "y2co3_3_n": 16,
+    "other_y_mean": 0.0,
+    "other_y_n": 31
+   },
+   "700 C": {
+    "y2co3_3_mean": 0.0,
+    "y2co3_3_n": 16,
+    "other_y_mean": 0.0,
+    "other_y_n": 31
+   },
+   "800 C": {
+    "y2co3_3_mean": 26.24375,
+    "y2co3_3_n": 16,
+    "other_y_mean": 24.733870967741936,
+    "other_y_n": 31
+   },
+   "900 C": {
+    "y2co3_3_mean": 66.171875,
+    "y2co3_3_n": 16,
+    "other_y_mean": 62.119354838709675,
+    "other_y_n": 31
+   },
+   "1000 C": {
+    "y2co3_3_mean": 22.833333333333332,
+    "y2co3_3_n": 3,
+    "other_y_mean": 42.55555555555556,
+    "other_y_n": 9
+   }
+  },
+  "pooled_reference_only": {
+   "y2co3_3_containing": {
+    "n": 67,
+    "mean_yield": 23.09179104477612
+   },
+   "other_y_source": {
+    "n": 133,
+    "mean_yield": 23.123684210526314
+   }
+  }
+ },
+ "n_ybco_sets_with_y2co33": 16,
+ "n_ybco_sets_total": 47,
+ "carbonate_free_baseline_significance": {
+  "agreement": 0.5827676240208878,
+  "diff_from_chance": 0.08276762402088778,
+  "diff_95ci": [
+   0.010111761575306022,
+   0.15406824146981624
+  ],
+  "significantly_better_than_chance": true
+ }
+}
