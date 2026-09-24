@@ -1,0 +1,1280 @@
+{
+ "groups": [
+  {
+   "co_precursors": [
+    "CuCO3",
+    "Y2(CO3)3"
+   ],
+   "ba_free_coprecursors": true,
+   "ba_sources_available": [
+    "BaO2",
+    "BaO",
+    "BaCO3"
+   ],
+   "cells": [
+    {
+     "temperature": "600 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "tie",
+      "BaO2_vs_BaCO3": "tie",
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "700 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "tie",
+      "BaO2_vs_BaCO3": "tie",
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "800 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "tie",
+      "BaO2_vs_BaCO3": "tie",
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "900 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "tie",
+      "BaO2_vs_BaCO3": "tie",
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    }
+   ]
+  },
+  {
+   "co_precursors": [
+    "CuO",
+    "Y2(CO3)3"
+   ],
+   "ba_free_coprecursors": true,
+   "ba_sources_available": [
+    "BaO2",
+    "BaO",
+    "BaCO3"
+   ],
+   "cells": [
+    {
+     "temperature": "600 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "tie",
+      "BaO2_vs_BaCO3": "tie",
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "700 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "tie",
+      "BaO2_vs_BaCO3": "tie",
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "800 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "tie",
+      "BaO2_vs_BaCO3": "tie",
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "900 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "tie",
+      "BaO2_vs_BaCO3": "tie",
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    }
+   ]
+  },
+  {
+   "co_precursors": [
+    "CuCO3",
+    "Y2Cu2O5"
+   ],
+   "ba_free_coprecursors": true,
+   "ba_sources_available": [
+    "BaO2",
+    "BaO",
+    "BaCO3"
+   ],
+   "cells": [
+    {
+     "temperature": "600 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "BaO2",
+      "BaO2_vs_BaCO3": "BaO2",
+      "BaO_vs_BaCO3": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "700 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "BaO2",
+      "BaO2_vs_BaCO3": "BaO2",
+      "BaO_vs_BaCO3": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "800 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "BaO2",
+      "BaO2_vs_BaCO3": "BaO2",
+      "BaO_vs_BaCO3": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "900 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "BaO2",
+      "BaO2_vs_BaCO3": "BaO2",
+      "BaO_vs_BaCO3": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    }
+   ]
+  },
+  {
+   "co_precursors": [
+    "CuO",
+    "Y2Cu2O5"
+   ],
+   "ba_free_coprecursors": true,
+   "ba_sources_available": [
+    "BaO2",
+    "BaO",
+    "BaCO3"
+   ],
+   "cells": [
+    {
+     "temperature": "600 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "BaO",
+      "BaO2_vs_BaCO3": "BaO2",
+      "BaO_vs_BaCO3": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "700 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "BaO",
+      "BaO2_vs_BaCO3": "BaO2",
+      "BaO_vs_BaCO3": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "800 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "BaO",
+      "BaO2_vs_BaCO3": "BaO2",
+      "BaO_vs_BaCO3": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "900 C",
+     "pairwise_gdpo_vote": {
+      "BaO2_vs_BaO": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO2_vs_BaCO3": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO2_vs_BaO": "BaO",
+      "BaO2_vs_BaCO3": "BaO2",
+      "BaO_vs_BaCO3": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ]
+    }
+   ]
+  },
+  {
+   "co_precursors": [
+    "Ba2(CuO2)3",
+    "Cu2O",
+    "Y2O3"
+   ],
+   "ba_free_coprecursors": false,
+   "ba_sources_available": [
+    "BaCO3",
+    "BaO"
+   ],
+   "cells": [
+    {
+     "temperature": "600 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "700 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "800 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "900 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    }
+   ]
+  },
+  {
+   "co_precursors": [
+    "Ba2(CuO2)3",
+    "Cu2O",
+    "Y2Cu2O5"
+   ],
+   "ba_free_coprecursors": false,
+   "ba_sources_available": [
+    "BaCO3",
+    "BaO"
+   ],
+   "cells": [
+    {
+     "temperature": "600 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "700 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "800 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "900 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    }
+   ]
+  },
+  {
+   "co_precursors": [
+    "Ba2(CuO2)3",
+    "Cu2O",
+    "Y2(CO3)3"
+   ],
+   "ba_free_coprecursors": false,
+   "ba_sources_available": [
+    "BaO",
+    "BaCO3"
+   ],
+   "cells": [
+    {
+     "temperature": "600 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "700 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "800 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "900 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "tie"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaCO3"
+     ]
+    }
+   ]
+  },
+  {
+   "co_precursors": [
+    "Ba2(CuO2)3",
+    "Y2Cu2O5"
+   ],
+   "ba_free_coprecursors": false,
+   "ba_sources_available": [
+    "BaCO3",
+    "BaO",
+    "BaO2"
+   ],
+   "cells": [
+    {
+     "temperature": "600 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO",
+      "BaCO3_vs_BaO2": "BaO2",
+      "BaO_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "700 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO",
+      "BaCO3_vs_BaO2": "BaO2",
+      "BaO_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "800 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO",
+      "BaCO3_vs_BaO2": "BaO2",
+      "BaO_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "900 C",
+     "pairwise_gdpo_vote": {
+      "BaCO3_vs_BaO": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=-1"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaCO3_vs_BaO": "BaO",
+      "BaCO3_vs_BaO2": "BaO2",
+      "BaO_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    }
+   ]
+  },
+  {
+   "co_precursors": [
+    "CuO",
+    "Y2O3"
+   ],
+   "ba_free_coprecursors": true,
+   "ba_sources_available": [
+    "BaO",
+    "BaCO3",
+    "BaO2"
+   ],
+   "cells": [
+    {
+     "temperature": "600 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "BaO",
+      "BaO_vs_BaO2": "BaO",
+      "BaCO3_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "700 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "BaO",
+      "BaO_vs_BaO2": "BaO",
+      "BaCO3_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "800 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "BaO",
+      "BaO_vs_BaO2": "BaO",
+      "BaCO3_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "900 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "BaO",
+      "BaO_vs_BaO2": "BaO",
+      "BaCO3_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ]
+    }
+   ]
+  },
+  {
+   "co_precursors": [
+    "CuCO3",
+    "Y2O3"
+   ],
+   "ba_free_coprecursors": true,
+   "ba_sources_available": [
+    "BaO",
+    "BaCO3",
+    "BaO2"
+   ],
+   "cells": [
+    {
+     "temperature": "600 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "BaO",
+      "BaO_vs_BaO2": "BaO2",
+      "BaCO3_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "700 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "BaO",
+      "BaO_vs_BaO2": "BaO2",
+      "BaCO3_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "800 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "BaO",
+       "reason": "channel_votes_sum=1"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "BaO2",
+       "reason": "channel_votes_sum=-1"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "BaO",
+      "BaO_vs_BaO2": "BaO2",
+      "BaCO3_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaO2",
+      "BaCO3"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    },
+    {
+     "temperature": "900 C",
+     "pairwise_gdpo_vote": {
+      "BaO_vs_BaCO3": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaO_vs_BaO2": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      },
+      "BaCO3_vs_BaO2": {
+       "winner": "tie",
+       "reason": "channel_votes_sum=0"
+      }
+     },
+     "pairwise_comparator": {
+      "BaO_vs_BaCO3": "BaO",
+      "BaO_vs_BaO2": "BaO2",
+      "BaCO3_vs_BaO2": "BaO2"
+     },
+     "gdpo_vote_ordering_best_first": [
+      "BaO",
+      "BaCO3",
+      "BaO2"
+     ],
+     "comparator_ordering_best_first": [
+      "BaO2",
+      "BaO",
+      "BaCO3"
+     ]
+    }
+   ]
+  }
+ ]
+}
