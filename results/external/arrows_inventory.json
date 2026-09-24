@@ -1,0 +1,475 @@
+{
+ "arrows_commit": "cb630e944315c8ac19f5b9a3c9d8984be93258a6",
+ "per_target": {
+  "YBCO": {
+   "n_precursor_sets": 47,
+   "temperatures": [
+    "600 C",
+    "700 C",
+    "800 C",
+    "900 C",
+    "1000 C"
+   ],
+   "n_entries_total": 200,
+   "outcome_field_counts": {
+    "products+weight_fractions": 200
+   },
+   "common_experimental_conditions": null,
+   "within_target_same_temp_pairs": {
+    "total_pairs": 4390,
+    "total_differing": 4296,
+    "total_differing_phase_set": 3707,
+    "total_differing_same_phase_set_wt_fraction": 589,
+    "per_temperature": {
+     "600 C": {
+      "n_pairs": 1081,
+      "n_differing": 1061
+     },
+     "700 C": {
+      "n_pairs": 1081,
+      "n_differing": 1067
+     },
+     "800 C": {
+      "n_pairs": 1081,
+      "n_differing": 1074
+     },
+     "900 C": {
+      "n_pairs": 1081,
+      "n_differing": 1029
+     },
+     "1000 C": {
+      "n_pairs": 66,
+      "n_differing": 65
+     }
+    },
+    "tv_distance_distribution_wt_pct": {
+     "n": 589,
+     "min": 1.0,
+     "max": 59.5,
+     "median": 21.0
+    }
+   }
+  },
+  "LTOPO": {
+   "n_precursor_sets": 15,
+   "temperatures": [
+    "400 C",
+    "500 C",
+    "600 C",
+    "700 C"
+   ],
+   "n_entries_total": 58,
+   "outcome_field_counts": {
+    "products+weight_fractions": 58
+   },
+   "common_experimental_conditions": {
+    "heating rate": "20 C/min",
+    "cooling rate": "natural",
+    "atmosphere": "air"
+   },
+   "within_target_same_temp_pairs": {
+    "total_pairs": 392,
+    "total_differing": 392,
+    "total_differing_phase_set": 158,
+    "total_differing_same_phase_set_wt_fraction": 234,
+    "per_temperature": {
+     "400 C": {
+      "n_pairs": 105,
+      "n_differing": 105
+     },
+     "500 C": {
+      "n_pairs": 105,
+      "n_differing": 105
+     },
+     "600 C": {
+      "n_pairs": 91,
+      "n_differing": 91
+     },
+     "700 C": {
+      "n_pairs": 91,
+      "n_differing": 91
+     }
+    },
+    "tv_distance_distribution_wt_pct": {
+     "n": 234,
+     "min": 1.0,
+     "max": 38.0,
+     "median": 8.0
+    }
+   }
+  },
+  "NTMO": {
+   "n_precursor_sets": 13,
+   "temperatures": [
+    "300 C",
+    "400 C"
+   ],
+   "n_entries_total": 18,
+   "outcome_field_counts": {
+    "products+weight_fractions": 18
+   },
+   "common_experimental_conditions": null,
+   "within_target_same_temp_pairs": {
+    "total_pairs": 88,
+    "total_differing": 88,
+    "total_differing_phase_set": 73,
+    "total_differing_same_phase_set_wt_fraction": 15,
+    "per_temperature": {
+     "400 C": {
+      "n_pairs": 78,
+      "n_differing": 78
+     },
+     "300 C": {
+      "n_pairs": 10,
+      "n_differing": 10
+     }
+    },
+    "tv_distance_distribution_wt_pct": {
+     "n": 15,
+     "min": 1.5,
+     "max": 58.0,
+     "median": 17.0
+    }
+   }
+  }
+ },
+ "ybco_ba_source_matched_comparisons": {
+  "n_matched_coprecursor_groups": 10,
+  "detail": [
+   {
+    "co_precursors": [
+     "CuCO3",
+     "Y2(CO3)3"
+    ],
+    "sources": {
+     "BaO2": {
+      "precursor_set": "BaO2, CuCO3, Y2(CO3)3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaO": {
+      "precursor_set": "BaO, CuCO3, Y2(CO3)3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaCO3": {
+      "precursor_set": "BaCO3, CuCO3, Y2(CO3)3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C",
+       "1000 C"
+      ]
+     }
+    }
+   },
+   {
+    "co_precursors": [
+     "CuO",
+     "Y2(CO3)3"
+    ],
+    "sources": {
+     "BaO2": {
+      "precursor_set": "BaO2, CuO, Y2(CO3)3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaO": {
+      "precursor_set": "BaO, CuO, Y2(CO3)3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaCO3": {
+      "precursor_set": "BaCO3, CuO, Y2(CO3)3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C",
+       "1000 C"
+      ]
+     }
+    }
+   },
+   {
+    "co_precursors": [
+     "CuCO3",
+     "Y2Cu2O5"
+    ],
+    "sources": {
+     "BaO2": {
+      "precursor_set": "BaO2, CuCO3, Y2Cu2O5",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaO": {
+      "precursor_set": "BaO, CuCO3, Y2Cu2O5",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaCO3": {
+      "precursor_set": "BaCO3, CuCO3, Y2Cu2O5",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C",
+       "1000 C"
+      ]
+     }
+    }
+   },
+   {
+    "co_precursors": [
+     "CuO",
+     "Y2Cu2O5"
+    ],
+    "sources": {
+     "BaO2": {
+      "precursor_set": "BaO2, CuO, Y2Cu2O5",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaO": {
+      "precursor_set": "BaO, CuO, Y2Cu2O5",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaCO3": {
+      "precursor_set": "BaCO3, CuO, Y2Cu2O5",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C",
+       "1000 C"
+      ]
+     }
+    }
+   },
+   {
+    "co_precursors": [
+     "Ba2(CuO2)3",
+     "Cu2O",
+     "Y2O3"
+    ],
+    "sources": {
+     "BaCO3": {
+      "precursor_set": "Ba2(CuO2)3, BaCO3, Cu2O, Y2O3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaO": {
+      "precursor_set": "Ba2(CuO2)3, BaO, Cu2O, Y2O3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     }
+    }
+   },
+   {
+    "co_precursors": [
+     "Ba2(CuO2)3",
+     "Cu2O",
+     "Y2Cu2O5"
+    ],
+    "sources": {
+     "BaCO3": {
+      "precursor_set": "Ba2(CuO2)3, BaCO3, Cu2O, Y2Cu2O5",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaO": {
+      "precursor_set": "Ba2(CuO2)3, BaO, Cu2O, Y2Cu2O5",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     }
+    }
+   },
+   {
+    "co_precursors": [
+     "Ba2(CuO2)3",
+     "Cu2O",
+     "Y2(CO3)3"
+    ],
+    "sources": {
+     "BaO": {
+      "precursor_set": "Ba2(CuO2)3, BaO, Cu2O, Y2(CO3)3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaCO3": {
+      "precursor_set": "Ba2(CuO2)3, BaCO3, Cu2O, Y2(CO3)3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     }
+    }
+   },
+   {
+    "co_precursors": [
+     "Ba2(CuO2)3",
+     "Y2Cu2O5"
+    ],
+    "sources": {
+     "BaCO3": {
+      "precursor_set": "Ba2(CuO2)3, BaCO3, Y2Cu2O5",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaO": {
+      "precursor_set": "Ba2(CuO2)3, BaO, Y2Cu2O5",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaO2": {
+      "precursor_set": "Ba2(CuO2)3, BaO2, Y2Cu2O5",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     }
+    }
+   },
+   {
+    "co_precursors": [
+     "CuO",
+     "Y2O3"
+    ],
+    "sources": {
+     "BaO": {
+      "precursor_set": "BaO, CuO, Y2O3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaCO3": {
+      "precursor_set": "BaCO3, CuO, Y2O3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C",
+       "1000 C"
+      ]
+     },
+     "BaO2": {
+      "precursor_set": "BaO2, CuO, Y2O3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C",
+       "1000 C"
+      ]
+     }
+    }
+   },
+   {
+    "co_precursors": [
+     "CuCO3",
+     "Y2O3"
+    ],
+    "sources": {
+     "BaO": {
+      "precursor_set": "BaO, CuCO3, Y2O3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C"
+      ]
+     },
+     "BaCO3": {
+      "precursor_set": "BaCO3, CuCO3, Y2O3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C",
+       "1000 C"
+      ]
+     },
+     "BaO2": {
+      "precursor_set": "BaO2, CuCO3, Y2O3",
+      "temperatures": [
+       "600 C",
+       "700 C",
+       "800 C",
+       "900 C",
+       "1000 C"
+      ]
+     }
+    }
+   }
+  ]
+ }
+}
