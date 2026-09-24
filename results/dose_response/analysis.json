@@ -1,0 +1,126 @@
+{
+ "q1_leash": {
+  "epsilon": -20.0,
+  "n_below": 75,
+  "mean_delta_below": 14.384945065322766,
+  "ci_below": [
+   13.058478489572533,
+   15.693560517260776
+  ],
+  "includes_zero_below": false,
+  "n_above": 0,
+  "mean_delta_above": null,
+  "ci_above": null,
+  "includes_zero_above": null
+ },
+ "q1e_per_token_supplement": {
+  "note": "Pre-registered epsilon=-20 assumed a per-token/short-sequence log-p scale; total_logp sums over the full array span (mean n_tokens=51), so mean base log p = -96.2 and ALL 75 routes fall below epsilon in q1 above (n_above=0, degenerate as specified). This supplement reuses the same epsilon=-20 value applied to PER-TOKEN mean log p instead -- an ad hoc rescue, not a pre-registered test; reported as [E] only.",
+  "epsilon": -20.0,
+  "n_below": 0,
+  "mean_delta_per_tok_below": null,
+  "ci_below": null,
+  "n_above": 75,
+  "mean_delta_per_tok_above": 0.2742363993163989,
+  "ci_above": [
+   0.24696559090946332,
+   0.3009468766652301
+  ]
+ },
+ "q2_quality_alignment": {
+  "phase_pure_threshold_wt_pct": 50.0,
+  "n_phase_pure": 49,
+  "n_phase_impure": 26,
+  "coefficients": {
+   "intercept": 7.763339793735834,
+   "phase_pure": -0.13317639711469692,
+   "logp_base": -0.0697419056491194
+  },
+  "phase_pure_coef_ci": [
+   -2.8342137199299673,
+   2.633967957974265
+  ],
+  "excludes_zero": false,
+  "positive_and_excludes_zero": "False"
+ },
+ "q3_top5_rescoped": {
+  "per_target": {
+   "YBCO": {
+    "best_precursor_set": "Ba2(CuO2)3, Y2O3",
+    "best_wt_pct": 100.0,
+    "first_precursor_formula": "Ba2(CuO2)3",
+    "base_top5_first_token": [
+     "Y",
+     "YO",
+     "Ce",
+     "YS",
+     "Ba"
+    ],
+    "in_top5_loose_char_match": true,
+    "in_top5_strict_prefix_match": true
+   },
+   "LTOPO": {
+    "best_precursor_set": "Li2CO3, PH9(NO2)2, TiO2",
+    "best_wt_pct": 74.0,
+    "first_precursor_formula": "Li2CO3",
+    "base_top5_first_token": [
+     "Li",
+     "Ti",
+     "L",
+     " Li",
+     "Fe"
+    ],
+    "in_top5_loose_char_match": true,
+    "in_top5_strict_prefix_match": true
+   },
+   "NTMO": {
+    "best_precursor_set": "MoO3, Na2O, TeO2",
+    "best_wt_pct": 62.0,
+    "first_precursor_formula": "MoO3",
+    "base_top5_first_token": [
+     "Na",
+     "Te",
+     "Mo",
+     "NaN",
+     " Na"
+    ],
+    "in_top5_loose_char_match": true,
+    "in_top5_strict_prefix_match": true
+   }
+  },
+  "n_targets_hit": 3,
+  "n_targets_total": 3,
+  "prediction_supported": true
+ },
+ "q4_policy_carbonate": {
+  "n_carbonate": 19,
+  "n_non_carbonate": 56,
+  "coefficients": {
+   "intercept": 3.1802012200408676,
+   "carbonate_status": -1.9794666980618376,
+   "best_wt_pct": 0.01978754298826134
+  },
+  "carbonate_status_ci": [
+   -3.5307892923343953,
+   -0.3271509362661505
+  ],
+  "carbonate_excludes_zero": true,
+  "target_wt_pct_ci": [
+   -0.006224472587783991,
+   0.04322267297822987
+  ],
+  "target_wt_pct_includes_zero": "True",
+  "prediction1_supported": true,
+  "prediction2_supported": "True",
+  "mean_delta_gdpo_rssft_carbonate": 2.236456179969841,
+  "mean_delta_gdpo_rssft_noncarbonate": 4.334132990340216
+ },
+ "descriptive_e": {
+  "n_routes": 75,
+  "mean_logp_base": -96.19200663639867,
+  "mean_logp_rs_sft": -85.60978310278895,
+  "mean_logp_gdpo": -81.8070615710759,
+  "mean_logp_full_sft": -50.071657122494535,
+  "mean_delta_gdpo_base": 14.384945065322768,
+  "mean_delta_gdpo_rssft": 3.8027215317130545
+ }
+}
