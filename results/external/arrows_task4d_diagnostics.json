@@ -1,0 +1,93 @@
+{
+ "rebuilt_threshold_gt_0": {
+  "YBCO": {
+   "n_total_pairs": 4390,
+   "n_excluded_identical": 2266,
+   "n_strict_gt_0": 2124,
+   "agreements": {
+    "gdpo_vote": 0.6137005649717514,
+    "comparator": 0.48464912280701755,
+    "chance": 0.5,
+    "fewer_precursors": 0.5682674199623352,
+    "carbonate_free": 0.5765065913370998
+   }
+  },
+  "LTOPO": {
+   "n_total_pairs": 392,
+   "n_excluded_identical": 302,
+   "n_strict_gt_0": 90,
+   "agreements": {
+    "gdpo_vote": 0.5333333333333333,
+    "comparator": 0.5,
+    "chance": 0.5,
+    "fewer_precursors": 0.5,
+    "carbonate_free": 0.3611111111111111
+   }
+  },
+  "NTMO": {
+   "n_total_pairs": 88,
+   "n_excluded_identical": 16,
+   "n_strict_gt_0": 72,
+   "agreements": {
+    "gdpo_vote": 0.4930555555555556,
+    "comparator": 0.4513888888888889,
+    "chance": 0.5,
+    "fewer_precursors": 0.5,
+    "carbonate_free": 0.4375
+   }
+  }
+ },
+ "thermo_analysis": {
+  "a_thermo_vs_best_baseline": {
+   "thermo_agreement": 0.5577023498694517,
+   "best_baseline": "carbonate_free",
+   "best_baseline_agreement": 0.5827676240208878,
+   "diff": -0.025065274151436112,
+   "diff_95ci": [
+    -0.07789473684210524,
+    0.02718868950516584
+   ]
+  },
+  "b_decisive_pairs_only": {
+   "n_decisive": 521,
+   "thermo_agreement": 0.7120921305182342,
+   "carbonate_free_agreement_same_pairs": 0.6621880998080614,
+   "fewer_precursors_agreement_same_pairs": 0.5153550863723608,
+   "n_comparable_both_decisive": 285,
+   "frac_thermo_matches_carbfree": 0.8771929824561403
+  },
+  "c_carbfree_tie_pairs": {
+   "n": 1112,
+   "thermo_agreement": 0.5224820143884892,
+   "thermo_agreement_95ci": [
+    0.495483288166215,
+    0.557012542759407
+   ]
+  }
+ },
+ "comparator_channel_decided_only": {
+  "n": 704,
+  "agreement": 0.5127840909090909
+ },
+ "gate_failure_audit": {
+  "note": "Computed by direct inspection of results/external/arrows_gradeability_dryrun.json, not re-scored here.",
+  "precursors_exist_failures": {
+   "n_ybco_sets": 16,
+   "cause": "100% attributable to Y2(CO3)3 (absent from Materials Project entirely -- confirmed via direct mp_formula_set.pkl membership check; every other precursor across all 3 targets, all 30 distinct formulas, IS present in MP)",
+   "category": "(a) absent from MP"
+  },
+  "balances_failures": {
+   "n_ybco_sets": 5,
+   "breakdown": "3/5 also contain Y2(CO3)3 (already broken via precursors_exist). 2/5 do NOT contain Y2(CO3)3: ('BaCuO2','BaO2','Cu2O','Y2O3') and ('BaO','BaO2','Cu2O','Y2O3') -- all formulas parse cleanly and are in MP, so this is NOT a notation/parsing issue.",
+   "category": "(c) genuinely unbalanceable with the validator's finite candidate-volatile-set search, for these specific 4-precursor combinations (likely an overdetermined system: two separate Ba sources plus Cu2O plus Y2O3 simultaneously)"
+  },
+  "notation_parsing_failures_category_b": {
+   "n": 0,
+   "note": "ZERO instances. All 30 distinct precursor formulas across all three targets -- including parenthetical forms (Ba2(CuO2)3), peroxides (BaO2, Na2O2), and complex ammonium-phosphate-style formulas (PH9(NO2)2, MoH8(NO2)2) -- parse without error via pymatgen Composition(). Category (b) does not dominate; it is empty."
+  },
+  "ltopo_ntmo": {
+   "precursors_exist_failures": 0,
+   "balances_failures": 0
+  }
+ }
+}
