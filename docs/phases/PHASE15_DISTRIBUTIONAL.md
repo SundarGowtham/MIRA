@@ -572,16 +572,18 @@ model's shift AWAY from practice rather than toward it) is pending Task
    largest distributional shift training produces is invisible to the
    headline ASTRAL hit-rate metric entirely.
 5. **Resolved by Task 3** (`docs/phases/PHASE15_EXTERNAL.md`,
-   pre-registered `docs/phases/PHASE15_LEE_PREREG.md`), with nuance —
-   **real practice avoids bare alkali oxides strongly** (2.5% vs 60.0%
-   carbonate among Lee et al.'s 80k literature syntheses; zero bare-oxide
-   instances among the 20 ASTRAL targets that overlap with that corpus),
-   confirming the first half of this link. **But that avoidance is NOT
-   shown to be justified by worse outcomes** — bare-oxide and carbonate
-   impurity rates are statistically indistinguishable in this dataset
-   (pooled difference −0.3%, 95% CI [−3.0%,+2.3%]; target-matched +0.5%,
-   CI [−3.9%,+5.0%]). GDPO's shift toward bare-oxide sourcing moves the
-   model away from real practice, not demonstrably away from what works —
-   plausibly because bare alkali oxides are hygroscopic/awkward to handle
-   at bench scale, a practical constraint no validator channel captures,
-   rather than because they perform worse when used.
+   pre-registered `docs/phases/PHASE15_LEE_PREREG.md`): **Practice
+   strongly avoids bare alkali oxides — 2.5% vs 60.0% carbonate among
+   alkali-containing targets [C, confirmed]; no difference in reported
+   impurity among published syntheses [C, prediction not supported].
+   GDPO's shift moves away from practice along a dimension with no
+   measurable effect on published outcomes.** Two distinct failure types
+   underlie the project's two largest precursor-class shifts, not one:
+   the ammonium-phosphate shift is a genuine implementation bug (the
+   balance-solver gap); the bare-oxide shift is a correctly-computed
+   thermodynamic quantity (Task 2c: Gibbs-corrected ΔG survives the
+   finite-temperature correction) that is simply not the construct that
+   determines real synthesis success — not a bug, not a validator
+   artifact. "Bare alkali oxides are hygroscopic/awkward to handle" is a
+   plausible hypothesis for the practice/thermodynamics gap, not
+   something established by this task.

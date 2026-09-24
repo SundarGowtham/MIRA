@@ -70,37 +70,59 @@ version): bare-oxide 7.1% (n=141) vs carbonate 6.6% (n=1,295), difference
 *predicted* direction, but the CI is wide and includes zero comfortably.
 Still no significant difference, either direction, at this n.
 
-**Honest reading**: real-world impurity outcomes do not distinguish
-bare-oxide from carbonate sourcing in this corpus. The literature-mining
-dataset is also a real limitation here, not just a sample-size one —
-self-reported publication success bias likely compresses impurity rates
-across the board (5.9% overall is almost certainly an underestimate of
-true failure rates in the lab), which could mask a real difference in
-either direction. Reported as inconclusive, not as a null result strong
-enough to rule out a real effect.
+**Honest reading, corrected framing (2026-09-24)**: Among published
+syntheses, bare-oxide and carbonate sourcing show no difference in
+reported impurity rate (−0.3%, 95% CI [−3.0%, +2.3%]; target-matched
++0.5%, CI [−3.9%, +5.0%]), ruling out a difference larger than ~3 points
+among published attempts. **Because published literature is
+outcome-selected, this does not establish that bare-oxide routes succeed
+as often in unselected attempts** — self-reported publication success
+bias likely compresses impurity rates across the board (5.9% overall is
+almost certainly an underestimate of true failure rates in the lab), and
+a systematic difference in unselected attempts could exist even though
+none is measurable in what got published. **Pre-registered prediction:
+not supported.**
 
 ## Causal chain link 5, resolved with nuance
 
-**Part 1 (does practice avoid bare alkali oxides?): YES, strongly.**
-2.5% vs 60.0%, a ~24x preference for carbonate among routes using either.
-GDPO's shift to 56.9% bare-oxide sourcing on ASTRAL moves the model
-**dramatically away from what practicing chemists actually do.**
+**Part 1 (does practice avoid bare alkali oxides?): YES, strongly,
+confirmed [C].** 2.5% vs 60.0%, a ~24x preference for carbonate among
+routes using either. GDPO's shift to 56.9% bare-oxide sourcing on ASTRAL
+moves the model **dramatically away from what practicing chemists
+actually do.**
 
 **Part 2 (is that practice justified by worse bare-oxide outcomes?):
-NOT CONFIRMED.** No significant impurity-rate difference either direction
-in this dataset. The model's shift is not shown to be moving toward
-worse real-world outcomes — only away from real-world *practice*. These
-are different claims, and only the first is supported.
+pre-registered prediction NOT SUPPORTED [C].** No significant
+impurity-rate difference either direction among *published* syntheses —
+see the corrected framing above for why this doesn't settle the
+unselected-attempt question either way.
 
-**Combined with Task 2c** (the carbonate-vs-bare-oxide ΔG(T) preference is
-a real, Gibbs-corrected thermodynamic effect, not an artifact): the
-overall picture is that GDPO is chasing a genuine thermodynamic signal
-that real chemists apparently do not act on — plausibly because bare
-alkali oxides are hygroscopic and awkward to handle at bench scale (a
-practical constraint the validator has no channel for), not because they
-perform worse when used. This is a more precise, better-evidenced
-version of the reward-hacking story than "moves away from good chemistry
-practice" alone would have been.
+**Two distinct failure types, not one — stated explicitly, not conflated**:
+- **The ammonium-phosphate shift (Task 2, Phase 13) traces to an
+  implementation bug**: `validator.py`'s balance solver never tries a
+  candidate volatile set that includes NH3 without N2, so ammonium-salt
+  routes fail `stoichiometry` for a software reason. This is a bug, full
+  stop — fixable, and already fixed in `core/comparator.py`'s local
+  patch.
+- **The bare-oxide shift (Task 2c) traces to a correctly computed
+  quantity that is the wrong construct, not a validator artifact.**
+  `thermodynamic_favorable`'s Gibbs-corrected ΔG(T) is computed correctly
+  — Bartel-descriptor solids, NIST-JANAF gas thermochemistry including
+  CO2's entropy, verified to survive a finite-temperature correction in
+  every tested pair. The problem is not the arithmetic; it is that
+  **total reaction driving force is not what determines whether a real
+  synthesis succeeds** — kinetics, precursor handling, nucleation, and
+  practical constraints the validator has no channel for all plausibly
+  matter and are absent from this quantity by design, not by error. Do
+  not call this a validator artifact or a bug; it is a real, correctly-
+  computed answer to a question that turns out not to be the right
+  question for predicting synthesis outcomes.
+- **Hypothesis, not a finding**: bare alkali oxides being
+  hygroscopic/awkward to handle at bench scale is one plausible
+  explanation for why practice avoids them despite the genuine
+  thermodynamic edge — not established here, not tested against any
+  data in this task, offered as a candidate reason worth checking
+  separately, not as a result of this analysis.
 
 ## [E] Step 5 — phosphorus source usage: the same pattern, independently
 
@@ -122,10 +144,14 @@ bug** (Phase 13's NH3-without-N2 gap; Task 2's finding that ammonium
 routes fail `stoichiometry` catastrophically, gap −0.905) forcing the
 model away from the precursor real chemists actually prefer 10:1, for a
 software reason, not a chemistry one. **Both of the model's largest
-precursor-class shifts (away from carbonates, away from ammonium
-phosphate) move it away from real practice, and both are traceable to
-validator artifacts (a genuine but impractical ΔG preference; a balance-
-solver bug) rather than genuine chemical improvement.**
+precursor-class shifts move it away from real practice, but for two
+distinct reasons that should not be conflated**: the ammonium-phosphate
+shift is a genuine implementation bug (fixable); the carbonate shift is
+a correctly-computed thermodynamic quantity that is simply not the
+construct that determines real-world synthesis success (not a bug, not
+an artifact — see "two distinct failure types" above). Neither shift
+demonstrates genuine chemical improvement, but only one of them
+demonstrates a defect in the validator itself.
 
 ## [E] Step 6 — ASTRAL target overlap: even more stark on exactly these targets
 
@@ -148,6 +174,6 @@ literature records recovered here.
 
 | question | answer |
 |---|---|
-| Do chemists avoid bare alkali oxides in practice? | **Yes, strongly (2.5% vs 60.0%; 0 instances among the 20 ASTRAL-overlap targets)** |
-| Is that avoidance justified by worse outcomes when bare oxides ARE used? | **Not confirmed (no significant impurity-rate difference, either pooled or target-matched)** |
+| Do chemists avoid bare alkali oxides in practice? | **Yes, strongly [C, confirmed] (2.5% vs 60.0%; 0 instances among the 20 ASTRAL-overlap targets)** |
+| Is that avoidance justified by worse outcomes when bare oxides ARE used? | **Prediction not supported [C] — no difference among *published* syntheses; does not settle unselected attempts (outcome-selection caveat)** |
 | Does the same divergence-from-practice pattern show up elsewhere? | **Yes — ammonium phosphate (real chemists' overwhelming choice, 10:1) is exactly what RS-SFT/GDPO moved away from, likely the same balance-solver bug** |
