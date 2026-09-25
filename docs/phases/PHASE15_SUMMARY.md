@@ -122,18 +122,32 @@ partly through the reasoning trace this probe cannot see.
 
 ---
 
-## Proposed `CLAUDE.md` additions — NOT APPLIED, for approval
+## `CLAUDE.md` additions — APPLIED 2026-09-25
 
-`CLAUDE.md` is read-only for this agent. The seven draft findings below are
-written in the same format as the existing numbered findings (headline bold
-statement, numbers inline, tables where the source has them) for
-regular-Claude's review. **Nothing below has been written into `CLAUDE.md`.**
-If approved, they would be appended after finding 19, renumbered 20–26 (or
-merged/trimmed at the approving editor's discretion — Phase 15 produced more
-granular sub-results than CLAUDE.md's existing findings typically carry, so
-some compression may be appropriate).
+**Reconciliation performed first, before applying anything.** The
+committed `CLAUDE.md` (verified in sync with `origin/main`, no divergence
+in git history, stash, or worktrees — searched exhaustively) ended at
+finding 19; it did not yet contain findings 20 (Phase 12 KL-estimator
+blowup) or 21 (Phase 12 pre-launch diagnostics) referenced from a separate
+local copy, nor any record of Phase 12's actual 14/35 AMPLIFIED result or
+Phase 13's stopping decision. Findings 20 and 21 were drafted here from
+`docs/phases/PHASE12_RESULTS.md` (which already documents both in full,
+and itself cross-references "finding 20" for the KL blowup, confirming
+that numbering). **Two gaps were found and filled**: neither the Phase 12
+14/35 result nor the Phase 13 stopping decision had a finding number
+anywhere — both are now finding 22 and finding 23 respectively.
 
-### Draft finding 20 — Phase 15: the bare-oxide/carbonate shift is real, larger than the ASTRAL metric, and correctly computed but wrong-construct
+The six Phase 15 findings below were then renumbered 24–29 to continue
+after 23. The seventh original draft ("Phase 15 is closed") was **moved
+into the Journey section as item 10, not applied as a finding** — it is a
+status/wrap-up statement, not a result. `CLAUDE.md` now also carries a
+one-line `STATUS: COMPLETE` note at the top of the `## PHASE 12 — GDPO
+FROM RS-SFT` section, pointing to finding 22, since that section's
+forward-looking planning language was stale (the run it describes already
+happened). **All of this has been written into `CLAUDE.md` and committed.**
+The text below is kept as the record of what was drafted and applied.
+
+### Finding 24 (applied) — Phase 15: the bare-oxide/carbonate shift is real, larger than the ASTRAL metric, and correctly computed but wrong-construct
 
 GDPO's largest distributional effect on ASTRAL generations is invisible to
 the headline hit-rate metric. Bare-alkali-oxide share climbs base 8.6% →
@@ -165,7 +179,7 @@ turns out not to be the construct that determines real synthesis success**
 channel for. Source: `docs/phases/PHASE15_DISTRIBUTIONAL.md`,
 `docs/phases/PHASE15_EXTERNAL.md`.
 
-### Draft finding 21 — Phase 15: two distinct precursor-shift mechanisms, only one a bug
+### Finding 25 (applied) — Phase 15: two distinct precursor-shift mechanisms, only one a bug
 
 GDPO's two largest precursor-class shifts on ASTRAL both move away from
 real chemist practice, but for unrelated reasons that should not be
@@ -178,11 +192,11 @@ the Phase 13 diagnosis. Real chemists prefer ammonium phosphate 10:1 over
 H₃PO₄+P₂O₅ (Lee et al., n=2,564 vs 263); RS-SFT/GDPO trained away from it
 for a software reason, not a chemistry one (share 23.8%→82.6%→4.9%→2.1%,
 base/SFT/RS-SFT/GDPO). (2) **Bare-oxide preference is not a bug** (see
-finding 20) — a real, correctly-computed thermodynamic quantity that simply
+finding 24) — a real, correctly-computed thermodynamic quantity that simply
 isn't what determines synthesis success. Source: `docs/phases/
 PHASE15_DISTRIBUTIONAL.md`, `docs/phases/PHASE15_EXTERNAL.md`.
 
-### Draft finding 22 — Phase 15: RS-SFT does not amplify its own training-set bias; GDPO does
+### Finding 26 (applied) — Phase 15: RS-SFT does not amplify its own training-set bias; GDPO does
 
 Correcting an earlier flawed measurement (which crossed prompt
 distributions): RS-SFT's ASTRAL-inference-time bare-oxide share (25.8%,
@@ -192,7 +206,7 @@ amplification between training composition and RS-SFT's own generation
 behavior. **The real amplification happens at the GDPO step**: RS-SFT-on-
 ASTRAL (25.8%) → GDPO-on-ASTRAL (56.9%) is a genuine ~2.2x further
 increase, driven by the within-group `thermodynamic_favorable` reward
-advantage (finding 20's z-gap of 1.29 SD), positive in every one of 5
+advantage (finding 24's z-gap of 1.29 SD), positive in every one of 5
 step-buckets across training (too few groups per bucket, 4–17, to confirm a
 growth trend). Solution-space analysis with a split-half noise-floor control
 confirms the real distributional shift happens at base→RS-SFT (Jaccard
@@ -202,7 +216,7 @@ own resampling noise — **GDPO redistributes probability mass within RS-SFT's
 existing support, it does not add qualitatively new solutions.** Source:
 `docs/phases/PHASE15_DISTRIBUTIONAL.md`.
 
-### Draft finding 23 — Phase 15: two independently pre-registered external verifier gates, neither beats a trivial baseline
+### Finding 27 (applied) — Phase 15: two independently pre-registered external verifier gates, neither beats a trivial baseline
 
 The validator and `core/comparator.py` were both tested against real,
 independent data outside the training loop, pre-registered before scoring.
@@ -240,7 +254,7 @@ GDPO-vote (ARROWS³, 61.6%, failed gate), comparator (ASTRAL 47–57%, ARROWS³
 a CI that excludes zero. Source: `docs/phases/PHASE15_ARROWS_RESULTS.md`,
 `docs/phases/PHASE15_ARROWS_INVENTORY.md`.
 
-### Draft finding 24 — Phase 15: policy-level teacher-forcing confirms the carbonate shift is class-based and yield-blind, with caveats
+### Finding 28 (applied) — Phase 15: policy-level teacher-forcing confirms the carbonate shift is class-based and yield-blind, with caveats
 
 Teacher-forcing exact log-probabilities (no sampling) of the precursor
 segment through base/RS-SFT/GDPO-300/full-SFT on 75 real ARROWS³ routes,
@@ -272,7 +286,7 @@ contrasts with its 19.1% carbonate share in real *sampled* generations
 reasoning trace this probe cannot see]. Source: `docs/phases/
 PHASE15_DOSE_RESULTS.md`.
 
-### Draft finding 25 — Phase 15: `precursors_exist` measures database coverage, not chemical soundness
+### Finding 29 (applied) — Phase 15: `precursors_exist` measures database coverage, not chemical soundness
 
 Auditing every ARROWS³ gate failure by category found zero notation/parsing
 failures (category b is empty) and that 100% of YBCO's 16 `precursors_exist`
@@ -290,15 +304,18 @@ invisibly excluded from `precursors_exist`-gated scoring for a database-
 completeness reason unrelated to real performance. Source: `docs/phases/
 PHASE15_ARROWS_RESULTS.md`.
 
-### Draft finding 26 — Phase 15 is closed
+### Moved to Journey, not applied as a finding — Phase 15 is closed
 
-Six of seven planned Phase 15 tasks completed (Task 6, Precursor Genome
-check, cancelled before any data was downloaded — future work only). The
-project's structural-limitation framing gains a second, independent
-confirmation this phase: the validator's dominant learnable signal
+This seventh original draft was a status/wrap-up statement, not a result,
+so it was not given a finding number. It is now **Journey item 10** in
+`CLAUDE.md`: six of seven planned Phase 15 tasks completed (Task 6,
+Precursor Genome check, cancelled before any data was downloaded — future
+work only); no further Phase 15 experiments are planned; full
+result-by-result breakdown pointed to this file. The project's
+structural-limitation framing gains a second, independent confirmation
+this phase: the validator's dominant learnable signal
 (`thermodynamic_favorable`) is a real, physically-correct quantity that
 diverges from real-world synthesis success — the Raccuglia et al.-style
 "verifier built only from successes" limitation named in `CLAUDE.md` is now
 directly demonstrated with external data, not just argued from first
-principles. No further Phase 15 experiments are planned; see
-`docs/phases/PHASE15_SUMMARY.md` for the complete result set.
+principles.
