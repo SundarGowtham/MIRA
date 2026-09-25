@@ -287,3 +287,37 @@ forks, not this single position.
 No changes were made to `validator.py`, `core/ranker.py`, or `core/comparator.py`.
 No new training run was launched. Task 6 (Precursor Genome check) remains
 cancelled for this paper, noted as future work only.
+
+## Limitation: every teacher-forced measurement conditions on an empty `<think>` block
+
+`FIXED_PREFIX = '<think>\n</think>\n{"precursors": '` means every log-probability
+and rank in this file — Q1–Q4, the descriptive summary, and the ASTRAL
+prompt-only probe — is conditioned on the model having produced **no**
+reasoning tokens before the JSON begins. This is not how the model is
+actually sampled at generation time (where a real, often long, reasoning
+trace precedes the JSON and can shift the distribution substantially).
+
+**Relative comparisons across checkpoints remain valid**: Q1/Q2/Q4's
+Δlog p terms and the ASTRAL rank comparisons hold the context identical
+(same empty `<think>` block) across base/RS-SFT/GDPO-300/full-SFT, so the
+*difference* isolates what changed in the checkpoint's weights, not what
+changed in a reasoning trace that was never generated. **Absolute ranks
+and log p values describe the model's answer distribution with reasoning
+skipped, not its actual generation behavior** — they should not be read
+as "what the model would produce" without that caveat.
+
+**This plausibly explains an apparent tension, flagged here as [E,
+untested], not resolved**: the ASTRAL prompt-only probe found GDPO-300
+places the traditional (carbonate) continuation at **rank 1** for all
+three non-identical targets (NaSrBO₃, BaLiBO₃, KLi(PO₃)₂) — yet Task 1's
+distributional analysis found GDPO's *actual sampled generations* on the
+full 35-target ASTRAL set carry only a **19.1% carbonate share**
+(`docs/phases/PHASE15_DISTRIBUTIONAL.md`, finding 4), the lowest of any
+checkpoint. One candidate explanation, consistent with both numbers but
+not established by anything measured here: **the carbonate-avoiding shift
+is expressed partly through the reasoning trace** — real generations may
+reason their way from the carbonate-favoring prior seen here toward a
+bare-oxide choice by the time the JSON is emitted, a path this empty-think
+probe cannot see by construction. This is a hypothesis for future work,
+not a finding — testing it would require teacher-forcing (or generating)
+through a real reasoning trace, which this task did not do.
