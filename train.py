@@ -21,23 +21,34 @@ from pathlib import Path
 from experiments import EXPERIMENTS
 
 
-def _assert_main_environment() -> None:
+def _assert_expected_environment(use_vllm: str) -> None:
     """Environment guard (Phase 16, "Decisions after pass 2", the
     mis-install correction: `uv pip install` honored this machine's
     auto-activated VIRTUAL_ENV over UV_PROJECT_ENVIRONMENT and briefly
-    installed vllm/torch into this frozen environment -- see
-    docs/phases/PHASE16_RESULTS.md). train.py has no vLLM-aware code
-    path yet, so its only valid environment is the main project .venv;
-    refuse to run anywhere else rather than silently drift, e.g. if
-    invoked via mira-vllm's python by mistake."""
-    expected = (Path(__file__).resolve().parent / ".venv").resolve()
+    installed vllm/torch into the frozen main environment -- see
+    docs/phases/PHASE16_RESULTS.md). --use-vllm off (default, Phase 12
+    behaviour) requires the main project .venv -- vLLM must never be
+    installed there (rule 7). --use-vllm auto/on requires mira-vllm,
+    the only environment vLLM is installed in. Either way, refuse to
+    run in the wrong one rather than silently drift."""
+    main_env = (Path(__file__).resolve().parent / ".venv").resolve()
+    vllm_env = (Path.home() / "envs" / "mira-vllm").resolve()
     actual = Path(sys.prefix).resolve()
-    if actual != expected:
-        raise RuntimeError(
-            f"train.py refuses to run outside the main project environment. "
-            f"Expected sys.prefix={expected}, got {actual}. If this is "
-            f"intentional (e.g. a future --use-vllm path), update this guard "
-            f"deliberately -- do not silently remove it.")
+    if use_vllm == "off":
+        if actual != main_env:
+            raise RuntimeError(
+                f"train.py --use-vllm off refuses to run outside the main "
+                f"project environment. Expected sys.prefix={main_env}, got "
+                f"{actual}.")
+    else:
+        if actual != vllm_env:
+            raise RuntimeError(
+                f"train.py --use-vllm {use_vllm} refuses to run outside "
+                f"mira-vllm (the only environment vLLM is installed in, "
+                f"per rule 7 -- it must never be installed in the main "
+                f"project env). Expected sys.prefix={vllm_env}, got {actual}. "
+                f"Invoke with `source ~/envs/mira-vllm/bin/activate && "
+                f"python train.py ...`.")
 
 
 def parse_args():
@@ -101,14 +112,35 @@ def parse_args():
                         "enables the ammonium-balance fix in "
                         "validator.py::_find_balanced_reaction (Phase 16 "
                         "§2.4.3). All Phase 16 arms use 2.")
+    p.add_argument("--use-vllm", choices=["off", "auto", "on"], default="off",
+                   help="GRPO/GDPO only (Phase 16 §2.2): off (default) is "
+                        "Phase 12 behaviour exactly (HF generate). auto "
+                        "tries vLLM (requires `import vllm` to succeed and "
+                        "an Ampere-or-newer GPU) and falls back to HF "
+                        "generate with one loud log line if not. on fails "
+                        "loudly instead of falling back. Record the backend "
+                        "actually used as generation_backend in W&B.")
+    p.add_argument("--vllm-mode", choices=["colocate", "server"], default="colocate",
+                   help="GRPO/GDPO + --use-vllm only: colocate (default) "
+                        "shares the training GPU with sleep mode enabled. "
+                        "server expects --vllm-server-host/--vllm-server-port "
+                        "to point at a separately-launched vLLM server "
+                        "(two-GPU setup).")
+    p.add_argument("--vllm-gpu-memory-utilization", type=float, default=None,
+                   help="GRPO/GDPO + --use-vllm colocate only. Default "
+                        "(None) lets experiments/grpo.py pick a config-"
+                        "appropriate value -- measure peak memory in the "
+                        "§5 benchmark before overriding, do not guess.")
+    p.add_argument("--vllm-server-host", default="0.0.0.0")
+    p.add_argument("--vllm-server-port", type=int, default=8000)
 
 
     return p.parse_args()
 
 
 def main():
-    _assert_main_environment()
     args = parse_args()
+    _assert_expected_environment(args.use_vllm)
     cls = EXPERIMENTS[args.experiment]
     experiment = cls(args)
     experiment.run()

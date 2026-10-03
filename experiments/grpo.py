@@ -11,6 +11,34 @@ from core.observability import EvalModeGuard, GradientStatsCallback
 from validator import VALIDATOR_VERSION
 
 
+def resolve_generation_backend(use_vllm: str) -> str:
+    """Phase 16 §2.2. use_vllm is one of {"off","auto","on"} (train.py's
+    --use-vllm, default "off" = Phase 12 behaviour exactly). Returns
+    "hf" or "vllm". "auto" falls back to "hf" with one loud log line if
+    vllm isn't importable or the GPU is pre-Ampere (bf16 needs compute
+    capability >= 8.0). "on" raises instead of falling back -- callers
+    asking explicitly for vLLM do not want a silent downgrade."""
+    if use_vllm == "off":
+        return "hf"
+    try:
+        import vllm  # noqa: F401
+        vllm_available = True
+    except ImportError:
+        vllm_available = False
+    import torch
+    gpu_ok = torch.cuda.is_available() and torch.cuda.get_device_capability() >= (8, 0)
+    if vllm_available and gpu_ok:
+        return "vllm"
+    if use_vllm == "on":
+        raise RuntimeError(
+            f"--use-vllm on requested but vLLM is unavailable "
+            f"(vllm_available={vllm_available}) or the GPU is pre-Ampere "
+            f"(gpu_ok={gpu_ok}). Refusing to fall back silently.")
+    print(f"[generation_backend] --use-vllm auto: vllm_available={vllm_available} "
+          f"gpu_ok={gpu_ok} -- FALLING BACK TO HF GENERATE.", flush=True)
+    return "hf"
+
+
 class GRPOExperiment(Experiment):
     name = "grpo"
 
@@ -61,6 +89,8 @@ class GRPOExperiment(Experiment):
             self.args, "reward_aggregation", "normalize_then_sum")
         scorer = getattr(self.args, "scorer", "validator")
         save_steps = getattr(self.args, "save_steps", None) or 100
+        use_vllm_mode = getattr(self.args, "use_vllm", None) or "off"
+        generation_backend = resolve_generation_backend(use_vllm_mode)
         wandb_extra = {
             **h, "data_prefix": self.data_prefix,
             "reward_aggregation": reward_aggregation,
@@ -68,7 +98,13 @@ class GRPOExperiment(Experiment):
             "validator_version": VALIDATOR_VERSION,
             "validator_scoring_version": getattr(self.args, "validator_version", None) or 1,
             "save_steps": save_steps,
+            "use_vllm_requested": use_vllm_mode,
+            "generation_backend": generation_backend,
         }
+        if generation_backend == "vllm":
+            wandb_extra["vllm_mode"] = getattr(self.args, "vllm_mode", None) or "colocate"
+            wandb_extra["vllm_importance_sampling_correction"] = True
+            wandb_extra["adapter"] = self.cfg.adapter
         if scorer == "ranker":
             from core.ranker import RANKER_VERSION
             wandb_extra["ranker_version"] = RANKER_VERSION
@@ -159,6 +195,33 @@ class GRPOExperiment(Experiment):
         print(f"[{self.run_name}] scorer={scorer} reward funcs: {reward_names} "
               f"(aggregation={reward_aggregation})")
 
+        # Phase 16 §2.2: vLLM-specific GRPOConfig fields, built separately
+        # so the "off" path (default, generation_backend=="hf") passes
+        # NOTHING extra and is byte-for-byte Phase 12 behaviour (rule 4).
+        # TRL's own HF-path continuous batching (use_transformers_continuous_
+        # batching) is an HF-generate-specific optimization; disabled when
+        # vLLM is doing generation instead, since vLLM has its own
+        # continuous batching and this combination is untested.
+        vllm_kwargs: dict = {}
+        if generation_backend == "vllm":
+            vllm_kwargs = dict(
+                use_vllm=True,
+                vllm_mode=getattr(self.args, "vllm_mode", None) or "colocate",
+                vllm_importance_sampling_correction=True,
+            )
+            vmu = getattr(self.args, "vllm_gpu_memory_utilization", None)
+            if vmu is not None:
+                vllm_kwargs["vllm_gpu_memory_utilization"] = vmu
+            # >= effective prompt length + 8192 (rule, §2.2). The actual
+            # effective prompt length is the §2.3 parity check's job to
+            # measure precisely; h["max_prompt_len"] is the configured
+            # upper bound already in these hyperparams, so this is a safe
+            # value, not a guess below the true effective length.
+            vllm_kwargs["vllm_max_model_length"] = h["max_prompt_len"] + h["max_completion_len"]
+            if vllm_kwargs["vllm_mode"] == "server":
+                vllm_kwargs["vllm_server_host"] = getattr(self.args, "vllm_server_host", None) or "0.0.0.0"
+                vllm_kwargs["vllm_server_port"] = getattr(self.args, "vllm_server_port", None) or 8000
+
         grpo_config = GRPOConfig(
             output_dir=str(self.output_dir),
             num_train_epochs=h["epochs"],
@@ -187,7 +250,8 @@ class GRPOExperiment(Experiment):
             # Lockstep generate() lets the slowest (clipped, 6.1k-token)
             # completion gate every batch — dominant cost at ~900s/step.
             # Continuous batching retires finished sequences early.
-            use_transformers_continuous_batching=True,
+            # (HF-path only -- see vllm_kwargs above when backend=="vllm".)
+            use_transformers_continuous_batching=(generation_backend != "vllm"),
             transformers_continuous_batching_config={
                 "use_cuda_graph": False,
                 "max_memory_percent": 0.4,
@@ -215,6 +279,7 @@ class GRPOExperiment(Experiment):
             seed=self.cfg.seed,
             optim="adamw_8bit",
             remove_unused_columns=False,
+            **vllm_kwargs,
         )
 
         trainer = GRPOTrainer(

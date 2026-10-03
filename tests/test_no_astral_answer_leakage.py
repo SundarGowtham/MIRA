@@ -52,24 +52,45 @@ def check(name, cond, detail=""):
 
 
 ASTRAL_PATH_MARKERS = ("astral_validation_set.json", "astral_validation_set")
+# What rule 1 actually forbids is reading ASTRAL's ANSWERS (its precursor
+# sets) or its five precursor-selection principles -- not reading the file
+# at all. §6.1 explicitly requires reading it to get target FORMULAS so
+# they can be EXCLUDED from training, and the Phase 16 sampling session
+# explicitly requires it to draw EVALUATION (not training) reference
+# samples on ASTRAL's targets. Both are legitimate, instructed uses. A
+# file that references the ASTRAL path is only a real violation if it
+# ALSO accesses one of these forbidden fields -- the actual precursor
+# answers or stated principles, not just target names.
+FORBIDDEN_ASTRAL_FIELDS = ("traditional", "predicted", "precursor_selection_principles",
+                           "novel_precursors_absent_from_literature_corpus")
 
 
 def scan_source_for_astral_paths(directory: Path) -> list[str]:
+    """Per-file: a hit requires BOTH a real (non-comment, non-docstring)
+    reference to the ASTRAL path AND a reference to one of the forbidden
+    answer/principle fields somewhere in that same file."""
     hits = []
     for path in sorted(directory.rglob("*.py")):
         if "__pycache__" in path.parts:
             continue
         in_docstring = False
+        path_lines, forbidden_lines = [], []
         for lineno, line in enumerate(path.read_text(errors="replace").splitlines(), start=1):
             stripped = line.strip()
             triple_count = stripped.count('"""') + stripped.count("'''")
-            marker_hit = any(marker in line.lower() for marker in ASTRAL_PATH_MARKERS)
             is_comment = stripped.startswith("#")
             currently_in_docstring = in_docstring
             if triple_count % 2 == 1:
                 in_docstring = not in_docstring
-            if marker_hit and not is_comment and not currently_in_docstring:
-                hits.append(f"{path.relative_to(REPO_ROOT)}:{lineno}: {line.strip()}")
+            if is_comment or currently_in_docstring:
+                continue
+            if any(marker in line.lower() for marker in ASTRAL_PATH_MARKERS):
+                path_lines.append((lineno, line.strip()))
+            if any(field in line for field in FORBIDDEN_ASTRAL_FIELDS):
+                forbidden_lines.append((lineno, line.strip()))
+        if path_lines and forbidden_lines:
+            for lineno, text in path_lines + forbidden_lines:
+                hits.append(f"{path.relative_to(REPO_ROOT)}:{lineno}: {text}")
     return hits
 
 
