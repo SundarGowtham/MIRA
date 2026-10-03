@@ -1,0 +1,204 @@
+{
+ "rs_sft": {
+  "n_total_samples": 1120,
+  "n_balances_under_v1": 965,
+  "n_balances_under_v2": 990,
+  "pct_balances_v1": 86.16,
+  "pct_balances_v2": 88.39,
+  "n_flipped_v1_fail_v2_pass": 25,
+  "pct_flipped": 2.23,
+  "flipped_examples": [
+   {
+    "target": "LiZnPO4",
+    "precursors": [
+     "Li2CO3",
+     "PH6NO4",
+     "ZnO"
+    ],
+    "max_T": 800.0
+   },
+   {
+    "target": "LiZnPO4",
+    "precursors": [
+     "LiHO",
+     "PH12N3O4",
+     "ZnO"
+    ],
+    "max_T": 900.0
+   },
+   {
+    "target": "Li3Sc2(PO4)3",
+    "precursors": [
+     "Li2CO3",
+     "PH12N3O4",
+     "Sc2O3"
+    ],
+    "max_T": 1050.0
+   },
+   {
+    "target": "Li3Sc2(PO4)3",
+    "precursors": [
+     "Li2CO3",
+     "PH12N3O4",
+     "Sc2O3"
+    ],
+    "max_T": 1050.0
+   },
+   {
+    "target": "Li3Sc2(PO4)3",
+    "precursors": [
+     "Li2CO3",
+     "PH12N3O4",
+     "Sc2O3"
+    ],
+    "max_T": 950.0
+   },
+   {
+    "target": "Li3V2(PO4)3",
+    "precursors": [
+     "Li2CO3",
+     "PH12N3O4",
+     "V2O3"
+    ],
+    "max_T": 850.0
+   },
+   {
+    "target": "Li3Fe2(PO4)3",
+    "precursors": [
+     "Fe2O3",
+     "LiHO",
+     "PH12N3O4"
+    ],
+    "max_T": 750.0
+   },
+   {
+    "target": "Li3Fe2(PO4)3",
+    "precursors": [
+     "Fe2O3",
+     "Li2CO3",
+     "PH12N3O4"
+    ],
+    "max_T": 1050.0
+   },
+   {
+    "target": "Li3Fe2(PO4)3",
+    "precursors": [
+     "Fe2O3",
+     "LiHO",
+     "PH12N3O4"
+    ],
+    "max_T": 700.0
+   },
+   {
+    "target": "KBaPO4",
+    "precursors": [
+     "BaCO3",
+     "K2CO3",
+     "PH12N3O4"
+    ],
+    "max_T": 850.0
+   }
+  ]
+ },
+ "gdpo_phase12_beta0": {
+  "n_total_samples": 1120,
+  "n_balances_under_v1": 1002,
+  "n_balances_under_v2": 1014,
+  "pct_balances_v1": 89.46,
+  "pct_balances_v2": 90.54,
+  "n_flipped_v1_fail_v2_pass": 12,
+  "pct_flipped": 1.07,
+  "flipped_examples": [
+   {
+    "target": "LiZnPO4",
+    "precursors": [
+     "Li2CO3",
+     "PH12N3O4",
+     "ZnO"
+    ],
+    "max_T": 800.0
+   },
+   {
+    "target": "LiZnPO4",
+    "precursors": [
+     "LiHO",
+     "PH6NO4",
+     "ZnO"
+    ],
+    "max_T": 800.0
+   },
+   {
+    "target": "LiMgPO4",
+    "precursors": [
+     "Li2CO3",
+     "MgO",
+     "PH6NO4"
+    ],
+    "max_T": 650.0
+   },
+   {
+    "target": "Li3Sc2(PO4)3",
+    "precursors": [
+     "Li2CO3",
+     "PH9(NO2)2",
+     "Sc2O3"
+    ],
+    "max_T": 1050.0
+   },
+   {
+    "target": "Li3Sc2(PO4)3",
+    "precursors": [
+     "Li2CO3",
+     "PH9(NO2)2",
+     "Sc2O3"
+    ],
+    "max_T": 800.0
+   },
+   {
+    "target": "Li3V2(PO4)3",
+    "precursors": [
+     "Li2CO3",
+     "PH12N3O4",
+     "V2O3"
+    ],
+    "max_T": 850.0
+   },
+   {
+    "target": "Li3Fe2(PO4)3",
+    "precursors": [
+     "Fe2O3",
+     "Li2CO3",
+     "PH12N3O4"
+    ],
+    "max_T": 1050.0
+   },
+   {
+    "target": "K3Bi2(PO4)3",
+    "precursors": [
+     "Bi2O3",
+     "K2CO3",
+     "PH6NO4"
+    ],
+    "max_T": 1050.0
+   },
+   {
+    "target": "K2Zr(PO4)2",
+    "precursors": [
+     "K2CO3",
+     "PH9(NO2)2",
+     "ZrO2"
+    ],
+    "max_T": 1000.0
+   },
+   {
+    "target": "K2Zr(PO4)2",
+    "precursors": [
+     "K2CO3",
+     "PH9(NO2)2",
+     "ZrO2"
+    ],
+    "max_T": 1100.0
+   }
+  ]
+ }
+}

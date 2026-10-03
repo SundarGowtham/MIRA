@@ -43,7 +43,7 @@ from validator import (
     RXN_ENERGY_BORDERLINE,
 )
 
-RANKER_VERSION = "2026-09-03-v2-phase11"
+RANKER_VERSION = "2026-10-03-v3-phase16"
 
 GATE_NAMES = [
     "balances", "precursors_exist", "charge_neutral", "format_ok",
@@ -82,9 +82,17 @@ GATE_NAMES = [
 # anywhere in this project -- finding 15).
 OBJECTIVE_NAMES = [
     "temperature_economy", "driving_force_margin", "volatility_risk",
-    "precursor_instability", "inverse_hull_energy", "n_precursors",
+    "precursor_instability", "n_precursors",
     "slice_competing_phases", "precursor_decomposition_match",
 ]
+# inverse_hull_energy REMOVED from the active reward (Phase 16 §2.4.2,
+# misc/PHASE16_INSTRUCTIONS.md): it is a property of the TARGET's own PD
+# entry, not the declared precursor set (see its own docstring), so it is
+# constant within a GRPO group by construction -- the same prompt-determined
+# failure mode that killed phase_purity and the validator's target_stability.
+# `_inverse_hull_energy` is kept (still computed, still logged as
+# `inverse_hull_energy_INACTIVE` for analysis) but excluded from scoring --
+# same pattern as `_phase_purity` above.
 # phase_purity REMOVED from the active reward (misc/some_claude_files/
 # ranker_fixes_instructions.md step 2, 2026-08-30): the capacity probe
 # (misc/ranker_capacity_probe.json) showed it 100% zero-std -- it counts
@@ -329,7 +337,9 @@ class Ranker:
         # pick scales from the actual raw distribution instead of guessing.
         obj["precursor_instability"], info["precursor_instability_raw_mean_eah"] = \
             self._precursor_instability(predicted, target_formula)
-        obj["inverse_hull_energy"], info["inverse_hull_energy_raw_e_eq"] = \
+        # inverse_hull_energy: computed and logged (diagnostic only) but NOT
+        # added to `obj` -- see the OBJECTIVE_NAMES module note above.
+        info["inverse_hull_energy_INACTIVE"], info["inverse_hull_energy_raw_e_eq"] = \
             self._inverse_hull_energy(predicted, target_formula)
         obj["n_precursors"], info["n_precursors_raw_n"] = self._n_precursors(predicted)
         obj["slice_competing_phases"], info["slice_competing_phases_raw_n_competing"] = \

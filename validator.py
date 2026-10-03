@@ -212,7 +212,7 @@ HEATING_OP_TYPES = frozenset({
 # configs so a score can never be attributed to the wrong validator
 # version (the 0.285 -> 0.853 regrade whiplash must stay impossible
 # to misread). Bump on any scoring-behavior change.
-VALIDATOR_VERSION = "2026-07-30-noneprop+hydrate+gasuptake+atmtokens"
+VALIDATOR_VERSION = "2026-10-03-noneprop+hydrate+gasuptake+atmtokens+nh3nitrogengate"
 
 TEMP_MIN = 100.0
 TEMP_MAX = 2000.0
@@ -655,12 +655,23 @@ class SynthesisValidator:
         self,
         mp_formula_set: set[str],
         thermo_checker: Optional[ThermoChecker] = None,
+        validator_version: int = 1,
     ):
         self.mp_formula_set = {self._normalize_formula(f) for f in mp_formula_set}
         self.thermo_checker = thermo_checker
         self.weights = (
             WEIGHTS_THERMO if thermo_checker is not None else WEIGHTS_LIGHT
         )
+        # validator_version: 1 (default) reproduces every prior run's
+        # scoring behaviour exactly. 2 enables the ammonium-balance fix in
+        # _find_balanced_reaction (Phase 16 §2.4.3, misc/
+        # PHASE16_INSTRUCTIONS.md; diagnosed as Phase 15 finding 29 /
+        # docs/phases/PHASE15_ARROWS_RESULTS.md). Any future
+        # scoring-behaviour change gated by validator_version should land
+        # here, not as a new ad hoc flag.
+        if validator_version not in (1, 2):
+            raise ValueError(f"validator_version must be 1 or 2, got {validator_version}")
+        self.validator_version = validator_version
 
     # Gradeability tags that mean "this check could not be computed" — as
     # opposed to a genuinely computed mid-band 0.5. validate() excludes
@@ -804,8 +815,23 @@ class SynthesisValidator:
             ["H2O"],                     # hydrate routes
             ["O2"],                      # redox routes
             ["CO2", "H2O", "O2"],        # full common set
-            VOLATILE_FORMULAS,           # everything
         ]
+        if self.validator_version >= 2:
+            # Ammonium-balance fix (Phase 16 §2.4.3): NH3 previously only
+            # ever appeared bundled with N2, in the "everything" set
+            # below. An ammonium-salt route whose correct balance
+            # releases NH3 WITHOUT N2 (e.g. NH4H2PO4 -> HPO3 + NH3 + H2O)
+            # could never find a valid balance under any prior candidate
+            # and failed stoichiometry/amount_accuracy for a software
+            # reason, not a chemistry one (Phase 15 finding 29). Inserted
+            # before the catch-all "everything" set, keeping this
+            # function's own minimal-set-first search order.
+            candidate_volatile_sets += [
+                ["NH3"],
+                ["NH3", "H2O"],
+                ["CO2", "H2O", "O2", "NH3"],
+            ]
+        candidate_volatile_sets.append(VOLATILE_FORMULAS)   # everything
 
         for volatile_strs in candidate_volatile_sets:
             volatile_set = [Composition(v) for v in volatile_strs]

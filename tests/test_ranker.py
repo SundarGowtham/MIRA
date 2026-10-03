@@ -220,6 +220,9 @@ check("driving_force_margin_gradeability present",
       "driving_force_margin_gradeability" in info)
 check("phase_purity excluded from OBJECTIVE_NAMES but still logged inactive",
       "phase_purity" not in OBJECTIVE_NAMES and "phase_purity_INACTIVE" in info)
+check("inverse_hull_energy excluded from OBJECTIVE_NAMES but still logged inactive "
+      "(Phase 16 2.4.2: constant within a GRPO group by construction)",
+      "inverse_hull_energy" not in OBJECTIVE_NAMES and "inverse_hull_energy_INACTIVE" in info)
 print(f"    (BaTiO3 reward={reward:.3f}  "
       f"dfm={info.get('driving_force_margin')}  "
       f"phase_purity_INACTIVE={info.get('phase_purity_INACTIVE')}  "

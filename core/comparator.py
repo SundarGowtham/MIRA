@@ -80,7 +80,7 @@ from core.ranker import (
     _route_max_T,
 )
 
-COMPARATOR_VERSION = "2026-09-18-v2-phase13-iteration2"
+COMPARATOR_VERSION = "2026-10-03-v3-phase16-c3c6fix"
 
 DIAGNOSTIC_CHANNEL_NAMES = [
     "C1_selectivity_margin",
@@ -241,19 +241,27 @@ def melt_point_k(formula: str) -> Optional[float]:
 
 def _species_ceiling_candidates_k(formula: str) -> list[float]:
     """Every known upper-bound temperature (Kelvin) for one species: its
-    own melting point, its decomposition onset (PRECURSOR_DECOMP_T, if the
-    formula happens to be one of those salts), and the volatilization
-    onset of any volatile element (VOLATILE_T) present in its composition.
-    T_high (see _c3) is the min across every species' candidates -- the
-    single most restrictive ceiling wins, which is what "first loss
-    mechanism to trigger" means physically."""
+    own melting point and the volatilization onset of any volatile element
+    (VOLATILE_T) present in its composition. T_high (see _c3) is the min
+    across every species' candidates -- the single most restrictive
+    ceiling wins, which is what "first loss mechanism to trigger" means
+    physically.
+
+    Precursor decomposition onset (PRECURSOR_DECOMP_T) is deliberately NOT
+    included here (Phase 16 §2.4.1, misc/PHASE16_INSTRUCTIONS.md): C6
+    (`_c6`) already scores decomposition clearance and rewards heating
+    ABOVE a precursor's decomposition onset (that is the whole point of a
+    carbonate/nitrate route -- the precursor is SUPPOSED to decompose
+    before the target forms); if C3 also used decomposition as a ceiling,
+    it would penalize exactly the temperatures C6 rewards for the same
+    precursor, two channels fighting over one boundary in opposite
+    directions. Melting points and volatilization are genuine failure
+    modes C6 does not cover (melting/subliming away, not decomposing into
+    the target), so they stay."""
     out: list[float] = []
     m = melt_point_k(formula)
     if m is not None:
         out.append(m)
-    d = PRECURSOR_DECOMP_T.get(SynthesisValidator._normalize_formula(formula))
-    if d is not None:
-        out.append(_c_to_k(d))
     try:
         elements = {str(e) for e in Composition(formula).elements}
     except Exception:
@@ -508,9 +516,11 @@ class Comparator:
         with no known T_melt are skipped, not treated as blocking --
         None only if NO precursor has a known melting point at all.
         T_high = min over {every precursor, the target} of
-        {T_melt, T_decomp if tabulated, T_volat if any volatile element is
-        present} (Kelvin) -- the single most restrictive ceiling from any
-        species/mechanism wins. None if nothing at all is known.
+        {T_melt, T_volat if any volatile element is present} (Kelvin) --
+        the single most restrictive ceiling from any species/mechanism
+        wins. Decomposition onset is deliberately excluded here (Phase 16
+        §2.4.1) -- see `_species_ceiling_candidates_k`'s docstring; that
+        boundary belongs to C6 only. None if nothing at all is known.
 
         Score = -(delta_low/w_low)^2 - (delta_high/w_high)^2, zero inside
         the window. w_low/w_high are either the flat 100 K original design

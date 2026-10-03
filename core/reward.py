@@ -259,7 +259,7 @@ def parse_completion(text: str, target_formula: str) -> PredictedRoute:
 
 
 def load_validator(formula_set_path: Path, pd_index_path: Path | None = None,
-                   project_root: Path | None = None):
+                   project_root: Path | None = None, validator_version: int = 1):
     """
     formula_set_path: data/cache/mp_formula_set.pkl
     pd_index_path:    data/cache/pd_index.json  (maps chemsys -> shard filename,
@@ -281,7 +281,8 @@ def load_validator(formula_set_path: Path, pd_index_path: Path | None = None,
         root = project_root or pd_index_path.parent
         thermo = ThermoChecker.from_sharded_cache(pd_index_path, root)
 
-    return SynthesisValidator(formula_set, thermo_checker=thermo)
+    return SynthesisValidator(formula_set, thermo_checker=thermo,
+                              validator_version=validator_version)
 
 
 def make_reward_fn(validator: SynthesisValidator, verbose: bool = False):

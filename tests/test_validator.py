@@ -108,6 +108,30 @@ nonsense = route("LiFePO4", [("K2CO3", 1.0)], ops=[op("calcine", temp=700)])
 check("chemically impossible route fails",
       LIGHT_VALIDATOR._check_stoichiometry(nonsense) == 0.0)
 
+print("== validator_version 2: ammonium balance fix (Phase 16 §2.4.3) ==")
+# 2 NH4H2PO4 + Li2CO3 -> 2 LiPO3 + 2 NH3 + 3 H2O + CO2 -- a real balanced
+# reaction whose only volatile products are NH3/H2O/CO2, with NO N2
+# anywhere. v1's candidate_volatile_sets never offers NH3 without N2
+# bundled in (only the "everything" set has NH3, and only together with
+# N2), so this real reaction cannot balance under v1. Verified by direct
+# execution before writing this test, not assumed.
+ammonium_phosphate = route("LiPO3", [("NH4H2PO4", 2.0), ("Li2CO3", 1.0)],
+                           ops=[op("calcine", temp=600)])
+LIGHT_VALIDATOR_V2 = SynthesisValidator(mp_formula_set=set(), thermo_checker=None,
+                                        validator_version=2)
+check("v1 (default): ammonium-phosphate route fails to balance (the bug)",
+      LIGHT_VALIDATOR._check_stoichiometry(ammonium_phosphate) == 0.0)
+check("v2: the same route balances once NH3-without-N2 is a candidate",
+      LIGHT_VALIDATOR_V2._check_stoichiometry(ammonium_phosphate) == 1.0)
+check("v1 behaviour is exactly reproduced (regression safety)",
+      LIGHT_VALIDATOR.validator_version == 1)
+try:
+    SynthesisValidator(mp_formula_set=set(), validator_version=3)
+    invalid_version_rejected = False
+except ValueError:
+    invalid_version_rejected = True
+check("invalid validator_version is rejected", invalid_version_rejected)
+
 print("== sentinel exclusion (None-propagation in validate()) ==")
 reward, bd = LIGHT_VALIDATOR.validate(nonsense, "LiFePO4")
 check("impossible route's amount_accuracy tagged no_balance_found",

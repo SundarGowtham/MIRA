@@ -71,6 +71,16 @@ def parse_args():
                         "RANKER_SPEC.md). The verifier is the only thing this "
                         "flag should change -- everything else (beta, lr, G, "
                         "data pipeline) stays identical between arms.")
+    p.add_argument("--save-steps", type=int, default=None,
+                   help="GRPO only: checkpoint save interval. Default 100 "
+                        "(Phase 12 behaviour, experiments/grpo.py). Cloud runs "
+                        "use 10 (Phase 16, more frequent B2 sync points).")
+    p.add_argument("--validator-version", type=int, choices=[1, 2], default=1,
+                   help="GRPO/GDPO only (validator scorer): 1 (default) "
+                        "reproduces every prior run's scoring exactly. 2 "
+                        "enables the ammonium-balance fix in "
+                        "validator.py::_find_balanced_reaction (Phase 16 "
+                        "§2.4.3). All Phase 16 arms use 2.")
 
 
     return p.parse_args()

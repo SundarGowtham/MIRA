@@ -60,11 +60,14 @@ class GRPOExperiment(Experiment):
         reward_aggregation = getattr(
             self.args, "reward_aggregation", "normalize_then_sum")
         scorer = getattr(self.args, "scorer", "validator")
+        save_steps = getattr(self.args, "save_steps", None) or 100
         wandb_extra = {
             **h, "data_prefix": self.data_prefix,
             "reward_aggregation": reward_aggregation,
             "scorer": scorer,
             "validator_version": VALIDATOR_VERSION,
+            "validator_scoring_version": getattr(self.args, "validator_version", None) or 1,
+            "save_steps": save_steps,
         }
         if scorer == "ranker":
             from core.ranker import RANKER_VERSION
@@ -149,6 +152,7 @@ class GRPOExperiment(Experiment):
                 formula_set_path=Path("data/cache/mp_formula_set.pkl"),
                 pd_index_path=Path("data/cache/pd_index.json"),
                 project_root=Path("."),
+                validator_version=getattr(self.args, "validator_version", None) or 1,
             )
             reward_funcs, reward_names, reward_weights = make_check_reward_fns(
                 validator, dump_path=dump_path, target_strata=target_strata)
@@ -168,7 +172,7 @@ class GRPOExperiment(Experiment):
             logging_steps=5 if self.cfg.smoke else 25,
             # save_strategy="epoch",
             save_strategy="steps",
-            save_steps=100,
+            save_steps=save_steps,
             save_total_limit=3,
             # save_total_limit=2,
             bf16=not self.cfg.smoke,

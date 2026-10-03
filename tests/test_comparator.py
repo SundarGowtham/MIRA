@@ -31,6 +31,8 @@ from core.comparator import (  # noqa: E402
     Comparator,
     ComparatorParams,
     load_comparator,
+    _c_to_k,
+    _species_ceiling_candidates_k,
 )
 
 FAILURES = []
@@ -172,6 +174,48 @@ def test_c3_temperature_window_sign():
           f"{sa['C3_reactive_temperature_window']} vs {sb['C3_reactive_temperature_window']}")
 
 
+def test_c3_c6_no_longer_contradict_on_decomposition():
+    # Phase 16 §2.4.1 (misc/PHASE16_INSTRUCTIONS.md): C3's ceiling used to
+    # include each precursor's decomposition onset (PRECURSOR_DECOMP_T),
+    # which penalised heating ABOVE decomposition -- exactly the direction
+    # C6 (_c6) REWARDS, since a carbonate/nitrate precursor is *supposed*
+    # to decompose before the target forms. Fix: C3's ceiling candidates
+    # are melting point and volatilization onset only.
+    #
+    # Honest caveat, not glossed over: Li2CO3's own melting point (996.0 K
+    # = 722.85 C) and its decomposition onset (720.0 C = 993.15 K) are only
+    # ~3 K apart -- the comparator's own table comment notes Li2CO3
+    # "reports a temperature where decomposition and melting are
+    # concurrent, not a clean solid->liquid transition." So a route at
+    # 800 C still exceeds BOTH ceilings either way and this test cannot
+    # show "no penalty at all" at that temperature (the instructions'
+    # literal example does not survive contact with the real data table).
+    # What IS directly checkable, and is the actual claim being fixed: the
+    # decomposition value (993.15 K) is no longer among Li2CO3's ceiling
+    # candidates at all; only the melting-point value (996.0 K) is.
+    candidates = _species_ceiling_candidates_k("Li2CO3")
+    decomp_k = _c_to_k(720.0)
+    melt_k = 996.0
+    check("Li2CO3 ceiling candidates no longer include its decomposition onset (720 C)",
+          not any(abs(c - decomp_k) < 0.5 for c in candidates), str(candidates))
+    check("Li2CO3 ceiling candidates still include its melting point (996.0 K)",
+          any(abs(c - melt_k) < 0.5 for c in candidates), str(candidates))
+
+    # C6 is unaffected by the C3 fix: it still rewards clearance above the
+    # decomposition onset on its own 40 K sigmoid width, independent of C3.
+    high_t = route("Li2TiO3", [("Li2CO3", 1.0), ("TiO2", 1.0)],
+                   [op("HeatingOperation", temp=800.0)])
+    low_t = route("Li2TiO3", [("Li2CO3", 1.0), ("TiO2", 1.0)],
+                  [op("HeatingOperation", temp=650.0)])
+    sa = COMPARATOR.score_channels(high_t, "Li2TiO3")
+    sb = COMPARATOR.score_channels(low_t, "Li2TiO3")
+    check("C6: still rewards clearance above Li2CO3's 720 C decomposition onset",
+          sa["C6_decomposition_clearance"] is not None
+          and sb["C6_decomposition_clearance"] is not None
+          and sa["C6_decomposition_clearance"] > sb["C6_decomposition_clearance"],
+          f"800C={sa['C6_decomposition_clearance']} 650C={sb['C6_decomposition_clearance']}")
+
+
 def test_c7_gas_evolution_sign():
     # Carbonate route releases CO2; oxide-only route releases nothing.
     carbonate = route("Li2TiO3", [("Li2CO3", 1.0), ("TiO2", 1.0)],
@@ -240,6 +284,7 @@ if __name__ == "__main__":
     test_c1_selectivity_margin_gradeable()
     test_c2_unspent_driving_force_sign()
     test_c3_temperature_window_sign()
+    test_c3_c6_no_longer_contradict_on_decomposition()
     test_c4_interface_count_sign()
     test_c5_volatilization_sign()
     test_c6_decomposition_clearance_sign()
