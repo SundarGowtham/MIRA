@@ -1,4 +1,22 @@
 """
+SUPERSEDED 2026-10-03 (moved out of tests/, kept per project discipline
+-- never delete, move suspected-dead code to research/). This test's one
+real failure (ASTRAL target formulas appearing as PROMPTS in data/sft_v3,
+data/rl_run3, data/rl) was correctly caught but mis-framed as "the
+circularity rule 1 forbids" -- Gowtham's "Decisions after pass 2"
+correction: a target formula appearing as a prompt is ordinary test-set
+contamination, not training on ASTRAL's answers (precursor sets/
+principles), which is what rule 1 actually bans. Split into:
+  - tests/test_no_astral_answer_leakage.py (strict, must pass -- the
+    actual rule-1 gate: no ASTRAL-path code reference, no training
+    ANSWER equal to an ASTRAL rule-picked set).
+  - scripts/astral_overlap_report.py (informational -- the prompt-level
+    overlap this file used to fail on, now disclosed and measured, not
+    gated, in results/phase16/astral_overlap.json).
+See docs/phases/PHASE16_RESULTS.md for the full writeup.
+
+---
+Original docstring, for the record:
 tests/test_no_astral_circularity.py — Phase 16 §1 rule 1
 (misc/PHASE16_INSTRUCTIONS.md): "No reward, prompt, filter or data file
 used in training may read misc/astral_validation_set.json,

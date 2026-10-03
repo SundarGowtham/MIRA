@@ -15,9 +15,29 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 from experiments import EXPERIMENTS
+
+
+def _assert_main_environment() -> None:
+    """Environment guard (Phase 16, "Decisions after pass 2", the
+    mis-install correction: `uv pip install` honored this machine's
+    auto-activated VIRTUAL_ENV over UV_PROJECT_ENVIRONMENT and briefly
+    installed vllm/torch into this frozen environment -- see
+    docs/phases/PHASE16_RESULTS.md). train.py has no vLLM-aware code
+    path yet, so its only valid environment is the main project .venv;
+    refuse to run anywhere else rather than silently drift, e.g. if
+    invoked via mira-vllm's python by mistake."""
+    expected = (Path(__file__).resolve().parent / ".venv").resolve()
+    actual = Path(sys.prefix).resolve()
+    if actual != expected:
+        raise RuntimeError(
+            f"train.py refuses to run outside the main project environment. "
+            f"Expected sys.prefix={expected}, got {actual}. If this is "
+            f"intentional (e.g. a future --use-vllm path), update this guard "
+            f"deliberately -- do not silently remove it.")
 
 
 def parse_args():
@@ -87,6 +107,7 @@ def parse_args():
 
 
 def main():
+    _assert_main_environment()
     args = parse_args()
     cls = EXPERIMENTS[args.experiment]
     experiment = cls(args)

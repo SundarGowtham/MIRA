@@ -1,0 +1,137 @@
+{
+ "clean_subset_size": 22,
+ "n_astral_targets_total": 35,
+ "n_overlapping_targets": 13,
+ "phase16_created": {},
+ "pre_existing": {
+  "rl_run3_probe": [
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "Na2Al2B2O7"
+   }
+  ],
+  "rl_run3_val": [
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "Na2Al2B2O7"
+   }
+  ],
+  "rl_train": [
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "Li3Fe2(PO4)3"
+   },
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "NaSrBO3"
+   },
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "KBaPO4"
+   },
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "LiMgPO4"
+   },
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "LiZnBO3"
+   },
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "Li3Sc2(PO4)3"
+   },
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "KNbWO6"
+   },
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "Li2CuP2O7"
+   },
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "KMgPO4"
+   }
+  ],
+  "rl_val": [
+   {
+    "count": 1,
+    "match": null,
+    "role": "prompt_only",
+    "target": "Na2Al2B2O7"
+   }
+  ],
+  "sft_v3_format_only_train": [
+   {
+    "count": 1,
+    "match": "matches_traditional",
+    "role": "prompt_plus_answer",
+    "target": "KTiNbO5"
+   },
+   {
+    "count": 1,
+    "match": "neither",
+    "role": "prompt_plus_answer",
+    "target": "LiMnPO4"
+   }
+  ],
+  "sft_v3_train": [
+   {
+    "count": 1,
+    "match": "matches_traditional",
+    "role": "prompt_plus_answer",
+    "target": "KTiNbO5"
+   },
+   {
+    "count": 1,
+    "match": "neither",
+    "role": "prompt_plus_answer",
+    "target": "LiMnPO4"
+   },
+   {
+    "count": 1,
+    "match": "neither",
+    "role": "prompt_plus_answer",
+    "target": "Li3V2(PO4)3"
+   }
+  ]
+ },
+ "union_of_all_overlapping_targets": [
+  "KBaPO4",
+  "KMgPO4",
+  "KNbWO6",
+  "KTiNbO5",
+  "Li2CuP2O7",
+  "Li3Fe2(PO4)3",
+  "Li3Sc2(PO4)3",
+  "Li3V2(PO4)3",
+  "LiMgPO4",
+  "LiMnPO4",
+  "LiZnBO3",
+  "Na2Al2B2O7",
+  "NaSrBO3"
+ ]
+}

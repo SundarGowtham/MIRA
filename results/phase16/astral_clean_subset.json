@@ -1,0 +1,206 @@
+{
+ "amplification_mcnemar": {
+  "clean_subset": {
+   "b_rssft_only": 0,
+   "c_gdpo_only": 3,
+   "gdpo_gained": [
+    "BaLiBO3",
+    "KLi(PO3)2",
+    "Li2TiSiO5"
+   ],
+   "p_one_sided_if_unidirectional": 0.125,
+   "p_two_sided": 0.25,
+   "rssft_lost": []
+  },
+  "full_35": {
+   "b_rssft_only": 0,
+   "c_gdpo_only": 4,
+   "gdpo_gained": [
+    "BaLiBO3",
+    "KLi(PO3)2",
+    "Li2TiSiO5",
+    "NaSrBO3"
+   ],
+   "p_one_sided_if_unidirectional": 0.0625,
+   "p_two_sided": 0.125,
+   "rssft_lost": []
+  }
+ },
+ "carbonate_shares": {
+  "base": {
+   "clean_subset": {
+    "counts": {
+     "bare_oxide": 73,
+     "carbonate": 554,
+     "missing": 0,
+     "other": 128
+    },
+    "n_triples": 755,
+    "shares": {
+     "bare_oxide": 0.0967,
+     "carbonate": 0.7338,
+     "missing": 0.0,
+     "other": 0.1695
+    }
+   },
+   "full_35": {
+    "counts": {
+     "bare_oxide": 106,
+     "carbonate": 850,
+     "missing": 0,
+     "other": 210
+    },
+    "n_triples": 1166,
+    "shares": {
+     "bare_oxide": 0.0909,
+     "carbonate": 0.729,
+     "missing": 0.0,
+     "other": 0.1801
+    }
+   }
+  },
+  "full_sft": {
+   "clean_subset": {
+    "counts": {
+     "bare_oxide": 6,
+     "carbonate": 741,
+     "missing": 0,
+     "other": 7
+    },
+    "n_triples": 754,
+    "shares": {
+     "bare_oxide": 0.008,
+     "carbonate": 0.9828,
+     "missing": 0.0,
+     "other": 0.0093
+    }
+   },
+   "full_35": {
+    "counts": {
+     "bare_oxide": 6,
+     "carbonate": 1145,
+     "missing": 0,
+     "other": 15
+    },
+    "n_triples": 1166,
+    "shares": {
+     "bare_oxide": 0.0051,
+     "carbonate": 0.982,
+     "missing": 0.0,
+     "other": 0.0129
+    }
+   }
+  },
+  "gdpo_phase12_beta0": {
+   "clean_subset": {
+    "counts": {
+     "bare_oxide": 470,
+     "carbonate": 113,
+     "missing": 0,
+     "other": 165
+    },
+    "n_triples": 748,
+    "shares": {
+     "bare_oxide": 0.6283,
+     "carbonate": 0.1511,
+     "missing": 0.0,
+     "other": 0.2206
+    }
+   },
+   "full_35": {
+    "counts": {
+     "bare_oxide": 655,
+     "carbonate": 208,
+     "missing": 0,
+     "other": 288
+    },
+    "n_triples": 1151,
+    "shares": {
+     "bare_oxide": 0.5691,
+     "carbonate": 0.1807,
+     "missing": 0.0,
+     "other": 0.2502
+    }
+   }
+  },
+  "rs_sft": {
+   "clean_subset": {
+    "counts": {
+     "bare_oxide": 207,
+     "carbonate": 323,
+     "missing": 0,
+     "other": 205
+    },
+    "n_triples": 735,
+    "shares": {
+     "bare_oxide": 0.2816,
+     "carbonate": 0.4395,
+     "missing": 0.0,
+     "other": 0.2789
+    }
+   },
+   "full_35": {
+    "counts": {
+     "bare_oxide": 293,
+     "carbonate": 521,
+     "missing": 0,
+     "other": 320
+    },
+    "n_triples": 1134,
+    "shares": {
+     "bare_oxide": 0.2584,
+     "carbonate": 0.4594,
+     "missing": 0.0,
+     "other": 0.2822
+    }
+   }
+  }
+ },
+ "erasure_mcnemar": {
+  "clean_subset": {
+   "b_base_only": 8,
+   "c_sft_only": 0,
+   "p_two_sided": 0.0078125
+  },
+  "full_35": {
+   "b_base_only": 10,
+   "c_sft_only": 0,
+   "p_two_sided": 0.001953125
+  }
+ },
+ "hits": {
+  "base": {
+   "clean_subset": "8/22",
+   "full_35": "10/35"
+  },
+  "full_sft": {
+   "clean_subset": "0/22",
+   "full_35": "0/35"
+  },
+  "gdpo_phase12_beta0": {
+   "clean_subset": "12/22",
+   "full_35": "14/35"
+  },
+  "rs_sft": {
+   "clean_subset": "9/22",
+   "full_35": "10/35"
+  }
+ },
+ "n_clean": 22,
+ "n_full": 35,
+ "overlapping_targets": [
+  "KBaPO4",
+  "KMgPO4",
+  "KNbWO6",
+  "KTiNbO5",
+  "Li2CuP2O7",
+  "Li3Fe2(PO4)3",
+  "Li3Sc2(PO4)3",
+  "Li3V2(PO4)3",
+  "LiMgPO4",
+  "LiMnPO4",
+  "LiZnBO3",
+  "Na2Al2B2O7",
+  "NaSrBO3"
+ ]
+}
