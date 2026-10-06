@@ -1,0 +1,1672 @@
+[
+ {
+  "t": "LiZnPO4",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 5,
+  "base_sets": {
+   "Li2CO3 + PH9(NO2)2 + ZnO": 5,
+   "Li2CO3 + PH9(NO2)2 + ZnCO3": 2,
+   "Li2CO3 + PH12N3O4 + ZnO": 2,
+   "Li2CO3 + PH3O4 + ZnO": 15,
+   "Li2CO3 + PH6NO4 + ZnO": 5,
+   "LiNO3 + PH9(NO2)2 + Zn(NO3)2": 1,
+   "LiNO3 + NaP(HO2)2 + Zn(NO3)2": 1,
+   "LiP(HO2)2 + ZnO": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 15,
+  "sft_sets": {
+   "Li2CO3 + PH9(NO2)2 + ZnO": 13,
+   "Li2CO3 + PH6NO4 + ZnO": 15,
+   "LiHO + PH3O4 + ZnO": 1,
+   "Li2CO3 + P2O5 + ZnO": 2,
+   "Li2CO3 + PH3O4 + ZnO": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 1,
+  "rs_sft_sets": {
+   "Li2CO3 + PH3O4 + ZnO": 16,
+   "Li2CO3 + P2O5 + ZnO": 2,
+   "Li2O + PH3O4 + ZnO": 1,
+   "Li3PO4 + ZnO": 2,
+   "LiHO + PH3O4 + ZnO": 8,
+   "Li2CO3 + PH6NO4 + ZnO": 1,
+   "LiHO + PH12N3O4 + ZnO": 1,
+   "Li2O + P2O5 + ZnO": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "Li2CO3 + PH3O4 + ZnO": 6,
+   "Li2O + P2O5 + ZnO": 5,
+   "LiHO + PH3O4 + ZnO": 12,
+   "Li2CO3 + P2O5 + ZnO": 5,
+   "Li2CO3 + PH12N3O4 + ZnO": 1,
+   "LiHO + PH6NO4 + ZnO": 1,
+   "Li3PO4 + ZnO": 1
+  }
+ },
+ {
+  "t": "LiMnPO4",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 0,
+  "base_sets": {
+   "Li2CO3 + MnO + PH3O4": 18,
+   "Li2CO3 + MnO2 + PH3O4": 2,
+   "Li2CO3 + MnO + PH9(NO2)2": 3,
+   "LiNO3 + Mn(NO3)2 + PH12N3O4": 1,
+   "Li2CO3 + MnCO3 + PH3O4": 7,
+   "Li2CO3 + MnCO3 + PH9(NO2)2": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 5,
+  "sft_sets": {
+   "Li2CO3 + MnO2 + PH3O4": 1,
+   "Li2CO3 + MnO + P2O5": 1,
+   "Li2CO3 + MnO + O2 + P2O5": 1,
+   "Li2CO3 + MnCO3 + PH6NO4": 5,
+   "Li2CO3 + MnCO3 + P2O5": 1,
+   "Li2CO3 + MnO + PH6NO4": 5,
+   "LiHO + MnO2 + PH6NO4": 1,
+   "Li2CO3 + MnCO3 + PH9(NO2)2": 5,
+   "C + Li2CO3 + MnO + PH6NO4": 1,
+   "Li2CO3 + MnO + PH9(NO2)2": 2,
+   "Li2CO3 + MnO2 + PH9(NO2)2": 4,
+   "Li2CO3 + MnO2 + PH6NO4": 3,
+   "LiHO + MnCO3 + PH9(NO2)2": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "Li2CO3 + MnO2 + PH3O4": 6,
+   "Li2CO3 + MnO + PH3O4": 19,
+   "LiHO + MnO + PH3O4": 5,
+   "Li2CO3 + MnO + P2O5": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "LiHO + MnO + PH3O4": 8,
+   "Li2CO3 + MnO + PH3O4": 10,
+   "Li2CO3 + MnO2 + PH3O4": 6,
+   "LiHO + MnO2 + PH3O4": 3,
+   "Li2CO3 + MnO + P2O5": 2
+  }
+ },
+ {
+  "t": "Li2CuP2O7",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 0,
+  "base_sets": {
+   "CuO + Li2CO3 + PH3O4": 5,
+   "CuO + Li2CO3 + P2O5": 23,
+   "CuO + Li2CO3 + PH12N3O4": 1,
+   "CuO + Li2CO3 + PH9(NO2)2": 2,
+   "CuO + LiHO + P2O5": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 7,
+  "sft_sets": {
+   "CuO + Li2CO3 + PH6NO4": 7,
+   "CuO + Li2CO3 + P2O5": 14,
+   "CuO + Li2CO3 + PH9(NO2)2": 10
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "CuO + Li2CO3 + P2O5": 23,
+   "CuO + Li3PO4": 1,
+   "CuO + Li2O + P2O5": 4,
+   "CuO + LiHO + P2O5": 1,
+   "CuO + Li2CO3 + PH3O4": 2,
+   "CuO + Li2CO3 + PH12N3O4": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "CuO + Li2O + P2O5": 21,
+   "CuO + Li2CO3 + P2O5": 8,
+   "CuO + LiHO + P2O5": 2,
+   "CuO + Li2CO3 + PH3O4": 1
+  }
+ },
+ {
+  "t": "LiMgPO4",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 0,
+  "base_sets": {
+   "Li2CO3 + MgO + P2O5": 3,
+   "Li2O + MgO + P2O5": 5,
+   "Li2CO3 + MgO + PH3O4": 7,
+   "Li2CO3 + MgO + PH9(NO2)2": 2,
+   "Li2CO3 + MgCO3 + PH3O4": 7,
+   "Li2O + MgO + PH3O4": 1,
+   "LiNO3 + Mg(NO3)2 + PH12N3O4": 1,
+   "Li2CO3 + MgCO3 + PH6NO4": 1,
+   "Li2CO3 + MgO + PH12N3O4": 2,
+   "Li2CO3 + MgCO3 + PH9(NO2)2": 2,
+   "Li3PO4 + MgO": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 8,
+  "sft_sets": {
+   "Li2CO3 + MgO + PH6NO4": 8,
+   "Li2CO3 + MgCO3 + PH9(NO2)2": 8,
+   "Li2CO3 + MgO + PH9(NO2)2": 7,
+   "Li2CO3 + MgCO3 + P2O5": 2,
+   "Li2CO3 + MgO + PH12N3O4": 1,
+   "Li2CO3 + MgO + P2O5": 1,
+   "Li2CO3 + MgCO3 + PH6NO4": 5
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "Li2CO3 + MgO + PH3O4": 11,
+   "Li2CO3 + MgO + P2O5": 3,
+   "LiHO + MgO + PH3O4": 10,
+   "Li2CO3 + MgCO3 + P2O5": 1,
+   "Li2O + MgO + P2O5": 4,
+   "LiHO + Mg(HO)2 + PH3O4": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 1,
+  "gdpo_sets": {
+   "Li2O + MgO + PH3O4": 1,
+   "Li2CO3 + MgO + PH3O4": 4,
+   "Li2O + MgO + P2O5": 14,
+   "LiHO + MgO + PH3O4": 7,
+   "Li2CO3 + MgO + P2O5": 3,
+   "Li3PO4 + MgO": 1,
+   "LiHO + Mg(HO)2 + PH3O4": 1,
+   "Li2CO3 + MgO + PH6NO4": 1
+  }
+ },
+ {
+  "t": "BaLiBO3",
+  "fam": "borate",
+  "base_n": 32,
+  "base_pred": 1,
+  "base_trad": 7,
+  "base_sets": {
+   "B(HO)3 + BaCO3 + Li2CO3": 5,
+   "B2O3 + BaO + Li2CO3": 7,
+   "B2O3 + BaO + Li2O": 8,
+   "BaO + LiBO2": 1,
+   "B(HO)3 + BaO + Li2CO3": 1,
+   "B2O3 + BaCO3 + Li2CO3": 8,
+   "BaCO3 + LiBO2": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 0,
+  "sft_sets": {
+   "B2O3 + BaCO3 + Li2CO3": 22,
+   "B(HO)3 + BaCO3 + Li2CO3": 8,
+   "B2O3 + BaCO3 + Li2O": 1,
+   "B2O3 + BaO + Li2O": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 6,
+  "rs_sft_sets": {
+   "B2O3 + BaO + Li2O": 12,
+   "B2O3 + BaO + Li2CO3": 6,
+   "B(HO)3 + BaO + LiHO": 4,
+   "B(HO)3 + BaO + Li2CO3": 2,
+   "B(HO)3 + BaCO3 + Li2CO3": 1,
+   "BaCO3 + LiBO2": 1,
+   "B2O3 + BaCO3 + Li2CO3": 5
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 2,
+  "gdpo_trad": 1,
+  "gdpo_sets": {
+   "B2O3 + BaO + Li2O": 23,
+   "B(HO)3 + BaO + LiHO": 2,
+   "BaO + LiBO2": 2,
+   "B2O3 + BaO + LiBO2": 1,
+   "B2O3 + BaCO3 + Li2CO3": 2,
+   "B2O3 + Ba(HO)2 + LiHO": 1,
+   "B2O3 + BaO + Li2CO3": 1
+  }
+ },
+ {
+  "t": "SrLiBO3",
+  "fam": "borate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 4,
+  "base_sets": {
+   "B2O3 + Li2CO3 + SrO": 4,
+   "B2O3 + Li2CO3 + SrCO3": 18,
+   "B2O3 + Li2O + SrO": 4,
+   "B(HO)3 + Li2CO3 + SrO": 1,
+   "LiBO2 + SrCO3": 1,
+   "B(HO)3 + Li2CO3 + SrCO3": 4
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 0,
+  "sft_sets": {
+   "B2O3 + Li2CO3 + SrCO3": 25,
+   "B(HO)3 + Li2CO3 + SrCO3": 6
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 1,
+  "rs_sft_trad": 6,
+  "rs_sft_sets": {
+   "B2O3 + Li2CO3 + SrO": 6,
+   "B2O3 + Li2CO3 + SrCO3": 9,
+   "B(HO)3 + Li2CO3 + SrCO3": 4,
+   "B2O3 + Li2O + SrO": 7,
+   "B(HO)3 + LiHO + SrO": 3,
+   "LiBO2 + Sr(HO)2": 1,
+   "LiBO2 + SrCO3": 1,
+   "LiBO2 + SrO": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 1,
+  "gdpo_trad": 6,
+  "gdpo_sets": {
+   "B2O3 + Li2O + SrO": 20,
+   "B2O3 + Li2CO3 + SrCO3": 3,
+   "B2O3 + Li2CO3 + SrO": 6,
+   "LiBO2 + SrO": 1,
+   "B(HO)3 + Li2CO3 + SrCO3": 1,
+   "B(HO)3 + LiHO + Sr(HO)2": 1
+  }
+ },
+ {
+  "t": "Li3Pr2(BO3)3",
+  "fam": "borate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 0,
+  "base_sets": {
+   "B2O3 + Li2CO3 + Pr2O3": 6,
+   "B(HO)3 + Li2CO3 + Pr2O3": 9,
+   "LiBO2 + Pr2O3": 10,
+   "B2O3 + Li2O + Pr2O3": 2,
+   "B(HO)3 + LiHO + Pr2O3": 1,
+   "B(HO)3 + Li2CO3 + Pr6O11": 1,
+   "B(HO)3 + LiHO + Pr(HO)3": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 6,
+  "sft_sets": {
+   "B2O3 + Li2CO3 + Pr6O11": 6,
+   "B2O3 + Li2CO3 + Pr2O3": 15,
+   "B(HO)3 + Li2CO3 + Pr6O11": 6,
+   "B2O3 + Li2O + Pr6O11": 1,
+   "B(HO)3 + Li2CO3 + Pr2O3": 3
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "B2O3 + Li2O + Pr2O3": 6,
+   "LiBO2 + Pr2O3": 8,
+   "B(HO)3 + Li2CO3 + Pr2O3": 8,
+   "B2O3 + Li2CO3 + Pr2O3": 5,
+   "B(HO)3 + LiHO + Pr2O3": 1,
+   "B(HO)3 + Li2CO3 + Pr6O11": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "B2O3 + Li2O + Pr2O3": 21,
+   "B(HO)3 + Li2O + Pr2O3": 2,
+   "B2O3 + Li2CO3 + Pr2O3": 4,
+   "B(HO)3 + Li2CO3 + Pr2O3": 1
+  }
+ },
+ {
+  "t": "LiGeBO4",
+  "fam": "borate",
+  "base_n": 32,
+  "base_pred": 2,
+  "base_trad": 23,
+  "base_sets": {
+   "B2O3 + GeO2 + Li2CO3": 23,
+   "GeO2 + LiBO2": 2,
+   "B2O3 + GeO2 + Li2O": 4,
+   "B(HO)3 + GeO2 + Li2CO3": 2,
+   "GeO2 + Li2B4O7": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 29,
+  "sft_sets": {
+   "B2O3 + GeO2 + Li2CO3": 29,
+   "B(HO)3 + GeO2 + Li2CO3": 3
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 5,
+  "rs_sft_trad": 19,
+  "rs_sft_sets": {
+   "B2O3 + GeO2 + Li2CO3": 19,
+   "B2O3 + GeO2 + Li2O": 7,
+   "GeO2 + LiBO2": 5,
+   "B(HO)3 + GeO2 + Li2CO3": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 1,
+  "gdpo_trad": 2,
+  "gdpo_sets": {
+   "B2O3 + GeO2 + Li2O": 28,
+   "B2O3 + GeO2 + Li2CO3": 2,
+   "GeO2 + LiBO2": 1,
+   "B(HO)3 + GeO2 + LiHO": 1
+  }
+ },
+ {
+  "t": "K3LiP2O7",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 2,
+  "base_trad": 0,
+  "base_sets": {
+   "K2O + Li2O + P2O5": 7,
+   "K2CO3 + Li2CO3 + PH3O4": 9,
+   "K3PO4 + LiP(HO2)2": 3,
+   "K2CO3 + Li2CO3 + P2O5": 9,
+   "KNO3 + LiNO3 + PH3O4": 1,
+   "K3PO4 + LiPO3": 2
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 6,
+  "sft_sets": {
+   "K2CO3 + Li2CO3 + PH9(NO2)2": 8,
+   "K2CO3 + Li2CO3 + PH6NO4": 6,
+   "K2CO3 + Li2CO3 + P2H10N2O7": 1,
+   "K2CO3 + Li2CO3 + P2O5": 17
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 4,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "K2O + Li2O + P2O5": 15,
+   "KHO + LiHO + PH3O4": 2,
+   "K2CO3 + Li2CO3 + PH3O4": 2,
+   "K3PO4 + LiPO3": 4,
+   "KHO + LiHO + P2O5": 5,
+   "K2CO3 + Li2CO3 + P2O5": 1,
+   "K2O + Li2CO3 + P2O5": 1,
+   "K2O + LiHO + P2O5": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 3,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "K2O + Li2O + P2O5": 22,
+   "K3PO4 + LiPO3": 3,
+   "KHO + LiHO + PH3O4": 2,
+   "KHO + LiHO + P2O5": 3,
+   "K2CO3 + Li2CO3 + P2O5": 2
+  }
+ },
+ {
+  "t": "Li3Sc2(PO4)3",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 0,
+  "base_sets": {
+   "Li2CO3 + PH12N3O4 + Sc2O3": 5,
+   "Li2CO3 + PH3O4 + Sc2O3": 12,
+   "Li3PO4 + Sc2O3": 12,
+   "Li2CO3 + PH9(NO2)2 + Sc2O3": 1,
+   "Li3PO4 + P2O5 + Sc2O3": 1,
+   "Li2CO3 + P2O5 + Sc2O3": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 12,
+  "sft_sets": {
+   "Li2CO3 + PH9(NO2)2 + Sc2O3": 16,
+   "Li2CO3 + P2O5 + Sc2O3": 2,
+   "Li2CO3 + PH6NO4 + Sc2O3": 12,
+   "LiP(HO2)2 + Sc2O3": 1,
+   "Li2CO3 + PH3O4 + Sc2O3": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "Li2CO3 + P2O5 + Sc2O3": 4,
+   "Li2CO3 + PH3O4 + Sc2O3": 10,
+   "Li3PO4 + Sc2O3": 8,
+   "Li2O + PH3O4 + Sc2O3": 1,
+   "LiP(HO2)2 + Sc2O3": 1,
+   "Li3PO4 + P2O5 + Sc2O3": 1,
+   "Li2CO3 + PH12N3O4 + Sc2O3": 3,
+   "LiHO + PH3O4 + Sc2O3": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "LiHO + PH3O4 + Sc2O3": 6,
+   "Li3PO4 + Sc2O3": 9,
+   "Li2CO3 + PH3O4 + Sc2O3": 7,
+   "Li2CO3 + PH9(NO2)2 + Sc2O3": 2,
+   "Li2O + PH3O4 + Sc2O3": 2,
+   "Li2CO3 + P2O5 + Sc2O3": 1,
+   "Li2O + P2O5 + Sc2O3": 4,
+   "Li3PO4 + P2O5 + Sc2O3": 1
+  }
+ },
+ {
+  "t": "Li3V2(PO4)3",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 2,
+  "base_sets": {
+   "Li2CO3 + PH3O4 + V2O3": 9,
+   "Li3PO4 + V2O3": 14,
+   "Li2CO3 + PH6NO4 + V2O3": 2,
+   "Li3PO4 + PH3O4 + V2O3": 3,
+   "Li2CO3 + PH9(NO2)2 + V2O3": 2,
+   "Li2CO3 + PH12N3O4 + V2O3": 2
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 4,
+  "sft_sets": {
+   "Li2CO3 + PH6NO4 + V2O5": 12,
+   "Li2CO3 + PH9(NO2)2 + V2O5": 11,
+   "Li2CO3 + PH6NO4 + VH4NO3": 1,
+   "Li2CO3 + PH9(NO2)2 + V2O3": 1,
+   "Li2CO3 + PH5(NO2)2 + V2O5": 1,
+   "Li2CO3 + PH6NO4 + V4H4NO11": 1,
+   "Li2CO3 + PH6NO4 + V2O3": 4,
+   "Li2CO3 + PH3O4 + V2O5": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "LiHO + PH3O4 + V2O3": 4,
+   "Li2CO3 + PH3O4 + V2O3": 9,
+   "Li3PO4 + V2O3": 12,
+   "Li2CO3 + PH12N3O4 + V2O3": 1,
+   "Li2CO3 + PH6NO4 + V2O5": 1,
+   "Li3PO4 + VPO4": 1,
+   "Li3PO4 + PH3O4 + V2O3": 1,
+   "Li3PO4 + V2O5": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "Li3PO4 + V2O3": 12,
+   "Li2CO3 + PH12N3O4 + V2O3": 1,
+   "Li2CO3 + P2O5 + V2O3": 2,
+   "Li3PO4 + PH3O4 + V2O3": 1,
+   "Li2CO3 + PH3O4 + V2O3": 7,
+   "LiHO + PH3O4 + V2O3": 2,
+   "Li3PO4 + P2O5 + V2O3": 2,
+   "Li2O + P2O5 + V2O3": 1,
+   "Li3PO4 + V2O5": 1,
+   "Li3PO4 + PH3O4 + V2O5": 1
+  }
+ },
+ {
+  "t": "KLi(PO3)2",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 0,
+  "base_sets": {
+   "K2PHO3 + LiPHO3": 1,
+   "K2CO3 + Li2CO3 + P(HO)3": 12,
+   "KHO + LiHO + P2O5": 2,
+   "K2CO3 + Li2CO3 + PH3O4": 2,
+   "K2CO3 + Li2CO3 + P2O5": 6,
+   "K2O + Li2O + P2O5": 3,
+   "K2PHO4 + Li2PHO4": 1,
+   "K2O + Li2O + P2O3": 1,
+   "KHO + LiHO + PH3O4": 1,
+   "KHO + LiHO + P(HO)3": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 5,
+  "sft_sets": {
+   "K2CO3 + Li2CO3 + PH9(NO2)2": 10,
+   "K2CO3 + Li2CO3 + P2O5": 11,
+   "K2CO3 + Li2CO3 + PH3O4": 3,
+   "K2CO3 + Li2CO3 + PH6NO4": 5,
+   "C + K2CO3 + Li2CO3 + P2O5": 1,
+   "KPH2O3 + LiPH2O3": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "KHO + LiHO + P2O5": 6,
+   "KHO + LiHO + PH3O4": 3,
+   "K2O + Li2O + P2O3": 2,
+   "K2CO3 + Li2CO3 + PH3O4": 3,
+   "K2CO3 + Li2CO3 + P2O5": 8,
+   "K2O + Li2O + P2O5": 7,
+   "K2CO3 + Li2CO3 + P(HO)3": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 1,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "K2O + Li2O + P2O5": 20,
+   "KHO + LiHO + P2O5": 6,
+   "KHO + LiHO + PH3O4": 1,
+   "KHO + LiHO + P2O3": 1,
+   "KPO3 + LiPO3": 1,
+   "KHO + LiHO + P(HO)3": 1,
+   "K2O + Li2O + P2O3": 1,
+   "K2CO3 + Li2CO3 + P2O5": 1
+  }
+ },
+ {
+  "t": "Li2TiSiO5",
+  "fam": "other oxide",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 31,
+  "base_sets": {
+   "Li2CO3 + SiO2 + TiO2": 31,
+   "Li2O + SiO2 + TiO2": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 32,
+  "sft_sets": {
+   "Li2CO3 + SiO2 + TiO2": 32
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 25,
+  "rs_sft_sets": {
+   "Li2CO3 + SiO2 + TiO2": 25,
+   "Li2O + SiO2 + TiO2": 7
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 1,
+  "gdpo_trad": 11,
+  "gdpo_sets": {
+   "Li2O + SiO2 + TiO2": 20,
+   "Li2CO3 + SiO2 + TiO2": 11,
+   "Li2TiO3 + SiO2": 1
+  }
+ },
+ {
+  "t": "LiNbGeO5",
+  "fam": "other oxide",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 27,
+  "base_sets": {
+   "GeO2 + Li2CO3 + Nb2O5": 27,
+   "GeO2 + Li2O + Nb2O5": 3,
+   "GeO2 + LiNO3 + Nb2O5": 2
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 30,
+  "sft_sets": {
+   "GeO2 + Li2CO3 + Nb2O5": 30,
+   "GeO2 + Li2O + Nb2O5": 2
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 3,
+  "rs_sft_trad": 8,
+  "rs_sft_sets": {
+   "GeO2 + Li2O + Nb2O5": 19,
+   "GeO2 + Li2CO3 + Nb2O5": 8,
+   "GeO2 + LiHO + Nb2O5": 1,
+   "GeO2 + LiNbO3": 3,
+   "GeO2 + LiNO3 + Nb2O5": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 3,
+  "gdpo_trad": 2,
+  "gdpo_sets": {
+   "GeO2 + Li2O + Nb2O5": 26,
+   "GeO2 + LiNbO3": 3,
+   "GeO2 + LiHO + Nb2O5": 1,
+   "GeO2 + Li2CO3 + Nb2O5": 2
+  }
+ },
+ {
+  "t": "Li2TiGeO5",
+  "fam": "other oxide",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 29,
+  "base_sets": {
+   "GeO2 + Li2CO3 + TiO2": 29,
+   "GeO2 + Li2O + TiO2": 3
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 31,
+  "sft_sets": {
+   "GeO2 + Li2CO3 + TiO2": 31
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 21,
+  "rs_sft_sets": {
+   "GeO2 + Li2CO3 + TiO2": 21,
+   "GeO2 + Li2O + TiO2": 11
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 1,
+  "gdpo_sets": {
+   "GeO2 + Li2O + TiO2": 31,
+   "GeO2 + Li2CO3 + TiO2": 1
+  }
+ },
+ {
+  "t": "Li3Fe2(PO4)3",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 4,
+  "base_sets": {
+   "Fe2O3 + Li2CO3 + PH3O4": 5,
+   "FePO4 + Li3PO4": 14,
+   "Fe2O3 + Li3PO4": 3,
+   "Fe2O3 + Li2CO3 + PH6NO4": 4,
+   "Fe2O3 + Li2CO3 + PH9(NO2)2": 2,
+   "Fe(NO3)3 + Li3PO4": 1,
+   "Fe2O3 + Li3PO4 + PH3O4": 1,
+   "FePO4 + Li2CO3 + PH3O4": 1,
+   "Fe2O3 + Li2CO3 + PH12N3O4": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 20,
+  "sft_sets": {
+   "Fe2O3 + Li2CO3 + PH6NO4": 20,
+   "Fe2O3 + Li2CO3 + PH9(NO2)2": 8,
+   "FeH18(NO6)3 + Li2CO3 + PH6NO4": 1,
+   "FeO + Li2CO3 + PH5NO4": 1,
+   "Fe2O3 + LiHO + PH9(NO2)2": 1,
+   "Fe2O3 + LiH3O2 + PH9(NO2)2": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "Fe2O3 + LiHO + PH12N3O4": 2,
+   "FePO4 + Li3PO4": 12,
+   "Fe2O3 + Li2CO3 + PH12N3O4": 1,
+   "Fe2O3 + Li3PO4": 3,
+   "Fe2O3 + Li2CO3 + PH3O4": 5,
+   "Fe2O3 + LiHO + PH3O4": 5,
+   "Fe2O3 + Li3PO4 + PH3O4": 1,
+   "FePO4 + Li2CO3 + P2O5": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "FePO4 + Li3PO4": 12,
+   "Fe2O3 + Li2CO3 + P2O5": 4,
+   "Fe2O3 + Li3PO4 + PH3O4": 1,
+   "Fe2O3 + LiHO + PH3O4": 5,
+   "Fe2O3 + Li2CO3 + PH12N3O4": 1,
+   "Fe2O3 + Li2CO3 + PH3O4": 5
+  }
+ },
+ {
+  "t": "KBaPO4",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 0,
+  "base_sets": {
+   "BaCO3 + K2CO3 + PH12N3O4": 4,
+   "BaCO3 + K2CO3 + PH3O4": 14,
+   "BaCO3 + K2CO3 + P2O5": 3,
+   "BaO + K2O + P2O5": 2,
+   "BaCO3 + K3PO4": 1,
+   "Ba(NO3)2 + KNO3 + PH6NO4": 1,
+   "Ba(NO3)2 + KNO3 + PH9(NO2)2": 1,
+   "BaCO3 + K2CO3 + Na3PO4": 1,
+   "Ba(HO)2 + KHO + PH3O4": 1,
+   "BaCO3 + K2CO3 + PH9(NO2)2": 1,
+   "BaCO3 + K2CO3 + PH6NO4": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 0,
+  "sft_sets": {
+   "BaCO3 + K2CO3 + PH6NO4": 13,
+   "BaCO3 + K2CO3 + PH9(NO2)2": 13,
+   "BaCO3 + K2CO3 + P2O5": 5
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "BaCO3 + K2CO3 + P2O5": 3,
+   "BaO + K2O + P2O5": 11,
+   "Ba(HO)2 + KHO + PH3O4": 1,
+   "BaCO3 + K2CO3 + PH12N3O4": 2,
+   "BaCO3 + K2CO3 + PH3O4": 4,
+   "Ba(NO3)2 + K3PO4": 2,
+   "BaO + KHO + PH3O4": 3,
+   "Ba(HO)2 + KHO + P2O5": 1,
+   "BaO + K2O + PH3O4": 2
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "Ba(HO)2 + KHO + PH3O4": 2,
+   "BaO + K2O + P2O5": 21,
+   "BaO + KHO + PH3O4": 2,
+   "BaCO3 + K2CO3 + PH3O4": 1,
+   "BaCO3 + K2CO3 + P2O5": 2,
+   "BaO + KP(HO2)2": 1,
+   "BaO + K2O + PH3O4": 2
+  }
+ },
+ {
+  "t": "BaNaBO3",
+  "fam": "borate",
+  "base_n": 32,
+  "base_pred": 1,
+  "base_trad": 2,
+  "base_sets": {
+   "B2O3 + BaO + Na2O": 11,
+   "B(HO)3 + BaCO3 + Na2CO3": 9,
+   "B2O3 + BaCO3 + Na2CO3": 7,
+   "B2O3 + Ba(NO3)2 + NaNO3": 1,
+   "B2O3 + BaO + Na2CO3": 2,
+   "B(HO)3 + Ba(NO3)2 + NaNO3": 1,
+   "BaO + NaBO2": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 2,
+  "sft_sets": {
+   "B2O3 + BaO + Na2CO3": 2,
+   "B2O3 + BaCO3 + Na2CO3": 21,
+   "B(HO)3 + BaCO3 + Na2CO3": 7,
+   "BH6NO3 + BaCO3 + Na2CO3": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 5,
+  "rs_sft_trad": 4,
+  "rs_sft_sets": {
+   "B(HO)3 + BaO + NaHO": 2,
+   "B2O3 + BaCO3 + Na2CO3": 3,
+   "B(HO)3 + Ba(NO3)2 + NaNO3": 2,
+   "BaCO3 + Na2B4O7 + Na2CO3": 1,
+   "B2O3 + BaO + Na2O": 10,
+   "B(HO)3 + BaCO3 + Na2CO3": 1,
+   "B2O3 + Ba(HO)2 + NaHO": 1,
+   "BaO + NaBO2": 5,
+   "B2O3 + BaO + Na2CO3": 4,
+   "B2O3 + Ba(NO3)2 + Na2CO3": 1,
+   "B(HO)3 + BaCO3 + NaHO": 1,
+   "B2O3 + Ba(NO3)2 + NaNO3": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 7,
+  "gdpo_trad": 1,
+  "gdpo_sets": {
+   "BaO + NaBO2": 7,
+   "B2O3 + BaO + Na2O": 19,
+   "B2O3 + BaO + Na2CO3": 1,
+   "B2O3 + BaCO3 + Na2CO3": 2,
+   "B(HO)3 + BaO + NaHO": 1,
+   "B2O3 + BaO + NaHO": 2
+  }
+ },
+ {
+  "t": "KMgPO4",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 0,
+  "base_sets": {
+   "K2O + MgO + P2O5": 2,
+   "K2CO3 + MgO + PH3O4": 10,
+   "K2CO3 + MgO + PH12N3O4": 3,
+   "K2CO3 + MgO + PH9(NO2)2": 5,
+   "K2CO3 + MgCO3 + PH12N3O4": 2,
+   "K2CO3 + MgO + P2O5": 1,
+   "K3PO4 + Mg(NO3)2": 2,
+   "K2CO3 + MgO + Na3PO4": 1,
+   "K3PO4 + MgO": 3,
+   "K2CO3 + MgCO3 + PH3O4": 2,
+   "KHO + MgO + PH3O4": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 11,
+  "sft_sets": {
+   "K2CO3 + MgO + PH9(NO2)2": 10,
+   "K2CO3 + MgO + PH6NO4": 11,
+   "K2CO3 + MgCO3 + PH9(NO2)2": 3,
+   "K2CO3 + MgCO3 + PH6NO4": 7,
+   "K2CO3 + MgCO3 + P2O5": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "KHO + MgO + PH3O4": 9,
+   "K2CO3 + MgO + PH3O4": 9,
+   "K2O + MgO + P2O5": 2,
+   "K2CO3 + MgO + P2O5": 2,
+   "K2CO3 + MgO + PH9(NO2)2": 1,
+   "K3PO4 + MgO": 3,
+   "KP(HO2)2 + MgO": 2,
+   "K2CO3 + MgCO3 + PH3O4": 1,
+   "K2O + MgO + PH3O4": 1,
+   "K3PO4 + Mg(NO3)2": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "K2O + MgO + PH3O4": 3,
+   "K2CO3 + MgO + PH3O4": 7,
+   "K2O + MgO + P2O5": 4,
+   "KHO + MgO + PH3O4": 6,
+   "K3PO4 + Mg(NO3)2": 2,
+   "KHO + MgO + P2O5": 2,
+   "KP(HO2)2 + MgO": 2,
+   "K3PO4 + MgO": 1,
+   "K3PO4 + MgO + PH3O4": 1,
+   "KHO + MgPHO4": 1,
+   "K2PHO4 + MgO": 1,
+   "KHO + Mg(HO)2 + PH3O4": 1,
+   "K2CO3 + MgO + P2O5": 1
+  }
+ },
+ {
+  "t": "NaSrBO3",
+  "fam": "borate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 0,
+  "base_sets": {
+   "NaBO2 + SrCO3": 8,
+   "B2O3 + Na2O + SrO": 3,
+   "B(HO)3 + NaHO + Sr(HO)2": 1,
+   "B2O3 + Na2CO3 + SrCO3": 11,
+   "B(HO)3 + Na2CO3 + SrCO3": 4,
+   "B(HO)3 + NaHO + SrCO3": 1,
+   "B(HO)3 + Na2CO3 + Sr(NO3)2": 1,
+   "NaBO3 + SrCO3": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 1,
+  "sft_sets": {
+   "NaBO2 + SrCO3": 1,
+   "B2O3 + Na2CO3 + SrCO3": 19,
+   "B(HO)3 + Na2CO3 + SrCO3": 8,
+   "B2O3 + Na2CO3 + SrO": 1,
+   "NaBO2 + O2 + SrCO3": 1,
+   "Na2B4O7 + SrCO3": 1,
+   "BH4NO3 + Na2CO3 + SrCO3": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "B(HO)3 + NaHO + SrO": 1,
+   "B2O3 + Na2O + SrCO3": 1,
+   "B(HO)3 + Na2CO3 + SrCO3": 5,
+   "B2O3 + Na2O + SrO": 6,
+   "B2O3 + NaHO + SrO": 2,
+   "NaBO2 + SrCO3": 3,
+   "B2O3 + Na2CO3 + SrCO3": 8,
+   "Na2B4O7 + SrCO3": 1,
+   "B(HO)3 + NaHO + SrCO3": 1,
+   "B(HO)3 + NaHO + Sr(HO)2": 1,
+   "Na2B4O7 + Na2CO3 + SrCO3": 1,
+   "NaBO2 + Sr(HO)2": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 6,
+  "gdpo_trad": 1,
+  "gdpo_sets": {
+   "B2O3 + NaHO + Sr(HO)2": 2,
+   "B2O3 + Na2O + SrO": 14,
+   "NaBO2 + SrO": 6,
+   "B(HO)3 + NaHO + SrCO3": 1,
+   "B(HO)3 + NaHO + Sr(HO)2": 2,
+   "NaBO2 + SrCO3": 1,
+   "B2O3 + Na2CO3 + SrCO3": 1,
+   "B2O3 + Na2CO3 + SrO": 1,
+   "B2O3 + NaHO + SrO": 1,
+   "B2O3 + NaHO + SrCO3": 1,
+   "B(HO)3 + Na2CO3 + SrO": 1
+  }
+ },
+ {
+  "t": "K3Bi2(PO4)3",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 1,
+  "base_sets": {
+   "Bi2O3 + K2CO3 + PH9(NO2)2": 2,
+   "Bi2O3 + K3PO4": 10,
+   "Bi2O3 + K2CO3 + PH3O4": 11,
+   "Bi2O3 + K2CO3 + PH12N3O4": 8,
+   "Bi2O3 + K2CO3 + PH6NO4": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 16,
+  "sft_sets": {
+   "Bi2O3 + K2CO3 + PH9(NO2)2": 8,
+   "Bi2O3 + K2CO3 + PH6NO4": 16,
+   "Bi2O3 + K2CO3 + PH12N3O4": 1,
+   "Bi2O3 + K2CO3 + PH5NO4": 1,
+   "Bi2O3 + K2CO3 + P2O5": 4,
+   "Bi2O3 + K2CO3 + KP(HO2)2": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "Bi2O3 + K2CO3 + PH3O4": 18,
+   "Bi2O3 + K2CO3 + P2O5": 3,
+   "Bi2O3 + K2O + P2O5": 1,
+   "Bi2O3 + K2CO3 + PH12N3O4": 1,
+   "Bi2O3 + KHO + PH3O4": 2,
+   "Bi2O3 + K3PO4 + P2O5": 1,
+   "Bi2O3 + K3PO4 + PH3O4": 2,
+   "BiH10N3O14 + K3PO4": 1,
+   "Bi2O3 + K3PO4": 3
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 1,
+  "gdpo_sets": {
+   "Bi2O3 + K2O + P2O5": 8,
+   "Bi2O3 + K2O + PH3O4": 5,
+   "Bi2O3 + K2CO3 + PH3O4": 3,
+   "Bi2O3 + K2CO3 + P2O5": 2,
+   "Bi2O3 + K3PO4": 6,
+   "Bi2O3 + KHO + PH3O4": 2,
+   "Bi2O3 + K2CO3 + PH6NO4": 1,
+   "Bi2O3 + KP(HO2)2": 1
+  }
+ },
+ {
+  "t": "K2Zr(PO4)2",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 2,
+  "base_sets": {
+   "K2CO3 + PH3O4 + ZrO2": 15,
+   "K2CO3 + PH9(NO2)2 + ZrO2": 11,
+   "K2CO3 + PH6NO4 + ZrO2": 2,
+   "K2CO3 + PH12N3O4 + ZrO2": 2,
+   "K2PHO4 + ZrO2": 1,
+   "K3PO4 + ZrO2": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 14,
+  "sft_sets": {
+   "K2CO3 + PH9(NO2)2 + ZrO2": 16,
+   "K2CO3 + PH6NO4 + ZrO2": 14,
+   "K2CO3 + P2O5 + ZrO2": 2
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "K3PO4 + ZrO2": 6,
+   "KHO + PH3O4 + ZrO2": 4,
+   "K2CO3 + PH3O4 + ZrO2": 14,
+   "KP(HO2)2 + ZrO2": 2,
+   "K2CO3 + PH9(NO2)2 + ZrO2": 2,
+   "K2CO3 + P2O5 + ZrO2": 1,
+   "H2O + K3PO4 + ZrO2": 1,
+   "K2O + P2O5 + ZrO2": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "K2CO3 + P2O5 + ZrO2": 3,
+   "K2O + P2O5 + ZrO2": 5,
+   "K2CO3 + PH3O4 + ZrO2": 11,
+   "KP(HO2)2 + ZrO2": 1,
+   "K2CO3 + PH9(NO2)2 + ZrO2": 3,
+   "KHO + PH3O4 + ZrO2": 2,
+   "K3PO4 + ZrO2": 4,
+   "K2O + PH3O4 + ZrO2": 3
+  }
+ },
+ {
+  "t": "K3Al2(PO4)3",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 2,
+  "base_sets": {
+   "Al2O3 + K3PO4": 7,
+   "Al2O3 + K2CO3 + PH3O4": 8,
+   "Al2O3 + K2CO3 + PH9(NO2)2": 1,
+   "Al2O3 + K2CO3 + PH12N3O4": 7,
+   "AlPO4 + K3PO4": 1,
+   "Al2O3 + K2CO3 + P2O5": 1,
+   "Al2O3 + KP(HO2)2": 1,
+   "Al2O3 + K2CO3 + PH6NO4": 2,
+   "Al(NO3)3 + K2CO3 + PH12N3O4": 1,
+   "Al2O3 + K2O + P2O5": 2
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 12,
+  "sft_sets": {
+   "Al2O3 + K2CO3 + PH6NO4": 12,
+   "Al2O3 + K2CO3 + PH9(NO2)2": 18,
+   "Al2O3 + K2CO3 + P2O5": 2
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 1,
+  "rs_sft_sets": {
+   "Al2O3 + K2CO3 + PH3O4": 7,
+   "Al2O3 + KHO + PH3O4": 4,
+   "Al2O3 + K2CO3 + PH6NO4": 1,
+   "Al2O3 + K3PO4 + PH3O4": 4,
+   "Al2O3 + K2O + PH12N3O4": 1,
+   "Al2O3 + K3PO4": 6,
+   "Al2O3 + KHO + P2O5": 2,
+   "Al2O3 + K2O + P2O5": 3,
+   "Al2O3 + K3PO4 + P2O5": 1,
+   "Al2O3 + K2CO3 + PH12N3O4": 2
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "Al2O3 + K2O + P2O5": 12,
+   "Al2O3 + K3PO4 + PH3O4": 1,
+   "Al2O3 + KP(HO2)2": 1,
+   "Al2O3 + K3PO4": 9,
+   "Al2O3 + K2O + PH12N3O4": 1,
+   "Al2O3 + K2O + PH3O4": 2,
+   "AlPO4 + K3PO4": 1,
+   "Al2O3 + K3PO4 + P2O5": 1,
+   "Al2O3 + KHO + PH3O4": 1,
+   "Al2O3 + K2CO3 + PH3O4": 1
+  }
+ },
+ {
+  "t": "KTiPO5",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 2,
+  "base_sets": {
+   "K2CO3 + PH3O4 + TiO2": 20,
+   "K2CO3 + P2O5 + TiO2": 4,
+   "K3PO4 + TiO2": 1,
+   "K2CO3 + PH12N3O4 + TiO2": 4,
+   "K2CO3 + PH6NO4 + TiO2": 2,
+   "KP(HO2)2 + TiO2": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 10,
+  "sft_sets": {
+   "K2CO3 + PH6NO4 + TiO2": 10,
+   "K2CO3 + PH9(NO2)2 + TiO2": 15,
+   "K2CO3 + P2O5 + TiO2": 5,
+   "KNO3 + PH6NO4 + TiO2": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "K2O + P2O5 + TiO2": 11,
+   "K2CO3 + P2O5 + TiO2": 4,
+   "K2CO3 + PH3O4 + TiO2": 6,
+   "KHO + PH3O4 + TiO2": 3,
+   "K2O + PH3O4 + TiO2": 2,
+   "K2CO3 + PH12N3O4 + TiO2": 2,
+   "KHO + P2O5 + TiO2": 2
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "K2O + PH3O4 + TiO2": 7,
+   "K2O + P2O5 + TiO2": 20,
+   "K3PO4 + TiO2": 1,
+   "K2CO3 + P2O5 + TiO2": 1,
+   "KHO + PH3O4 + TiO2": 1,
+   "K3PO4 + PH3O4 + TiO2": 1
+  }
+ },
+ {
+  "t": "KNiPO4",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 2,
+  "base_sets": {
+   "K3PO4 + NiO": 7,
+   "K2CO3 + Ni(NO3)2 + PH12N3O4": 1,
+   "K2CO3 + NiO + PH3O4": 9,
+   "K2CO3 + NiO + PH9(NO2)2": 5,
+   "K2CO3 + NiO + PH6NO4": 2,
+   "K3PO4 + Ni(NO3)2": 2,
+   "K2CO3 + NiO + PH12N3O4": 3,
+   "KNO3 + Ni(NO3)2 + PH12N3O4": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 12,
+  "sft_sets": {
+   "K2CO3 + NiO + PH9(NO2)2": 17,
+   "K2CO3 + NiO + PH6NO4": 12,
+   "K2CO3 + K2PHO4 + NiO": 1,
+   "K2CO3 + NiO + P2O5": 1,
+   "KNO3 + NiCO3 + PH9(NO2)2": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "KHO + NiO + PH3O4": 4,
+   "K2O + NiO + P2O5": 2,
+   "K3PO4 + Ni(NO3)2": 4,
+   "K3PO4 + NiO": 6,
+   "K2CO3 + NiO + PH3O4": 9,
+   "K3PO4 + KNiPO4 + Ni(NO3)2": 1,
+   "K2CO3 + NiO + PH12N3O4": 1,
+   "K3PO4 + NiO + PH3O4": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "H2O + K3PO4 + NiO": 1,
+   "K2CO3 + NiO + PH3O4": 12,
+   "K2O + NiO + PH3O4": 1,
+   "K3PO4 + NiO": 6,
+   "KP(HO2)2 + NiO": 1,
+   "K2O + NiO + P2O5": 7,
+   "KHO + NiO + PH3O4": 1,
+   "K2CO3 + NiO + P2O5": 1,
+   "K3PO4 + Ni(NO3)2": 1
+  }
+ },
+ {
+  "t": "K3Fe2(PO4)3",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 0,
+  "base_sets": {
+   "Fe2O3 + K2CO3 + PH9(NO2)2": 2,
+   "FePO4 + K3PO4": 6,
+   "Fe2O3 + K2CO3 + PH3O4": 5,
+   "Fe(NO3)3 + K3PO4": 4,
+   "FePO4 + K2CO3": 1,
+   "Fe2O3 + K3PO4": 9,
+   "Fe(NO3)3 + KNO3 + PH12N3O4": 1,
+   "Fe(NO3)3 + K2CO3 + PH12N3O4": 1,
+   "Fe2O3 + K2CO3 + PH12N3O4": 2
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 12,
+  "sft_sets": {
+   "Fe2O3 + K2CO3 + PH6NO4": 12,
+   "Fe2O3 + K2CO3 + PH9(NO2)2": 14,
+   "Fe2O3 + K2CO3 + PH12N3O4": 1,
+   "Fe3O4 + K2CO3 + PH6NO4": 1,
+   "Fe(NO3)3 + K2CO3 + PH6NO4": 1,
+   "Fe2O3 + H2O + K2CO3 + PH6NO4": 1,
+   "Fe2O3 + K2CO3 + PH3O4": 1,
+   "Fe(NO3)3 + K2CO3 + PH9(NO2)2": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "Fe2O3 + K2CO3 + PH3O4": 10,
+   "FePO4 + K3PO4": 3,
+   "Fe2O3 + K3PO4": 9,
+   "Fe2O3 + KHO + PH3O4": 1,
+   "Fe(NO3)3 + K3PO4": 1,
+   "Fe2O3 + K2CO3 + PH12N3O4": 2,
+   "Fe2O3 + K2O + K3PO4": 1,
+   "Fe2O3 + K3PO4 + PH3O4": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "Fe2O3 + KHO + PH3O4": 4,
+   "FePO4 + K3PO4": 7,
+   "Fe2O3 + K2CO3 + P2O5": 1,
+   "Fe2O3 + K3PO4": 9,
+   "Fe2O3 + K3PO4 + PH3O4": 3,
+   "Fe2O3 + K2O + P2O5": 2,
+   "Fe2O3 + K2CO3 + PH3O4": 2,
+   "Fe2O3 + K2O + PH3O4": 1
+  }
+ },
+ {
+  "t": "KNbWO6",
+  "fam": "other oxide",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 26,
+  "base_sets": {
+   "K2CO3 + Nb2O5 + WO3": 26,
+   "K2CO3 + NbO2 + WO3": 1,
+   "K2O + Nb2O5 + WO3": 4,
+   "KHO + Nb2O5 + WO3": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 32,
+  "sft_sets": {
+   "K2CO3 + Nb2O5 + WO3": 32
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 14,
+  "rs_sft_sets": {
+   "K2O + Nb2O5 + WO3": 17,
+   "K2CO3 + Nb2O5 + WO3": 14,
+   "KNO3 + Nb2O5 + WO3": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "K2O + Nb2O5 + WO3": 32
+  }
+ },
+ {
+  "t": "KTa2PO8",
+  "fam": "phosphate",
+  "base_n": 32,
+  "base_pred": 1,
+  "base_trad": 3,
+  "base_sets": {
+   "K2CO3 + PH3O4 + Ta2O5": 13,
+   "K2CO3 + PH6NO4 + Ta2O5": 3,
+   "K2CO3 + P2O5 + Ta2O5": 4,
+   "K2CO3 + PH12N3O4 + Ta2O5": 2,
+   "K3PO4 + KTaO3 + Ta2O5": 1,
+   "K2CO3 + K3PO4 + Ta2O5": 1,
+   "K2CO3 + PH9(NO2)2 + Ta2O5": 2,
+   "KPO3 + Ta2O5": 1,
+   "K2O + P2O5 + Ta2O5": 3,
+   "K3PO4 + Ta2O5": 1,
+   "KTaO3 + P2O5": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 8,
+  "sft_sets": {
+   "K2CO3 + PH9(NO2)2 + Ta2O5": 15,
+   "K2CO3 + PH6NO4 + Ta2O5": 8,
+   "K2CO3 + P2O5 + Ta2O5": 7,
+   "K2CO3 + P2H16N4O7 + Ta2O5": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 0,
+  "rs_sft_sets": {
+   "K2CO3 + P2O5 + Ta2O5": 5,
+   "K2O + PH3O4 + Ta2O5": 1,
+   "KTaO3 + P2O5 + Ta2O5": 1,
+   "K2O + P2O5 + Ta2O5": 6,
+   "K2CO3 + PH3O4 + Ta2O5": 7,
+   "KTaO3 + PH3O4": 1,
+   "K3PO4 + PH3O4 + Ta2O5": 1,
+   "K2CO3 + PH9(NO2)2 + Ta2O5": 1,
+   "KHO + PH3O4 + Ta2O5": 1,
+   "K3PO4 + Ta2O5": 2
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 0,
+  "gdpo_sets": {
+   "K2CO3 + P2O5 + Ta2O5": 2,
+   "K2O + PH3O4 + Ta2O5": 6,
+   "K2O + P2O5 + Ta2O5": 17,
+   "KTaO3 + PH3O4": 1,
+   "H2O + KTaO3 + P2O5": 1,
+   "K2CO3 + PH3O4 + Ta2O5": 2,
+   "K3PO4 + Ta2O5": 1,
+   "KTaO3 + P2O5": 1
+  }
+ },
+ {
+  "t": "Li3Y2(BO3)3",
+  "fam": "borate",
+  "base_n": 32,
+  "base_pred": 4,
+  "base_trad": 13,
+  "base_sets": {
+   "B2O3 + Li2CO3 + Y2O3": 13,
+   "B(HO)3 + Li2CO3 + Y2O3": 13,
+   "LiBO2 + Y2O3": 4,
+   "LiBO3 + Y2O3": 1,
+   "B2O3 + Li2O + Y2O3": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 19,
+  "sft_sets": {
+   "B2O3 + Li2CO3 + Y2O3": 19,
+   "B(HO)3 + Li2CO3 + Y2O3": 12
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 2,
+  "rs_sft_trad": 9,
+  "rs_sft_sets": {
+   "B(HO)3 + Li2O + Y2O3": 2,
+   "B2O3 + Li2O + Y2O3": 4,
+   "B(HO)3 + Li2CO3 + Y2O3": 9,
+   "B2O3 + Li2CO3 + Y2O3": 9,
+   "B(HO)3 + LiHO + Y2O3": 1,
+   "LiBO2 + Y2O3": 2,
+   "B2O3 + Li3BO3 + Y2O3": 1,
+   "B2O3 + LiHO + Y2O3": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 1,
+  "gdpo_trad": 2,
+  "gdpo_sets": {
+   "B2O3 + Li2O + Y2O3": 18,
+   "B(HO)3 + Li2CO3 + Y2O3": 7,
+   "B(HO)3 + LiHO + Y2O3": 2,
+   "B2O3 + Li2CO3 + Y2O3": 2,
+   "B(HO)3 + Li2O + Y2O3": 1,
+   "LiBO2 + Y2O3": 1
+  }
+ },
+ {
+  "t": "Na2Al2B2O7",
+  "fam": "borate",
+  "base_n": 32,
+  "base_pred": 1,
+  "base_trad": 17,
+  "base_sets": {
+   "Al2O3 + B2O3 + Na2CO3": 17,
+   "Al2O3 + B2O3 + Na2O": 7,
+   "Al(HO)3 + B(HO)3 + NaHO": 1,
+   "Al2O3 + B2O3 + NaHO": 1,
+   "Al2O3 + B(HO)3 + Na2CO3": 4,
+   "Al2O3 + B(HO)3 + NaHO": 1,
+   "Al2O3 + NaBO2": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 25,
+  "sft_sets": {
+   "Al2O3 + B2O3 + Na2CO3": 25,
+   "Al2O3 + B(HO)3 + Na2CO3": 7
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 20,
+  "rs_sft_sets": {
+   "Al2O3 + B2O3 + Na2CO3": 20,
+   "Al2O3 + B2O3 + NaHO": 2,
+   "Al2O3 + B2O3 + Na2O": 5,
+   "Al2O3 + B(HO)3 + NaHO": 2,
+   "Al2O3 + B(HO)3 + Na2CO3": 1,
+   "Al(HO)3 + B(HO)3 + NaHO": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 12,
+  "gdpo_sets": {
+   "Al2O3 + B2O3 + Na2O": 16,
+   "Al2O3 + B2O3 + Na2CO3": 12,
+   "Al2O3 + B2O3 + NaHO": 4
+  }
+ },
+ {
+  "t": "NaSiBO4",
+  "fam": "borate",
+  "base_n": 32,
+  "base_pred": 7,
+  "base_trad": 18,
+  "base_sets": {
+   "B2O3 + Na2CO3 + SiO2": 18,
+   "NaBO2 + SiO2": 7,
+   "Na2B4O7 + NaHO + SiO2": 1,
+   "Na2SiO3 + NaBO2": 1,
+   "B(HO)3 + NaHO + SiO2": 1,
+   "B2O3 + NaHO + SiO2": 2,
+   "B2O3 + Na2SiO3": 1,
+   "Na2B4O7 + Na2CO3 + SiO2": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 27,
+  "sft_sets": {
+   "B2O3 + Na2CO3 + SiO2": 27,
+   "B(HO)3 + Na2CO3 + SiO2": 1,
+   "B2O3 + Na2SiO3 + SiO2": 1,
+   "B2O3 + NaNO3 + SiO2": 1,
+   "B2O3 + H2O + Na2CO3 + SiO2": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 12,
+  "rs_sft_trad": 7,
+  "rs_sft_sets": {
+   "NaBO2 + SiO2": 12,
+   "B2O3 + Na2O + SiO2": 7,
+   "B2O3 + Na2CO3 + SiO2": 7,
+   "B2O3 + NaHO + SiO2": 4,
+   "H2O + Na2SiO3 + NaBO2": 1
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 3,
+  "gdpo_trad": 2,
+  "gdpo_sets": {
+   "B2O3 + Na2O + SiO2": 16,
+   "B2O3 + NaHO + SiO2": 7,
+   "B2O3 + H2O + Na2O + SiO2": 1,
+   "B2O3 + Na2CO3 + SiO2": 2,
+   "B(HO)3 + NaHO + SiO2": 2,
+   "NaBO2 + SiO2": 3
+  }
+ },
+ {
+  "t": "KTiNbO5",
+  "fam": "other oxide",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 22,
+  "base_sets": {
+   "K2CO3 + Nb2O5 + TiO2": 22,
+   "K2O + Nb2O5 + TiO2": 8,
+   "KNO3 + Nb2O5 + TiO2": 2
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 30,
+  "sft_sets": {
+   "K2CO3 + Nb2O5 + TiO2": 30,
+   "K2CO3 + Nb2O5 + O2 + TiO2": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 0,
+  "rs_sft_trad": 5,
+  "rs_sft_sets": {
+   "K2O + Nb2O5 + TiO2": 27,
+   "K2CO3 + Nb2O5 + TiO2": 5
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 0,
+  "gdpo_trad": 1,
+  "gdpo_sets": {
+   "K2CO3 + Nb2O5 + TiO2": 1,
+   "K2O + Nb2O5 + TiO2": 29
+  }
+ },
+ {
+  "t": "LiSi2BO6",
+  "fam": "borate",
+  "base_n": 32,
+  "base_pred": 2,
+  "base_trad": 26,
+  "base_sets": {
+   "B2O3 + Li2CO3 + SiO2": 26,
+   "B2O3 + Li2O + SiO2": 4,
+   "LiBO2 + SiO2": 2
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 29,
+  "sft_sets": {
+   "B2O3 + Li2CO3 + SiO2": 29,
+   "B2O3 + Li2CO3 + Si": 1,
+   "B2O3 + Li2O + SiO2": 1
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 3,
+  "rs_sft_trad": 11,
+  "rs_sft_sets": {
+   "B2O3 + Li2CO3 + SiO2": 11,
+   "B2O3 + Li2O + SiO2": 15,
+   "B2O3 + LiHO + SiO2": 1,
+   "B(HO)3 + Li2CO3 + SiO2": 1,
+   "LiBO2 + SiO2": 3
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 2,
+  "gdpo_trad": 1,
+  "gdpo_sets": {
+   "LiBO2 + SiO2": 2,
+   "B2O3 + Li2O + SiO2": 28,
+   "B2O3 + Li2CO3 + SiO2": 1
+  }
+ },
+ {
+  "t": "LiNbWO6",
+  "fam": "other oxide",
+  "base_n": 32,
+  "base_pred": 0,
+  "base_trad": 26,
+  "base_sets": {
+   "Li2CO3 + Nb2O5 + WO3": 26,
+   "Li2O + Nb2O5 + WO3": 5,
+   "LiNO3 + Nb2O5 + WO3": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 30,
+  "sft_sets": {
+   "Li2CO3 + Nb2O5 + WO3": 30
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 2,
+  "rs_sft_trad": 9,
+  "rs_sft_sets": {
+   "Li2CO3 + Nb2O5 + WO3": 9,
+   "Li2O + Nb2O5 + WO3": 19,
+   "LiNbO3 + WO3": 2,
+   "LiNO3 + Nb2O5 + WO3": 2
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 2,
+  "gdpo_trad": 1,
+  "gdpo_sets": {
+   "Li2O + Nb2O5 + WO3": 28,
+   "LiNO3 + Nb2O5 + WO3": 1,
+   "Li2CO3 + Nb2O5 + WO3": 1,
+   "LiNbO3 + WO3": 2
+  }
+ },
+ {
+  "t": "LiZnBO3",
+  "fam": "borate",
+  "base_n": 32,
+  "base_pred": 1,
+  "base_trad": 15,
+  "base_sets": {
+   "B2O3 + Li2CO3 + ZnO": 15,
+   "B(HO)3 + Li2CO3 + ZnO": 13,
+   "LiBO2 + ZnO": 1,
+   "B(HO)3 + Li2CO3 + ZnH6(CO)4": 1,
+   "B2O3 + Li2O + ZnO": 1
+  },
+  "sft_n": 32,
+  "sft_pred": 0,
+  "sft_trad": 21,
+  "sft_sets": {
+   "Li2CO3 + LiBO2 + ZnO": 2,
+   "B(HO)3 + Li2CO3 + ZnO": 9,
+   "B2O3 + Li2CO3 + ZnO": 21
+  },
+  "rs_sft_n": 32,
+  "rs_sft_pred": 4,
+  "rs_sft_trad": 15,
+  "rs_sft_sets": {
+   "B2O3 + Li2CO3 + ZnO": 15,
+   "B2O3 + Li2O + ZnO": 5,
+   "B(HO)3 + Li2CO3 + ZnO": 5,
+   "B(HO)3 + LiHO + ZnO": 2,
+   "LiBO2 + ZnO": 4
+  },
+  "gdpo_n": 32,
+  "gdpo_pred": 3,
+  "gdpo_trad": 2,
+  "gdpo_sets": {
+   "B2O3 + Li2O + ZnO": 20,
+   "B2O3 + Li2CO3 + ZnO": 2,
+   "B(HO)3 + Li2CO3 + ZnO": 1,
+   "Li2B4O7 + ZnO": 1,
+   "B(HO)3 + LiHO + ZnO": 3,
+   "B2O3 + LiHO + ZnO": 1,
+   "LiBO2 + ZnO": 3,
+   "B(HO)3 + Li2O + ZnO": 1
+  }
+ }
+]
