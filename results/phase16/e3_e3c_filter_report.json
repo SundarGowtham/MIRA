@@ -1,0 +1,19 @@
+{
+ "n_total_pool_samples": 23040,
+ "n_parse_fail": 526,
+ "n_gate_pass": 12150,
+ "gate_pass_rate": 0.5273,
+ "n_novel_among_gate_pass": 6646,
+ "novelty_rate_among_gate_pass": 0.547,
+ "n_targets_total": 360,
+ "n_targets_keep_at_least_one": 256,
+ "n_targets_keep_none": 104,
+ "fraction_targets_keep_none": 0.2889,
+ "e3_final_size": 527,
+ "e3c_pool_size_before_subsample": 686,
+ "e3c_final_size": 527,
+ "rarity_count_threshold": 17,
+ "per_target_cap": 4,
+ "seed": 42,
+ "stop_rule_triggered": false
+}
