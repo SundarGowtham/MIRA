@@ -296,3 +296,31 @@ than implied as resolved.
 
 **Next**: build E3 and E3c SFT training (data exists, nothing blocks
 this), then E1 launch (HF generate, `--use-vllm off`).
+
+## 2026-10-08 — pre-existing smoke-mode bug found before E1 launch, not a Phase 16 regression
+
+Before launching E1, ran the project's own standard smoke gate
+(`--smoke`) with `--scorer ranker --validator-version 2`. It crashed in
+TRL/transformers' generation machinery, before any ranker/validator
+code runs at all:
+
+```
+File ".../transformers/generation/continuous_batching/cache.py", line 738
+ValueError: Invalid values: max_batch_tokens = 256, num_blocks = -2
+```
+
+**Confirmed NOT caused by anything built for Phase 16**: reran smoke
+mode with the plain, unmodified validator scorer (no `--scorer ranker`,
+no `--validator-version 2`) -- identical crash. This is a pre-existing
+incompatibility between smoke mode's tiny dimensions
+(`max_completion_len=256`, `core/model.py`'s own fp32/no-device-map
+smoke loading) and the installed transformers' `PagedAttentionCache`
+block-count calculation, which goes negative at these dimensions. Not
+something to fix here (out of scope, risky to touch transformers
+internals) and not something that blocks the real run: Phase 12 already
+proved the real (non-smoke) hyperparameters work correctly with this
+exact continuous-batching code path over 300 real steps, and the
+ranker/validator_version changes are entirely downstream of generation
+(reward computation, never touched by this crash). Proceeding directly
+to the real E1 launch on that basis, logged here rather than silently
+skipped.
