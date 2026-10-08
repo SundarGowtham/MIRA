@@ -265,12 +265,18 @@ class Ranker:
         precursor_freq: dict[str, int],
         scales: Optional[RankerScales] = None,
         weights: Optional[dict[str, float]] = None,
+        validator_version: int = 1,
     ):
         # Thermo-less validator instance held ONLY to reuse gate machinery
         # (balance solver, formula normalization, the charge/temperature
         # checks) -- .validate() on this instance is never called; its
-        # weight vector is irrelevant here.
-        self._v = SynthesisValidator(mp_formula_set, thermo_checker=None)
+        # weight vector is irrelevant here. validator_version defaults to
+        # 1 (old behaviour) for backward compatibility with every prior
+        # call site; Phase 16's "--validator-version 2" rule threads
+        # through here via load_ranker so the ranker's own _gate_balances
+        # gets the ammonium-balance fix too, not just the validator scorer.
+        self._v = SynthesisValidator(mp_formula_set, thermo_checker=None,
+                                     validator_version=validator_version)
         self.thermo = thermo_checker
         # precursor_freq/build_precursor_frequency are kept on the instance
         # for other callers (e.g. astral_corpus_coverage.py) even though no
@@ -676,6 +682,7 @@ def load_ranker(
     project_root: Optional[Path],
     synthesis_clean_path: Path,
     scales: Optional[RankerScales] = None,
+    validator_version: int = 1,
 ) -> Ranker:
     """Mirrors core.reward.load_validator's signature/argument meaning."""
     import pickle
@@ -686,7 +693,7 @@ def load_ranker(
         root = project_root or pd_index_path.parent
         thermo = ThermoChecker.from_sharded_cache(pd_index_path, root)
     freq = build_precursor_frequency(synthesis_clean_path)
-    return Ranker(formula_set, thermo, freq, scales=scales)
+    return Ranker(formula_set, thermo, freq, scales=scales, validator_version=validator_version)
 
 
 # ---------------------------------------------------------------------------

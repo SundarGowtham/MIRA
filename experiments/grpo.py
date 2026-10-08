@@ -176,8 +176,9 @@ class GRPOExperiment(Experiment):
             thermo = ThermoChecker.from_sharded_cache(
                 Path("data/cache/pd_index.json"), Path("."))
             freq = build_precursor_frequency(Path("data/raw/synthesis_clean.json"))
-            ranker = Ranker(formula_set, thermo, freq)  # class defaults --
-            # ranker_fixes_instructions.md's calibrated values live there
+            ranker = Ranker(formula_set, thermo, freq,  # class defaults --
+                            # ranker_fixes_instructions.md's calibrated values live there
+                            validator_version=getattr(self.args, "validator_version", None) or 1)
             lit = load_literature(Path("misc/kononova_triage_results3.json"),
                                   Path("data/raw/synthesis_clean.json"))
             print(f"[{self.run_name}] ranker scales: {ranker.scales}")
