@@ -190,3 +190,109 @@ environment ("Checked 165 packages"), and all 6 test suites
 
 **Next**: draft `docs/phases/PHASE16_PREREG.md` with the clean-subset
 metrics as primary, and stop for Gowtham's approval — per instruction.
+
+## 2026-10-06/07 — E3/E3c pool, filter, and RS-SFT reference samples
+
+**Pool (§6.2)**: 23,040 raw samples from base Qwen3-8B (360 training
+targets x 64), via offline vLLM in mira-vllm. Smoke run (2x4) passed
+cleanly before the full launch. Full-run quality check (not just the
+8-sample smoke): parse rate 97.7%, mean length 4,847 tokens, clip rate
+2.4% — all healthy, in line with Phase 12's own ~4,960-token mean.
+
+**E3/E3c filter (§6.3/6.4)**, `data_curation/build_e3_e3c_filter.py`:
+
+| metric | value |
+|---|---|
+| gate pass rate (of 23,040) | 52.7% |
+| novelty rate among gate-passers | 54.7% |
+| targets keeping >=1 sample | 256/360 (71.1%) |
+| targets keeping 0 samples | 104/360 (28.9%) |
+| **E3 final size** | **527** |
+| E3c pool before subsample | 686 |
+| **E3c final size** | **527** (seed-42 matched) |
+
+**Stop rule did not trigger** (bar: E3 >= 150, >50% targets empty) --
+final training-ready files written. One operational note: this CPU-only
+scoring pass took far longer than its 50-sample dry run predicted
+(~45 min vs an extrapolated ~18 min), confirmed NOT hung throughout
+(98.5% CPU, `ps etime` matched accumulated CPU time) -- traced to two
+pathological cases logged by `gibbs_corrector` (`NdIr3` at 2473K, `HCl`
+at 300K) hitting a slow fallback path. Not killed/retried since the
+script holds all state in memory with no incremental checkpointing --
+worth adding if a similar pass needs to run again.
+
+**RS-SFT reference samples** (scheduled by regular Claude: "E1's support
+test compares against RS-SFT's own 200+32 samples per target... schedule
+them after the filter, before E1 is evaluated"), `data_curation/
+phase16_rssft_reference_sampling.py`: 17,400 completions (40 held-out +
+35 ASTRAL targets x 232), via vLLM LoRA serving of the RS-SFT adapter.
+One bug hit and fixed: loading the tokenizer from the checkpoint
+directory crashed (`AttributeError` in transformers' special-tokens
+handling -- mira-vllm's downgraded transformers 4.57.6 couldn't parse
+that checkpoint's saved tokenizer_config.json format); fixed by loading
+the tokenizer from base instead, since a LoRA adapter does not change it.
+
+Quality check, and a notable cross-check against base's own reference
+samples on the identical 75 targets:
+
+| set | n | parse rate | mean length | clip rate | carbonate share |
+|---|---|---|---|---|---|
+| RS-SFT, held-out | 9,280 | 93.8% | 5,163 | 6.3% | **23.9%** |
+| RS-SFT, ASTRAL | 8,120 | 97.0% | 5,272 | 3.0% | **48.2%** |
+| base, held-out | 9,280 | 97.9% | 4,779 | 2.2% | 36.8% |
+| base, ASTRAL | 8,120 | 99.3% | 4,977 | 0.8% | 74.8% |
+
+RS-SFT's carbonate share is already well below base's on this fresh,
+independent 232-sample draw (never computed before at this n) -- an
+independent corroboration of the standing carbonate-to-bare-oxide shift
+(Phase 15 findings 24/26) using new data on both target sets, not just
+a repeat of the existing n=32 ASTRAL result.
+
+## 2026-10-08 — vLLM colocate does not fit GDPO training on manifold's 32GB card
+
+**What was tested**: whether `--use-vllm on` (colocate mode) can
+actually run a real GDPO training step on manifold, not just the
+offline sampling it already works for. The instructions' own prescribed
+test (`--use-vllm on --smoke`) was tried first and is **not a valid
+test**: `core/model.py::load_model`'s own docstring says "smoke disables
+quantization for CPU" -- in `--smoke` mode the model loads as full fp32
+with no device_map, bypassing QLoRA's 4-bit quantization entirely
+regardless of `--adapter qlora`. An fp32 8B model alone is ~32GB, which
+is why that attempt failed immediately with "Free memory on device
+cuda:0 (0.09/31.36 GiB)" before vLLM even requested its slice -- a
+smoke-mode artifact, not a finding about vLLM or QLoRA.
+
+**Corrected test**: a real (non-smoke) `--max-steps 2` run, Phase
+12's exact hyperparameters (QLoRA r=16/alpha=32, G=8, batch=1, accum=16,
+max_completion_length=8192), `--use-vllm on`, from the RS-SFT
+checkpoint. Two attempts, bracketing the failure from both sides:
+
+| `--vllm-gpu-memory-utilization` | result |
+|---|---|
+| 0.3 (~9.4 GiB for vLLM) | Both models loaded and **generation ran successfully** (confirmed: the LoRA-merge-into-vLLM warning fired, meaning TRL's weight-sync path engaged). GPU at 19 GiB/32 GiB mid-run. **OOM'd in the training backward pass**: "Tried to allocate 4.64 GiB... 4.25 GiB free... 27.10 GiB in use." |
+| 0.12 (~3.8 GiB for vLLM) | vLLM's own engine init failed before training even started: "No available memory for the cache blocks." |
+
+**Conclusion: there is no `vllm_gpu_memory_utilization` split on this
+32GB card that leaves both vLLM's minimum KV cache and the training
+backward pass's peak memory satisfied, at Phase 12's real
+hyperparameters.** This confirms §2.2's own anticipated outcome
+("may not fit on manifold's RTX 5090... should fit on a 48GB card").
+Per the instruction's own directive, this is reported rather than
+forced by shrinking `max_completion_length` or batch/accum/G. **E1 (and
+any other Phase 16 GDPO arm run on manifold) uses `--use-vllm off`
+(HF generate) -- which is already the default**, so no change to how
+E1 launches. vLLM's proven, working use on this machine remains the
+offline sampling path (E3/E3c pool, base and RS-SFT reference samples),
+not colocated training.
+
+One sub-question left genuinely open: whether TRL's weight-sync
+mechanism (does step N+1's generation actually reflect step N's
+gradient update, or silently keep sampling from a stale policy) produces
+*correct* updated generations could not be fully verified, since no
+training ever reached a completed optimizer step under colocate -- it
+OOM'd on the very first backward pass. This is moot in practice (colocate
+isn't usable for training here regardless), but stated plainly rather
+than implied as resolved.
+
+**Next**: build E3 and E3c SFT training (data exists, nothing blocks
+this), then E1 launch (HF generate, `--use-vllm off`).
