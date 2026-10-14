@@ -324,3 +324,154 @@ ranker/validator_version changes are entirely downstream of generation
 (reward computation, never touched by this crash). Proceeding directly
 to the real E1 launch on that basis, logged here rather than silently
 skipped.
+
+## 2026-10-14 — E1 training completed cleanly, full evaluation against prediction 1
+
+**Training** (W&B run `238lefg3`, `gdpo-qlora-gdpo-e1-ranker-rssft`,
+`scripts/run_gdpo_e1.sh`): 300/300 steps in **one attempt, no restarts**,
+~127h wall-clock. GDPO from RS-SFT init, `--scorer ranker
+--validator-version 2` (ammonium-balance fix threaded into the ranker's
+gate, commit `fd1ffa7`), `--kl-beta 0.0` (Phase 12's confirmed-safe
+choice, finding 20), `--use-vllm off` (HF generate — colocate doesn't
+fit on this card, see 2026-10-08 entry above).
+
+Logged every 25 steps:
+
+| step | reward | reward_std | loss | grad_norm | entropy | clipped_completions |
+|---|---|---|---|---|---|---|
+| 25 | 1.291 | 0.791 | 0.051 | 0.077 | 0.388 | 9.75% |
+| 50 | 1.284 | 0.815 | 0.012 | 0.062 | 0.387 | 11.50% |
+| 75 | 1.292 | 0.878 | 0.031 | 0.074 | 0.385 | 8.75% |
+| 100 | 1.464 | 0.735 | 0.004 | 0.069 | 0.393 | 7.00% |
+| 125 | 1.363 | 0.801 | 0.026 | 0.097 | 0.397 | 8.25% |
+| 150 | 1.584 | 0.784 | 0.013 | 0.063 | 0.404 | 6.00% |
+| 175 | 1.410 | 0.671 | 0.033 | 0.071 | 0.404 | 7.00% |
+| 200 | 1.625 | 0.736 | 0.027 | 0.077 | 0.402 | 5.00% |
+| 225 | 1.517 | 0.664 | 0.032 | 0.077 | 0.400 | 10.25% |
+| 250 | 1.492 | 0.843 | 0.026 | 0.065 | 0.402 | 9.25% |
+| 275 | 1.552 | 0.809 | 0.035 | 0.279 | 0.405 | 9.50% |
+| 300 | 1.752 | 0.802 | 0.017 | 0.084 | 0.404 | 8.25% |
+
+Reward climbed 1.29→1.75 (real, not noise — `frac_reward_zero_std` was
+0.00 at nearly every logged step). `grad_norm` stayed low and stable
+(0.06–0.28, one mild blip at step 275). Per-channel reward std stayed
+alive in most of the 7 ranker channels for most of training
+(`driving_force_margin` 0.18–0.27, `n_precursors` 0.12–0.24,
+`precursor_decomposition_match`/`volatility_risk` generally >0.05,
+`temperature_economy` 0.11–0.17, `slice_competing_phases` intermittently
+zero at steps 75/125/175 but alive elsewhere, `precursor_instability`
+smallest, 0.00–0.08 but nonzero most steps) — the contrast with the
+validator's standing 8/10-dead-channels finding (Central Diagnosis,
+CLAUDE.md) that this arm exists to test.
+
+**Evaluation generations**: ASTRAL n=32 (`results/astral_gen_n32_e1.json`,
+`research/astral_model_generations.py`, HF generate, main env) and
+held-out-split n=32 (`data/novelty/e1_heldout_n32.jsonl`,
+`data_curation/phase16_e1_heldout_sampling.py`, vLLM LoRA serving,
+mira-vllm env), chained to launch automatically back-to-back
+(`scripts/chain_e1_heldout_after_astral.sh`) since this machine has one
+GPU. Both completed cleanly, rc=0.
+
+### Prediction 1, bullet 1 — carbonate-free share and rule-picked hits rise relative to RS-SFT
+
+| | predicted hits, clean-22 | predicted hits, full-35 | traditional hits, full-35 | carbonate share, full-35 | carbonate share, clean-22 | bare-oxide share, full-35 |
+|---|---|---|---|---|---|---|
+| RS-SFT (E1's init) | 9/22 | 10/35 | 17/35 | 45.94% | 43.95% | 25.84% |
+| **E1** | **11/22** | **14/35** | **15/35** | **18.31%** | **16.58%** | **48.36%** |
+| (reference) GDPO-phase12-β0 (validator-reward arm) | 12/22 | 14/35 | 17/35 (flat) | 18.07% | 15.11% | 56.91% |
+
+**Rises exactly as predicted**, on both counts: predicted-set hits
+10/35→14/35 and 9/22→11/22, carbonate share collapses 45.94%→18.31%
+(carbonate-free 54.06%→81.69%), bare-oxide share nearly doubles. Unlike
+the validator-reward arm (phase12-β0, flat 17→17 traditional), **E1's
+traditional-set hits actually fell slightly, 17→15** — movement further
+from convention, not a partial pull-back. **This is independent
+corroboration of the carbonate/bare-oxide mechanism (Phase 15 findings
+24/26) via a completely different reward** — the ranker (Arm B, 7
+channels, no `thermodynamic_favorable` channel at all) reproduces
+essentially the same shift as the validator's own `thermodynamic_favorable`-driven
+effect, at a similar magnitude. Either the mechanism survives the
+reward swap, or it is substantially inherited from the RS-SFT init
+rather than caused by either reward — this run cannot distinguish the
+two, but either reading is a real finding.
+
+Mean validator reward: 0.9786 (all samples, n=1095 parsed/1120),
+0.9661 on traditional-set matches (n=53), 0.9948 on predicted-set
+matches (n=56) — gap +0.0287, between RS-SFT's +0.007 and
+phase12-β0's +0.049. Parse rate 97.77% (25/1120 `PARSE_FAILURE`).
+
+**Temperature — did the hack reassert? No, the opposite.** Mean
+reported max-T = 779.4 °C (median 800), vs. the fixed ASTRAL
+literature-best reference (mean `trad_best_T` across the 35 targets =
+762.9 °C). **Overshoot = +16.5 °C** — far below RS-SFT's own +171 °C
+(the previous best number in the project) and nowhere near
+phase12-β0's +254 °C reassertion. Mechanistically expected, not a
+surprise once seen: the ranker's `temperature_economy` channel stayed
+reward-informative (nonzero std) through nearly all of training (see
+table above), directly penalizing reported T — this is the first case
+in the project where a temperature-economy-style objective (finding 15,
+the earlier `temperature_economy` probe, which stalled at 23.8% capacity
+and only partial compliance) actually drove reported temperature down
+in a full GDPO run, not just a probe.
+
+### Prediction 1, bullet 2 — no support growth beyond RS-SFT's own resampling rate
+
+Per the pre-registration's exact definition (`docs/phases/PHASE16_PREREG.md`):
+support growth of E1 relative to RS-SFT's 200-sample reference
+(`data/novelty/rssft_reference_{astral,heldout}.jsonl`), vs. RS-SFT's
+own resampling noise floor (its own fresh 32-sample draw vs. its own
+200-sample reference, same targets). Computed by
+`research/phase16_e1_support_growth.py` → `results/phase16/e1_support_growth.json`
+(precursor sets normalized via `SynthesisValidator._normalize_formula`,
+parse failures dropped, pooled across targets: numerator = E1's distinct
+sets absent from RS-SFT's reference set for that target, denominator =
+E1's total distinct sets):
+
+| target set | E1 support growth | RS-SFT's own resampling rate (noise floor) |
+|---|---|---|
+| ASTRAL (35 targets) | **8.26%** (18/218) | 10.46% (25/239) |
+| Held-out split (40 targets) | **10.00%** (15/150) | 11.67% (21/180) |
+
+**Confirmed, and more cleanly than predicted**: E1's measured support
+growth sits *below* RS-SFT's own resampling noise floor on both target
+sets, not merely within it. GDPO sharpened inside RS-SFT's existing
+support; it did not add new precursor-set combinations beyond what
+resampling RS-SFT itself would turn up. Consistent with finding 26
+(RS-SFT→phase12-GDPO's Jaccard indistinguishable from GDPO's own
+resampling noise) via an independent metric and an independent reward.
+
+### Prediction 1, bullet 3 — ARROWS³ gate agreement no better than carbonate-free baseline
+
+**Flagging an interpretation rather than deciding it silently.** The
+pre-registration cites "Phase 15's `research/distributional/arrows_gate_scoring.py`,
+**unchanged**." Read literally, this means: reuse finding 27's existing,
+already-settled result (the **validator's** GDPO-vote rule scored
+0.616 agreement against real ARROWS³ lab outcomes vs. a 0.583
+carbonate-free baseline, diff +0.033, 95% CI [−0.043,+0.112] — not
+significantly better than baseline) rather than building a new
+ranker-specific ARROWS³ gate. No new ranker-vs-ARROWS analysis exists
+or was built for this entry — building one would mean adapting
+~600 lines of pre-registered methodology (`arrows_gate_scoring.py`)
+to the ranker's channel set outside anything this phase's scope-freeze
+commissioned, and ARROWS³'s precursor-only (no molar ratio, no
+per-route T sweep) format is exactly what caused 3/8 ranker channels to
+be ungradeable in finding 19's ASTRAL gate test — a new ranker-ARROWS³
+gate would likely hit the same ungradeable-channel problem.
+**Carried forward as predicted, unchanged, pending regular Claude's
+confirmation that this reading is the intended one** rather than a
+request for new scope.
+
+### Verdict
+
+All three bullets of prediction 1 are **supported** by this evaluation:
+rule-picked hits and carbonate-free share rose relative to RS-SFT
+(bullet 1, clearly), support growth stayed at or below RS-SFT's own
+noise floor on both target sets (bullet 2, cleanly), and the carried-forward
+ARROWS³ result remains unchanged (bullet 3, pending confirmation of
+that reading). E1 is a clean positive replication of the
+"GDPO sharpens, does not expand support" finding (17/26) with a
+materially different reward signal, plus a new, unanticipated result:
+the first GDPO run in this project where reported synthesis temperature
+fell rather than rose or held — the ranker's `temperature_economy`
+channel appears to be doing real work where the standalone probe
+(finding 15) only partially succeeded.
