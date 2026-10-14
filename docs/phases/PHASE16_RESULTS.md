@@ -475,3 +475,75 @@ the first GDPO run in this project where reported synthesis temperature
 fell rather than rose or held — the ranker's `temperature_economy`
 channel appears to be doing real work where the standalone probe
 (finding 15) only partially succeeded.
+
+## 2026-10-14 (amended) — regular Claude's review of the E1 evaluation entry above
+
+Three corrections to the entry above, all accepted as written.
+
+**Bullet 1, overstated.** The predicted-set hit rise is weaker than the
+"supported, clearly" framing above suggested. On the primary clean-22
+metric the rise is 9/22→11/22: **2 gains, 0 losses, exact two-sided
+McNemar p = 0.5** — not distinguishable from chance at this n. (Full-35
+is 4 gains, 0 losses, p = 0.125 — still not decisive.) Report as "weak,
+directionally consistent, not decisive," not as a confirmed rise.
+
+Also corrected: the entry called the ranker a "completely different
+reward" because it lacks `thermodynamic_favorable`. That's misleading —
+`driving_force_margin`, one of the ranker's own 7 channels, is *also* a
+thermodynamic driving-force quantity. **The accurate claim is that two
+different thermodynamics-based rewards (validator's
+`thermodynamic_favorable` and ranker's `driving_force_margin`) both push
+toward bare oxides**, not that an unrelated reward independently
+reproduced the shift. The carbonate collapse itself (45.9%→18.3%,
+matching phase12-β0's 46%→18%) stands as reported.
+
+**Bullet 3, wrongly marked "supported."** Re-reading: Phase 15's ARROWS³
+gate (`arrows_gate_scoring.py`) scored the **validator** and the
+**comparator** against real lab outcomes — it never scored the
+**ranker**. Reusing that result for E1 (a ranker-reward arm) tests
+nothing about the ranker. Correct status: **not tested**, for the
+reason already given in the entry above (ARROWS³ has no molar ratios or
+per-route temperature sweeps, so several ranker channels would be
+ungradeable — the same problem finding 19 hit on ASTRAL). Per the scope
+freeze, no new ranker-ARROWS³ gate is being built to resolve this.
+
+**Revised verdict: 2 of 3 supported** (support growth, cleanly; carbonate
+collapse, cleanly, but via a shared thermodynamic mechanism rather than
+an independent reward confirmation) **and 1 not tested** (ARROWS³
+agreement — no ranker-specific result exists). The predicted-hit-rise
+half of bullet 1 is directionally consistent but not statistically
+decisive.
+
+**Temperature claim corrected.** The "+16.5 °C overshoot" figure in the
+entry above used a single pooled mean-vs-mean comparison that hides
+target-by-target spread. The right comparison is per-target: the
+model's own mean reported max-T vs. **the best temperature of whichever
+reference route (traditional or predicted) has the higher lab purity for
+that target**, bucketed at ±100 °C (reproduced exactly from
+`results/astral_gen_n32_{base,rs_sft,gdpo_phase12_beta0,e1}.json`):
+
+| model | avg \|error\| | within 100 °C | too hot by >100 °C | too cold by >100 °C |
+|---|---|---|---|---|
+| base | 272 °C | 5 | 30 | 0 |
+| RS-SFT | 189 °C | 10 | 25 | 0 |
+| GDPO from RS-SFT (phase12-β0) | 224 °C | 10 | 25 | 0 |
+| **E1** | **120 °C** | **13** | **12** | **10** |
+
+**Honest line: E1 cut the average temperature error by roughly a third
+(189→120 °C vs. its RS-SFT init), but it also created a failure mode no
+earlier model had** — running more than 100 °C too *cold* on 10/35
+targets. No prior model (base, RS-SFT, or the validator-reward GDPO arm)
+ever undershot by more than 100 °C on a single target. This is still
+the first reward in this project that measurably corrected the
+temperature hack rather than feeding it (findings 6, 9, 15, 20/22's own
+reassertion pattern) — but it overcorrected on roughly a third of
+targets rather than converging tightly. Report both halves together.
+
+**Next (critical path per regular Claude, GPU was idle):** E3 and E3c
+n=32 sampling on both target sets launched immediately
+(`data_curation/phase16_e3_e3c_sampling.py`, tmux `e3_e3c_sampling`,
+`run_logs/phase16_e3_e3c_sampling.log`) — both are LoRA-on-base arms, so
+their matching reference distribution is base's own existing 200+32
+draws (`data/novelty/base_reference_{heldout,astral}.jsonl`), not
+RS-SFT's. Novelty-rate and support-growth computation follows once this
+finishes. E4 waits on that result.
