@@ -1,0 +1,1217 @@
+{
+ "generated_by": "scripts/build_claims_ledger.py",
+ "seed": 20261012,
+ "entries": [
+  {
+   "id": "L2.passk.n",
+   "layer": 2,
+   "claim": "pass@k test size",
+   "value": "200 targets x {16: 200} samples per model",
+   "definition": "held-out targets, closed-book, success = checker score >= 0.9",
+   "source": "results/passk_n200.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L2.passk.base",
+   "layer": 2,
+   "claim": "pass@k for base",
+   "value": {
+    "k=1": 0.6103,
+    "k=2": 0.7113,
+    "k=4": 0.7751,
+    "k=8": 0.8129,
+    "k=16": 0.835
+   },
+   "definition": "mean over 200 targets of the per-target unbiased pass@k estimate",
+   "source": "results/passk_n200.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L2.passk.sft",
+   "layer": 2,
+   "claim": "pass@k for sft",
+   "value": {
+    "k=1": 0.6609,
+    "k=2": 0.7483,
+    "k=4": 0.7968,
+    "k=8": 0.8328,
+    "k=16": 0.87
+   },
+   "definition": "mean over 200 targets of the per-target unbiased pass@k estimate",
+   "source": "results/passk_n200.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L2.passk.gdpo300",
+   "layer": 2,
+   "claim": "pass@k for gdpo300",
+   "value": {
+    "k=1": 0.685,
+    "k=2": 0.7713,
+    "k=4": 0.8195,
+    "k=8": 0.8556,
+    "k=16": 0.88
+   },
+   "definition": "mean over 200 targets of the per-target unbiased pass@k estimate",
+   "source": "results/passk_n200.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L2.passk.gap",
+   "layer": 2,
+   "claim": "GDPO-300 lead over Corpus SFT, by k",
+   "value": {
+    "1": {
+     "gap_pct_points": 2.41,
+     "ci95_pct_points": [
+      0.81,
+      4.06
+     ]
+    },
+    "2": {
+     "gap_pct_points": 2.3,
+     "ci95_pct_points": [
+      0.84,
+      3.85
+     ]
+    },
+    "4": {
+     "gap_pct_points": 2.27,
+     "ci95_pct_points": [
+      0.51,
+      4.19
+     ]
+    },
+    "8": {
+     "gap_pct_points": 2.28,
+     "ci95_pct_points": [
+      -0.04,
+      4.79
+     ]
+    },
+    "16": {
+     "gap_pct_points": 1.0,
+     "ci95_pct_points": [
+      -2.5,
+      4.5
+     ]
+    }
+   },
+   "definition": "difference in pass@k, in PERCENTAGE POINTS of targets solved (not reward); paired bootstrap over targets, 10,000 resamples, seed fixed",
+   "source": "results/passk_n200.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": "+2.4 (k=1), +2.3 (k=8), +1.0 (k=16)",
+   "note": "'Points' here are percentage points of the fraction of targets solved, never reward. k=16 equals the number of samples (16), so pass@16 here is 'solved at least once in these 16 samples', not an unbiased estimate; the repo's own rule says usable k <= n/2 = 8. The shrinking-gap reading should lean on k=1..8 and the paired count below."
+  },
+  {
+   "id": "L2.passk.paired16",
+   "layer": 2,
+   "claim": "Targets solved at least once in 16 samples, paired",
+   "value": {
+    "both": 169,
+    "gdpo_only": 7,
+    "sft_only": 5,
+    "neither": 19,
+    "mcnemar_p_two_sided": 0.7744
+   },
+   "definition": "exact McNemar on discordant targets",
+   "source": "results/passk_n200.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": "169 both, 7 GDPO-only, 5 SFT-only, 19 neither, p=0.77",
+   "note": ""
+  },
+  {
+   "id": "L2.passk.headroom",
+   "layer": 2,
+   "claim": "Room Base left at 16 samples",
+   "value": {
+    "base_solved_frac": 0.835,
+    "headroom_pct_points": 16.5,
+    "sft_captured_frac": 0.2121,
+    "gdpo_captured_frac": 0.2727
+   },
+   "definition": "headroom = 1 - Base solved fraction; captured = (model - Base) / headroom",
+   "source": "results/passk_n200.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": "Base 83.5%, headroom 16.5 points, SFT 21%, GDPO 27%",
+   "note": ""
+  },
+  {
+   "id": "L2.stratum",
+   "layer": 2,
+   "claim": "Corpus SFT minus Base, pass@1, by target stratum",
+   "value": {
+    "fracxinterpolated": {
+     "delta": 0.1486,
+     "n": 74
+    },
+    "fracxungradeable": {
+     "delta": 0.1062,
+     "n": 20
+    },
+    "intxdiscrete": {
+     "delta": -0.0078,
+     "n": 56
+    },
+    "intxinterpolated": {
+     "delta": -0.0282,
+     "n": 31
+    },
+    "intxungradeable": {
+     "delta": -0.0888,
+     "n": 19
+    }
+   },
+   "definition": "mean per-target difference in pass@1",
+   "source": "results/passk_n200.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": "frac x interp +0.149 (74), frac x ungradeable +0.106 (20), int x discrete -0.008 (56), int x interp -0.028 (31), int x ungradeable -0.089 (19)",
+   "note": ""
+  },
+  {
+   "id": "L2.passk15",
+   "layer": 2,
+   "claim": "First pass@k look, 15 targets x 48 samples",
+   "value": {
+    "base": [
+     0.643,
+     0.72,
+     0.733
+    ],
+    "sft": [
+     0.756,
+     0.867,
+     0.867
+    ],
+    "gdpo300": [
+     0.778,
+     0.878,
+     0.933
+    ],
+    "columns": "pass@1, pass@8, pass@48"
+   },
+   "definition": "same estimator, 15 held-out targets",
+   "source": "docs/TIMELINE.md (Phase 8 entry); chat 'Experimental framework review before GDPO run' (Sep 2026)",
+   "status": "DOC_ONLY",
+   "stated_earlier": null,
+   "note": "0.867 = 13/15 and 0.933 = 14/15 targets, so the 6.6-point lead is one target. At pass@48 with 48 samples the value is 'solved at least once in 48', not an estimate."
+  },
+  {
+   "id": "L3.hardening",
+   "layer": 3,
+   "claim": "Constraint probe: capacity and variety by condition (Corpus SFT, 40 targets x 8)",
+   "value": {
+    "baseline": {
+     "capacity_pct": 16.41,
+     "capacity_pct_vs_reachable_max": 18.75,
+     "powder_sets_per_8": 2.17,
+     "groups_all_identical_pct": 37.5,
+     "p_hat_at_0.9": 0.6463
+    },
+    "temp_ceiling": {
+     "capacity_pct": 17.66,
+     "capacity_pct_vs_reachable_max": 20.18,
+     "powder_sets_per_8": 2.15,
+     "groups_all_identical_pct": 37.5,
+     "p_hat_at_0.9": 0.6391,
+     "temp_ok_frac": 1.0,
+     "mean_max_T_reported_C": 993.3
+    },
+    "inventory": {
+     "capacity_pct": 16.4,
+     "capacity_pct_vs_reachable_max": 18.74,
+     "powder_sets_per_8": 1.65,
+     "groups_all_identical_pct": 62.5,
+     "p_hat_at_0.9": 0.6576,
+     "inventory_ok_frac": 0.8539
+    },
+    "atmosphere": {
+     "capacity_pct": 16.33,
+     "capacity_pct_vs_reachable_max": 18.66,
+     "powder_sets_per_8": 2.1,
+     "groups_all_identical_pct": 35.0,
+     "p_hat_at_0.9": 0.7018
+    },
+    "combined": {
+     "capacity_pct": 16.06,
+     "capacity_pct_vs_reachable_max": 18.35,
+     "powder_sets_per_8": 1.75,
+     "groups_all_identical_pct": 55.0,
+     "p_hat_at_0.9": 0.6406,
+     "temp_ok_frac": 0.9966,
+     "mean_max_T_reported_C": 984.8,
+     "inventory_ok_frac": 0.8474
+    }
+   },
+   "definition": "capacity = sum of within-group z-variance over 10 checks / 10 (probe_hardening.capacity_metrics)",
+   "source": "results/hardening.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": "16.4 / 17.7 / 16.4 / 16.3 / 16.1 %; 2.17 / 2.15 / 1.65 / 2.10 / 1.75 sets; 37.5 / 37.5 / 62.5 / 35.0 / 55.0 % identical",
+   "note": "Definition detail: z-scores use the sample std (ddof=1) and the variance of z uses ddof=0. With 8 answers per group, a check that varies in every group therefore reaches 7/8 = 0.875, not 1. The reachable maximum is 87.5%, so every capacity number reads about 1/0.875 = 1.14x higher on a 0-100% reachable scale (column capacity_pct_vs_reachable_max). The 40% bar was set on the original scale, so the pass/fail verdicts do not change."
+  },
+  {
+   "id": "L3.capacity.run1",
+   "layer": 3,
+   "claim": "Reward capacity during GDPO-300 training (run 1)",
+   "value": {
+    "total_z_variance": 1.43,
+    "capacity_pct": 14.3,
+    "per_check_z_var": {
+     "amount_accuracy": 0.601,
+     "thermodynamic_favorable": 0.363,
+     "operation_order": 0.186,
+     "stoichiometry": 0.142,
+     "chempot_atmosphere": 0.105,
+     "precursors_exist": 0.028,
+     "temperature_plausible": 0.006,
+     "charge_neutrality": 0.0,
+     "target_match": 0.0,
+     "target_stability": 0.0
+    },
+    "zero_std_groups_pct": {
+     "amount_accuracy": 31.0,
+     "thermodynamic_favorable": 57.8,
+     "operation_order": 78.8,
+     "stoichiometry": 83.5,
+     "chempot_atmosphere": 87.4,
+     "precursors_exist": 96.7,
+     "temperature_plausible": 99.3,
+     "charge_neutrality": 100,
+     "target_match": 100,
+     "target_stability": 100
+    },
+    "n": "4,896 completions in 612 groups of 8",
+    "top_eigenvector_loading_amount_accuracy": -0.97
+   },
+   "definition": "reward_geometry.py D1 on runs/gdpo-qlora-gdpo-v3/generations.jsonl",
+   "source": "CLAUDE.md finding 1; chat 'Experimental framework review before GDPO run' (Aug-Sep 2026)",
+   "status": "DOC_ONLY",
+   "stated_earlier": null,
+   "note": "The generations file is not tracked, so this cannot be recomputed here. Each z-variance is (fraction of groups where the check varies) x 0.875, e.g. operation_order: 21.2% x 0.875 = 0.186. The 'other eight' sum to 0.467."
+  },
+  {
+   "id": "L3.leash",
+   "layer": 3,
+   "claim": "Drift penalty loosened (beta 0.04 -> 0.001, lr 5e-6 -> 1e-5), resumed from step 300",
+   "value": {
+    "KL_by_step": {
+     "25": 0.0007,
+     "50": 0.0008,
+     "75": 0.00101,
+     "100": 0.00157,
+     "125": 0.0022,
+     "150": 0.00261
+    },
+    "clip_ratio": 0,
+    "entropy": "0.629 -> 0.696"
+   },
+   "definition": "KL from the reference (Base) as logged by TRL",
+   "source": "chat 'Experimental framework review before GDPO run' (Aug 2026); CLAUDE.md finding 7",
+   "status": "CHAT_ONLY",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L3.temperature_sweep",
+   "layer": 3,
+   "claim": "Sampling temperature vs variety (Corpus SFT, 20 targets x 8)",
+   "value": {
+    "T=1.0": 1.9,
+    "T=1.2": 2.3,
+    "T=1.5": 2.05,
+    "targets_never_above_2_sets": "8 of 20"
+   },
+   "definition": "distinct starting-powder sets per group of 8",
+   "source": "docs/TIMELINE.md",
+   "status": "DOC_ONLY",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L3.low_temp",
+   "layer": 3,
+   "claim": "Low-temperature objective probe (40 targets x 8)",
+   "value": {
+    "capacity_pct_11_checks": 23.8,
+    "capacity_pct_10_checks": 19.0,
+    "temperature_economy_z_var": 0.721,
+    "mean_max_T_C": 1056,
+    "ceiling_condition_mean_max_T_C": 993
+   },
+   "definition": "same capacity metric, with the new check added",
+   "source": "CLAUDE.md finding 15",
+   "status": "DOC_ONLY",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L3.temp_hack",
+   "layer": 3,
+   "claim": "Reported temperatures vs the literature, 20 high-scoring answers",
+   "value": {
+    "comparable": 18,
+    "hotter": 15,
+    "median_delta_C": 200,
+    "hotter_by_200C_or_more": 10,
+    "max_delta_C": 750,
+    "ceiling_compliance": "100%"
+   },
+   "definition": "model max temperature minus published max temperature for the same target",
+   "source": "CLAUDE.md finding 6 (misc/validity_read_20.md, untracked)",
+   "status": "DOC_ONLY",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L3.prereg_june",
+   "layer": 2,
+   "claim": "Failure signs written before any practice run, and what was seen",
+   "value": {
+    "spare_capacity": "LoRA capacity use flat across checkpoints",
+    "advantage_collapse": "capacity 14%, 8 of 10 checks always tied",
+    "representations": "CKA(Corpus SFT, GDPO-300) about 0.99 from layer 20 on; layer mean 0.96 (CLAUDE.md finding 5)",
+    "drift_vs_reward": "KL peaked at 0.0026 (in the loosened-leash resume); reward 0.955 -> 0.988"
+   },
+   "definition": "",
+   "source": "chat 'Experimental framework review before GDPO run' (Volume I, sec. 3.5)",
+   "status": "CHAT_ONLY",
+   "stated_earlier": null,
+   "note": "The 0.99 is the late-layer value; the all-layer mean reported in CLAUDE.md is 0.96. The principal-angle figures (22 vs 35 degrees) were computed while a plotting bug (svdvals vs arccos) was open; do not quote them without a recheck."
+  },
+  {
+   "id": "L1.six_checkpoints",
+   "layer": 1,
+   "claim": "Six separately trained checkpoints, identical scores",
+   "value": {
+    "before_fix": "0.2846 +/- 0.0535",
+    "after_fix": "0.853-0.869 on five of the six"
+   },
+   "definition": "mean checker reward on the early eval set",
+   "source": "chat 'MIRA project materials database integration' (Jun 2026)",
+   "status": "CHAT_ONLY",
+   "stated_earlier": "the same six models scored between 0.853 and 0.869",
+   "note": "The chat says five of the six were re-scored in that range; the tree said six. Corrected to five of six."
+  },
+  {
+   "id": "L1.bugs",
+   "layer": 1,
+   "claim": "Bug ledger values quoted in the tree",
+   "value": {
+    "sentinel_free_reward_max": "about 0.225",
+    "truncation": "max_seq_len 1,024 vs median 4,092 tokens -> 100% of v3 sequences cut",
+    "LFP_gradeability": "3.6% -> 61.7%",
+    "corrupt_PD_shards": "8.5%, 1,691 refetched",
+    "tests": 43,
+    "corpus_gradeable_after_fixes": "85.4%"
+   },
+   "definition": "",
+   "source": "chat 'Experimental framework review before GDPO run' (Volume I bug ledger); CLAUDE.md",
+   "status": "CHAT_ONLY",
+   "stated_earlier": null,
+   "note": "max_seq_len 1,024 was chosen on an earlier dataset (mean 616 tokens, 0.11% truncated) and was not re-checked when the corpus switched to long teacher traces."
+  },
+  {
+   "id": "L4.purity_split",
+   "layer": 4,
+   "claim": "Which recipe the robot lab measured as purer (best temperature of each)",
+   "value": {
+    "rule_picked_purer": 20,
+    "conventional_purer": 15,
+    "ties": 0,
+    "at_0.10_margin": {
+     "rule_picked_clearly": 13,
+     "within_0.10": 16,
+     "conventional_clearly": 6
+    },
+    "header_in_same_file": {
+     "targets_where_predicted_beat_traditional_by_10pct": 15,
+     "targets_where_similar": 16,
+     "targets_where_traditional_better_by_10pct": 4,
+     "targets_where_only_predicted_worked": 6
+    }
+   },
+   "definition": "per-target best phase purity, rule-picked (predicted) vs conventional (traditional)",
+   "source": "results/astral_validation_set.json",
+   "status": "RECOMPUTED*",
+   "stated_earlier": "'the rule-picked recipe usually came out purer' (early tree); header 15 / 16 / 4",
+   "note": "The file's own header (15 better by 10%, 16 similar, 4 worse) cannot be reproduced from its per-target purities under either an absolute 0.10 or a relative 10% margin (13/16/6 and 15/12/8). Use the per-target counts: purer on 20 of 35; clearly purer (>0.10) on 13, within 0.10 on 16, clearly worse on 6."
+  },
+  {
+   "id": "L4.lab_temperatures",
+   "layer": 4,
+   "claim": "Mean best temperature in the lab",
+   "value": {
+    "conventional_recipe_C": 762.9,
+    "rule_picked_recipe_C": 745.7
+   },
+   "definition": "mean over 35 targets of the temperature at which each recipe reached its best purity",
+   "source": "results/astral_validation_set.json",
+   "status": "RECOMPUTED*",
+   "stated_earlier": "'lab best, 763 C'",
+   "note": "763 C is the conventional recipe's mean best temperature, not 'the lab best'. Overshoot numbers (+264 C etc.) are measured against this conventional figure."
+  },
+  {
+   "id": "L4.checker_vs_purity",
+   "layer": 4,
+   "claim": "Checker score vs measured purity, 70 recipes",
+   "value": {
+    "spearman_rho": 0.2276,
+    "p": 0.0581,
+    "pairs_agree": 17,
+    "pairs_decided": 34,
+    "pairs_tied": 1
+   },
+   "definition": "Spearman rank correlation; a pair agrees when the checker's higher-scored recipe is the purer one",
+   "source": "results/astral_validator_correlation.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": "rho 0.228, p 0.058; 17 of 34",
+   "note": ""
+  },
+  {
+   "id": "L4.corpus_freq",
+   "layer": 4,
+   "claim": "How often the starting powders appear in the training corpus",
+   "value": {
+    "rule_picked_powders": {
+     "LiPO3": 2,
+     "LiBO2": 2,
+     "LiNbO3": 0,
+     "Li2TiO3": 2,
+     "KPO3": 0,
+     "K3PO4": 1,
+     "KNbO3": 9,
+     "NaBO2": 0,
+     "NaPO3": 7
+    },
+    "conventional_powders": {
+     "Li2CO3": 1654,
+     "B2O3": 93,
+     "BaO": 74,
+     "NH4H2PO4": 677,
+     "K2CO3": 536,
+     "Na2CO3": 1015
+    },
+    "mean_rule_picked": 2.56,
+    "mean_conventional": 674.8,
+    "never_appear": [
+     "LiNbO3",
+     "KPO3",
+     "NaBO2"
+    ]
+   },
+   "definition": "mentions in the 17.6k-route Kononova corpus",
+   "source": "results/corpus_coverage.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": "2.6 vs 674.8; LiNbO3, KPO3, NaBO2 never",
+   "note": ""
+  },
+  {
+   "id": "L5.per_model",
+   "layer": 5,
+   "claim": "Rule-picked and conventional recipes proposed, per model (35 targets x 32 samples)",
+   "value": {
+    "Base": {
+     "rule_picked_targets_exact": 10,
+     "rule_picked_targets_incl_superset": 10,
+     "rule_picked_targets_clean22_exact": 8,
+     "conventional_targets": 24,
+     "rule_picked_samples": 22,
+     "conventional_samples": 309,
+     "parse_rate": 0.9866,
+     "checker_gap_rule_minus_conventional": 0.021,
+     "mean_max_T_C": 1026.5,
+     "overshoot_vs_conventional_best_T_C": 263.6
+    },
+    "Corpus SFT": {
+     "rule_picked_targets_exact": 0,
+     "rule_picked_targets_incl_superset": 1,
+     "rule_picked_targets_clean22_exact": 0,
+     "conventional_targets": 32,
+     "rule_picked_samples": 0,
+     "conventional_samples": 521,
+     "parse_rate": 0.9848,
+     "checker_gap_rule_minus_conventional": null,
+     "mean_max_T_C": 963.2,
+     "overshoot_vs_conventional_best_T_C": 200.4
+    },
+    "Format-only SFT": {
+     "rule_picked_targets_exact": 10,
+     "rule_picked_targets_incl_superset": 11,
+     "rule_picked_targets_clean22_exact": 8,
+     "conventional_targets": 31,
+     "rule_picked_samples": 16,
+     "conventional_samples": 310,
+     "parse_rate": 0.9929,
+     "checker_gap_rule_minus_conventional": 0.0379,
+     "mean_max_T_C": 1070.8,
+     "overshoot_vs_conventional_best_T_C": 307.9
+    },
+    "RS-SFT": {
+     "rule_picked_targets_exact": 10,
+     "rule_picked_targets_incl_superset": 10,
+     "rule_picked_targets_clean22_exact": 9,
+     "conventional_targets": 17,
+     "rule_picked_samples": 41,
+     "conventional_samples": 181,
+     "parse_rate": 0.958,
+     "checker_gap_rule_minus_conventional": 0.0066,
+     "mean_max_T_C": 934.2,
+     "overshoot_vs_conventional_best_T_C": 171.3
+    },
+    "GDPO-300": {
+     "rule_picked_targets_exact": 2,
+     "rule_picked_targets_incl_superset": 3,
+     "rule_picked_targets_clean22_exact": 2,
+     "conventional_targets": 31,
+     "rule_picked_samples": 3,
+     "conventional_samples": 530,
+     "parse_rate": 0.9786,
+     "checker_gap_rule_minus_conventional": 0.0817,
+     "mean_max_T_C": 1017.1,
+     "overshoot_vs_conventional_best_T_C": 254.2
+    },
+    "GDPO from RS-SFT": {
+     "rule_picked_targets_exact": 14,
+     "rule_picked_targets_incl_superset": 14,
+     "rule_picked_targets_clean22_exact": 12,
+     "conventional_targets": 17,
+     "rule_picked_samples": 36,
+     "conventional_samples": 48,
+     "parse_rate": 0.9705,
+     "checker_gap_rule_minus_conventional": 0.0102,
+     "mean_max_T_C": 976.1,
+     "overshoot_vs_conventional_best_T_C": 213.2
+    },
+    "E1 (GDPO from RS-SFT, ranker reward)": {
+     "rule_picked_targets_exact": 14,
+     "rule_picked_targets_incl_superset": 14,
+     "rule_picked_targets_clean22_exact": 11,
+     "conventional_targets": 15,
+     "rule_picked_samples": 56,
+     "conventional_samples": 53,
+     "parse_rate": 0.9777,
+     "checker_gap_rule_minus_conventional": 0.0287,
+     "mean_max_T_C": 779.4,
+     "overshoot_vs_conventional_best_T_C": 16.5
+    }
+   },
+   "definition": "a target counts when at least one of 32 samples uses exactly the rule-picked (or conventional) powder set; 'incl_superset' also counts a set that contains the rule-picked powders plus extras",
+   "source": "results/astral_gen_n32_*.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": "Base 10/24, Corpus SFT 0(1)/32, Format-only 11/31, RS-SFT 10/17, GDPO-300 3/31, GDPO from RS-SFT 14/17",
+   "note": "Format-only's 11 and GDPO-300's 3 include one superset hit each; exact counts are 10 and 2."
+  },
+  {
+   "id": "L5.mcnemar",
+   "layer": 5,
+   "claim": "Paired tests on rule-picked hits",
+   "value": {
+    "Base -> Corpus SFT (all 35)": {
+     "lost": 10,
+     "gained": 0,
+     "p_two_sided": 0.002,
+     "p_one_sided": 0.001
+    },
+    "Base -> Corpus SFT (all 35, superset counts)": {
+     "lost": 9,
+     "gained": 0,
+     "p_two_sided": 0.0039,
+     "p_one_sided": 0.002
+    },
+    "Base -> Corpus SFT (clean 22)": {
+     "lost": 8,
+     "gained": 0,
+     "p_two_sided": 0.0078,
+     "p_one_sided": 0.0039
+    },
+    "Corpus SFT -> RS-SFT (all 35)": {
+     "lost": 0,
+     "gained": 10,
+     "p_two_sided": 0.002,
+     "p_one_sided": 0.001
+    },
+    "Corpus SFT -> RS-SFT (all 35, superset counts)": {
+     "lost": 0,
+     "gained": 9,
+     "p_two_sided": 0.0039,
+     "p_one_sided": 0.002
+    },
+    "Base -> Format-only SFT (all 35)": {
+     "lost": 2,
+     "gained": 2,
+     "p_two_sided": 1.0,
+     "p_one_sided": 0.6875
+    },
+    "Base -> RS-SFT (all 35)": {
+     "lost": 3,
+     "gained": 3,
+     "p_two_sided": 1.0,
+     "p_one_sided": 0.6562
+    },
+    "RS-SFT -> GDPO from RS-SFT (all 35)": {
+     "lost": 0,
+     "gained": 4,
+     "p_two_sided": 0.125,
+     "p_one_sided": 0.0625
+    },
+    "RS-SFT -> GDPO from RS-SFT (clean 22)": {
+     "lost": 0,
+     "gained": 3,
+     "p_two_sided": 0.25,
+     "p_one_sided": 0.125
+    },
+    "Corpus SFT -> GDPO-300 (all 35)": {
+     "lost": 0,
+     "gained": 2,
+     "p_two_sided": 0.5,
+     "p_one_sided": 0.25
+    },
+    "RS-SFT -> E1 (GDPO from RS-SFT, ranker reward) (all 35)": {
+     "lost": 0,
+     "gained": 4,
+     "p_two_sided": 0.125,
+     "p_one_sided": 0.0625
+    },
+    "RS-SFT -> E1 (GDPO from RS-SFT, ranker reward) (clean 22)": {
+     "lost": 0,
+     "gained": 2,
+     "p_two_sided": 0.5,
+     "p_one_sided": 0.25
+    }
+   },
+   "definition": "exact McNemar on targets where the two models disagree",
+   "source": "results/astral_gen_n32_*.json",
+   "status": "RECOMPUTED*",
+   "stated_earlier": "Base->SFT p=0.0020 (35) / 0.0078 (22); SFT->RS-SFT 'p=0.004-0.012'; RS-SFT->GDPO p=0.125 (35), 'same p' on 22",
+   "note": "RS-SFT -> GDPO is p=0.125 two-sided on 35 (one-sided 0.0625) but p=0.25 two-sided on the clean 22 (one-sided 0.125). The tree's 'same p on the clean 22' was wrong. CLAUDE.md's old 'p=0.004-0.012' for Base->SFT predates the exact recount; exact values are 0.0020 (exact match) and 0.0039 (superset counted)."
+  },
+  {
+   "id": "L6.ammonium_split",
+   "layer": 6,
+   "claim": "Rule-picked hits split by whether the ammonium bug could touch the target",
+   "value": {
+    "Base": {
+     "bug_can_touch": "2/18",
+     "bug_cannot_touch": "8/17"
+    },
+    "RS-SFT": {
+     "bug_can_touch": "1/18",
+     "bug_cannot_touch": "9/17"
+    },
+    "GDPO from RS-SFT": {
+     "bug_can_touch": "2/18",
+     "bug_cannot_touch": "12/17"
+    }
+   },
+   "definition": "targets with at least one exact rule-picked sample",
+   "source": "results/ammonium_ablation_check.json + astral_gen_n32_*.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": "unaffected 47.1% -> 52.9% -> 70.6%; affected 11.1% -> 5.6% -> 11.1%",
+   "note": ""
+  },
+  {
+   "id": "L6.gains",
+   "layer": 6,
+   "claim": "Targets GDPO from RS-SFT gained over RS-SFT",
+   "value": [
+    {
+     "target": "BaLiBO3",
+     "clean": true,
+     "rs_sft_samples": 0,
+     "gdpo_samples": 2,
+     "purity_rule_picked": 0.77,
+     "purity_conventional": 0.32
+    },
+    {
+     "target": "KLi(PO3)2",
+     "clean": true,
+     "rs_sft_samples": 0,
+     "gdpo_samples": 1,
+     "purity_rule_picked": 0.38,
+     "purity_conventional": 0.35
+    },
+    {
+     "target": "Li2TiSiO5",
+     "clean": true,
+     "rs_sft_samples": 0,
+     "gdpo_samples": 1,
+     "purity_rule_picked": 0.51,
+     "purity_conventional": 0.75
+    },
+    {
+     "target": "NaSrBO3",
+     "clean": false,
+     "rs_sft_samples": 0,
+     "gdpo_samples": 6,
+     "purity_rule_picked": 0.35,
+     "purity_conventional": 0.5
+    }
+   ],
+   "definition": "exact rule-picked hits",
+   "source": "results/astral_gen_n32_*.json + astral_validation_set.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": null,
+   "note": "Only BaLiBO3 is a target where the rule-picked recipe was clearly purer; KLi(PO3)2 is within error; Li2TiSiO5 and NaSrBO3 were purer by the conventional recipe."
+  },
+  {
+   "id": "L6.phase12",
+   "layer": 6,
+   "claim": "Phase 12 read at checkpoint 300",
+   "value": {
+    "rs_sft": 10,
+    "gdpo": 14,
+    "bar": "amplify > 12, preserve 10-12, collapse < 10",
+    "verdict": "AMPLIFIED (14/35 > 12) -- RL amplified w"
+   },
+   "definition": "",
+   "source": "results/phase12_astral_final_analysis.json",
+   "status": "FROM_RESULTS",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L7.ranker_v2",
+   "layer": 7,
+   "claim": "Ranker v2 against ASTRAL",
+   "value": {
+    "agree": 21,
+    "of": 35,
+    "bar": 24,
+    "spearman": 0.1327
+   },
+   "definition": "pair agreement with measured purity",
+   "source": "results/ranker_v2_astral_gate.json",
+   "status": "FROM_RESULTS",
+   "stated_earlier": null,
+   "note": "Three of its eight checks could not be graded on any ASTRAL pair (no amounts, no per-route temperatures)."
+  },
+  {
+   "id": "L7.comparator_astral",
+   "layer": 7,
+   "claim": "Comparator against ASTRAL",
+   "value": {
+    "iteration1": {
+     "prefer": 17,
+     "against": 0,
+     "tie": 18,
+     "bar": 25
+    },
+    "iteration2_sign_agreement": "20/35",
+    "iteration2_prefers_rule_picked": "35/35"
+   },
+   "definition": "",
+   "source": "results/phase13_astral_scoring*.json",
+   "status": "FROM_RESULTS",
+   "stated_earlier": null,
+   "note": "Every conventional ASTRAL recipe has 3 powders and every rule-picked one has 2, so a powder-count-sensitive judge cannot be tested here."
+  },
+  {
+   "id": "L7.arrows",
+   "layer": 7,
+   "claim": "Judges against ARROWS3 robot-lab yields (YBCO, pairs differing by >= 5 wt%)",
+   "value": {
+    "checker_vote": 0.6159,
+    "avoid_carbonates_rule": 0.5828,
+    "checker_minus_rule": 0.0332,
+    "checker_minus_rule_ci95": [
+     -0.043,
+     0.1123
+    ],
+    "comparator": 0.4742,
+    "comparator_minus_rule_ci95": [
+     -0.226,
+     0.0067
+    ],
+    "rule_minus_chance_ci95": [
+     0.0101,
+     0.1541
+    ],
+    "thermo_check_alone_all_pairs": 0.5577,
+    "thermo_check_alone_decisive_pairs": {
+     "agreement": 0.7121,
+     "n": 521
+    },
+    "thermo_when_carbonate_status_equal": {
+     "agreement": 0.5225,
+     "ci95": [
+      0.4955,
+      0.557
+     ]
+    },
+    "comparator_gate_decided": {
+     "n": 943,
+     "agreement": 0.4454
+    }
+   },
+   "definition": "agreement = share of pairs where the judge prefers the higher-yield recipe; CIs by the gate script's own bootstrap",
+   "source": "results/external/arrows_gate.json, arrows_task4d_diagnostics.json, arrows_task4e_additions.json",
+   "status": "FROM_RESULTS",
+   "stated_earlier": null,
+   "note": "'Thermodynamic check alone 71.1%' holds only on the 521 pairs where that check is decisive; over all pairs it scores 0.558, below the avoid-carbonates rule (0.583)."
+  },
+  {
+   "id": "L8.alkali_share",
+   "layer": 8,
+   "claim": "How the model sources lithium, sodium and potassium",
+   "value": {
+    "per_alkali_choice": {
+     "base_on_astral": {
+      "bare_oxide": 0.0909,
+      "carbonate": 0.729,
+      "other": 0.1801,
+      "n": 1166
+     },
+     "rs_sft_on_astral": {
+      "bare_oxide": 0.2584,
+      "carbonate": 0.4594,
+      "other": 0.2822,
+      "n": 1134
+     },
+     "gdpo_on_astral": {
+      "bare_oxide": 0.5691,
+      "carbonate": 0.1807,
+      "other": 0.2502,
+      "n": 1151
+     },
+     "rs_sft_training_set": {
+      "bare_oxide": 0.2879,
+      "carbonate": 0.5,
+      "other": 0.2121,
+      "n": 66
+     },
+     "full_sft_on_astral": {
+      "bare_oxide": 0.0051,
+      "carbonate": 0.982,
+      "other": 0.0129,
+      "n": 1166
+     }
+    },
+    "whole_sample_definition": {
+     "Base": {
+      "any_bare_alkali_oxide_pct": 8.6,
+      "any_carbonate_incl_alkaline_earth_pct": 74.7
+     },
+     "Corpus SFT": {
+      "any_bare_alkali_oxide_pct": 0.5,
+      "any_carbonate_incl_alkaline_earth_pct": 98.5
+     },
+     "RS-SFT": {
+      "any_bare_alkali_oxide_pct": 25.1,
+      "any_carbonate_incl_alkaline_earth_pct": 48.0
+     },
+     "GDPO from RS-SFT": {
+      "any_bare_alkali_oxide_pct": 56.3,
+      "any_carbonate_incl_alkaline_earth_pct": 19.1
+     }
+    }
+   },
+   "definition": "per_alkali_choice: for each (target, sample, alkali element) in alkali-containing targets, is that element supplied by its bare oxide, its carbonate, or something else. whole_sample: share of parsed samples that contain any bare alkali oxide / any carbonate including Ba, Sr, Ca, Mg carbonates",
+   "source": "results/distributional/alkali_source_share.json, phase16/astral_clean_subset.json, astral_gen_n32_*.json",
+   "status": "RECOMPUTED*",
+   "stated_earlier": "carbonate 74.7 -> 98.5 -> 48.0 -> 19.1 %, bare oxide 8.6 -> 0.5 -> 25.1 -> 56.3 %",
+   "note": "The often-quoted 74.7/19.1 and 8.6/56.3 are the whole-sample numbers, whose carbonate set includes alkaline-earth carbonates. A sentence about how lithium, sodium and potassium are sourced must use the per-alkali-choice numbers: carbonate 72.9 -> 98.2 -> 45.9 -> 18.1 %, bare oxide 9.1 -> 0.5 -> 25.8 -> 56.9 %."
+  },
+  {
+   "id": "L8.jaccard",
+   "layer": 8,
+   "claim": "Overlap of precursor sets between models vs each model with itself",
+   "value": {
+    "self": {
+     "base": 0.5444,
+     "sft": 0.6805,
+     "rs_sft": 0.5881,
+     "gdpo": 0.5233
+    },
+    "cross": {
+     "base-rs_sft": 0.4841,
+     "rs_sft-gdpo": 0.5248,
+     "base-gdpo": 0.3627,
+     "base-sft": 0.3282
+    }
+   },
+   "definition": "Jaccard overlap of the precursor sets in two random halves of 16 samples per target, 200 splits",
+   "source": "results/distributional/splithalf_jaccard.json",
+   "status": "FROM_RESULTS",
+   "stated_earlier": null,
+   "note": "RS-SFT vs GDPO (0.525) sits between GDPO's self-overlap (0.523) and RS-SFT's (0.588): indistinguishable from resampling. Every pair involving Base is clearly lower (0.33-0.48)."
+  },
+  {
+   "id": "L8.within_group",
+   "layer": 8,
+   "claim": "Inside GDPO training groups that mixed a bare-oxide and a carbonate answer",
+   "value": {
+    "mixed_groups": 50,
+    "of_groups": 841,
+    "thermo_z_gap": 1.2919,
+    "other_checks_z_gap": {
+     "amount_accuracy": 0.0556,
+     "stoichiometry": 0.0988,
+     "chempot_atmosphere": -0.0375,
+     "operation_order": 0.0
+    }
+   },
+   "definition": "mean (bare-oxide z - carbonate z) per check",
+   "source": "results/distributional/gdpo_within_group_bareoxide.json",
+   "status": "FROM_RESULTS",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L8.lee",
+   "layer": 8,
+   "claim": "What chemists choose (Lee et al. 2025, 80,806 recipes)",
+   "value": {
+    "carbonate_share": 0.6001,
+    "bare_oxide_share": 0.0246,
+    "n_alkali_choices": 13849,
+    "impurity_diff_bare_minus_carbonate": -0.0033,
+    "impurity_diff_ci95": [
+     -0.0296,
+     0.0231
+    ],
+    "same_target_diff": 0.0053,
+    "same_target_ci95": [
+     -0.0392,
+     0.0498
+    ]
+   },
+   "definition": "shares of (record, alkali element) choices; impurity = recipe reported with an impurity phase",
+   "source": "results/external/lee2025_precursor_usage.json",
+   "status": "FROM_RESULTS",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L8.teacher_forcing",
+   "layer": 8,
+   "claim": "Shift in log-probability, GDPO from RS-SFT minus RS-SFT, on 75 ARROWS3 recipes",
+   "value": {
+    "carbonate_coef": -1.9795,
+    "carbonate_ci95": [
+     -3.5308,
+     -0.3272
+    ],
+    "yield_coef_per_wt_pct": 0.0198,
+    "yield_ci95": [
+     -0.0062,
+     0.0432
+    ],
+    "with_target_fixed_effects": {
+     "carbonate_coef": -2.3479,
+     "ci95": [
+      -3.8935,
+      -0.8077
+     ]
+    }
+   },
+   "definition": "regression of the log-probability shift on carbonate status and measured yield (nats; empty <think> block)",
+   "source": "results/dose_response/analysis.json, robustness.json",
+   "status": "FROM_RESULTS",
+   "stated_earlier": "-1.979 [-3.554, -0.352] (doc); -2.35 nats (decision tree)",
+   "note": "-1.979 is the pre-registered model without target fixed effects; -2.35 is the robustness check with them. The tracked JSON's CI is [-3.531, -0.327]; PHASE15_DOSE_RESULTS.md prints [-3.554, -0.352] (a different bootstrap run). Quote the JSON."
+  },
+  {
+   "id": "L9.overlap",
+   "layer": 9,
+   "claim": "ASTRAL targets that appear anywhere in project data",
+   "value": {
+    "overlapping": 13,
+    "clean": 22,
+    "clean_hits": {
+     "Base": 8,
+     "Corpus SFT": 0,
+     "RS-SFT": 9,
+     "GDPO from RS-SFT": 12
+    }
+   },
+   "definition": "",
+   "source": "results/phase16/astral_overlap.json + astral_gen_n32_*.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L10.filter",
+   "layer": 10,
+   "claim": "E3/E3c data filter",
+   "value": {
+    "n_total_pool_samples": 23040,
+    "n_parse_fail": 526,
+    "n_gate_pass": 12150,
+    "gate_pass_rate": 0.5273,
+    "n_novel_among_gate_pass": 6646,
+    "novelty_rate_among_gate_pass": 0.547,
+    "n_targets_total": 360,
+    "n_targets_keep_at_least_one": 256,
+    "n_targets_keep_none": 104,
+    "fraction_targets_keep_none": 0.2889,
+    "e3_final_size": 527,
+    "e3c_pool_size_before_subsample": 686,
+    "e3c_final_size": 527,
+    "rarity_count_threshold": 17,
+    "per_target_cap": 4,
+    "seed": 42,
+    "stop_rule_triggered": false
+   },
+   "definition": "",
+   "source": "results/phase16/e3_e3c_filter_report.json",
+   "status": "FROM_RESULTS",
+   "stated_earlier": null,
+   "note": "Rare = one starting powder used in 17 or fewer corpus recipes, or a powder set never published for that target."
+  },
+  {
+   "id": "L10.validator_v2",
+   "layer": 10,
+   "claim": "Recipes whose balance verdict flips under the ammonium fix",
+   "value": {
+    "rs_sft": "2.23% (25/1120)",
+    "gdpo_phase12_beta0": "1.07% (12/1120)"
+   },
+   "definition": "",
+   "source": "results/phase16/validator_v2_rescore.json",
+   "status": "FROM_RESULTS",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L5.controls",
+   "layer": 5,
+   "claim": "How the two Phase 11 controls were built",
+   "value": {
+    "format_only_sft": "300 random examples of the 1,217-example corpus set, 10 steps, fresh LoRA from Base; parse rate 1,112/1,120 = 99.3%",
+    "rs_sft": "8 Base samples for each of 400 targets, kept if checker >= 0.9; 295 targets survived (73.75%); trained on 283, 12 held out for eval loss"
+   },
+   "definition": "",
+   "source": "docs/phases/PHASE11_RESULTS.md",
+   "status": "DOC_ONLY",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L6.run_diagnostics",
+   "layer": 6,
+   "claim": "Phase 12 run diagnostics",
+   "value": {
+    "parse_failures": "18.2% -> 12.4% (69 -> 47 of 380) after two reader fixes; 46 of 47 remaining are 8,192-token truncations",
+    "operation_order_smoke": "1.000 on all 311 scored completions; predicted to stay silent; it did",
+    "kl_blowup": {
+     "step": [
+      25,
+      50,
+      75
+     ],
+     "kl": [
+      1.32,
+      97.2,
+      199000000000.0
+     ],
+     "grad_norm": [
+      616.0,
+      1.84,
+      0.072
+     ]
+    },
+    "relaunch": "beta = 0; grad norm never above about 0.45"
+   },
+   "definition": "",
+   "source": "docs/phases/PHASE12_RESULTS.md",
+   "status": "DOC_ONLY",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L10.e1_temperature",
+   "layer": 10,
+   "claim": "Model temperature vs the lab's best temperature, target by target",
+   "value": {
+    "Base": {
+     "mean_signed_C": 272.0,
+     "mean_abs_C": 272.0,
+     "targets_within_100C": 5,
+     "targets_too_hot_100C": 30,
+     "targets_too_cold_100C": 0
+    },
+    "RS-SFT": {
+     "mean_signed_C": 179.3,
+     "mean_abs_C": 188.8,
+     "targets_within_100C": 10,
+     "targets_too_hot_100C": 25,
+     "targets_too_cold_100C": 0
+    },
+    "GDPO from RS-SFT": {
+     "mean_signed_C": 221.5,
+     "mean_abs_C": 223.9,
+     "targets_within_100C": 10,
+     "targets_too_hot_100C": 25,
+     "targets_too_cold_100C": 0
+    },
+    "E1 (GDPO from RS-SFT, ranker reward)": {
+     "mean_signed_C": 24.2,
+     "mean_abs_C": 120.1,
+     "targets_within_100C": 13,
+     "targets_too_hot_100C": 12,
+     "targets_too_cold_100C": 10
+    }
+   },
+   "definition": "per target: model's mean max temperature minus the temperature at which the purer of the two lab recipes reached its best purity",
+   "source": "results/astral_gen_n32_*.json + astral_validation_set.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": "E1 overshoot +16.5 C (mean, vs conventional best)",
+   "note": "E1's near-zero mean hides a wide spread: it cut mean absolute error from 189 C (RS-SFT) to 120 C, but undershoots by more than 100 C on 10 targets, which no earlier model did."
+  },
+  {
+   "id": "L10.e1_support",
+   "layer": 10,
+   "claim": "E1 support growth vs RS-SFT's own resampling floor",
+   "value": {
+    "astral": {
+     "e1_support_growth": 0.08256880733944955,
+     "rssft_resampling_noise_floor": 0.10460251046025104
+    },
+    "heldout": {
+     "e1_support_growth": 0.1,
+     "rssft_resampling_noise_floor": 0.11666666666666667
+    }
+   },
+   "definition": "share of E1's distinct precursor sets absent from RS-SFT's 200-sample reference, vs RS-SFT's own fresh 32-sample draw",
+   "source": "results/phase16/e1_support_growth.json",
+   "status": "FROM_RESULTS",
+   "stated_earlier": null,
+   "note": ""
+  },
+  {
+   "id": "L6.kl_tokens",
+   "layer": 6,
+   "claim": "Largest single-token log-ratios in the KL-blowup hunt",
+   "value": {
+    "max_r_nats": 15.875,
+    "top10_tokens": [
+     "2",
+     "3",
+     "\"",
+     " phase",
+     "\"}\n",
+     "'t",
+     "0",
+     "/",
+     " ",
+     "9"
+    ],
+    "top10_literal_digit_tokens": 4
+   },
+   "definition": "RS-SFT used as a stand-in for the lost step-75 policy",
+   "source": "results/kl_blowup_diagnostic.json",
+   "status": "RECOMPUTED",
+   "stated_earlier": "7 of top 10 are digits",
+   "note": "4 of the top 10 are literal digit tokens; 7 of 10 sit inside numeric or stoichiometry arithmetic in their context. Say 'inside arithmetic', not 'digits'."
+  }
+ ]
+}

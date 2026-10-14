@@ -19,6 +19,7 @@ Regenerate any file from its source script/data rather than hand-editing.
 | `astral_5model_n32.json` | `run_debug_and_analysis/build_astral_5model_summary.py`, aggregates the five files above | — | the headline comparison table in the README, computed not hand-typed |
 | `pass3_interp_probes.json` | interpretability probes A/B/C (`manifold_visualization/act_geo/`) | 200 targets, 5-fold CV | binary hit/miss is linearly probeable (AUC ~0.73–0.77 mid-late layers); continuous pass@1 is not |
 | `astral_validation_set.json` | Chen/Cross/Sun, *Nature Synthesis* 2024 (arXiv 2304.00743) | 35 targets, traditional + predicted precursor sets, robot-measured phase purity | input data (not an output) for every ASTRAL-derived number above |
+| `ledger/claims_ledger.{json,csv}`, `ledger/CLAIMS_LEDGER.md` | `scripts/build_claims_ledger.py` (no GPU, seconds) | every number in the reasoning tree and claim sheet | one record per number: value, definition, source file, and whether it was recomputed from the files here or only exists in a doc or chat |
 
 ## Not tracked (too large or not evidence)
 
