@@ -1222,3 +1222,274 @@ Status: **RECOMPUTED** = computed by the script from a tracked results file. **R
  }
 }
 ```
+
+### `L10.e3_vs_e3c_heldout` E3 minus E3c on unseen compounds (the pre-registered comparison)
+
+- **Status:** FROM_RESULTS
+- **Source:** results/phase16/e3_e3c_bootstrap.json
+- **Definition:** cluster bootstrap by target (10,000 draws); a difference of 0.01 is one percentage point of new recipes
+- **Note:** Both intervals contain 0: choosing rare recipes adds nothing over choosing any valid recipes. The rule fixed in advance was to run E4 only if E3 beat E3c, so E4 was not run.
+
+```json
+{
+ "n_targets": 40,
+ "novelty_rate_diff": {
+  "point": -0.0084,
+  "ci95": [
+   -0.0324,
+   0.0164
+  ]
+ },
+ "support_growth_diff": {
+  "point": -0.0088,
+  "ci95": [
+   -0.0789,
+   0.0546
+  ]
+ },
+ "gate_pass_rate": {
+  "e3": 0.56875,
+  "e3c": 0.57890625
+ }
+}
+```
+
+### `L10.e3_astral_support` E3 and E3c new-recipe rate on ASTRAL vs Base's own resampling floor
+
+- **Status:** FROM_RESULTS
+- **Source:** results/phase16/e3_e3c_final_battery.json
+- **Definition:** share of distinct precursor sets absent from Base's 200-sample reference, minus Base's own fresh-draw share; cluster bootstrap by target
+- **Note:** 'Absent from a 200-sample reference' is not 'Base cannot write it': some of these may be from Base's rare tail.
+
+```json
+{
+ "floor_pooled": 0.1033,
+ "e3": {
+  "pooled": 0.2146,
+  "diff": 0.1113,
+  "ci95": [
+   0.0627,
+   0.1581
+  ]
+ },
+ "e3c": {
+  "pooled": 0.1885,
+  "diff": 0.0852,
+  "ci95": [
+   0.0313,
+   0.1392
+  ]
+ }
+}
+```
+
+### `L10.e3_checker_and_hits` E3/E3c checker pass rate on new recipes, rule-picked hits and carbonate share
+
+- **Status:** FROM_RESULTS
+- **Source:** results/phase16/e3_e3c_final_battery.json
+- **Definition:** pass rate = new recipes scoring >= 0.9 on the checker / all new recipes
+- **Note:** 100% on ASTRAL is a ceiling effect, not evidence of quality.
+
+```json
+{
+ "pass_rate_new_recipes": {
+  "e3_heldout": 0.9381,
+  "e3c_heldout": 0.9382,
+  "e3_astral": 1.0,
+  "e3c_astral": 1.0
+ },
+ "rule_picked_hits": {
+  "e3": {
+   "clean22": "10/22",
+   "all35": "13/35"
+  },
+  "e3c": {
+   "clean22": "9/22",
+   "all35": "11/35"
+  }
+ },
+ "carbonate_share_all35": {
+  "e3": 0.5179,
+  "e3c": 0.5243
+ }
+}
+```
+
+### `L10.ranker_capacity` Reward capacity under Ranker v2, on RS-SFT's existing samples
+
+- **Status:** FROM_RESULTS
+- **Source:** results/ranker_capacity.json
+- **Definition:** same formula as probe_hardening.capacity_metrics (sum of within-group z-variance / number of channels, per-channel ceiling 0.875), groups of 8, no new generation
+- **Note:** Not strictly like for like: the checker's 14.0% and 16.4% came from Corpus SFT's samples, this from RS-SFT's. Offline channel ranks also differ from E1's training log (volatility_risk, n_precursors swap); hypothesis that training creates variance the init lacks is unconfirmed.
+
+```json
+{
+ "combined_pct": 46.31,
+ "heldout_pct": 45.41,
+ "astral_pct": 45.97,
+ "per_channel_z_var": {
+  "temperature_economy": 0.7439,
+  "driving_force_margin": 0.7783,
+  "volatility_risk": 0.666,
+  "precursor_instability": 0.0257,
+  "n_precursors": 0.1548,
+  "slice_competing_phases": 0.1202,
+  "precursor_decomposition_match": 0.7496
+ },
+ "checker_reference_pct": {
+  "checker_finding_1_capacity_pct": 14.0,
+  "checker_finding_9_hardening_probe_baseline_pct": 16.4
+ }
+}
+```
+
+### `L10.support_by_checkpoint` New-recipe rate at steps 100/200/300 of two practice runs vs RS-SFT's floor
+
+- **Status:** FROM_RESULTS
+- **Source:** results/support_growth_by_checkpoint.json
+- **Definition:** share of a checkpoint's distinct precursor sets absent from RS-SFT's 200-sample reference; cluster bootstrap by target. Reading rule fixed before looking: flat or falling = no trend; rising and clearing the floor = trend.
+- **Note:** Every later interval overlaps the floor's. Phase 12 (checker reward) falls on held-out targets. Most of the behaviour change (carbonate share, hits) is already present at step 100. Runs far beyond 300 steps remain untested.
+
+```json
+{
+ "floor_pct": {
+  "astral_pct": 10.5,
+  "heldout_pct": 11.7
+ },
+ "by_checkpoint": {
+  "rs_sft": {
+   "heldout": [
+    0.1167,
+    [
+     0.0635,
+     0.1734
+    ]
+   ],
+   "astral": [
+    0.1046,
+    [
+     0.0676,
+     0.1409
+    ]
+   ],
+   "hits_clean": "8/22",
+   "hits_all35": "10/35",
+   "carbonate_share": 0.4821
+  },
+  "e1_ckpt100": {
+   "heldout": [
+    0.0927,
+    [
+     0.0417,
+     0.1484
+    ]
+   ],
+   "astral": [
+    0.0749,
+    [
+     0.0435,
+     0.1083
+    ]
+   ],
+   "hits_clean": "11/22",
+   "hits_all35": "13/35",
+   "carbonate_share": 0.253
+  },
+  "e1_ckpt200": {
+   "heldout": [
+    0.0946,
+    [
+     0.055,
+     0.1364
+    ]
+   ],
+   "astral": [
+    0.1136,
+    [
+     0.0749,
+     0.1525
+    ]
+   ],
+   "hits_clean": "9/22",
+   "hits_all35": "14/35",
+   "carbonate_share": 0.1874
+  },
+  "e1_ckpt300": {
+   "heldout": [
+    0.1,
+    [
+     0.0656,
+     0.1285
+    ]
+   ],
+   "astral": [
+    0.0826,
+    [
+     0.0459,
+     0.1217
+    ]
+   ],
+   "hits_clean": "11/22",
+   "hits_all35": "14/35",
+   "carbonate_share": 0.1831
+  },
+  "phase12_ckpt100": {
+   "heldout": [
+    0.0962,
+    [
+     0.0583,
+     0.1304
+    ]
+   ],
+   "astral": [
+    0.0973,
+    [
+     0.0605,
+     0.1322
+    ]
+   ],
+   "hits_clean": "10/22",
+   "hits_all35": "12/35",
+   "carbonate_share": 0.2569
+  },
+  "phase12_ckpt200": {
+   "heldout": [
+    0.08,
+    [
+     0.0391,
+     0.119
+    ]
+   ],
+   "astral": [
+    0.0683,
+    [
+     0.0452,
+     0.0897
+    ]
+   ],
+   "hits_clean": "9/22",
+   "hits_all35": "11/35",
+   "carbonate_share": 0.1957
+  },
+  "phase12_ckpt300": {
+   "heldout": [
+    0.0563,
+    [
+     0.0154,
+     0.0979
+    ]
+   ],
+   "astral": [
+    0.0642,
+    [
+     0.0337,
+     0.0961
+    ]
+   ],
+   "hits_clean": "12/22",
+   "hits_all35": "14/35",
+   "carbonate_share": 0.1807
+  }
+ }
+}
+```

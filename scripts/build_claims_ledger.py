@@ -587,6 +587,69 @@ add("L6.kl_tokens", 6, "Largest single-token log-ratios in the KL-blowup hunt",
 
 
 # ---------------------------------------------------------------------------
+# Phase 16 additions: E3/E3c, ranker capacity, support growth by checkpoint
+# ---------------------------------------------------------------------------
+bs = load("phase16/e3_e3c_bootstrap.json")
+add("L10.e3_vs_e3c_heldout", 10, "E3 minus E3c on unseen compounds (the pre-registered comparison)",
+    {"n_targets": bs["n_targets"],
+     "novelty_rate_diff": {"point": r4(bs["novelty_rate_diff"]["point_diff_e3_minus_e3c"]),
+                           "ci95": [r4(x) for x in bs["novelty_rate_diff"]["ci95"]]},
+     "support_growth_diff": {"point": r4(bs["support_growth_diff"]["point_diff_e3_minus_e3c"]),
+                             "ci95": [r4(x) for x in bs["support_growth_diff"]["ci95"]]},
+     "gate_pass_rate": bs["gate_pass_rate"]},
+    "cluster bootstrap by target (10,000 draws); a difference of 0.01 is one percentage point of new recipes",
+    "results/phase16/e3_e3c_bootstrap.json", "FROM_RESULTS",
+    note="Both intervals contain 0: choosing rare recipes adds nothing over choosing any valid recipes. "
+         "The rule fixed in advance was to run E4 only if E3 beat E3c, so E4 was not run.")
+fb = load("phase16/e3_e3c_final_battery.json")
+b1, b2, b3 = fb["1_astral_support_growth_bootstrap"], fb["2_checker_pass_rate_new_recipes"], fb["3_astral_hits_and_carbonate"]
+add("L10.e3_astral_support", 10, "E3 and E3c new-recipe rate on ASTRAL vs Base's own resampling floor",
+    {"floor_pooled": r4(b1["floor_pooled"]),
+     "e3": {"pooled": r4(b1["e3_pooled"]), "diff": r4(b1["e3_vs_floor"]["point_diff"]),
+            "ci95": [r4(x) for x in b1["e3_vs_floor"]["ci95"]]},
+     "e3c": {"pooled": r4(b1["e3c_pooled"]), "diff": r4(b1["e3c_vs_floor"]["point_diff"]),
+             "ci95": [r4(x) for x in b1["e3c_vs_floor"]["ci95"]]}},
+    "share of distinct precursor sets absent from Base's 200-sample reference, minus Base's own fresh-draw share; "
+    "cluster bootstrap by target",
+    "results/phase16/e3_e3c_final_battery.json", "FROM_RESULTS",
+    note="'Absent from a 200-sample reference' is not 'Base cannot write it': some of these may be from Base's rare tail.")
+add("L10.e3_checker_and_hits", 10, "E3/E3c checker pass rate on new recipes, rule-picked hits and carbonate share",
+    {"pass_rate_new_recipes": {k: v["pass_rate"] for k, v in b2.items()},
+     "rule_picked_hits": {m: {"clean22": b3[m]["predicted_hits_clean"], "all35": b3[m]["predicted_hits_full"]} for m in b3},
+     "carbonate_share_all35": {m: b3[m]["carbonate_shares"]["full_35"]["shares"]["carbonate"] for m in b3}},
+    "pass rate = new recipes scoring >= 0.9 on the checker / all new recipes", "results/phase16/e3_e3c_final_battery.json",
+    "FROM_RESULTS", note="100% on ASTRAL is a ceiling effect, not evidence of quality.")
+rc = load("ranker_capacity.json")
+add("L10.ranker_capacity", 10, "Reward capacity under Ranker v2, on RS-SFT's existing samples",
+    {"combined_pct": rc["combined"]["capacity"]["capacity_pct"],
+     "heldout_pct": rc["per_target_set"]["heldout"]["capacity"]["capacity_pct"],
+     "astral_pct": rc["per_target_set"]["astral"]["capacity"]["capacity_pct"],
+     "per_channel_z_var": rc["combined"]["capacity"]["per_channel_z_var"],
+     "checker_reference_pct": rc["comparison_reference"]},
+    "same formula as probe_hardening.capacity_metrics (sum of within-group z-variance / number of channels, "
+    "per-channel ceiling 0.875), groups of 8, no new generation",
+    "results/ranker_capacity.json", "FROM_RESULTS",
+    note="Not strictly like for like: the checker's 14.0% and 16.4% came from Corpus SFT's samples, this from RS-SFT's. "
+         "Offline channel ranks also differ from E1's training log (volatility_risk, n_precursors swap); hypothesis "
+         "that training creates variance the init lacks is unconfirmed.")
+sc = load("support_growth_by_checkpoint.json")
+add("L10.support_by_checkpoint", 10, "New-recipe rate at steps 100/200/300 of two practice runs vs RS-SFT's floor",
+    {"floor_pct": sc["rssft_floor_reference"],
+     "by_checkpoint": {k: {"heldout": [r4(v["heldout"]["point"]), [r4(x) for x in v["heldout"]["ci95"]]],
+                           "astral": [r4(v["astral"]["point"]), [r4(x) for x in v["astral"]["ci95"]]],
+                           "hits_clean": v["hits_and_carbonate"]["predicted_hits_clean"],
+                           "hits_all35": v["hits_and_carbonate"]["predicted_hits_full"],
+                           "carbonate_share": v["hits_and_carbonate"]["carbonate_share_full_35"]}
+                       for k, v in sc["by_checkpoint"].items()}},
+    "share of a checkpoint's distinct precursor sets absent from RS-SFT's 200-sample reference; cluster bootstrap "
+    "by target. Reading rule fixed before looking: flat or falling = no trend; rising and clearing the floor = trend.",
+    "results/support_growth_by_checkpoint.json", "FROM_RESULTS",
+    note="Every later interval overlaps the floor's. Phase 12 (checker reward) falls on held-out targets. "
+         "Most of the behaviour change (carbonate share, hits) is already present at step 100. "
+         "Runs far beyond 300 steps remain untested.")
+
+
+# ---------------------------------------------------------------------------
 # Write outputs
 # ---------------------------------------------------------------------------
 def flat(v):
