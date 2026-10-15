@@ -1,0 +1,198 @@
+{
+ "reading_rule": "flat/falling = no trend; rising AND clearing the floor = real trend",
+ "rssft_floor_reference": {
+  "astral_pct": 10.5,
+  "heldout_pct": 11.7
+ },
+ "by_checkpoint": {
+  "rs_sft": {
+   "heldout": {
+    "n_targets": 40,
+    "point": 0.11666666666666667,
+    "ci95": [
+     0.0625,
+     0.1722488038277512
+    ],
+    "n_boot_valid": 10000
+   },
+   "astral": {
+    "n_targets": 35,
+    "point": 0.10460251046025104,
+    "ci95": [
+     0.06787330316742081,
+     0.140625
+    ],
+    "n_boot_valid": 10000
+   },
+   "hits_and_carbonate": {
+    "predicted_hits_clean": "14/22",
+    "predicted_hits_full": "18/35",
+    "carbonate_share_full_35": 0.4602,
+    "bare_oxide_share_full_35": 0.2576,
+    "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_rs_sft.json"
+   }
+  },
+  "e1_ckpt100": {
+   "heldout": {
+    "n_targets": 40,
+    "point": 0.09271523178807947,
+    "ci95": [
+     0.0423728813559322,
+     0.14965986394557823
+    ],
+    "n_boot_valid": 10000
+   },
+   "astral": {
+    "n_targets": 35,
+    "point": 0.07488986784140969,
+    "ci95": [
+     0.04265402843601896,
+     0.10822510822510822
+    ],
+    "n_boot_valid": 10000
+   },
+   "hits_and_carbonate": {
+    "predicted_hits_clean": "11/22",
+    "predicted_hits_full": "13/35",
+    "carbonate_share_full_35": 0.253,
+    "bare_oxide_share_full_35": 0.4627,
+    "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_e1_ckpt100.json"
+   }
+  },
+  "e1_ckpt200": {
+   "heldout": {
+    "n_targets": 40,
+    "point": 0.0945945945945946,
+    "ci95": [
+     0.05442176870748299,
+     0.13636363636363635
+    ],
+    "n_boot_valid": 10000
+   },
+   "astral": {
+    "n_targets": 35,
+    "point": 0.11363636363636363,
+    "ci95": [
+     0.07511737089201878,
+     0.15294117647058825
+    ],
+    "n_boot_valid": 10000
+   },
+   "hits_and_carbonate": {
+    "predicted_hits_clean": "9/22",
+    "predicted_hits_full": "14/35",
+    "carbonate_share_full_35": 0.1874,
+    "bare_oxide_share_full_35": 0.4953,
+    "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_e1_ckpt200.json"
+   }
+  },
+  "e1_ckpt300": {
+   "heldout": {
+    "n_targets": 40,
+    "point": 0.1,
+    "ci95": [
+     0.06611570247933884,
+     0.12844036697247707
+    ],
+    "n_boot_valid": 10000
+   },
+   "astral": {
+    "n_targets": 35,
+    "point": 0.08256880733944955,
+    "ci95": [
+     0.04608294930875576,
+     0.1210762331838565
+    ],
+    "n_boot_valid": 10000
+   },
+   "hits_and_carbonate": {
+    "predicted_hits_clean": "11/22",
+    "predicted_hits_full": "14/35",
+    "carbonate_share_full_35": 0.1831,
+    "bare_oxide_share_full_35": 0.4836,
+    "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_e1.json"
+   }
+  },
+  "phase12_ckpt100": {
+   "heldout": {
+    "n_targets": 40,
+    "point": 0.09615384615384616,
+    "ci95": [
+     0.057971014492753624,
+     0.12949640287769784
+    ],
+    "n_boot_valid": 10000
+   },
+   "astral": {
+    "n_targets": 35,
+    "point": 0.09734513274336283,
+    "ci95": [
+     0.06103286384976526,
+     0.1322314049586777
+    ],
+    "n_boot_valid": 10000
+   },
+   "hits_and_carbonate": {
+    "predicted_hits_clean": "10/22",
+    "predicted_hits_full": "12/35",
+    "carbonate_share_full_35": 0.2569,
+    "bare_oxide_share_full_35": 0.4481,
+    "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_phase12_ckpt100.json"
+   }
+  },
+  "phase12_ckpt200": {
+   "heldout": {
+    "n_targets": 40,
+    "point": 0.08,
+    "ci95": [
+     0.0392156862745098,
+     0.11917098445595854
+    ],
+    "n_boot_valid": 10000
+   },
+   "astral": {
+    "n_targets": 35,
+    "point": 0.06829268292682927,
+    "ci95": [
+     0.04519774011299435,
+     0.08928571428571429
+    ],
+    "n_boot_valid": 10000
+   },
+   "hits_and_carbonate": {
+    "predicted_hits_clean": "9/22",
+    "predicted_hits_full": "11/35",
+    "carbonate_share_full_35": 0.1957,
+    "bare_oxide_share_full_35": 0.5348,
+    "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_phase12_ckpt200.json"
+   }
+  },
+  "phase12_ckpt300": {
+   "heldout": {
+    "n_targets": 40,
+    "point": 0.056338028169014086,
+    "ci95": [
+     0.015503875968992248,
+     0.09848484848484848
+    ],
+    "n_boot_valid": 10000
+   },
+   "astral": {
+    "n_targets": 35,
+    "point": 0.06422018348623854,
+    "ci95": [
+     0.03333333333333333,
+     0.09722222222222222
+    ],
+    "n_boot_valid": 10000
+   },
+   "hits_and_carbonate": {
+    "predicted_hits_clean": "12/22",
+    "predicted_hits_full": "14/35",
+    "carbonate_share_full_35": 0.1807,
+    "bare_oxide_share_full_35": 0.5691,
+    "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_gdpo_phase12_beta0.json"
+   }
+  }
+ }
+}

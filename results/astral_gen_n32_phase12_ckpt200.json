@@ -1,0 +1,9988 @@
+{
+ "tag": "phase12_ckpt200",
+ "results": [
+  {
+   "target": "LiZnPO4",
+   "samples": [
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH12N3O4",
+      "ZnO"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 0.9583,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "P2O5",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "P2O5",
+      "ZnO"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "Zn(HO)2"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "P2O5",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "PH3O4",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "ZnO"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "LiMnPO4",
+   "samples": [
+    {
+     "precursors": [
+      "LiHO",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MnO2",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO2",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO2",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO2",
+      "PH3O4"
+     ],
+     "reward": 0.9389,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO2",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO2",
+      "PH9(NO2)2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MnO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "Li2CuP2O7",
+   "samples": [
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "CuO",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "LiMgPO4",
+   "samples": [
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MgCO3",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "Mg(HO)2",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "Mg(HO)2",
+      "PH3O4"
+     ],
+     "reward": 0.9583,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 0.9583,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "Mg(HO)2",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Mg(HO)2",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "BaLiBO3",
+   "samples": [
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "BaO",
+      "LiHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "LiBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "BaO",
+      "LiHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "LiBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaCO3",
+      "Li2CO3"
+     ],
+     "reward": 0.8688,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "BaO",
+      "LiHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "BaO",
+      "LiHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "LiBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "SrLiBO3",
+   "samples": [
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "SrCO3"
+     ],
+     "reward": 0.9929,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "SrCO3"
+     ],
+     "reward": 0.922,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "LiHO",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "LiHO",
+      "Sr(HO)2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "SrCO3"
+     ],
+     "reward": 0.9929,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Li2CO3",
+      "SrCO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "LiHO",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "LiHO",
+      "SrO"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "LiHO",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "SrCO3"
+     ],
+     "reward": 0.8665,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "Li3Pr2(BO3)3",
+   "samples": [
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "LiHO",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "LiHO",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "LiHO",
+      "Pr(HO)3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Li2CO3",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 0.9714,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "LiHO",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Li2CO3",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 0.9714,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Li2CO3",
+      "Pr2O3"
+     ],
+     "reward": 0.9487,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Pr2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "LiGeBO4",
+   "samples": [
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "GeO2",
+      "LiHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "LiBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "GeO2",
+      "Li2CO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "LiBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 0.9024,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "LiBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "LiBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 0.9024,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "LiBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "LiBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "LiBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "GeO2",
+      "Li2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "K3LiP2O7",
+   "samples": [
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "LiP(HO2)2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "Li3PO4",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "Li3PO4",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "LiPO3"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    }
+   ]
+  },
+  {
+   "target": "Li3Sc2(PO4)3",
+   "samples": [
+    {
+     "precursors": [
+      "Li2O",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "P2O5",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "P2O5",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "Sc2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "Sc2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "H2O",
+      "Li3PO4",
+      "Sc2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "Sc2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "Sc2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 0.9452,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "P2O5",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "P2O5",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "Sc2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "P2O5",
+      "Sc2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "Sc2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "Li3V2(PO4)3",
+   "samples": [
+    {
+     "precursors": [
+      "Li3PO4",
+      "V2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "V2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "P2O5",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "P2O5",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "V2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 0.9841,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 0.9487,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH12N3O4",
+      "V2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "V2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "P2O5",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "V2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "V2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiHO",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "V2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "P2O5",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 0.9414,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "PH3O4",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "V2O3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li3PO4",
+      "P2O5",
+      "V2O3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "KLi(PO3)2",
+   "samples": [
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "P(HO)3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "LiHO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Li2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    }
+   ]
+  },
+  {
+   "target": "Li2TiSiO5",
+   "samples": [
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 0.9396,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 0.955,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 0.9396,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 0.9396,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 0.9396,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 0.9396,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 0.9856,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 0.955,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2CO3",
+      "SiO2",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    }
+   ]
+  },
+  {
+   "target": "LiNbGeO5",
+   "samples": [
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "LiNbO3"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "LiNO3",
+      "Nb2O5"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 0.9714,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "LiNbO3"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "Nb2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "Li2TiGeO5",
+   "samples": [
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2CO3",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2CO3",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2CO3",
+      "TiO2"
+     ],
+     "reward": 0.9813,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2CO3",
+      "TiO2"
+     ],
+     "reward": 0.9998,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "LiHO",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "GeO2",
+      "Li2O",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "Li3Fe2(PO4)3",
+   "samples": [
+    {
+     "precursors": [
+      "FePO4",
+      "LiHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.932,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.9316,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li3PO4",
+      "PH3O4"
+     ],
+     "reward": 0.9401,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "LiHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.9307,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.932,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.9323,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.9307,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.9323,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.931,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.9307,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.9316,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.9323,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.9329,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.9323,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "Li3PO4"
+     ],
+     "reward": 0.932,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "Li3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "KBaPO4",
+   "samples": [
+    {
+     "precursors": [
+      "BaCO3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Ba(NO3)2",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 0.9583,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Ba(HO)2",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaCO3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "PH12N3O4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaCO3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "BaNaBO3",
+   "samples": [
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Ba(NO3)2",
+      "Na2CO3"
+     ],
+     "reward": 0.8889,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "NaBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "Na2B4O7"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "NaBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "BaO",
+      "NaHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "NaBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "BaO",
+      "NaHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "NaBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "BaO",
+      "NaHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "NaHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "BaO",
+      "NaBO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "BaO",
+      "NaHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "BaO",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "KMgPO4",
+   "samples": [
+    {
+     "precursors": [
+      "K2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 0.9278,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "Mg(HO)2",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 0.9583,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "Mg(HO)2",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "MgCO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "MgO",
+      "PH12N3O4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "Mg(HO)2",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 0.9389,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "MgO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "MgO",
+      "P2O5"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "Mg(HO)2",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "NaSrBO3",
+   "samples": [
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "NaHO",
+      "Sr(HO)2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "NaHO",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "NaBO2",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "NaBO2",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Na2B4O7",
+      "SrCO3"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "NaHO",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2CO3",
+      "SrCO3"
+     ],
+     "reward": 0.9211,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "NaBO2",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2CO3",
+      "SrCO3"
+     ],
+     "reward": 0.894,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "NaHO",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "NaHO",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2CO3",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "NaHO",
+      "SrCO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "NaBO2",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SrO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "NaHO",
+      "SrCO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "K3Bi2(PO4)3",
+   "samples": [
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 0.9714,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 0.9487,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Bi2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "K2Zr(PO4)2",
+   "samples": [
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "ZrO2"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "ZrO2"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH9(NO2)2",
+      "ZrO2"
+     ],
+     "reward": 0.7694,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "ZrO2"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "ZrO2"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "P2O5",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "ZrO2"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "ZrO2"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "ZrO2"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "PH12N3O4",
+      "ZrO2"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "P2O5",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "ZrO2"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "PH3O4",
+      "ZrO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "K3Al2(PO4)3",
+   "samples": [
+    {
+     "precursors": [
+      "Al2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K3PO4",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K3PO4",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K3PO4",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K3PO4",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al(HO)3",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K2O",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "KTiPO5",
+   "samples": [
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "TiO2"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "PH3O4",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "PH3O4",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "PH3O4",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "PH3O4",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "PH3O4",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "PH3O4",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "PH3O4",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "TiO2"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "KNiPO4",
+   "samples": [
+    {
+     "precursors": [
+      "K2CO3",
+      "NiO",
+      "P2O5"
+     ],
+     "reward": 0.9024,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 0.9091,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "Ni(NO3)2"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "NiO"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "NiO",
+      "PH12N3O4"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "Ni(NO3)2"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "NiO"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "Ni(NO3)2"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "KP(HO2)2",
+      "NiO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KNO3",
+      "Ni3(PO4)2"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "NiO",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KNO3",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KHO",
+      "NiO",
+      "PH9(NO2)2"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "NiO"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "NiO"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 0.8687,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "NiO"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "NiO"
+     ],
+     "reward": 0.7778,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "NiO",
+      "PH3O4"
+     ],
+     "reward": 0.9091,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "K3Fe2(PO4)3",
+   "samples": [
+    {
+     "precursors": [
+      "FePO4",
+      "K3PO4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "K3PO4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K2CO3",
+      "PH12N3O4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K2CO3",
+      "P2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "K3PO4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "K3PO4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "K3PO4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "FePO4",
+      "K3PO4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 0.9801,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 0.9801,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 0.9673,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K3PO4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "KHO",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Fe2O3",
+      "K2CO3",
+      "PH3O4"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "KNbWO6",
+   "samples": [
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 0.9714,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "KTa2PO8",
+   "samples": [
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KTaO3",
+      "PH3O4"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 0.9278,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 0.9278,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 0.9278,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "KTaO3",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "Ta2O5"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 0.9056,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "Ta2O5"
+     ],
+     "reward": 0.9375,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K3PO4",
+      "Ta2O5"
+     ],
+     "reward": 0.8571,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 0.95,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2CO3",
+      "PH3O4",
+      "Ta2O5"
+     ],
+     "reward": 0.9375,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "PH3O4",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "P2O5",
+      "Ta2O5"
+     ],
+     "reward": 0.9278,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "Li3Y2(BO3)3",
+   "samples": [
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "Y2O3"
+     ],
+     "reward": 0.9571,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "LiHO",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "Y2O3"
+     ],
+     "reward": 0.9652,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "Y2O3"
+     ],
+     "reward": 0.9517,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "Y2O3"
+     ],
+     "reward": 0.9544,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "Y2O3"
+     ],
+     "reward": 0.9652,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Li2CO3",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "Y2O3"
+     ],
+     "reward": 0.9859,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "Na2Al2B2O7",
+   "samples": [
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "NaHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B(HO)3",
+      "NaHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "NaHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "NaHO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B(HO)3",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B2O3",
+      "Na2O"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Al2O3",
+      "B(HO)3",
+      "Na2CO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "NaSiBO4",
+   "samples": [
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 0.9024,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "NaBO2",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "NaBO2",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "NaBO2",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "NaBO2",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B(HO)3",
+      "NaHO",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2CO3",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2CO3",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "NaBO2",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "NaBO2",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "NaBO2",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 0.9024,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Na2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "KTiNbO5",
+   "samples": [
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 0.985,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "K2O",
+      "Nb2O5",
+      "TiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "LiSi2BO6",
+   "samples": [
+    {
+     "precursors": [
+      "B2O3",
+      "LiHO",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 0.9024,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [],
+     "reward": null,
+     "match": "PARSE_FAILURE"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 0.9024,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 0.9024,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "SiO2"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "LiNbWO6",
+   "samples": [
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiNbO3",
+      "WO3"
+     ],
+     "reward": 0.9664,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiNbO3",
+      "WO3"
+     ],
+     "reward": 0.9827,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "LiNbO3",
+      "WO3"
+     ],
+     "reward": 0.9704,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiNbO3",
+      "WO3"
+     ],
+     "reward": 0.9786,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiNbO3",
+      "WO3"
+     ],
+     "reward": 0.9745,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "Li2O",
+      "Nb2O5",
+      "WO3"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  },
+  {
+   "target": "LiZnBO3",
+   "samples": [
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "ZnO"
+     ],
+     "reward": 0.9934,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "LiBO2",
+      "ZnO"
+     ],
+     "reward": 0.9826,
+     "match": "PREDICTED"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2CO3",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "TRADITIONAL"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 0.9463,
+     "match": "OTHER"
+    },
+    {
+     "precursors": [
+      "B2O3",
+      "Li2O",
+      "ZnO"
+     ],
+     "reward": 1.0,
+     "match": "OTHER"
+    }
+   ]
+  }
+ ]
+}
