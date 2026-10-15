@@ -1,0 +1,119 @@
+{
+  "1_astral_support_growth_bootstrap": {
+    "e3_vs_floor": {
+      "point_diff": 0.11130588970158577,
+      "ci95": [
+        0.06266835860103742,
+        0.15808689302665205
+      ],
+      "n_boot_valid": 10000
+    },
+    "e3c_vs_floor": {
+      "point_diff": 0.08523820518740859,
+      "ci95": [
+        0.031250901329641506,
+        0.1392258064516129
+      ],
+      "n_boot_valid": 10000
+    },
+    "floor_pooled": 0.10328638497652583,
+    "e3_pooled": 0.2145922746781116,
+    "e3c_pooled": 0.1885245901639344
+  },
+  "2_checker_pass_rate_new_recipes": {
+    "e3_heldout": {
+      "n_new_recipes": 549,
+      "n_pass_at_0.9": 515,
+      "pass_rate": 0.9381
+    },
+    "e3c_heldout": {
+      "n_new_recipes": 566,
+      "n_pass_at_0.9": 531,
+      "pass_rate": 0.9382
+    },
+    "e3_astral": {
+      "n_new_recipes": 432,
+      "n_pass_at_0.9": 432,
+      "pass_rate": 1.0
+    },
+    "e3c_astral": {
+      "n_new_recipes": 456,
+      "n_pass_at_0.9": 456,
+      "pass_rate": 1.0
+    }
+  },
+  "3_astral_hits_and_carbonate": {
+    "e3": {
+      "predicted_hits_clean": "10/22",
+      "predicted_hits_full": "13/35",
+      "carbonate_shares": {
+        "full_35": {
+          "counts": {
+            "bare_oxide": 196,
+            "carbonate": 608,
+            "other": 370,
+            "missing": 0
+          },
+          "n_triples": 1174,
+          "shares": {
+            "bare_oxide": 0.167,
+            "carbonate": 0.5179,
+            "other": 0.3152,
+            "missing": 0.0
+          }
+        },
+        "clean_subset": {
+          "counts": {
+            "bare_oxide": 131,
+            "carbonate": 416,
+            "other": 215,
+            "missing": 0
+          },
+          "n_triples": 762,
+          "shares": {
+            "bare_oxide": 0.1719,
+            "carbonate": 0.5459,
+            "other": 0.2822,
+            "missing": 0.0
+          }
+        }
+      }
+    },
+    "e3c": {
+      "predicted_hits_clean": "9/22",
+      "predicted_hits_full": "11/35",
+      "carbonate_shares": {
+        "full_35": {
+          "counts": {
+            "bare_oxide": 228,
+            "carbonate": 615,
+            "other": 330,
+            "missing": 0
+          },
+          "n_triples": 1173,
+          "shares": {
+            "bare_oxide": 0.1944,
+            "carbonate": 0.5243,
+            "other": 0.2813,
+            "missing": 0.0
+          }
+        },
+        "clean_subset": {
+          "counts": {
+            "bare_oxide": 158,
+            "carbonate": 397,
+            "other": 206,
+            "missing": 0
+          },
+          "n_triples": 761,
+          "shares": {
+            "bare_oxide": 0.2076,
+            "carbonate": 0.5217,
+            "other": 0.2707,
+            "missing": 0.0
+          }
+        }
+      }
+    }
+  }
+}

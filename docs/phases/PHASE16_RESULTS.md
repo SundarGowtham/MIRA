@@ -614,3 +614,103 @@ practice at pre-registered gate failures (Phase 13, finding 23; Phase
 15/ranker, finding 19), stopping here to report rather than
 auto-launching E4, since this is a decision about whether the next
 arm's premise still holds, not a routine execution step.
+
+## 2026-10-15 — E4 and E3 round 2: pre-registered stopping decision, not run
+
+Per regular Claude's instruction: **E4 and E3 round 2 do not run.** This
+closes the open question left at the end of the entry above ("does E4
+still launch?").
+
+**Reasons, both pre-registered-grade:**
+1. E4's premise (prediction 3, "once new recipes are in the starting
+   distribution, does practice amplify them?") depends on E3 having put
+   recipes into the distribution that a matched, non-novelty-filtered
+   control did not. That premise failed its own gate (prediction 2,
+   entry above) — there is nothing E4-specific left to amplify beyond
+   what E3c already has.
+2. The underlying question E4 would answer — does on-policy GDPO expand
+   support beyond its init, or only sharpen within it — is **already
+   settled** by two independent results this phase: Phase 12 (finding
+   22/26, GDPO-from-RS-SFT redistributes mass within RS-SFT's support,
+   doesn't add to it) and E1 (this phase, support growth at/below
+   RS-SFT's own resampling floor on both target sets). A third run
+   testing the same question from a different init would not change
+   the answer enough to justify the GPU-days.
+
+This is recorded as a **pre-registered stopping decision**, the same
+posture as Phase 13's comparator gate (finding 23) and the ranker's
+ASTRAL gate (finding 19): the result is reported and the phase moves to
+closing out the existing-samples battery below, not to a third training
+run.
+
+## 2026-10-15 — E3/E3c closing battery (existing samples only, CPU only)
+
+Three items regular Claude asked for before closing the phase, all run
+against samples already drawn (no new training or sampling):
+`research/phase16_e3_e3c_final_battery.py` →
+`results/phase16/e3_e3c_final_battery.json`.
+
+### 1. ASTRAL support growth, cluster bootstrap by target (10,000 resamples), vs base's own floor
+
+| | point diff (vs base floor) | 95% CI |
+|---|---|---|
+| E3 vs base floor | **+0.1113** | **[0.063, 0.158]** |
+| E3c vs base floor | **+0.0852** | **[0.031, 0.139]** |
+
+**Both exclude zero.** On ASTRAL, both E3 and E3c produce real support
+growth beyond base's own resampling noise — consistent with the Fisher
+read in the entry above, now confirmed with the pre-registration's
+proper clustered test. This is genuine growth, but (per the entry
+above's E3-vs-E3c comparison, not significant there) **not evidence
+that the novelty filter is what causes it** — self-distillation on
+base's own gate-passing ASTRAL samples does this whether or not the
+novelty condition is applied.
+
+### 2. Checker pass rate at bar 0.9, restricted to new recipes (gate-passing AND novel)
+
+| | n new recipes | pass rate @0.9 |
+|---|---|---|
+| E3, held-out | 549 | 93.81% |
+| E3c, held-out | 566 | 93.82% |
+| E3, ASTRAL | 432 | 100.0% |
+| E3c, ASTRAL | 456 | 100.0% |
+
+**E3 and E3c are indistinguishable** on held-out (93.81% vs 93.82%,
+essentially identical) and both hit a ceiling on ASTRAL (100.0% for
+both — worth flagging as a likely ceiling effect with no discriminative
+headroom left on this slice, not a result to lean on). No quality cost
+from dropping the novelty filter, but also no quality gain from keeping
+it.
+
+### 3. ASTRAL rule-picked hits and carbonate share
+
+| model | predicted hits, clean-22 | predicted hits, full-35 | carbonate share, full-35 | carbonate share, clean-22 | bare-oxide share, full-35 |
+|---|---|---|---|---|---|
+| base (reference) | 8/22 | 10/35 | 72.9% | 73.4% | 9.09% |
+| RS-SFT (reference) | 9/22 | 10/35 | 45.94% | 43.95% | 25.84% |
+| **E3** | **10/22** | **13/35** | **51.79%** | **54.59%** | **16.70%** |
+| **E3c** | **9/22** | **11/35** | **52.43%** | **52.17%** | **19.44%** |
+
+New artifacts: `results/astral_gen_n32_e3.json`, `results/astral_gen_n32_e3c.json`
+(repackaged from the existing `data/novelty/e3{,c}_astral_n32.jsonl`
+completions into the standard `astral_gen_n32_*.json` shape so the
+existing clean-subset tooling applies unmodified — no new generation).
+
+**E3 and E3c land close together** (13/35 vs 11/35 hits, 51.8% vs 52.4%
+carbonate — a 2-target gap on hits, not tested for significance here,
+consistent with "no direction predicted" for this exploratory item).
+Both self-distilled arms sit between base and RS-SFT on carbonate share
+(a real move away from base's 72.9%, achieved with plain self-distillation
+on validator-gate-passing samples, no RL and no novelty condition
+required) but neither separates meaningfully from the other.
+
+### Net picture for E3/E3c
+
+Self-distillation on base's own gate-passing samples does something
+real on ASTRAL (support growth beyond noise, carbonate share down,
+predicted-hit rate modestly up) — but every one of these effects shows
+up in **E3c, the matched non-novelty-filtered control, just as strongly
+as in E3**. The novelty/rarity filter, across every metric in this
+battery and the 2026-10-15 null-finding entry above, has not been shown
+to add anything beyond what resampling-and-gating alone produces. This
+closes Phase 16's E3/E3c arm.
