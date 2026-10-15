@@ -547,3 +547,70 @@ their matching reference distribution is base's own existing 200+32
 draws (`data/novelty/base_reference_{heldout,astral}.jsonl`), not
 RS-SFT's. Novelty-rate and support-growth computation follows once this
 finishes. E4 waits on that result.
+
+## 2026-10-15 — E3/E3c evaluation: prediction 2 FAILS its own pre-registered gate
+
+E3 and E3c's own n=32 generations on both target sets
+(`data_curation/phase16_e3_e3c_sampling.py`) and the novelty-rate/
+support-growth evaluation (`research/phase16_e3_e3c_evaluation.py`,
+against **base's** own 200-sample reference — both E3 and E3c are
+LoRA-on-base arms per the arm table, not RS-SFT) both completed
+cleanly. Followed by the pre-registration's own named test
+(`research/phase16_e3_e3c_bootstrap.py`): cluster bootstrap by target
+(10,000 resamples, seed 42) on the held-out split, the primary
+comparison for prediction 2.
+
+**Point estimates** (`results/phase16/e3_e3c_evaluation.json`):
+
+| target set | model | gate pass rate | novelty rate (among gate-pass) | support growth | (noise floor) |
+|---|---|---|---|---|---|
+| held-out (40) | E3 | 56.87% | 75.41% | 14.97% (25/167) | 12.95% (25/193) |
+| held-out (40) | E3c | 57.89% | 76.22% | 15.85% (29/183) | 12.95% (25/193) |
+| ASTRAL (35) | E3 | 63.12% | 60.82% | 21.46% (50/233) | 10.33% (22/213) |
+| ASTRAL (35) | E3c | 65.18% | 61.78% | 18.85% (46/244) | 10.33% (22/213) |
+
+**On the held-out split (the primary, pre-registered comparison), E3
+is numerically BELOW E3c on both metrics the prediction named**:
+novelty rate 75.41% vs 76.22%, support growth 14.97% vs 15.85%. The
+pre-registration's own named test (`results/phase16/e3_e3c_bootstrap.json`):
+
+- novelty rate diff (E3−E3c): **−0.0084**, 95% CI **[−0.0324, +0.0164]** — includes zero, point estimate negative.
+- support growth diff (E3−E3c): **−0.0088**, 95% CI **[−0.0789, +0.0546]** — includes zero, point estimate negative.
+- gate pass rate diff: **−1.02 pp** — within the pre-registered ±5pp tolerance (this one condition is met).
+
+**This trips the pre-registration's own "does not support" rule
+exactly as written**: "E3 ≤ E3c on either of the first two... a
+reportable null and is not re-run with a different threshold." Per
+that rule, **not re-tuning the rarity threshold or re-running with a
+different filter** — reporting as-is.
+
+Fisher-exact supplementary checks (not bootstrapped, single-table):
+neither E3 (p=0.65) nor E3c (p=0.46) significantly beats base's own
+resampling noise floor on held-out either — both arms are statistically
+indistinguishable from noise there. On ASTRAL (secondary target set,
+not covered by prediction 2's own wording, which names only the
+held-out split), both E3 (p=0.0018) and E3c (p=0.012) *do* clear the
+noise floor — real support growth happens on ASTRAL for both arms —
+but E3 vs E3c there is also not significant (p=0.49, Fisher exact,
+single-table, not bootstrapped).
+
+**Reading**: self-distillation on base's own gate-passing samples (E3c,
+no novelty filter) produces about as much new support as self-distillation
+on the novelty-filtered subset (E3) does. The rarity/novelty filter is
+not pulling its weight relative to just resampling and keeping whatever
+passes the validity gate. Whatever support growth exists on ASTRAL
+appears to come from the self-distillation step itself (both arms clear
+the noise floor there), not from the novelty condition specifically.
+
+**Flagging rather than deciding: does E4 still launch?** E4's own
+question (prediction 3 — "does practice amplify what E3 already
+samples") is phrased as a property of E4 vs. E3 specifically, and could
+still be tested on its own terms regardless of this result. But E4's
+premise, as stated in the arm table ("once new recipes are in the
+starting distribution, does practice amplify them?"), assumes E3 put
+something novel-beyond-control into the starting distribution — and
+that premise just failed its own gate. Per this project's standing
+practice at pre-registered gate failures (Phase 13, finding 23; Phase
+15/ranker, finding 19), stopping here to report rather than
+auto-launching E4, since this is a decision about whether the next
+arm's premise still holds, not a routine execution step.

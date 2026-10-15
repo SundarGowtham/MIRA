@@ -1,0 +1,72 @@
+{
+  "heldout": {
+    "base_resampling_noise_floor": {
+      "n_total_samples": 1280,
+      "n_parse_fail": 20,
+      "n_gate_pass": 672,
+      "gate_pass_rate": 0.525,
+      "n_novel_among_gate_pass": 492,
+      "novelty_rate_among_gate_pass": 0.7321,
+      "support_growth_numerator_absent": 25,
+      "support_growth_denominator_distinct": 193,
+      "support_growth_pooled_share": 0.12953367875647667
+    },
+    "e3": {
+      "n_total_samples": 1280,
+      "n_parse_fail": 20,
+      "n_gate_pass": 728,
+      "gate_pass_rate": 0.5687,
+      "n_novel_among_gate_pass": 549,
+      "novelty_rate_among_gate_pass": 0.7541,
+      "support_growth_numerator_absent": 25,
+      "support_growth_denominator_distinct": 167,
+      "support_growth_pooled_share": 0.1497005988023952
+    },
+    "e3c": {
+      "n_total_samples": 1280,
+      "n_parse_fail": 24,
+      "n_gate_pass": 740,
+      "gate_pass_rate": 0.5781,
+      "n_novel_among_gate_pass": 564,
+      "novelty_rate_among_gate_pass": 0.7622,
+      "support_growth_numerator_absent": 29,
+      "support_growth_denominator_distinct": 183,
+      "support_growth_pooled_share": 0.15846994535519127
+    }
+  },
+  "astral": {
+    "base_resampling_noise_floor": {
+      "n_total_samples": 1120,
+      "n_parse_fail": 10,
+      "n_gate_pass": 724,
+      "gate_pass_rate": 0.6464,
+      "n_novel_among_gate_pass": 370,
+      "novelty_rate_among_gate_pass": 0.511,
+      "support_growth_numerator_absent": 22,
+      "support_growth_denominator_distinct": 213,
+      "support_growth_pooled_share": 0.10328638497652583
+    },
+    "e3": {
+      "n_total_samples": 1120,
+      "n_parse_fail": 10,
+      "n_gate_pass": 707,
+      "gate_pass_rate": 0.6312,
+      "n_novel_among_gate_pass": 430,
+      "novelty_rate_among_gate_pass": 0.6082,
+      "support_growth_numerator_absent": 50,
+      "support_growth_denominator_distinct": 233,
+      "support_growth_pooled_share": 0.2145922746781116
+    },
+    "e3c": {
+      "n_total_samples": 1120,
+      "n_parse_fail": 11,
+      "n_gate_pass": 730,
+      "gate_pass_rate": 0.6518,
+      "n_novel_among_gate_pass": 451,
+      "novelty_rate_among_gate_pass": 0.6178,
+      "support_growth_numerator_absent": 46,
+      "support_growth_denominator_distinct": 244,
+      "support_growth_pooled_share": 0.1885245901639344
+    }
+  }
+}
