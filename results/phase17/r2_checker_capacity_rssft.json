@@ -1,0 +1,133 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R",
+ "subproperty": "R-b (signal/capacity) + tie-rate check; closes the R2-vs-R4 like-for-like gap",
+ "reward_id": "R2",
+ "reward": "Checker, 5-channel RUN3 aggregate",
+ "policy": "RS-SFT",
+ "validator_version": 1,
+ "run3_checks": [
+  "amount_accuracy",
+  "thermodynamic_favorable",
+  "stoichiometry",
+  "chempot_atmosphere",
+  "operation_order"
+ ],
+ "source": "data/novelty/rssft_reference_{heldout,astral}.jsonl, sample_group=resampling_rate (NO NEW GENERATION), same 2400-row/300-group scope as results/ranker_capacity.json",
+ "group_size": 8,
+ "per_target_set": {
+  "heldout": {
+   "n_targets": 40,
+   "n_scored": 1280,
+   "n_parse_fail": 88,
+   "capacity": {
+    "total_variance": 1.2016,
+    "capacity_pct": 24.03,
+    "n_groups": 160,
+    "per_channel_zero_std_pct": {
+     "amount_accuracy": 50.6,
+     "thermodynamic_favorable": 44.4,
+     "stoichiometry": 61.3,
+     "chempot_atmosphere": 99.4,
+     "operation_order": 100.0
+    },
+    "per_channel_z_var": {
+     "amount_accuracy": 0.4029,
+     "thermodynamic_favorable": 0.4782,
+     "stoichiometry": 0.3144,
+     "chempot_atmosphere": 0.005,
+     "operation_order": 0.0
+    }
+   }
+  },
+  "astral": {
+   "n_targets": 35,
+   "n_scored": 1120,
+   "n_parse_fail": 37,
+   "capacity": {
+    "total_variance": 1.4882,
+    "capacity_pct": 29.76,
+    "n_groups": 140,
+    "per_channel_zero_std_pct": {
+     "amount_accuracy": 32.9,
+     "thermodynamic_favorable": 37.1,
+     "stoichiometry": 57.1,
+     "chempot_atmosphere": 100.0,
+     "operation_order": 99.3
+    },
+    "per_channel_z_var": {
+     "amount_accuracy": 0.5756,
+     "thermodynamic_favorable": 0.5411,
+     "stoichiometry": 0.3636,
+     "chempot_atmosphere": 0.0,
+     "operation_order": 0.0064
+    }
+   }
+  }
+ },
+ "combined": {
+  "n_records": 2400,
+  "capacity": {
+   "total_variance": 1.3374,
+   "capacity_pct": 26.75,
+   "n_groups": 300,
+   "per_channel_zero_std_pct": {
+    "amount_accuracy": 42.3,
+    "thermodynamic_favorable": 41.0,
+    "stoichiometry": 59.3,
+    "chempot_atmosphere": 99.7,
+    "operation_order": 99.7
+   },
+   "per_channel_z_var": {
+    "amount_accuracy": 0.4851,
+    "thermodynamic_favorable": 0.5082,
+    "stoichiometry": 0.3379,
+    "chempot_atmosphere": 0.0026,
+    "operation_order": 0.0031
+   }
+  }
+ },
+ "tie_rate_check": {
+  "amount_accuracy": {
+   "n_groups": 300,
+   "observed_tie_rate": 0.4233,
+   "predicted_tie_rate_from_pass_rates": 0.8128,
+   "agrees_within_5pp": false,
+   "share_targets_pass_rate_in_0.1_0.9": 0.2467
+  },
+  "thermodynamic_favorable": {
+   "n_groups": 300,
+   "observed_tie_rate": 0.3967,
+   "predicted_tie_rate_from_pass_rates": 0.9025,
+   "agrees_within_5pp": false,
+   "share_targets_pass_rate_in_0.1_0.9": 0.12
+  },
+  "stoichiometry": {
+   "n_groups": 300,
+   "observed_tie_rate": 0.5933,
+   "predicted_tie_rate_from_pass_rates": 0.6702,
+   "agrees_within_5pp": false,
+   "share_targets_pass_rate_in_0.1_0.9": 0.4067
+  },
+  "chempot_atmosphere": {
+   "n_groups": 300,
+   "observed_tie_rate": 0.9967,
+   "predicted_tie_rate_from_pass_rates": 0.9976,
+   "agrees_within_5pp": true,
+   "share_targets_pass_rate_in_0.1_0.9": 0.0033
+  },
+  "operation_order": {
+   "n_groups": 300,
+   "observed_tie_rate": 0.9967,
+   "predicted_tie_rate_from_pass_rates": 1.0,
+   "agrees_within_5pp": true,
+   "share_targets_pass_rate_in_0.1_0.9": 0.0
+  }
+ },
+ "comparison_reference": {
+  "ranker_v2_on_rssft_samples_capacity_pct": 46.31,
+  "checker_on_corpus_sft_samples_finding_1_pct": 14.0,
+  "checker_on_corpus_sft_samples_finding_9_baseline_pct": 16.4,
+  "note": "This file's combined capacity_pct is the first like-for-like (same policy, same samples) checker-vs-ranker comparison. Any '3x' claim must cite THIS number against 46.31%, not finding 1/9."
+ }
+}
