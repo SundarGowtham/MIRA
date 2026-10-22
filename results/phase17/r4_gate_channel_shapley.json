@@ -1,0 +1,39 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R",
+ "subproperty": "R-e Gates: exact Shapley attribution of each decision to gate vs channels (R4)",
+ "reward_id": "R4",
+ "reward": "Ranker v2, core/ranker.py",
+ "policy": "RS-SFT",
+ "source": "data/novelty/rssft_reference_{heldout,astral}.jsonl, sample_group=resampling_rate (NO NEW GENERATION), same scope as results/ranker_capacity.json",
+ "validator_version": 2,
+ "gate_names": [
+  "balances",
+  "precursors_exist",
+  "charge_neutral",
+  "format_ok",
+  "temperature_physical"
+ ],
+ "objective_names": [
+  "temperature_economy",
+  "driving_force_margin",
+  "volatility_risk",
+  "precursor_instability",
+  "n_precursors",
+  "slice_competing_phases",
+  "precursor_decomposition_match"
+ ],
+ "n_samples": 2275,
+ "n_gate_pass": 1921,
+ "n_gate_fail": 354,
+ "pct_gate_fail": 15.56,
+ "mean_phi_gate": -0.0378,
+ "mean_phi_channels": 0.417,
+ "mean_abs_channel_value_suppressed_by_gate_failure": 0.4854,
+ "efficiency_check_max_abs_diff_phi_sum_vs_GxC_first20": 0.0,
+ "correctness_check_max_abs_diff_GxC_vs_actual_score_first20": 4.5e-05,
+ "comparison_reference": {
+  "r5_comparator_shapley_pct_pairs_gate_blocked": 11.98,
+  "note": "R4 is a per-SAMPLE scalar decomposition (one Shapley split per route); R5's is per-PAIR (one split per within-group comparison), since the comparator itself is pairwise. Not directly numerically comparable, but both answer the same question: how much of this reward's output is actually the gate, not the scored channels."
+ }
+}

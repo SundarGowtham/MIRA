@@ -1,0 +1,480 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R",
+ "subproperty": "R-a (symmetry axioms)",
+ "seed": 20261016,
+ "n_base_routes": 200,
+ "n_cases": 1121,
+ "method": "git worktree per historical commit (parent of each fix), read-only, never a checkout of the working tree; subprocess-per-version scoring to avoid cross-version import caching",
+ "worktree_refs": {
+  "v0_pre_scale_fix_2026-07-15": "6b2f63c~1",
+  "v1_pre_hydrate_fix_2026-07-20": "c3d6547~1",
+  "v2_pre_atmtoken_monotonicity_fix_2026-07-21": "32c9e45~1",
+  "v3_pre_noneprop_fix_2026-07-22": "923f311~1"
+ },
+ "boundary_caveat": "No historical commit found changing _check_target_stability's None-check (is-None, never falsy) across any version tested here, including the earliest (6b2f63c~1, 2026-07-15) -- reported as a forward-looking correctness check only.",
+ "order_caveat": "Operation-order permutation deliberately excluded (would conflate with operation_order's own correctness check, which legitimately penalizes a bad order); only precursor-order permutation tested. Pre-reg table lists no historical bug for this axiom.",
+ "expected_buggy_versions": {
+  "scale": [
+   "v0_pre_scale_fix_2026-07-15"
+  ],
+  "notation_hydrate": [
+   "v0_pre_scale_fix_2026-07-15",
+   "v1_pre_hydrate_fix_2026-07-20"
+  ],
+  "notation_atmosphere_synonym": [
+   "v0_pre_scale_fix_2026-07-15",
+   "v1_pre_hydrate_fix_2026-07-20",
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21"
+  ],
+  "token_identity": [
+   "v0_pre_scale_fix_2026-07-15",
+   "v1_pre_hydrate_fix_2026-07-20",
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21"
+  ],
+  "monotonicity": [
+   "v0_pre_scale_fix_2026-07-15",
+   "v1_pre_hydrate_fix_2026-07-20",
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21"
+  ],
+  "abstention": [
+   "v0_pre_scale_fix_2026-07-15",
+   "v1_pre_hydrate_fix_2026-07-20",
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21",
+   "v3_pre_noneprop_fix_2026-07-22"
+  ],
+  "order": [],
+  "boundary": []
+ },
+ "axiom_version_summary": {
+  "notation_atmosphere_synonym": {
+   "v0_pre_scale_fix_2026-07-15": {
+    "n_cases": 60,
+    "n_scored": 60,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": true
+   },
+   "v1_pre_hydrate_fix_2026-07-20": {
+    "n_cases": 60,
+    "n_scored": 60,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": true
+   },
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+    "n_cases": 60,
+    "n_scored": 60,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": true
+   },
+   "v3_pre_noneprop_fix_2026-07-22": {
+    "n_cases": 60,
+    "n_scored": 60,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "current_HEAD": {
+    "n_cases": 60,
+    "n_scored": 60,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   }
+  },
+  "order": {
+   "v0_pre_scale_fix_2026-07-15": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "v1_pre_hydrate_fix_2026-07-20": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "v3_pre_noneprop_fix_2026-07-22": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "current_HEAD": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   }
+  },
+  "monotonicity": {
+   "v0_pre_scale_fix_2026-07-15": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 200,
+    "violation_rate_of_scored": 1.0,
+    "example_violating_cases": [
+     "monotonicity_0",
+     "monotonicity_1",
+     "monotonicity_2"
+    ],
+    "expected_buggy": true
+   },
+   "v1_pre_hydrate_fix_2026-07-20": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 200,
+    "violation_rate_of_scored": 1.0,
+    "example_violating_cases": [
+     "monotonicity_0",
+     "monotonicity_1",
+     "monotonicity_2"
+    ],
+    "expected_buggy": true
+   },
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 200,
+    "violation_rate_of_scored": 1.0,
+    "example_violating_cases": [
+     "monotonicity_0",
+     "monotonicity_1",
+     "monotonicity_2"
+    ],
+    "expected_buggy": true
+   },
+   "v3_pre_noneprop_fix_2026-07-22": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "current_HEAD": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   }
+  },
+  "scale": {
+   "v0_pre_scale_fix_2026-07-15": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 189,
+    "violation_rate_of_scored": 0.945,
+    "example_violating_cases": [
+     "scale_1",
+     "scale_2",
+     "scale_3"
+    ],
+    "expected_buggy": true
+   },
+   "v1_pre_hydrate_fix_2026-07-20": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "v3_pre_noneprop_fix_2026-07-22": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "current_HEAD": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   }
+  },
+  "notation_hydrate": {
+   "v0_pre_scale_fix_2026-07-15": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 194,
+    "violation_rate_of_scored": 0.97,
+    "example_violating_cases": [
+     "notation_hydrate_0",
+     "notation_hydrate_1",
+     "notation_hydrate_2"
+    ],
+    "expected_buggy": true
+   },
+   "v1_pre_hydrate_fix_2026-07-20": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 194,
+    "violation_rate_of_scored": 0.97,
+    "example_violating_cases": [
+     "notation_hydrate_0",
+     "notation_hydrate_1",
+     "notation_hydrate_2"
+    ],
+    "expected_buggy": true
+   },
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "v3_pre_noneprop_fix_2026-07-22": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "current_HEAD": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   }
+  },
+  "abstention": {
+   "v0_pre_scale_fix_2026-07-15": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 200,
+    "violation_rate_of_scored": 1.0,
+    "example_violating_cases": [
+     "abstention_0",
+     "abstention_1",
+     "abstention_2"
+    ],
+    "expected_buggy": true
+   },
+   "v1_pre_hydrate_fix_2026-07-20": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 200,
+    "violation_rate_of_scored": 1.0,
+    "example_violating_cases": [
+     "abstention_0",
+     "abstention_1",
+     "abstention_2"
+    ],
+    "expected_buggy": true
+   },
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 200,
+    "violation_rate_of_scored": 1.0,
+    "example_violating_cases": [
+     "abstention_0",
+     "abstention_1",
+     "abstention_2"
+    ],
+    "expected_buggy": true
+   },
+   "v3_pre_noneprop_fix_2026-07-22": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 200,
+    "violation_rate_of_scored": 1.0,
+    "example_violating_cases": [
+     "abstention_0",
+     "abstention_1",
+     "abstention_2"
+    ],
+    "expected_buggy": true
+   },
+   "current_HEAD": {
+    "n_cases": 200,
+    "n_scored": 200,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   }
+  },
+  "token_identity": {
+   "v0_pre_scale_fix_2026-07-15": {
+    "n_cases": 60,
+    "n_scored": 60,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": true
+   },
+   "v1_pre_hydrate_fix_2026-07-20": {
+    "n_cases": 60,
+    "n_scored": 60,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": true
+   },
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+    "n_cases": 60,
+    "n_scored": 60,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": true
+   },
+   "v3_pre_noneprop_fix_2026-07-22": {
+    "n_cases": 60,
+    "n_scored": 60,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "current_HEAD": {
+    "n_cases": 60,
+    "n_scored": 60,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   }
+  },
+  "boundary": {
+   "v0_pre_scale_fix_2026-07-15": {
+    "n_cases": 1,
+    "n_scored": 1,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "v1_pre_hydrate_fix_2026-07-20": {
+    "n_cases": 1,
+    "n_scored": 1,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+    "n_cases": 1,
+    "n_scored": 1,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "v3_pre_noneprop_fix_2026-07-22": {
+    "n_cases": 1,
+    "n_scored": 1,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   },
+   "current_HEAD": {
+    "n_cases": 1,
+    "n_scored": 1,
+    "n_skipped": 0,
+    "n_violations": 0,
+    "violation_rate_of_scored": 0.0,
+    "example_violating_cases": [],
+    "expected_buggy": false
+   }
+  }
+ },
+ "prediction_1_at_least_4_of_6": {
+  "statement": "The suite flags at least 4 of the 6 named historical bugs at the versions where they existed.",
+  "n_flagged": 4,
+  "n_total_named_bugs": 6,
+  "passes": true
+ },
+ "prediction_2_zero_on_current": {
+  "statement": "It flags none on the current version.",
+  "n_violations_on_current": 0,
+  "passes": true
+ },
+ "monotonicity_correction_note": "The original monotonicity case construction (append one unknown-type operation to an otherwise-clean route) did not exercise the actual historical bug: _check_operation_order EXCLUDES any adjacent pair touching an unrecognized op type from both `assessed` and `violations` (confirmed by direct source inspection after the first run showed 200/200 'violations' on current HEAD, which is impossible given finding 21's 0.994 mean and the 43-assertion test suite -- a self-contradiction that triggered this re-check rather than being reported as a validator regression). The bug/fix is specifically about assessed==0 (a route of ENTIRELY unrecognized op types): 1.0 pre-fix, 0.5 post-fix, per validator.py's own comment. Re-run with the corrected construction (replace a route's operations with two unrecognized-type steps, direct exact-value check) and merged in -- this replaces the original monotonicity row/prediction inputs.",
+ "atmosphere_test_power_gap_note": "token_identity and notation_atmosphere_synonym show ZERO violations on EVERY version tested, including the ones expected to be buggy (v0-v2 for token_identity; v0-v2 for notation_atmosphere_synonym) -- investigated directly rather than reported as a clean pass: _check_chempot_atmosphere only USES _classify_atmosphere's result when the target's own chempot envelope requires oxidizing or reducing conditions; in the \"flexible\" regime (neither required) it returns 1.0 regardless of the declared atmosphere string. Confirmed directly: 60/60 token_identity test cases (all real sampled targets with a heating operation) landed in the flexible regime, so H2 vs H2O vs O2 atmosphere strings scored identically (1.0) on every version -- the substring-trap code path was never exercised by this particular sample of targets. This is a TEST-POWER gap (confirmed via direct inspection of the raw chempot_atmosphere values and gradeability tags), not evidence the historical bug/fix doesn't exist or that these two axioms hold -- flagged honestly rather than reported as a pass. Overall prediction 1 (>=4/6 flagged) does not depend on these two, since scale + notation_hydrate + abstention + monotonicity already clear the >=4 bar on their own."
+}

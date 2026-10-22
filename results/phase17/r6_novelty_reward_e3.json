@@ -1,0 +1,81 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R",
+ "subproperty": "R-b (signal/capacity, tie-rate) + R-e Gates (Shapley), AUDIT ONLY -- E4 never ran",
+ "reward_id": "R6",
+ "reward": "Novelty reward (Phase 16), core/novelty_reward.py",
+ "policy": "E3",
+ "novelty_reward_version": "2026-10-03-v1-phase16",
+ "source": "data/novelty/e3_{astral,heldout}_n32.jsonl (NO NEW GENERATION, no sample_group filter needed)",
+ "group_size": 8,
+ "per_target_set": {
+  "heldout": {
+   "n_targets": 40,
+   "n_scored": 1280,
+   "n_parse_fail": 20,
+   "n_gate_pass": 728,
+   "pct_gate_pass": 56.9,
+   "capacity": {
+    "total_variance": 0.5736,
+    "capacity_pct": 57.36,
+    "n_groups": 160,
+    "per_channel_zero_std_pct": {
+     "reward": 34.4
+    },
+    "per_channel_z_var": {
+     "reward": 0.5732
+    }
+   }
+  },
+  "astral": {
+   "n_targets": 35,
+   "n_scored": 1120,
+   "n_parse_fail": 10,
+   "n_gate_pass": 705,
+   "pct_gate_pass": 62.9,
+   "capacity": {
+    "total_variance": 0.7303,
+    "capacity_pct": 73.03,
+    "n_groups": 140,
+    "per_channel_zero_std_pct": {
+     "reward": 16.4
+    },
+    "per_channel_z_var": {
+     "reward": 0.7297
+    }
+   }
+  }
+ },
+ "combined": {
+  "n_records": 2400,
+  "n_gate_pass": 1433,
+  "capacity": {
+   "total_variance": 0.6465,
+   "capacity_pct": 64.65,
+   "n_groups": 300,
+   "per_channel_zero_std_pct": {
+    "reward": 26.0
+   },
+   "per_channel_z_var": {
+    "reward": 0.6462
+   }
+  }
+ },
+ "tie_rate_check": {
+  "n_groups": 300,
+  "observed_tie_rate": 0.26,
+  "predicted_tie_rate_from_pass_rates": 0.536,
+  "agrees_within_5pp": false,
+  "caveat": "Nearly every gate-passed sample scores in [0.5, 1.0] by construction (reward = G*(0.5+0.5N)); the 0.5 pass/fail cutoff this formula assumes is therefore almost exactly the gate boundary itself, not an independent channel threshold -- read this as a gate-liveness check, not a channel one."
+ },
+ "gate_channel_shapley": {
+  "n_samples": 2370,
+  "n_gate_fail": 937,
+  "pct_gate_fail": 39.54,
+  "mean_phi_gate": -0.1603,
+  "mean_phi_channels": 0.6586,
+  "mean_abs_channel_value_suppressed_by_gate_failure": 0.811,
+  "efficiency_check_max_abs_diff_phi_sum_vs_GxC_first20": 0.0
+ },
+ "audit_only_caveat": "E3 was trained with checker-validity self-distillation, NOT this novelty reward -- this file measures what the novelty reward would have scored on E3's existing samples, not an outcome the novelty reward caused. E4 (which would have trained against it) never ran, per Phase 16's pre-registered stopping rule. Read as audit-only throughout."
+}
