@@ -1,0 +1,420 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R",
+ "subproperty": "R-c (direction: the Price equation)",
+ "seed": 20261016,
+ "n_boot": 10000,
+ "feature_names": [
+  "alkali_carbonate_used",
+  "bare_alkali_oxide_used",
+  "ammonium_precursor_used",
+  "n_precursors",
+  "max_reported_temperature",
+  "novel_vs_200_reference",
+  "matches_astral_rule_picked"
+ ],
+ "by_reward": {
+  "R1": {
+   "reward": "Checker, 10ch (run 1)",
+   "policy": "Corpus SFT (run1 training dump, step=0)",
+   "n_records": 40,
+   "s_phi": {
+    "alkali_carbonate_used": {
+     "point": -1.4588987971964067,
+     "ci95": [
+      -1.8490350674718756,
+      -1.2425913288998522
+     ],
+     "n_boot_valid": 6867
+    },
+    "bare_alkali_oxide_used": {
+     "point": 1.4588987971964067,
+     "ci95": [
+      1.2425913288998522,
+      1.8490350674718756
+     ],
+     "n_boot_valid": 6867
+    },
+    "ammonium_precursor_used": {
+     "point": -0.36605036632850224,
+     "ci95": [
+      -0.9912275493374142,
+      -0.3007532151403678
+     ],
+     "n_boot_valid": 6808
+    },
+    "n_precursors": {
+     "point": 2.2186036163107802e-16,
+     "ci95": [
+      5.992434767852046e-17,
+      4.272519998753782e-16
+     ],
+     "n_boot_valid": 9290
+    },
+    "max_reported_temperature": {
+     "point": 0.5402842266667127,
+     "ci95": [
+      0.3987324228433764,
+      1.1825589181839784
+     ],
+     "n_boot_valid": 10000
+    },
+    "novel_vs_200_reference": {
+     "point": null,
+     "ci95": [
+      null,
+      null
+     ],
+     "n_boot_valid": 0
+    },
+    "matches_astral_rule_picked": {
+     "point": null,
+     "ci95": [
+      null,
+      null
+     ],
+     "n_boot_valid": 0
+    }
+   },
+   "observed_shift": {
+    "alkali_carbonate_used": {
+     "early_step0_29": 0.9401709401709402,
+     "late_step270_299": 0.9019607843137255,
+     "sign": -1
+    },
+    "bare_alkali_oxide_used": {
+     "early_step0_29": 0.008547008547008548,
+     "late_step270_299": 0.0,
+     "sign": -1
+    },
+    "ammonium_precursor_used": {
+     "early_step0_29": 0.04232164449818621,
+     "late_step270_299": 0.02795698924731183,
+     "sign": -1
+    },
+    "n_precursors": {
+     "early_step0_29": 3.2914147521160824,
+     "late_step270_299": 2.978494623655914,
+     "sign": -1
+    },
+    "max_reported_temperature": {
+     "early_step0_29": 1114.963724304716,
+     "late_step270_299": 1141.7096774193549,
+     "sign": 1
+    },
+    "novel_vs_200_reference": {
+     "early_step0_29": null,
+     "late_step270_299": null,
+     "sign": null
+    },
+    "matches_astral_rule_picked": {
+     "early_step0_29": null,
+     "late_step270_299": null,
+     "sign": null
+    }
+   },
+   "observed_shift_method": "pooled step 0-29 (early) vs step 270-299 (late) cohorts of runs/gdpo-qlora-gdpo-v3/generations.jsonl -- a genuine measured trajectory, lower-confidence than R2/R4's matched-file comparison because per-step target sampling is noisy (CLAUDE.md statistics rules)."
+  },
+  "R2": {
+   "reward": "Checker RUN3 5ch",
+   "policy": "RS-SFT",
+   "n_records": 2275,
+   "s_phi": {
+    "alkali_carbonate_used": {
+     "point": 0.03827165072351946,
+     "ci95": [
+      -0.09041584994688333,
+      0.1782536839037844
+     ],
+     "n_boot_valid": 10000
+    },
+    "bare_alkali_oxide_used": {
+     "point": 0.2976943455471494,
+     "ci95": [
+      0.20199667076770253,
+      0.40134202926428
+     ],
+     "n_boot_valid": 10000
+    },
+    "ammonium_precursor_used": {
+     "point": -0.4459093594298249,
+     "ci95": [
+      -0.6019645700928612,
+      -0.2766130712610718
+     ],
+     "n_boot_valid": 10000
+    },
+    "n_precursors": {
+     "point": 0.21153010832912372,
+     "ci95": [
+      0.11372511012126074,
+      0.3413927371609066
+     ],
+     "n_boot_valid": 10000
+    },
+    "max_reported_temperature": {
+     "point": 0.01806389842673546,
+     "ci95": [
+      -0.038992505197371526,
+      0.07497271930876348
+     ],
+     "n_boot_valid": 10000
+    },
+    "novel_vs_200_reference": {
+     "point": null,
+     "ci95": [
+      null,
+      null
+     ],
+     "n_boot_valid": 0
+    },
+    "matches_astral_rule_picked": {
+     "point": 0.056156077163723214,
+     "ci95": [
+      -0.04104397983609213,
+      0.13750068714749447
+     ],
+     "n_boot_valid": 9999
+    }
+   },
+   "observed_shift": {
+    "alkali_carbonate_used": {
+     "before": 0.47157502329916123,
+     "after": 0.18859245630174792,
+     "sign": -1
+    },
+    "bare_alkali_oxide_used": {
+     "before": 0.2506989748369059,
+     "after": 0.563017479300828,
+     "sign": 1
+    },
+    "ammonium_precursor_used": {
+     "before": 0.0,
+     "after": 0.0,
+     "sign": 0
+    },
+    "n_precursors": {
+     "before": 2.8602050326188255,
+     "after": 2.8785648574057037,
+     "sign": 1
+    },
+    "max_reported_temperature": {
+     "before": 934.2031686859273,
+     "after": 976.099356025759,
+     "sign": 1
+    },
+    "novel_vs_200_reference": {
+     "before": 1.0,
+     "after": 1.0,
+     "sign": 0
+    },
+    "matches_astral_rule_picked": {
+     "before": 0.03821062441752097,
+     "after": 0.03311867525298988,
+     "sign": -1
+    }
+   },
+   "observed_shift_method": "results/astral_gen_n32_rs_sft.json (before) vs results/astral_gen_n32_gdpo_phase12_beta0.json (after, ckpt 300), identical 35 ASTRAL targets, n=32 each."
+  },
+  "R4": {
+   "reward": "Ranker v2",
+   "policy": "RS-SFT",
+   "n_records": 2275,
+   "s_phi": {
+    "alkali_carbonate_used": {
+     "point": 0.016057893014651024,
+     "ci95": [
+      -0.07650044168828428,
+      0.10809210717933053
+     ],
+     "n_boot_valid": 10000
+    },
+    "bare_alkali_oxide_used": {
+     "point": -0.017801150596418954,
+     "ci95": [
+      -0.10049058035294367,
+      0.06274971735269902
+     ],
+     "n_boot_valid": 10000
+    },
+    "ammonium_precursor_used": {
+     "point": -0.03379082954320728,
+     "ci95": [
+      -0.07290869144576308,
+      0.002648452978570174
+     ],
+     "n_boot_valid": 10000
+    },
+    "n_precursors": {
+     "point": 0.0888786254718817,
+     "ci95": [
+      0.04270193767492626,
+      0.14636758160782395
+     ],
+     "n_boot_valid": 10000
+    },
+    "max_reported_temperature": {
+     "point": -0.07114540588453738,
+     "ci95": [
+      -0.11997133291764225,
+      -0.02600227708386804
+     ],
+     "n_boot_valid": 10000
+    },
+    "novel_vs_200_reference": {
+     "point": null,
+     "ci95": [
+      null,
+      null
+     ],
+     "n_boot_valid": 0
+    },
+    "matches_astral_rule_picked": {
+     "point": 0.1277020880229744,
+     "ci95": [
+      0.025409484368719436,
+      0.21101708950262926
+     ],
+     "n_boot_valid": 9999
+    }
+   },
+   "observed_shift": {
+    "alkali_carbonate_used": {
+     "before": 0.47157502329916123,
+     "after": 0.18995433789954339,
+     "sign": -1
+    },
+    "bare_alkali_oxide_used": {
+     "before": 0.2506989748369059,
+     "after": 0.47214611872146117,
+     "sign": 1
+    },
+    "ammonium_precursor_used": {
+     "before": 0.0,
+     "after": 0.0,
+     "sign": 0
+    },
+    "n_precursors": {
+     "before": 2.8602050326188255,
+     "after": 2.8310502283105023,
+     "sign": -1
+    },
+    "max_reported_temperature": {
+     "before": 934.2031686859273,
+     "after": 779.3875685557587,
+     "sign": -1
+    },
+    "novel_vs_200_reference": {
+     "before": 1.0,
+     "after": 1.0,
+     "sign": 0
+    },
+    "matches_astral_rule_picked": {
+     "before": 0.03821062441752097,
+     "after": 0.05114155251141553,
+     "sign": 1
+    }
+   },
+   "observed_shift_method": "results/astral_gen_n32_rs_sft.json (before) vs results/astral_gen_n32_e1.json (after, ckpt 300), identical 35 ASTRAL targets, n=32 each."
+  }
+ },
+ "prediction_check": {
+  "statement": "Among (reward, feature) pairs with |S_phi| >= 0.1, the sign of S_phi matches the sign of the observed shift in at least 75%.",
+  "n_pairs_checked": 7,
+  "n_matched": 6,
+  "pct_matched": 85.7,
+  "passes": true,
+  "pair_detail": [
+   {
+    "reward": "R1",
+    "feature": "alkali_carbonate_used",
+    "S_phi": -1.4589,
+    "predicted_sign": -1,
+    "observed_sign": -1,
+    "matched": true
+   },
+   {
+    "reward": "R1",
+    "feature": "bare_alkali_oxide_used",
+    "S_phi": 1.4589,
+    "predicted_sign": 1,
+    "observed_sign": -1,
+    "matched": false
+   },
+   {
+    "reward": "R1",
+    "feature": "ammonium_precursor_used",
+    "S_phi": -0.3661,
+    "predicted_sign": -1,
+    "observed_sign": -1,
+    "matched": true
+   },
+   {
+    "reward": "R1",
+    "feature": "max_reported_temperature",
+    "S_phi": 0.5403,
+    "predicted_sign": 1,
+    "observed_sign": 1,
+    "matched": true
+   },
+   {
+    "reward": "R2",
+    "feature": "bare_alkali_oxide_used",
+    "S_phi": 0.2977,
+    "predicted_sign": 1,
+    "observed_sign": 1,
+    "matched": true
+   },
+   {
+    "reward": "R2",
+    "feature": "n_precursors",
+    "S_phi": 0.2115,
+    "predicted_sign": 1,
+    "observed_sign": 1,
+    "matched": true
+   },
+   {
+    "reward": "R4",
+    "feature": "matches_astral_rule_picked",
+    "S_phi": 0.1277,
+    "predicted_sign": 1,
+    "observed_sign": 1,
+    "matched": true
+   }
+  ]
+ },
+ "named_cases": {
+  "r2_predicts_bare_oxide_increase": {
+   "S_phi": 0.2976943455471494,
+   "predicted_direction": "bare_oxide UP (carbonate->bare-oxide shift)",
+   "matches_prediction": true
+  },
+  "r2_predicts_temperature_rise": {
+   "S_phi": 0.01806389842673546,
+   "matches_prediction": true
+  },
+  "r4_predicts_temperature_fall": {
+   "S_phi": -0.07114540588453738,
+   "matches_prediction": true,
+   "note": "Opposite sign to R2's temperature prediction, per pre-reg."
+  }
+ },
+ "r5_r6_skipped_note": "R5 (comparator) and R6 (novelty reward) were never trained, matching the pre-reg's own back-test table (R-c section) which names only R1/R2/R4 -- there is no training outcome to back-test a Price prediction against for either, so they are skipped here rather than computed with no way to verify.",
+ "r1_bare_oxide_mismatch_counts": {
+  "note": "R1's bare-oxide S_phi predicted an INCREASE but the measured step0->step299 trajectory showed a decrease (the one named mismatch in prediction_check, 6/7 overall). Raw counts below -- a near-zero base rate means this sign is sensitive to a handful of recipes; reported, not explained away.",
+  "early_step0_29": {
+   "n_total_with_feature_defined": 234,
+   "n_true": 2,
+   "share": 0.0085
+  },
+  "late_step270_299": {
+   "n_total_with_feature_defined": 102,
+   "n_true": 0,
+   "share": 0.0
+  }
+ },
+ "observed_shift_method_parity": {
+  "statement": "Observed shift was measured DIFFERENTLY for R1 vs R2/R4, not the same way. R1's observed shift: pooled step 0-29 vs step 270-299 cohorts of the SAME run's own training-generation dump (a within-run trajectory). R2's and R4's observed shift: two SEPARATE, already-existing eval files (results/astral_gen_n32_rs_sft.json before vs results/astral_gen_n32_gdpo_phase12_beta0.json / ..._e1.json after), both n=32/target closed-book ASTRAL generations on the identical 35 targets. Flagged in each reward's own observed_shift_method string; this field states the difference in one place.",
+  "same_method": false
+ }
+}
