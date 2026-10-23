@@ -1,0 +1,631 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R",
+ "subproperty": "R-f (validity: data-processing inequality, I(R;Q|carbonate-free))",
+ "seed": 20261016,
+ "n_boot": 10000,
+ "ranker_vote_note": "R4's vote is NEW in this script -- the frozen Phase 15 arrows_gate_scoring.py never had a ranker rule. Added here by importing that script's routes/pairs unchanged and scoring each pair's two routes with Ranker.score() directly, without editing it.",
+ "ybco_primary": {
+  "label": "ARROWS3_YBCO_primary_5wtpct",
+  "n_pairs": 1915,
+  "R2_checker": {
+   "I(R;Q)_bits": {
+    "point_bits": 0.05464,
+    "ci95_bits": [
+     0.01225,
+     0.12426
+    ],
+    "unconditional_permutation_null": {
+     "observed_I(R;Q)_bits": 0.05464,
+     "null_mean_bits": 0.00075,
+     "null_p95_bits": 0.0022,
+     "indistinguishable_from_null": false
+    }
+   },
+   "I(R;Q|carbonate_free)_bits": {
+    "point_bits": 0.02531,
+    "ci95_bits": [
+     0.00602,
+     0.08508
+    ]
+   },
+   "ci_includes_zero": false,
+   "permutation_null_check": {
+    "n_perm": 2000,
+    "observed_I(R;Q|CF)_bits": 0.02531,
+    "null_mean_bits": 0.00236,
+    "null_p95_bits": 0.00475,
+    "empirical_p_value": 0.0,
+    "indistinguishable_from_null": false,
+    "interpretation": "The observed value exceeds the permutation null's 95th percentile -- this IS a real signal beyond carbonate-free, not estimator bias, and contradicts finding 27's qualitative 'no better than baseline' read when restated in information-theoretic units."
+   },
+   "directional_agreement_by_stratum": {
+    "-1": {
+     "n_pairs_in_stratum": 252,
+     "n_decisive": 199,
+     "agreement_rate": 0.8492,
+     "ci95": [
+      0.7365,
+      0.9345
+     ],
+     "anti_signal": false
+    },
+    "0": {
+     "n_pairs_in_stratum": 1112,
+     "n_decisive": 599,
+     "agreement_rate": 0.6561,
+     "ci95": [
+      0.534,
+      0.7701
+     ],
+     "anti_signal": false
+    },
+    "1": {
+     "n_pairs_in_stratum": 551,
+     "n_decisive": 352,
+     "agreement_rate": 0.6676,
+     "ci95": [
+      0.567,
+      0.7841
+     ],
+     "anti_signal": false
+    },
+    "overall": {
+     "n_decisive": 1150,
+     "agreement_rate": 0.693,
+     "ci95": [
+      0.602,
+      0.7837
+     ],
+     "anti_signal": false
+    }
+   },
+   "beyond_rule_tie_stratum": {
+    "n": 1112,
+    "agreement": 0.5841,
+    "ci95": [
+     0.5174,
+     0.6476
+    ],
+    "clears_chance_above": true,
+    "below_chance_significant": false
+   }
+  },
+  "R4_ranker": {
+   "I(R;Q)_bits": {
+    "point_bits": 0.00268,
+    "ci95_bits": [
+     0.00035,
+     0.03635
+    ],
+    "unconditional_permutation_null": {
+     "observed_I(R;Q)_bits": 0.00268,
+     "null_mean_bits": 0.00075,
+     "null_p95_bits": 0.00217,
+     "indistinguishable_from_null": false
+    }
+   },
+   "I(R;Q|carbonate_free)_bits": {
+    "point_bits": 0.00772,
+    "ci95_bits": [
+     0.0033,
+     0.05519
+    ]
+   },
+   "ci_includes_zero": false,
+   "permutation_null_check": {
+    "n_perm": 2000,
+    "observed_I(R;Q|CF)_bits": 0.00772,
+    "null_mean_bits": 0.00234,
+    "null_p95_bits": 0.00486,
+    "empirical_p_value": 0.0015,
+    "indistinguishable_from_null": false,
+    "interpretation": "The observed value exceeds the permutation null's 95th percentile -- this IS a real signal beyond carbonate-free, not estimator bias, and contradicts finding 27's qualitative 'no better than baseline' read when restated in information-theoretic units."
+   },
+   "directional_agreement_by_stratum": {
+    "-1": {
+     "n_pairs_in_stratum": 252,
+     "n_decisive": 213,
+     "agreement_rate": 0.7371,
+     "ci95": [
+      0.5268,
+      0.9221
+     ],
+     "anti_signal": false
+    },
+    "0": {
+     "n_pairs_in_stratum": 1112,
+     "n_decisive": 882,
+     "agreement_rate": 0.5295,
+     "ci95": [
+      0.4262,
+      0.6255
+     ],
+     "anti_signal": false
+    },
+    "1": {
+     "n_pairs_in_stratum": 551,
+     "n_decisive": 448,
+     "agreement_rate": 0.4286,
+     "ci95": [
+      0.302,
+      0.5464
+     ],
+     "anti_signal": false
+    },
+    "overall": {
+     "n_decisive": 1543,
+     "agreement_rate": 0.5288,
+     "ci95": [
+      0.4254,
+      0.6255
+     ],
+     "anti_signal": false
+    }
+   },
+   "beyond_rule_tie_stratum": {
+    "n": 1112,
+    "agreement": 0.5234,
+    "ci95": [
+     0.444,
+     0.6008
+    ],
+    "clears_chance_above": false,
+    "below_chance_significant": false
+   }
+  },
+  "R5_comparator": {
+   "I(R;Q)_bits": {
+    "point_bits": 0.00303,
+    "ci95_bits": [
+     1e-05,
+     0.0418
+    ],
+    "unconditional_permutation_null": {
+     "observed_I(R;Q)_bits": 0.00303,
+     "null_mean_bits": 0.00044,
+     "null_p95_bits": 0.00166,
+     "indistinguishable_from_null": false
+    }
+   },
+   "I(R;Q|carbonate_free)_bits": {
+    "point_bits": 0.0128,
+    "ci95_bits": [
+     0.0011,
+     0.06656
+    ]
+   },
+   "ci_includes_zero": false,
+   "permutation_null_check": {
+    "n_perm": 2000,
+    "observed_I(R;Q|CF)_bits": 0.0128,
+    "null_mean_bits": 0.00133,
+    "null_p95_bits": 0.00347,
+    "empirical_p_value": 0.0,
+    "indistinguishable_from_null": false,
+    "interpretation": "The observed value exceeds the permutation null's 95th percentile -- this IS a real signal beyond carbonate-free, not estimator bias, and contradicts finding 27's qualitative 'no better than baseline' read when restated in information-theoretic units."
+   },
+   "directional_agreement_by_stratum": {
+    "-1": {
+     "n_pairs_in_stratum": 252,
+     "n_decisive": 239,
+     "agreement_rate": 0.6318,
+     "ci95": [
+      0.4532,
+      0.8162
+     ],
+     "anti_signal": false
+    },
+    "0": {
+     "n_pairs_in_stratum": 1112,
+     "n_decisive": 938,
+     "agreement_rate": 0.4616,
+     "ci95": [
+      0.3609,
+      0.5647
+     ],
+     "anti_signal": false
+    },
+    "1": {
+     "n_pairs_in_stratum": 551,
+     "n_decisive": 470,
+     "agreement_rate": 0.4191,
+     "ci95": [
+      0.3004,
+      0.5315
+     ],
+     "anti_signal": false
+    },
+    "overall": {
+     "n_decisive": 1647,
+     "agreement_rate": 0.4742,
+     "ci95": [
+      0.3838,
+      0.5632
+     ],
+     "anti_signal": false
+    }
+   },
+   "beyond_rule_tie_stratum": {
+    "n": 938,
+    "agreement": 0.4616,
+    "ci95": [
+     0.3609,
+     0.5647
+    ],
+    "clears_chance_above": false,
+    "below_chance_significant": false
+   }
+  },
+  "carbonate_free_baseline": {
+   "I(R;Q)_bits": {
+    "point_bits": 0.07876,
+    "ci95_bits": [
+     0.0186,
+     0.18851
+    ]
+   },
+   "directional_agreement_by_stratum_note": "Not meaningful: base_carbfree IS the stratifying variable here, so its own 'agreement with itself' is definitionally 1.0 wherever it is decisive. Its unconditional agreement with `actual` (finding 27's 0.583) is already reported elsewhere (PHASE15_ARROWS_RESULTS.md) and is not recomputed here."
+  },
+  "beyond_rule_reconciliation_note": {
+   "statement": "Finding 27's 0.522 [0.495,0.557] (PHASE15_ARROWS_RESULTS.md Task 4d(c)) is the SAME pairs (base_carbfree==0 cut on YBCO primary, n=1,112) and the SAME agreement convention used here (ties credited 0.5, all pairs with a defined vote in the denominator) -- but it scores `thermodynamic_favorable` ALONE, not the full checker vote reported as R2_checker here. Any difference between finding 27's 0.522 and R2_checker's tie-stratum number above is attributable to channel count (1 channel vs the full 10-channel vote), not a methodology mismatch -- the earlier phase17_rf_directional_agreement.py number for this stratum (0.6561) used a DIFFERENT, decisive-only convention (excludes ties from both numerator and denominator, n_decisive=599 of 1,112) and is not directly comparable to 0.522 for that reason either; this field is the fair, apples-to-apples comparison.",
+   "n_pairs_tie_stratum": 1112,
+   "finding_27_thermo_only_tie_stratum": {
+    "agreement": 0.522,
+    "ci95": [
+     0.495,
+     0.557
+    ],
+    "n": 1112
+   }
+  },
+  "beyond_rule_tie_stratum": {
+   "R1_checker_10ch": {
+    "n": 1112,
+    "agreement": 0.5315,
+    "ci95": [
+     0.4631,
+     0.5961
+    ],
+    "clears_chance_above": false,
+    "below_chance_significant": false
+   }
+  }
+ },
+ "astral_35_pairs_small": {
+  "label": "ASTRAL_35_pairs_SMALL",
+  "n_pairs": 35,
+  "R2_checker": {
+   "I(R;Q)_bits": {
+    "point_bits": 0.04836,
+    "ci95_bits": [
+     0.0,
+     0.29045
+    ]
+   },
+   "I(R;Q|carbonate_free)_bits": {
+    "point_bits": 0.04836,
+    "ci95_bits": [
+     0.0,
+     0.29045
+    ]
+   },
+   "ci_includes_zero": true
+  },
+  "R4_ranker": {
+   "I(R;Q)_bits": {
+    "point_bits": 0.01555,
+    "ci95_bits": [
+     0.0,
+     0.30664
+    ]
+   },
+   "I(R;Q|carbonate_free)_bits": {
+    "point_bits": 0.01555,
+    "ci95_bits": [
+     0.0,
+     0.30664
+    ]
+   },
+   "ci_includes_zero": true
+  },
+  "R5_comparator": {
+   "I(R;Q)_bits": {
+    "point_bits": 0.0,
+    "ci95_bits": [
+     0.0,
+     0.0
+    ]
+   },
+   "I(R;Q|carbonate_free)_bits": {
+    "point_bits": 0.0,
+    "ci95_bits": [
+     0.0,
+     0.0
+    ]
+   },
+   "ci_includes_zero": true
+  },
+  "carbonate_free_baseline": {
+   "I(R;Q)_bits": {
+    "point_bits": 0.0,
+    "ci95_bits": [
+     0.0,
+     0.0
+    ]
+   }
+  }
+ },
+ "prediction_check": {
+  "statement": "For R2, R4 and R5, the CI of I(R;Q|carbonate-free) includes 0 (finding 27 restated in information-theoretic units). Checked on the ARROWS3 YBCO primary endpoint.",
+  "rows": [
+   {
+    "reward": "R2_checker",
+    "ci_includes_zero": false
+   },
+   {
+    "reward": "R4_ranker",
+    "ci_includes_zero": false
+   },
+   {
+    "reward": "R5_comparator",
+    "ci_includes_zero": false
+   }
+  ],
+  "n_pass": 0,
+  "n_total": 3,
+  "passes": false
+ },
+ "prediction_check_corrected": {
+  "statement": "Corrected prediction check: a reward 'passes' (CI finding is not an artifact of plug-in-MI bias) if its I(R;Q|carbonate_free) is indistinguishable from the permutation null, OR if the original bootstrap CI already included 0.",
+  "n_indistinguishable_from_null": 0,
+  "n_total": 3,
+  "passes": false
+ },
+ "directional_signal_summary": {
+  "statement": "Per regular Claude's review: MI is sign-blind, so a positive I(R;Q|carbonate-free) does not by itself mean the reward points the RIGHT way within a carbonate stratum. This reports agreement rate (vote==actual) per base_carbfree stratum, with CIs. anti_signal=true means the CI's upper bound is below 0.5 -- the reward is SIGNIFICANTLY WORSE than chance in that stratum, i.e. the information it carries points the wrong way.",
+  "any_anti_signal_strata": [],
+  "interpretation": "No (reward, stratum) cell is significantly anti-signal (all CIs either exclude 0.5 on the correct side or include it) -- the permutation-null correction's 'real signal' plausibly does point the right way, though CIs should still be read individually before leading with this."
+ },
+ "symmetrized_rule_decided": {
+  "R2_checker": {
+   "n": 803,
+   "agreement": 0.66,
+   "ci95": [
+    0.5863,
+    0.7399
+   ],
+   "clears_chance_above": true,
+   "below_chance_significant": false
+  },
+  "R4_ranker": {
+   "n": 803,
+   "agreement": 0.523,
+   "ci95": [
+    0.4201,
+    0.6287
+   ],
+   "clears_chance_above": false,
+   "below_chance_significant": false
+  },
+  "R5_comparator": {
+   "n": 709,
+   "agreement": 0.4908,
+   "ci95": [
+    0.3789,
+    0.6064
+   ],
+   "clears_chance_above": false,
+   "below_chance_significant": false
+  },
+  "R1_checker_10ch": {
+   "n": 803,
+   "agreement": 0.5623,
+   "ci95": [
+    0.4775,
+    0.6539
+   ],
+   "clears_chance_above": false,
+   "below_chance_significant": false
+  }
+ },
+ "ab_randomization_check": {
+  "statement": "Swap A<->B on a random half of pairs (negating base_carbfree, each reward's vote, and `actual` on the swapped half), then recompute per-stratum agreement. If R4's original asymmetry (significant only in the 'rule prefers B' stratum) washes out here -- i.e. the two non-tie strata converge to similar agreement -- that is evidence the original asymmetry was an ordering artifact of how set_a/set_b happened to be assigned, not a real composition difference between the strata.",
+  "per_reward": {
+   "R2_checker": {
+    "-1": {
+     "n": 391,
+     "agreement": 0.665,
+     "ci95": [
+      0.584,
+      0.754
+     ],
+     "clears_chance_above": true,
+     "below_chance_significant": false
+    },
+    "0": {
+     "n": 1112,
+     "agreement": 0.5841,
+     "ci95": [
+      0.5174,
+      0.6476
+     ],
+     "clears_chance_above": true,
+     "below_chance_significant": false
+    },
+    "1": {
+     "n": 412,
+     "agreement": 0.6553,
+     "ci95": [
+      0.566,
+      0.748
+     ],
+     "clears_chance_above": true,
+     "below_chance_significant": false
+    }
+   },
+   "R4_ranker": {
+    "-1": {
+     "n": 391,
+     "agreement": 0.5435,
+     "ci95": [
+      0.4259,
+      0.6625
+     ],
+     "clears_chance_above": false,
+     "below_chance_significant": false
+    },
+    "0": {
+     "n": 1112,
+     "agreement": 0.5234,
+     "ci95": [
+      0.444,
+      0.6008
+     ],
+     "clears_chance_above": false,
+     "below_chance_significant": false
+    },
+    "1": {
+     "n": 412,
+     "agreement": 0.5036,
+     "ci95": [
+      0.393,
+      0.6159
+     ],
+     "clears_chance_above": false,
+     "below_chance_significant": false
+    }
+   },
+   "R5_comparator": {
+    "-1": {
+     "n": 348,
+     "agreement": 0.4943,
+     "ci95": [
+      0.375,
+      0.6197
+     ],
+     "clears_chance_above": false,
+     "below_chance_significant": false
+    },
+    "0": {
+     "n": 938,
+     "agreement": 0.4616,
+     "ci95": [
+      0.3609,
+      0.5647
+     ],
+     "clears_chance_above": false,
+     "below_chance_significant": false
+    },
+    "1": {
+     "n": 361,
+     "agreement": 0.4875,
+     "ci95": [
+      0.358,
+      0.619
+     ],
+     "clears_chance_above": false,
+     "below_chance_significant": false
+    }
+   }
+  }
+ },
+ "holm_adjusted_significance": {
+  "statement": "9 cells tested (3 rewards x 3 base_carbfree strata, decisive-pairs agreement vs 0.5, YBCO primary). Exact two-sided binomial p per cell, Holm-Bonferroni step-down adjustment across all 9.",
+  "cells": [
+   {
+    "reward": "R2_checker",
+    "stratum_base_carbfree": "-1",
+    "n_decisive": 199,
+    "k_agree": 169,
+    "agreement_rate": 0.8492,
+    "p_raw": 0.0,
+    "p_holm": 0.0,
+    "significant_at_0.05_holm": true
+   },
+   {
+    "reward": "R2_checker",
+    "stratum_base_carbfree": "0",
+    "n_decisive": 599,
+    "k_agree": 393,
+    "agreement_rate": 0.6561,
+    "p_raw": 0.0,
+    "p_holm": 0.0,
+    "significant_at_0.05_holm": true
+   },
+   {
+    "reward": "R2_checker",
+    "stratum_base_carbfree": "1",
+    "n_decisive": 352,
+    "k_agree": 235,
+    "agreement_rate": 0.6676,
+    "p_raw": 0.0,
+    "p_holm": 0.0,
+    "significant_at_0.05_holm": true
+   },
+   {
+    "reward": "R4_ranker",
+    "stratum_base_carbfree": "-1",
+    "n_decisive": 213,
+    "k_agree": 157,
+    "agreement_rate": 0.7371,
+    "p_raw": 0.0,
+    "p_holm": 0.0,
+    "significant_at_0.05_holm": true
+   },
+   {
+    "reward": "R4_ranker",
+    "stratum_base_carbfree": "0",
+    "n_decisive": 882,
+    "k_agree": 467,
+    "agreement_rate": 0.5295,
+    "p_raw": 0.08587,
+    "p_holm": 0.08587,
+    "significant_at_0.05_holm": false
+   },
+   {
+    "reward": "R4_ranker",
+    "stratum_base_carbfree": "1",
+    "n_decisive": 448,
+    "k_agree": 192,
+    "agreement_rate": 0.4286,
+    "p_raw": 0.00287,
+    "p_holm": 0.00861,
+    "significant_at_0.05_holm": true
+   },
+   {
+    "reward": "R5_comparator",
+    "stratum_base_carbfree": "-1",
+    "n_decisive": 239,
+    "k_agree": 151,
+    "agreement_rate": 0.6318,
+    "p_raw": 6e-05,
+    "p_holm": 0.0003,
+    "significant_at_0.05_holm": true
+   },
+   {
+    "reward": "R5_comparator",
+    "stratum_base_carbfree": "0",
+    "n_decisive": 938,
+    "k_agree": 433,
+    "agreement_rate": 0.4616,
+    "p_raw": 0.02039,
+    "p_holm": 0.04078,
+    "significant_at_0.05_holm": true
+   },
+   {
+    "reward": "R5_comparator",
+    "stratum_base_carbfree": "1",
+    "n_decisive": 470,
+    "k_agree": 197,
+    "agreement_rate": 0.4191,
+    "p_raw": 0.00053,
+    "p_holm": 0.00212,
+    "significant_at_0.05_holm": true
+   }
+  ],
+  "n_significant_raw_0.05": 8,
+  "n_significant_holm_0.05": 8
+ },
+ "beyond_rule_tie_stratum_label_note": "R2_checker in beyond_rule_tie_stratum/symmetrized_rule_decided is the 5-channel RUN3 aggregate (gdpo_vote_and_channels, votes over RUN3_CHECKS only -- confirmed by direct source read, matching the pre-reg's own R2 definition, docs/phases/PHASE17_PREREG.md line 445). R1_checker_10ch (added here) is the original 10-channel checker aggregate (run 1), computed on the IDENTICAL n=1,112 tie-stratum pairs for a clean side-by-side. An earlier prose report described the 0.5841 result as 'the full 10-channel checker' -- that was a prose mislabel of a correctly-computed R2 number, not a wrong computation; no number in the file needed to change, only this label."
+}
