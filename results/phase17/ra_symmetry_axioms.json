@@ -465,16 +465,234 @@
   }
  },
  "prediction_1_at_least_4_of_6": {
-  "statement": "The suite flags at least 4 of the 6 named historical bugs at the versions where they existed.",
-  "n_flagged": 4,
-  "n_total_named_bugs": 6,
-  "passes": true
+  "statement": "The suite flags at least 4 of the 6 named historical bugs at the versions where they existed (properly: violations>0 at every expected-buggy version AND violations==0 at every expected-clean version for that axiom).",
+  "as_registered": {
+   "n_flagged": 3,
+   "n_total_named_bugs": 6,
+   "passes": false
+  },
+  "corrected": {
+   "n_flagged": 4,
+   "n_total_named_bugs": 6,
+   "passes": true
+  }
  },
  "prediction_2_zero_on_current": {
   "statement": "It flags none on the current version.",
-  "n_violations_on_current": 0,
-  "passes": true
+  "as_registered": {
+   "n_violations_on_current": 200,
+   "passes": false
+  },
+  "corrected": {
+   "n_violations_on_current": 0,
+   "passes": true
+  }
  },
  "monotonicity_correction_note": "The original monotonicity case construction (append one unknown-type operation to an otherwise-clean route) did not exercise the actual historical bug: _check_operation_order EXCLUDES any adjacent pair touching an unrecognized op type from both `assessed` and `violations` (confirmed by direct source inspection after the first run showed 200/200 'violations' on current HEAD, which is impossible given finding 21's 0.994 mean and the 43-assertion test suite -- a self-contradiction that triggered this re-check rather than being reported as a validator regression). The bug/fix is specifically about assessed==0 (a route of ENTIRELY unrecognized op types): 1.0 pre-fix, 0.5 post-fix, per validator.py's own comment. Re-run with the corrected construction (replace a route's operations with two unrecognized-type steps, direct exact-value check) and merged in -- this replaces the original monotonicity row/prediction inputs.",
- "atmosphere_test_power_gap_note": "token_identity and notation_atmosphere_synonym show ZERO violations on EVERY version tested, including the ones expected to be buggy (v0-v2 for token_identity; v0-v2 for notation_atmosphere_synonym) -- investigated directly rather than reported as a clean pass: _check_chempot_atmosphere only USES _classify_atmosphere's result when the target's own chempot envelope requires oxidizing or reducing conditions; in the \"flexible\" regime (neither required) it returns 1.0 regardless of the declared atmosphere string. Confirmed directly: 60/60 token_identity test cases (all real sampled targets with a heating operation) landed in the flexible regime, so H2 vs H2O vs O2 atmosphere strings scored identically (1.0) on every version -- the substring-trap code path was never exercised by this particular sample of targets. This is a TEST-POWER gap (confirmed via direct inspection of the raw chempot_atmosphere values and gradeability tags), not evidence the historical bug/fix doesn't exist or that these two axioms hold -- flagged honestly rather than reported as a pass. Overall prediction 1 (>=4/6 flagged) does not depend on these two, since scale + notation_hydrate + abstention + monotonicity already clear the >=4 bar on their own."
+ "atmosphere_test_power_gap_note": "token_identity and notation_atmosphere_synonym show ZERO violations on EVERY version tested, including the ones expected to be buggy (v0-v2 for token_identity; v0-v2 for notation_atmosphere_synonym) -- investigated directly rather than reported as a clean pass: _check_chempot_atmosphere only USES _classify_atmosphere's result when the target's own chempot envelope requires oxidizing or reducing conditions; in the \"flexible\" regime (neither required) it returns 1.0 regardless of the declared atmosphere string. Confirmed directly: 60/60 token_identity test cases (all real sampled targets with a heating operation) landed in the flexible regime, so H2 vs H2O vs O2 atmosphere strings scored identically (1.0) on every version -- the substring-trap code path was never exercised by this particular sample of targets. This is a TEST-POWER gap (confirmed via direct inspection of the raw chempot_atmosphere values and gradeability tags), not evidence the historical bug/fix doesn't exist or that these two axioms hold -- flagged honestly rather than reported as a pass. Overall prediction 1 (>=4/6 flagged) does not depend on these two, since scale + notation_hydrate + abstention + monotonicity already clear the >=4 bar on their own.",
+ "monotonicity_as_registered": {
+  "v0_pre_scale_fix_2026-07-15": {
+   "n_cases": 200,
+   "n_scored": 200,
+   "n_skipped": 0,
+   "n_violations": 200,
+   "violation_rate_of_scored": 1.0,
+   "expected_buggy": true
+  },
+  "v1_pre_hydrate_fix_2026-07-20": {
+   "n_cases": 200,
+   "n_scored": 200,
+   "n_skipped": 0,
+   "n_violations": 200,
+   "violation_rate_of_scored": 1.0,
+   "expected_buggy": true
+  },
+  "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+   "n_cases": 200,
+   "n_scored": 200,
+   "n_skipped": 0,
+   "n_violations": 200,
+   "violation_rate_of_scored": 1.0,
+   "expected_buggy": true
+  },
+  "v3_pre_noneprop_fix_2026-07-22": {
+   "n_cases": 200,
+   "n_scored": 200,
+   "n_skipped": 0,
+   "n_violations": 200,
+   "violation_rate_of_scored": 1.0,
+   "expected_buggy": false
+  },
+  "current_HEAD": {
+   "n_cases": 200,
+   "n_scored": 200,
+   "n_skipped": 0,
+   "n_violations": 200,
+   "violation_rate_of_scored": 1.0,
+   "expected_buggy": false
+  }
+ },
+ "monotonicity_deviation": {
+  "statement": "The pre-registered monotonicity transformation (append ONE unknown-type operation to an otherwise-clean route) is a SPECIFICATION ERROR: _check_operation_order excludes any adjacent pair touching an unrecognized op type from both `assessed` and `violations`, so this transformation could never move the score on ANY version, buggy or not -- it flagged all 5 versions (including current_HEAD and v3, both expected-clean), i.e. it has zero specificity, not that it detected a real bug. Handled like Phase 15's eps=-20 (finding 28): a specification error, not a validator regression. The real bug/fix is specifically about assessed==0 (a route of ENTIRELY unrecognized op types): 1.0 pre-fix, 0.5 post-fix. The corrected transformation (replace ALL of a route's operations with two unrecognized-type steps) is a direct exact-value check against that condition and is stored under axiom_version_summary.monotonicity (unchanged from the prior patch); the as-registered numbers are preserved unmodified above.",
+  "as_registered": {
+   "properly_flagged_bugs_of_6": 3,
+   "n_violations_on_current_HEAD_all_axioms": 200,
+   "prediction_1_passes": false,
+   "prediction_2_passes": false
+  },
+  "corrected": {
+   "properly_flagged_bugs_of_6": 4,
+   "n_violations_on_current_HEAD_all_axioms": 0,
+   "prediction_1_passes": true,
+   "prediction_2_passes": true
+  },
+  "corrected_test_flags_historical_bug": true
+ },
+ "boundary_result": {
+  "statement": "What happened, per version, for target=Cu (pure element, e_above_hull=0 by definition): target_stability and its gradeability tag, read directly from each version's own scored output (no rerun). A correct implementation must return (1.0, \"discrete\") -- distinguishing a genuine 0.0 e_above_hull from a missing PD entry (which would return 0.5, \"sentinel_no_entry\"). This was true on EVERY version tested, including the earliest (v0, 2026-07-15) -- consistent with the module docstring's claim that no historical regression exists here within the range checked; this is a forward-looking correctness check, not evidence of a fix commit.",
+  "per_version": {
+   "v0_pre_scale_fix_2026-07-15": {
+    "target_stability": 1.0,
+    "target_stability_gradeability": "discrete"
+   },
+   "v1_pre_hydrate_fix_2026-07-20": {
+    "target_stability": 1.0,
+    "target_stability_gradeability": "discrete"
+   },
+   "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+    "target_stability": 1.0,
+    "target_stability_gradeability": "discrete"
+   },
+   "v3_pre_noneprop_fix_2026-07-22": {
+    "target_stability": 1.0,
+    "target_stability_gradeability": "discrete"
+   },
+   "current_HEAD": {
+    "target_stability": 1.0,
+    "target_stability_gradeability": "discrete"
+   }
+  },
+  "all_versions_correct": true
+ },
+ "report_card_values": {
+  "notation_atmosphere_synonym": "untested on original sample (no power); post-hoc power-fix (n=2 qualifying targets) also shows 0 violations -- Ar/argon are synonymous under _classify_atmosphere's tokenization both pre- and post-fix, so this may be a genuine null rather than a remaining gap -- see atmosphere_powerfix_result",
+  "token_identity": "untested on original sample (no power); POST-HOC POWER-FIX CONFIRMS THE BUG/FIX (n=2 qualifying targets, 100% violation rate at v0-v2, 0% at v3/current -- exact staircase match) -- see atmosphere_powerfix_result",
+  "order": "pass (forward-looking only, no historical bug to catch)",
+  "boundary": "pass (forward-looking only, no historical bug to catch)",
+  "scale": "pass",
+  "notation_hydrate": "pass",
+  "monotonicity": "pass (corrected test; fails as registered -- see monotonicity_deviation)",
+  "abstention": "pass"
+ },
+ "atmosphere_powerfix_result": {
+  "statement": "[E, post-hoc power fix] 2 targets found with a genuine oxidizing/reducing chempot requirement (scanned via thermo_checker.composition_chempots directly, same inputs _check_chempot_atmosphere itself reads, independent of any route). Cases rebuilt against these targets' own real routes and rerun across all 5 versions. This does NOT replace the original 0-power run (preserved under axiom_version_summary); it is reported separately as a labeled exploratory follow-up.",
+  "n_candidates_scanned": 75,
+  "classification_counts": {
+   "flexible": 64,
+   "ungradeable": 5,
+   "not_oxide": 4,
+   "needs_reducing": 1,
+   "needs_oxidizing": 1
+  },
+  "n_qualifying_targets": 2,
+  "qualifying_targets": [
+   "La0.25Sr0.75TiO3",
+   "La1.85Sr0.15CuO4"
+  ],
+  "per_version": {
+   "notation_atmosphere_synonym_powerfix": {
+    "v0_pre_scale_fix_2026-07-15": {
+     "n_cases": 2,
+     "n_scored": 2,
+     "n_skipped": 0,
+     "n_violations": 0,
+     "violation_rate_of_scored": 0.0,
+     "example_violating_cases": []
+    },
+    "v1_pre_hydrate_fix_2026-07-20": {
+     "n_cases": 2,
+     "n_scored": 2,
+     "n_skipped": 0,
+     "n_violations": 0,
+     "violation_rate_of_scored": 0.0,
+     "example_violating_cases": []
+    },
+    "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+     "n_cases": 2,
+     "n_scored": 2,
+     "n_skipped": 0,
+     "n_violations": 0,
+     "violation_rate_of_scored": 0.0,
+     "example_violating_cases": []
+    },
+    "v3_pre_noneprop_fix_2026-07-22": {
+     "n_cases": 2,
+     "n_scored": 2,
+     "n_skipped": 0,
+     "n_violations": 0,
+     "violation_rate_of_scored": 0.0,
+     "example_violating_cases": []
+    },
+    "current_HEAD": {
+     "n_cases": 2,
+     "n_scored": 2,
+     "n_skipped": 0,
+     "n_violations": 0,
+     "violation_rate_of_scored": 0.0,
+     "example_violating_cases": []
+    }
+   },
+   "token_identity_powerfix": {
+    "v0_pre_scale_fix_2026-07-15": {
+     "n_cases": 2,
+     "n_scored": 2,
+     "n_skipped": 0,
+     "n_violations": 2,
+     "violation_rate_of_scored": 1.0,
+     "example_violating_cases": [
+      "token_identity_powerfix_0",
+      "token_identity_powerfix_1"
+     ]
+    },
+    "v1_pre_hydrate_fix_2026-07-20": {
+     "n_cases": 2,
+     "n_scored": 2,
+     "n_skipped": 0,
+     "n_violations": 2,
+     "violation_rate_of_scored": 1.0,
+     "example_violating_cases": [
+      "token_identity_powerfix_0",
+      "token_identity_powerfix_1"
+     ]
+    },
+    "v2_pre_atmtoken_monotonicity_fix_2026-07-21": {
+     "n_cases": 2,
+     "n_scored": 2,
+     "n_skipped": 0,
+     "n_violations": 2,
+     "violation_rate_of_scored": 1.0,
+     "example_violating_cases": [
+      "token_identity_powerfix_0",
+      "token_identity_powerfix_1"
+     ]
+    },
+    "v3_pre_noneprop_fix_2026-07-22": {
+     "n_cases": 2,
+     "n_scored": 2,
+     "n_skipped": 0,
+     "n_violations": 0,
+     "violation_rate_of_scored": 0.0,
+     "example_violating_cases": []
+    },
+    "current_HEAD": {
+     "n_cases": 2,
+     "n_scored": 2,
+     "n_skipped": 0,
+     "n_violations": 0,
+     "violation_rate_of_scored": 0.0,
+     "example_violating_cases": []
+    }
+   }
+  }
+ }
 }
