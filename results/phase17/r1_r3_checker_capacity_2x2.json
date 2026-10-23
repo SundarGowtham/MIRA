@@ -1,0 +1,340 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R",
+ "subproperty": "R-b (R1, R3 recomputed from code, not quoted) + R-e (R1 noise-amplification) + [E] a 2x2 channel-count x policy capacity table",
+ "r1": {
+  "reward_id": "R1",
+  "reward": "Checker, 10-channel original aggregate",
+  "policy": "SFT (hardening-probe baseline condition)",
+  "source": "results/hardening.json",
+  "source_sha256": "a0f9b5db3c77f913aee2d6e544f93cf6f3d0657e05b153ba8ca16c3c0a4aa453",
+  "check_names": [
+   "stoichiometry",
+   "amount_accuracy",
+   "charge_neutrality",
+   "precursors_exist",
+   "operation_order",
+   "temperature_plausible",
+   "thermodynamic_favorable",
+   "target_stability",
+   "chempot_atmosphere",
+   "target_match"
+  ],
+  "n_records": 320,
+  "capacity": {
+   "total_variance": 1.641,
+   "capacity_pct": 16.41,
+   "n_groups": 40,
+   "per_channel_zero_std_pct": {
+    "stoichiometry": 72.5,
+    "amount_accuracy": 30.0,
+    "charge_neutrality": 100.0,
+    "precursors_exist": 97.5,
+    "operation_order": 72.5,
+    "temperature_plausible": 100.0,
+    "thermodynamic_favorable": 47.5,
+    "target_stability": 100.0,
+    "chempot_atmosphere": 90.0,
+    "target_match": 100.0
+   },
+   "per_channel_z_var": {
+    "stoichiometry": 0.2467,
+    "amount_accuracy": 0.6084,
+    "charge_neutrality": 0.0,
+    "precursors_exist": 0.0224,
+    "operation_order": 0.2269,
+    "temperature_plausible": 0.0,
+    "thermodynamic_favorable": 0.4416,
+    "target_stability": 0.0,
+    "chempot_atmosphere": 0.0897,
+    "target_match": 0.0
+   }
+  },
+  "tie_rate_check": {
+   "stoichiometry": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.725,
+    "predicted_tie_rate_from_pass_rates": 0.7731,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.275
+   },
+   "amount_accuracy": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.3,
+    "predicted_tie_rate_from_pass_rates": 0.6225,
+    "agrees_within_5pp": false,
+    "share_targets_pass_rate_in_0.1_0.9": 0.425
+   },
+   "charge_neutrality": {
+    "n_groups": 40,
+    "observed_tie_rate": 1.0,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   },
+   "precursors_exist": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.975,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   },
+   "operation_order": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.725,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": false,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   },
+   "temperature_plausible": {
+    "n_groups": 40,
+    "observed_tie_rate": 1.0,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   },
+   "thermodynamic_favorable": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.45,
+    "predicted_tie_rate_from_pass_rates": 0.8179,
+    "agrees_within_5pp": false,
+    "share_targets_pass_rate_in_0.1_0.9": 0.225
+   },
+   "target_stability": {
+    "n_groups": 40,
+    "observed_tie_rate": 1.0,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   },
+   "chempot_atmosphere": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.9,
+    "predicted_tie_rate_from_pass_rates": 0.9039,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.1
+   },
+   "target_match": {
+    "n_groups": 40,
+    "observed_tie_rate": 1.0,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   }
+  },
+  "noise_amplification_by_channel": {
+   "stoichiometry": 0.0,
+   "amount_accuracy": 0.0,
+   "charge_neutrality": null,
+   "precursors_exist": 0.0,
+   "operation_order": 0.0,
+   "temperature_plausible": null,
+   "thermodynamic_favorable": 4.8,
+   "target_stability": null,
+   "chempot_atmosphere": 0.0,
+   "target_match": null
+  },
+  "re_prediction_noise_amplified_channel_gt_10pct": {
+   "statement": "At least one R1 channel has noise-amplified live groups > 10%.",
+   "passes": false
+  },
+  "note": "This number IS finding 9's baseline (16.4%), reproduced here directly from code with sha256 provenance, not finding 1's 14.0% (an older, different, untracked sample source with no surviving flat-record file to recompute from)."
+ },
+ "r3": {
+  "reward_id": "R3",
+  "reward": "Low-temperature objective (checker + temperature_economy), finding 15",
+  "policy": "SFT (hardening-probe low_temp condition)",
+  "source": "misc/hardening_low_temp.json",
+  "source_sha256": "fd08ff37a587346dff14a4838edb4e6a9ed83ad87e85f7e6bc1835a405344623",
+  "capacity_baseline_10ch": {
+   "total_variance": 1.641,
+   "capacity_pct": 16.41,
+   "n_groups": 40,
+   "per_channel_zero_std_pct": {
+    "stoichiometry": 72.5,
+    "amount_accuracy": 30.0,
+    "charge_neutrality": 100.0,
+    "precursors_exist": 97.5,
+    "operation_order": 72.5,
+    "temperature_plausible": 100.0,
+    "thermodynamic_favorable": 47.5,
+    "target_stability": 100.0,
+    "chempot_atmosphere": 90.0,
+    "target_match": 100.0
+   },
+   "per_channel_z_var": {
+    "stoichiometry": 0.2467,
+    "amount_accuracy": 0.6084,
+    "charge_neutrality": 0.0,
+    "precursors_exist": 0.0224,
+    "operation_order": 0.2269,
+    "temperature_plausible": 0.0,
+    "thermodynamic_favorable": 0.4416,
+    "target_stability": 0.0,
+    "chempot_atmosphere": 0.0897,
+    "target_match": 0.0
+   }
+  },
+  "capacity_low_temp_10ch": {
+   "total_variance": 1.8958,
+   "capacity_pct": 18.96,
+   "n_groups": 40,
+   "per_channel_zero_std_pct": {
+    "stoichiometry": 70.0,
+    "amount_accuracy": 30.0,
+    "charge_neutrality": 100.0,
+    "precursors_exist": 92.5,
+    "operation_order": 55.0,
+    "temperature_plausible": 100.0,
+    "thermodynamic_favorable": 45.0,
+    "target_stability": 100.0,
+    "chempot_atmosphere": 90.0,
+    "target_match": 100.0
+   },
+   "per_channel_z_var": {
+    "stoichiometry": 0.2635,
+    "amount_accuracy": 0.6233,
+    "charge_neutrality": 0.0,
+    "precursors_exist": 0.0642,
+    "operation_order": 0.3943,
+    "temperature_plausible": 0.0,
+    "thermodynamic_favorable": 0.4575,
+    "target_stability": 0.0,
+    "chempot_atmosphere": 0.0868,
+    "target_match": 0.0
+   }
+  },
+  "capacity_low_temp_11ch_incl_temperature_economy": {
+   "total_variance": 2.6195,
+   "capacity_pct": 23.81,
+   "n_groups": 40,
+   "per_channel_zero_std_pct": {
+    "stoichiometry": 70.0,
+    "amount_accuracy": 30.0,
+    "charge_neutrality": 100.0,
+    "precursors_exist": 92.5,
+    "operation_order": 55.0,
+    "temperature_plausible": 100.0,
+    "thermodynamic_favorable": 45.0,
+    "target_stability": 100.0,
+    "chempot_atmosphere": 90.0,
+    "target_match": 100.0,
+    "temperature_economy": 16.2
+   },
+   "per_channel_z_var": {
+    "stoichiometry": 0.2635,
+    "amount_accuracy": 0.6233,
+    "charge_neutrality": 0.0,
+    "precursors_exist": 0.0642,
+    "operation_order": 0.3943,
+    "temperature_plausible": 0.0,
+    "thermodynamic_favorable": 0.4575,
+    "target_stability": 0.0,
+    "chempot_atmosphere": 0.0868,
+    "target_match": 0.0,
+    "temperature_economy": 0.7211
+   }
+  },
+  "tie_rate_check_11ch": {
+   "stoichiometry": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.7,
+    "predicted_tie_rate_from_pass_rates": 0.7601,
+    "agrees_within_5pp": false,
+    "share_targets_pass_rate_in_0.1_0.9": 0.3
+   },
+   "amount_accuracy": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.3,
+    "predicted_tie_rate_from_pass_rates": 0.5759,
+    "agrees_within_5pp": false,
+    "share_targets_pass_rate_in_0.1_0.9": 0.475
+   },
+   "charge_neutrality": {
+    "n_groups": 40,
+    "observed_tie_rate": 1.0,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   },
+   "precursors_exist": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.925,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": false,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   },
+   "operation_order": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.55,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": false,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   },
+   "temperature_plausible": {
+    "n_groups": 40,
+    "observed_tie_rate": 1.0,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   },
+   "thermodynamic_favorable": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.425,
+    "predicted_tie_rate_from_pass_rates": 0.8288,
+    "agrees_within_5pp": false,
+    "share_targets_pass_rate_in_0.1_0.9": 0.2
+   },
+   "target_stability": {
+    "n_groups": 40,
+    "observed_tie_rate": 1.0,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   },
+   "chempot_atmosphere": {
+    "n_groups": 40,
+    "observed_tie_rate": 0.9,
+    "predicted_tie_rate_from_pass_rates": 0.9097,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.1
+   },
+   "target_match": {
+    "n_groups": 40,
+    "observed_tie_rate": 1.0,
+    "predicted_tie_rate_from_pass_rates": 1.0,
+    "agrees_within_5pp": true,
+    "share_targets_pass_rate_in_0.1_0.9": 0.0
+   },
+   "temperature_economy": {
+    "n_groups": 37,
+    "observed_tie_rate": 0.1622,
+    "predicted_tie_rate_from_pass_rates": 0.5611,
+    "agrees_within_5pp": false,
+    "share_targets_pass_rate_in_0.1_0.9": 0.5135
+   }
+  },
+  "note": "Reproduces finding 15's table (16.4% / 19.0% / 23.8%) from code."
+ },
+ "two_by_two_table_E": {
+  "statement": "[E] Separates channel-count from policy. Rows: 10-channel checker vs 5-channel RUN3 subset. Columns: hardening-probe baseline samples (SFT policy, 40 targets x 8, closed-book) vs RS-SFT's own samples (75 targets x 32, resampling_rate). Until this ran, '14% -> 27%' conflated two changes (fewer channels, different policy) -- this isolates each.",
+  "capacity_pct": {
+   "10_channel": {
+    "hardening_probe_baseline_SFT": 16.41,
+    "rssft_own_samples": 13.63
+   },
+   "5_channel_RUN3": {
+    "hardening_probe_baseline_SFT": 32.37,
+    "rssft_own_samples": 26.69
+   }
+  },
+  "channel_count_effect_pp": {
+   "on_hardening_policy": 15.96,
+   "on_rssft_policy": 13.06
+  },
+  "policy_effect_pp": {
+   "at_10_channels": -2.78,
+   "at_5_channels_RUN3": -5.68
+  }
+ }
+}
