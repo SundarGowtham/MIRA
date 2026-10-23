@@ -1,0 +1,4891 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "G1",
+ "graph_spec": "per target (ASTRAL 35 + held-out 40), top-30 recipes of U(x), each represented by its most frequent full parsed route (universe.jsonl's node set + a re-scan of raw <think>-trace completions for the modal surface form); edges = all pairs with a defined comparator margin.",
+ "comparator_version": null,
+ "edge_weighting": "uniform (w=1 per present edge; the pre-reg does not specify a weighting scheme)",
+ "c3_fraction": 0.17,
+ "per_target": {
+  "LiZnPO4": {
+   "which": "ASTRAL",
+   "n_nodes": 26,
+   "missing_nodes": 1,
+   "cyclic_triads": {
+    "n_triangles_checked": 1140,
+    "n_cyclic": 8,
+    "frac_cyclic": 0.007017543859649123
+   },
+   "R1_checker_10ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 1240.3333342727644,
+    "energy_grad": 1240.3333342727642,
+    "energy_curl": 2.9677098958434654e-30,
+    "energy_harmonic": 4.0039905765661917e-28,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.392671239125812e-33,
+    "frac_harmonic": 3.228156871970084e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 1240.3333342727644,
+    "energy_grad": 1240.3333342727642,
+    "energy_curl": 3.274910536818959e-30,
+    "energy_harmonic": 3.8494326244507146e-28,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.6403471118020974e-33,
+    "frac_harmonic": 3.103546859609094e-31
+   },
+   "R4_ranker": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 35.96919777,
+    "energy_grad": 35.96919777,
+    "energy_curl": 1.1220764152914564e-31,
+    "energy_harmonic": 8.439113904544619e-30,
+    "frac_grad": 1.0,
+    "frac_curl": 3.119548071287041e-33,
+    "frac_harmonic": 2.346205761526112e-31
+   },
+   "R5_comparator": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 74.5329098810389,
+    "energy_grad": 72.30871870910411,
+    "energy_curl": 2.224191171934806,
+    "energy_harmonic": 1.8443856635115044e-29,
+    "frac_grad": 0.9701582673280194,
+    "frac_curl": 0.029841732671980894,
+    "frac_harmonic": 2.4745923196280764e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 74.74475566454288,
+    "energy_grad": 74.74475566454288,
+    "energy_curl": 7.135907481694977e-31,
+    "energy_harmonic": 1.5494120847069895e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 9.547034328028555e-33,
+    "frac_harmonic": 2.0729375204071922e-31
+   }
+  },
+  "LiMnPO4": {
+   "which": "ASTRAL",
+   "n_nodes": 24,
+   "missing_nodes": 6,
+   "cyclic_triads": {
+    "n_triangles_checked": 969,
+    "n_cyclic": 8,
+    "frac_cyclic": 0.008255933952528379
+   },
+   "R1_checker_10ch": {
+    "m_edges": 276,
+    "n_triangles": 2024,
+    "energy_total": 1003.5452479224053,
+    "energy_grad": 1003.5452479224056,
+    "energy_curl": 2.2763849966008998e-30,
+    "energy_harmonic": 3.708432675932714e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.268343157733642e-33,
+    "frac_harmonic": 3.6953318085159743e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 276,
+    "n_triangles": 2024,
+    "energy_total": 1003.5470494998426,
+    "energy_grad": 1003.5470494998428,
+    "energy_curl": 2.652133928750847e-30,
+    "energy_harmonic": 2.9393491453106146e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.6427599284683692e-33,
+    "frac_harmonic": 2.9289599792810467e-31
+   },
+   "R4_ranker": {
+    "m_edges": 276,
+    "n_triangles": 2024,
+    "energy_total": 31.62047552,
+    "energy_grad": 31.620475520000006,
+    "energy_curl": 8.246164968005218e-32,
+    "energy_harmonic": 1.0893584631518478e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.6078560908388318e-33,
+    "frac_harmonic": 3.445104620462861e-31
+   },
+   "R5_comparator": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 30.279474193378306,
+    "energy_grad": 27.505538274965254,
+    "energy_curl": 2.773935918413055,
+    "energy_harmonic": 9.385825864663182e-30,
+    "frac_grad": 0.9083889006560202,
+    "frac_curl": 0.09161109934397989,
+    "frac_harmonic": 3.0997321171170567e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 42.24574102261096,
+    "energy_grad": 42.245741022610964,
+    "energy_curl": 3.6409705598640703e-31,
+    "energy_harmonic": 7.73448650841053e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 8.618550584579244e-33,
+    "frac_harmonic": 1.8308322498759917e-31
+   }
+  },
+  "Li2CuP2O7": {
+   "which": "ASTRAL",
+   "n_nodes": 12,
+   "missing_nodes": 1,
+   "cyclic_triads": {
+    "n_triangles_checked": 165,
+    "n_cyclic": 3,
+    "frac_cyclic": 0.01818181818181818
+   },
+   "R1_checker_10ch": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 282.20522521107955,
+    "energy_grad": 282.20522521107955,
+    "energy_curl": 5.587764745315501e-31,
+    "energy_harmonic": 3.3115723417090395e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 1.980035890949946e-33,
+    "frac_harmonic": 1.1734624471365123e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 282.20522521107955,
+    "energy_grad": 282.20522521107955,
+    "energy_curl": 5.546678239835238e-31,
+    "energy_harmonic": 3.1529784305552316e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 1.96547680351649e-33,
+    "frac_harmonic": 1.1172643696433739e-31
+   },
+   "R4_ranker": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 5.307772910000001,
+    "energy_grad": 5.307772910000001,
+    "energy_curl": 1.0560515861723333e-32,
+    "energy_harmonic": 1.16887898208102e-30,
+    "frac_grad": 1.0,
+    "frac_curl": 1.989632194291321e-33,
+    "frac_harmonic": 2.2022023208242717e-31
+   },
+   "R5_comparator": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 28.489383437064664,
+    "energy_grad": 27.008720135925785,
+    "energy_curl": 1.480663301138886,
+    "energy_harmonic": 5.761095039213363e-30,
+    "frac_grad": 0.9480275414029306,
+    "frac_curl": 0.05197245859706968,
+    "frac_harmonic": 2.022190143896966e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 28.230900214864885,
+    "energy_grad": 28.230900214864878,
+    "energy_curl": 1.3602755654936836e-31,
+    "energy_harmonic": 4.9843942383443656e-30,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 4.818392453448704e-33,
+    "frac_harmonic": 1.765581047861821e-31
+   }
+  },
+  "LiMgPO4": {
+   "which": "ASTRAL",
+   "n_nodes": 29,
+   "missing_nodes": 1,
+   "cyclic_triads": {
+    "n_triangles_checked": 2024,
+    "n_cyclic": 42,
+    "frac_cyclic": 0.020750988142292492
+   },
+   "R1_checker_10ch": {
+    "m_edges": 406,
+    "n_triangles": 3654,
+    "energy_total": 1408.5273611431262,
+    "energy_grad": 1408.5273611431255,
+    "energy_curl": 3.5664503532917685e-30,
+    "energy_harmonic": 6.334264046610312e-28,
+    "frac_grad": 0.9999999999999996,
+    "frac_curl": 2.532041940880243e-33,
+    "frac_harmonic": 4.497082713018496e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 406,
+    "n_triangles": 3654,
+    "energy_total": 1352.2298378581704,
+    "energy_grad": 1352.22983785817,
+    "energy_curl": 3.292622962026328e-30,
+    "energy_harmonic": 6.653193795072685e-28,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.4349580743178937e-33,
+    "frac_harmonic": 4.920164907476705e-31
+   },
+   "R4_ranker": {
+    "m_edges": 406,
+    "n_triangles": 3654,
+    "energy_total": 39.857950560000006,
+    "energy_grad": 39.85795055999998,
+    "energy_curl": 1.1038442571988927e-31,
+    "energy_harmonic": 1.06820154074847e-29,
+    "frac_grad": 0.9999999999999993,
+    "frac_curl": 2.7694455979045516e-33,
+    "frac_harmonic": 2.6800212397786413e-31
+   },
+   "R5_comparator": {
+    "m_edges": 276,
+    "n_triangles": 2024,
+    "energy_total": 76.2100090493003,
+    "energy_grad": 70.42371045009233,
+    "energy_curl": 5.786298599208004,
+    "energy_harmonic": 3.5663665501095536e-29,
+    "frac_grad": 0.9240742958649328,
+    "frac_curl": 0.07592570413506766,
+    "frac_harmonic": 4.679656379259146e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 276,
+    "n_triangles": 2024,
+    "energy_total": 85.69428778656268,
+    "energy_grad": 85.6942877865627,
+    "energy_curl": 9.799091433501757e-31,
+    "energy_harmonic": 4.767524422769344e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 1.143494121557809e-32,
+    "frac_harmonic": 5.563409821018335e-31
+   }
+  },
+  "BaLiBO3": {
+   "which": "ASTRAL",
+   "n_nodes": 15,
+   "missing_nodes": 2,
+   "cyclic_triads": {
+    "n_triangles_checked": 286,
+    "n_cyclic": 2,
+    "frac_cyclic": 0.006993006993006993
+   },
+   "R1_checker_10ch": {
+    "m_edges": 105,
+    "n_triangles": 455,
+    "energy_total": 62.73834652888351,
+    "energy_grad": 62.73834652888352,
+    "energy_curl": 2.251540500318301e-31,
+    "energy_harmonic": 8.631042206238435e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 3.588778832865376e-33,
+    "frac_harmonic": 1.375720382153341e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 105,
+    "n_triangles": 455,
+    "energy_total": 63.80434008657179,
+    "energy_grad": 63.804340086571784,
+    "energy_curl": 1.3312027775604586e-31,
+    "energy_harmonic": 7.046746554919569e-30,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 2.086382800534007e-33,
+    "frac_harmonic": 1.1044305991345284e-31
+   },
+   "R4_ranker": {
+    "m_edges": 105,
+    "n_triangles": 455,
+    "energy_total": 12.04358594,
+    "energy_grad": 12.043585940000003,
+    "energy_curl": 3.577093883375225e-32,
+    "energy_harmonic": 1.8782182398982827e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.970123600392746e-33,
+    "frac_harmonic": 1.5595174470920765e-31
+   },
+   "R5_comparator": {
+    "m_edges": 78,
+    "n_triangles": 286,
+    "energy_total": 46.937622604570386,
+    "energy_grad": 43.639233230854465,
+    "energy_curl": 3.2983893737159335,
+    "energy_harmonic": 9.540112787431786e-30,
+    "frac_grad": 0.929728239508348,
+    "frac_curl": 0.07027176049165226,
+    "frac_harmonic": 2.0325087335170764e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 78,
+    "n_triangles": 286,
+    "energy_total": 57.110904592760285,
+    "energy_grad": 57.11090459276029,
+    "energy_curl": 3.8280820613841524e-31,
+    "energy_harmonic": 6.149272089742554e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 6.702891660850041e-33,
+    "frac_harmonic": 1.0767246874464796e-31
+   }
+  },
+  "SrLiBO3": {
+   "which": "ASTRAL",
+   "n_nodes": 16,
+   "missing_nodes": 1,
+   "cyclic_triads": {
+    "n_triangles_checked": 455,
+    "n_cyclic": 19,
+    "frac_cyclic": 0.041758241758241756
+   },
+   "R1_checker_10ch": {
+    "m_edges": 120,
+    "n_triangles": 560,
+    "energy_total": 102.00663584491639,
+    "energy_grad": 102.00663584491645,
+    "energy_curl": 2.005856037079305e-31,
+    "energy_harmonic": 3.0236811237387945e-29,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 1.9663975980237847e-33,
+    "frac_harmonic": 2.964200415682548e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 120,
+    "n_triangles": 560,
+    "energy_total": 102.00663584491636,
+    "energy_grad": 102.00663584491639,
+    "energy_curl": 1.6341515578125727e-31,
+    "energy_harmonic": 2.8403518523325735e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 1.6020051482699816e-33,
+    "frac_harmonic": 2.784477528158896e-31
+   },
+   "R4_ranker": {
+    "m_edges": 120,
+    "n_triangles": 560,
+    "energy_total": 6.83886576,
+    "energy_grad": 6.838865759999997,
+    "energy_curl": 1.8097722946163788e-32,
+    "energy_harmonic": 1.5534611116738208e-30,
+    "frac_grad": 0.9999999999999996,
+    "frac_curl": 2.6463047501262532e-33,
+    "frac_harmonic": 2.2715186497151257e-31
+   },
+   "R5_comparator": {
+    "m_edges": 105,
+    "n_triangles": 455,
+    "energy_total": 34.62983261401186,
+    "energy_grad": 31.309261133569724,
+    "energy_curl": 3.320571480442133,
+    "energy_harmonic": 1.1111165313124984e-29,
+    "frac_grad": 0.904112401655139,
+    "frac_curl": 0.09588759834486088,
+    "frac_harmonic": 3.208552994457503e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 105,
+    "n_triangles": 455,
+    "energy_total": 45.750223454669836,
+    "energy_grad": 45.75022345466983,
+    "energy_curl": 2.9206406618308367e-31,
+    "energy_harmonic": 9.749782812100574e-30,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 6.383882834418637e-33,
+    "frac_harmonic": 2.131089659433213e-31
+   }
+  },
+  "Li3Pr2(BO3)3": {
+   "which": "ASTRAL",
+   "n_nodes": 28,
+   "missing_nodes": 2,
+   "cyclic_triads": {
+    "n_triangles_checked": 969,
+    "n_cyclic": 25,
+    "frac_cyclic": 0.025799793601651185
+   },
+   "R1_checker_10ch": {
+    "m_edges": 378,
+    "n_triangles": 3276,
+    "energy_total": 816.9667956294454,
+    "energy_grad": 816.9667956294452,
+    "energy_curl": 1.8305688988551486e-30,
+    "energy_harmonic": 5.943364231543472e-28,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.2406894731195982e-33,
+    "frac_harmonic": 7.274915288282077e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 378,
+    "n_triangles": 3276,
+    "energy_total": 807.021241183891,
+    "energy_grad": 807.0212411838909,
+    "energy_curl": 1.6329134599911804e-30,
+    "energy_harmonic": 5.337494184324167e-28,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 2.0233834955765414e-33,
+    "frac_harmonic": 6.613821188267763e-31
+   },
+   "R4_ranker": {
+    "m_edges": 378,
+    "n_triangles": 3276,
+    "energy_total": 63.494525079999995,
+    "energy_grad": 63.494525079999974,
+    "energy_curl": 1.4443098918658245e-31,
+    "energy_harmonic": 3.4519419114867086e-29,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.274699889551209e-33,
+    "frac_harmonic": 5.4365977336430675e-31
+   },
+   "R5_comparator": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 46.36669645000797,
+    "energy_grad": 42.29828367249699,
+    "energy_curl": 4.068412777510979,
+    "energy_harmonic": 1.9275942138820595e-29,
+    "frac_grad": 0.9122557117715407,
+    "frac_curl": 0.08774428822845927,
+    "frac_harmonic": 4.157281759247974e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 45.924718028608964,
+    "energy_grad": 45.924718028608936,
+    "energy_curl": 6.050492643872725e-31,
+    "energy_harmonic": 2.1345267831342307e-29,
+    "frac_grad": 0.9999999999999993,
+    "frac_curl": 1.3174806299525998e-32,
+    "frac_harmonic": 4.647882174920529e-31
+   }
+  },
+  "LiGeBO4": {
+   "which": "ASTRAL",
+   "n_nodes": 8,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 35,
+    "n_cyclic": 1,
+    "frac_cyclic": 0.02857142857142857
+   },
+   "R1_checker_10ch": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 27.309472318339104,
+    "energy_grad": 27.309472318339104,
+    "energy_curl": 9.629649721936192e-32,
+    "energy_harmonic": 2.6215758402999054e-30,
+    "frac_grad": 1.0,
+    "frac_curl": 3.526120757547411e-33,
+    "frac_harmonic": 9.599511150347058e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 27.309472318339104,
+    "energy_grad": 27.30947231833911,
+    "energy_curl": 8.011868568650908e-32,
+    "energy_harmonic": 3.0506730319093816e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.933732470279444e-33,
+    "frac_harmonic": 1.1170750559910181e-31
+   },
+   "R4_ranker": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 4.99720352,
+    "energy_grad": 4.997203520000001,
+    "energy_curl": 1.3842621475283263e-32,
+    "energy_harmonic": 7.285552238373865e-31,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.7700735861330825e-33,
+    "frac_harmonic": 1.4579258597764425e-31
+   },
+   "R5_comparator": {
+    "m_edges": 21,
+    "n_triangles": 35,
+    "energy_total": 10.052397919373062,
+    "energy_grad": 9.600881013242148,
+    "energy_curl": 0.4515169061309132,
+    "energy_harmonic": 9.84684752990471e-31,
+    "frac_grad": 0.955083661654425,
+    "frac_curl": 0.04491633834557486,
+    "frac_harmonic": 9.795521037749397e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 21,
+    "n_triangles": 35,
+    "energy_total": 10.76218217376789,
+    "energy_grad": 10.762182173767886,
+    "energy_curl": 3.00445071324409e-32,
+    "energy_harmonic": 1.1601801984988709e-30,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.7916742764002274e-33,
+    "frac_harmonic": 1.0780157590407024e-31
+   }
+  },
+  "K3LiP2O7": {
+   "which": "ASTRAL",
+   "n_nodes": 26,
+   "missing_nodes": 2,
+   "cyclic_triads": {
+    "n_triangles_checked": 455,
+    "n_cyclic": 5,
+    "frac_cyclic": 0.01098901098901099
+   },
+   "R1_checker_10ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 1070.0003429355281,
+    "energy_grad": 1070.000342935528,
+    "energy_curl": 3.0442730185557248e-30,
+    "energy_harmonic": 4.067504783162937e-28,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.845114058752367e-33,
+    "frac_harmonic": 3.801405121052397e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 992.1731824417009,
+    "energy_grad": 992.1731824417005,
+    "energy_curl": 2.626375850315145e-30,
+    "energy_harmonic": 3.313699358492748e-28,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.6470941734705353e-33,
+    "frac_harmonic": 3.3398396742974434e-31
+   },
+   "R4_ranker": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 72.43337297,
+    "energy_grad": 72.43337296999997,
+    "energy_curl": 2.1872638229948567e-31,
+    "energy_harmonic": 2.5031755932572685e-29,
+    "frac_grad": 0.9999999999999996,
+    "frac_curl": 3.0196906940958887e-33,
+    "frac_harmonic": 3.455831877792048e-31
+   },
+   "R5_comparator": {
+    "m_edges": 105,
+    "n_triangles": 455,
+    "energy_total": 87.20161079451312,
+    "energy_grad": 83.4304333180667,
+    "energy_curl": 3.7711774764464336,
+    "energy_harmonic": 1.3786583319060104e-29,
+    "frac_grad": 0.9567533507456298,
+    "frac_curl": 0.04324664925437046,
+    "frac_harmonic": 1.581000992234834e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 105,
+    "n_triangles": 455,
+    "energy_total": 121.59220409547554,
+    "energy_grad": 121.5922040954756,
+    "energy_curl": 7.031851091741347e-31,
+    "energy_harmonic": 1.5364691935040593e-29,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 5.783143042805491e-33,
+    "frac_harmonic": 1.2636247569766945e-31
+   }
+  },
+  "Li3Sc2(PO4)3": {
+   "which": "ASTRAL",
+   "n_nodes": 20,
+   "missing_nodes": 1,
+   "cyclic_triads": {
+    "n_triangles_checked": 286,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 662.3504402860776,
+    "energy_grad": 662.3504402860781,
+    "energy_curl": 1.3503850398065537e-30,
+    "energy_harmonic": 3.6680190903750217e-28,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 2.038777296235064e-33,
+    "frac_harmonic": 5.5378827691135185e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 633.2216078913332,
+    "energy_grad": 633.2216078913335,
+    "energy_curl": 1.7293310156641926e-30,
+    "energy_harmonic": 3.0937768848087235e-28,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 2.731004428959667e-33,
+    "frac_harmonic": 4.885772763047664e-31
+   },
+   "R4_ranker": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 22.635550600000002,
+    "energy_grad": 22.635550600000006,
+    "energy_curl": 6.532874741983038e-32,
+    "energy_harmonic": 9.022376325227933e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.8861125834434255e-33,
+    "frac_harmonic": 3.985931901841139e-31
+   },
+   "R5_comparator": {
+    "m_edges": 78,
+    "n_triangles": 286,
+    "energy_total": 42.75898353557114,
+    "energy_grad": 42.30865870242971,
+    "energy_curl": 0.45032483314144534,
+    "energy_harmonic": 6.040596715898682e-30,
+    "frac_grad": 0.9894682989185932,
+    "frac_curl": 0.010531701081407156,
+    "frac_harmonic": 1.4127082115676389e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 78,
+    "n_triangles": 286,
+    "energy_total": 33.47408404527708,
+    "energy_grad": 33.474084045277095,
+    "energy_curl": 3.684155835155522e-31,
+    "energy_harmonic": 4.7118024237890984e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 1.1005994458794836e-32,
+    "frac_harmonic": 1.4075971182410577e-31
+   }
+  },
+  "Li3V2(PO4)3": {
+   "which": "ASTRAL",
+   "n_nodes": 23,
+   "missing_nodes": 6,
+   "cyclic_triads": {
+    "n_triangles_checked": 816,
+    "n_cyclic": 4,
+    "frac_cyclic": 0.004901960784313725
+   },
+   "R1_checker_10ch": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 1022.3688291399211,
+    "energy_grad": 1022.3688291399208,
+    "energy_curl": 2.741720374395851e-30,
+    "energy_harmonic": 3.620571444837458e-28,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.6817331439010647e-33,
+    "frac_harmonic": 3.5413554694183144e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 1025.36451919826,
+    "energy_grad": 1025.3645191982598,
+    "energy_curl": 2.2658314587462215e-30,
+    "energy_harmonic": 2.9804365439757773e-28,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.2097814156061218e-33,
+    "frac_harmonic": 2.90670926111838e-31
+   },
+   "R4_ranker": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 24.571248420000003,
+    "energy_grad": 24.57124841999999,
+    "energy_curl": 5.200638870479582e-32,
+    "energy_harmonic": 9.246166715678035e-30,
+    "frac_grad": 0.9999999999999994,
+    "frac_curl": 2.1165545932320118e-33,
+    "frac_harmonic": 3.763002415519119e-31
+   },
+   "R5_comparator": {
+    "m_edges": 153,
+    "n_triangles": 816,
+    "energy_total": 77.96101593494923,
+    "energy_grad": 75.85098940379083,
+    "energy_curl": 2.110026531158407,
+    "energy_harmonic": 3.9643978179164477e-29,
+    "frac_grad": 0.9729348507602953,
+    "frac_curl": 0.027065149239704826,
+    "frac_harmonic": 5.085102817572755e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 153,
+    "n_triangles": 816,
+    "energy_total": 75.42806236088825,
+    "energy_grad": 75.42806236088828,
+    "energy_curl": 5.165986087494692e-31,
+    "energy_harmonic": 2.7380749414004835e-29,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 6.848891414945605e-33,
+    "frac_harmonic": 3.6300480957605227e-31
+   }
+  },
+  "KLi(PO3)2": {
+   "which": "ASTRAL",
+   "n_nodes": 24,
+   "missing_nodes": 6,
+   "cyclic_triads": {
+    "n_triangles_checked": 120,
+    "n_cyclic": 3,
+    "frac_cyclic": 0.025
+   },
+   "R1_checker_10ch": {
+    "m_edges": 276,
+    "n_triangles": 2024,
+    "energy_total": 865.6804684320671,
+    "energy_grad": 865.6804684320673,
+    "energy_curl": 1.9114694203881293e-30,
+    "energy_harmonic": 3.552177646202202e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.2080542302753003e-33,
+    "frac_harmonic": 4.10333578697456e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 276,
+    "n_triangles": 2024,
+    "energy_total": 722.9356643594214,
+    "energy_grad": 722.9356643594214,
+    "energy_curl": 2.1560143750767e-30,
+    "energy_harmonic": 3.0674465977716985e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 2.9823046245575678e-33,
+    "frac_harmonic": 4.243042291307762e-31
+   },
+   "R4_ranker": {
+    "m_edges": 276,
+    "n_triangles": 2024,
+    "energy_total": 58.6941326,
+    "energy_grad": 58.69413260000002,
+    "energy_curl": 1.745534506262965e-31,
+    "energy_harmonic": 2.255912361292064e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.9739505959799548e-33,
+    "frac_harmonic": 3.843505749826966e-31
+   },
+   "R5_comparator": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 18.454218549026404,
+    "energy_grad": 17.800214654176216,
+    "energy_curl": 0.6540038948501874,
+    "energy_harmonic": 1.1113649124821406e-30,
+    "frac_grad": 0.9645607375293227,
+    "frac_curl": 0.035439262470677246,
+    "frac_harmonic": 6.022281081854714e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 36.78372768877069,
+    "energy_grad": 36.783727688770675,
+    "energy_curl": 2.089248803671272e-31,
+    "energy_harmonic": 3.30556023039931e-30,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 5.679818047122713e-33,
+    "frac_harmonic": 8.986474286586318e-32
+   }
+  },
+  "Li2TiSiO5": {
+   "which": "ASTRAL",
+   "n_nodes": 3,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 0.10142245139735225,
+    "energy_grad": 0.10142245139735229,
+    "energy_curl": 6.419766481290792e-35,
+    "energy_harmonic": 3.9802552184002877e-33,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 6.329729160400069e-34,
+    "frac_harmonic": 3.9244320794480394e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 0.10142245139735225,
+    "energy_grad": 0.10142245139735229,
+    "energy_curl": 6.419766481290792e-35,
+    "energy_harmonic": 3.9802552184002877e-33,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 6.329729160400069e-34,
+    "frac_harmonic": 3.9244320794480394e-32
+   },
+   "R4_ranker": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 0.006802939999999997,
+    "energy_grad": 0.006802939999999999,
+    "energy_curl": 1.6162230011500537e-67,
+    "energy_harmonic": 2.8888949165808538e-34,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.3757713593682357e-65,
+    "frac_harmonic": 4.2465388737528996e-32
+   },
+   "R5_comparator": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 2.0240840679157373,
+    "energy_grad": 2.0240840679157373,
+    "energy_curl": 4.1086505480261036e-33,
+    "energy_harmonic": 8.217301096052207e-33,
+    "frac_grad": 1.0,
+    "frac_curl": 2.029881373581933e-33,
+    "frac_harmonic": 4.059762747163866e-33
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 2.6735676149731065,
+    "energy_grad": 2.6735676149731082,
+    "energy_curl": 1.6434602192104423e-32,
+    "energy_harmonic": 2.0543252740130513e-31,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 6.1470680973481717e-33,
+    "frac_harmonic": 7.683835121685209e-32
+   }
+  },
+  "LiNbGeO5": {
+   "which": "ASTRAL",
+   "n_nodes": 5,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 4,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 34.0,
+    "energy_grad": 33.999999999999986,
+    "energy_curl": 9.86076131526269e-33,
+    "energy_harmonic": 3.7618804417727e-30,
+    "frac_grad": 0.9999999999999996,
+    "frac_curl": 2.9002239162537327e-34,
+    "frac_harmonic": 1.1064354240507941e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 34.0,
+    "energy_grad": 33.999999999999986,
+    "energy_curl": 9.86076131526269e-33,
+    "energy_harmonic": 3.7618804417727e-30,
+    "frac_grad": 0.9999999999999996,
+    "frac_curl": 2.9002239162537327e-34,
+    "frac_harmonic": 1.1064354240507941e-31
+   },
+   "R4_ranker": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 1.79484706,
+    "energy_grad": 1.794847059999999,
+    "energy_curl": 2.72519087130793e-33,
+    "energy_harmonic": 3.137532472401246e-31,
+    "frac_grad": 0.9999999999999996,
+    "frac_curl": 1.5183415523481594e-33,
+    "frac_harmonic": 1.7480778960638831e-31
+   },
+   "R5_comparator": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 4.866873454465506,
+    "energy_grad": 4.864527463328381,
+    "energy_curl": 0.0023459911371288417,
+    "energy_harmonic": 5.6134839347811715e-31,
+    "frac_grad": 0.9995179675084889,
+    "frac_curl": 0.0004820324915118396,
+    "frac_harmonic": 1.1534065940487167e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 3.1651707796805457,
+    "energy_grad": 3.1651707796805475,
+    "energy_curl": 1.733336949948515e-32,
+    "energy_harmonic": 3.347266243345016e-31,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 5.4762825471409705e-33,
+    "frac_harmonic": 1.0575310074367769e-31
+   }
+  },
+  "Li2TiGeO5": {
+   "which": "ASTRAL",
+   "n_nodes": 4,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 4,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 0.01194754851265929,
+    "energy_grad": 0.011947548512659292,
+    "energy_curl": 2.8588022611998043e-35,
+    "energy_harmonic": 5.190983053231222e-34,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.3927940180955924e-33,
+    "frac_harmonic": 4.344810190752521e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 0.01194754851265929,
+    "energy_grad": 0.011947548512659292,
+    "energy_curl": 2.8588022611998043e-35,
+    "energy_harmonic": 5.190983053231222e-34,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.3927940180955924e-33,
+    "frac_harmonic": 4.344810190752521e-32
+   },
+   "R4_ranker": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 0.037523869999999994,
+    "energy_grad": 0.03752387000000001,
+    "energy_curl": 7.222237291452122e-35,
+    "energy_harmonic": 1.7574110742533527e-33,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 1.9247048056216276e-33,
+    "frac_harmonic": 4.683448360345969e-32
+   },
+   "R5_comparator": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 2.5710130033309504,
+    "energy_grad": 2.477684225877846,
+    "energy_curl": 0.09332877745310586,
+    "energy_harmonic": 2.3136594768123808e-31,
+    "frac_grad": 0.9636996089353926,
+    "frac_curl": 0.03630039106460802,
+    "frac_harmonic": 8.999018961844426e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 2.8082670618189662,
+    "energy_grad": 2.808267061818968,
+    "energy_curl": 1.5407439555097794e-33,
+    "energy_harmonic": 1.5253365159546908e-31,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 5.486458095305975e-34,
+    "frac_harmonic": 5.431593514352948e-32
+   }
+  },
+  "Li3Fe2(PO4)3": {
+   "which": "ASTRAL",
+   "n_nodes": 26,
+   "missing_nodes": 4,
+   "cyclic_triads": {
+    "n_triangles_checked": 969,
+    "n_cyclic": 1,
+    "frac_cyclic": 0.0010319917440660474
+   },
+   "R1_checker_10ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 1224.0004388343018,
+    "energy_grad": 1224.0004388343013,
+    "energy_curl": 3.0938138626636536e-30,
+    "energy_harmonic": 8.577876268146977e-28,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.5276247985745014e-33,
+    "frac_harmonic": 7.008066333960033e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 1188.1500568338206,
+    "energy_grad": 1188.1500568338201,
+    "energy_curl": 3.0490137691880644e-30,
+    "energy_harmonic": 7.5233152529859605e-28,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.566185770602973e-33,
+    "frac_harmonic": 6.331957154497869e-31
+   },
+   "R4_ranker": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 36.591458159999995,
+    "energy_grad": 36.59145815999998,
+    "energy_curl": 9.92492811581362e-32,
+    "energy_harmonic": 1.5970878693679093e-29,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.712362014220868e-33,
+    "frac_harmonic": 4.364646695369381e-31
+   },
+   "R5_comparator": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 104.01831724414274,
+    "energy_grad": 99.05028299049785,
+    "energy_curl": 4.968034253644797,
+    "energy_harmonic": 7.770775509668066e-29,
+    "frac_grad": 0.9522388519131265,
+    "frac_curl": 0.04776114808687262,
+    "frac_harmonic": 7.470583754425846e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 118.98720910422401,
+    "energy_grad": 118.98720910422392,
+    "energy_curl": 1.0856061637575185e-30,
+    "energy_harmonic": 5.6550254834461e-29,
+    "frac_grad": 0.9999999999999993,
+    "frac_curl": 9.123721548982695e-33,
+    "frac_harmonic": 4.752633098985216e-31
+   }
+  },
+  "KBaPO4": {
+   "which": "ASTRAL",
+   "n_nodes": 30,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1140,
+    "n_cyclic": 38,
+    "frac_cyclic": 0.03333333333333333
+   },
+   "R1_checker_10ch": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 1519.0557011149,
+    "energy_grad": 1519.0557011148999,
+    "energy_curl": 3.6912116523466465e-30,
+    "energy_harmonic": 5.1256894700822935e-28,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 2.429938316045625e-33,
+    "frac_harmonic": 3.3742603818413834e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 1486.325458617564,
+    "energy_grad": 1486.325458617564,
+    "energy_curl": 4.196986534808663e-30,
+    "energy_harmonic": 6.04104134540011e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 2.8237331941500172e-33,
+    "frac_harmonic": 4.064413557861615e-31
+   },
+   "R4_ranker": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 50.452761200000005,
+    "energy_grad": 50.4527612,
+    "energy_curl": 1.3283459814762829e-31,
+    "energy_harmonic": 1.9481955402272158e-29,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 2.6328509082200296e-33,
+    "frac_harmonic": 3.8614250120114646e-31
+   },
+   "R5_comparator": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 115.44707374410262,
+    "energy_grad": 106.55584148623527,
+    "energy_curl": 8.89123225786748,
+    "energy_harmonic": 7.426237262259116e-29,
+    "frac_grad": 0.9229843427857214,
+    "frac_curl": 0.07701565721427972,
+    "frac_harmonic": 6.432590295636203e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 145.4314335351886,
+    "energy_grad": 145.43143353518872,
+    "energy_curl": 1.1615488124656001e-30,
+    "energy_harmonic": 6.744182118061985e-29,
+    "frac_grad": 1.0000000000000009,
+    "frac_curl": 7.986917162475412e-33,
+    "frac_harmonic": 4.637362057240646e-31
+   }
+  },
+  "BaNaBO3": {
+   "which": "ASTRAL",
+   "n_nodes": 29,
+   "missing_nodes": 1,
+   "cyclic_triads": {
+    "n_triangles_checked": 969,
+    "n_cyclic": 18,
+    "frac_cyclic": 0.018575851393188854
+   },
+   "R1_checker_10ch": {
+    "m_edges": 406,
+    "n_triangles": 3654,
+    "energy_total": 1144.872370944585,
+    "energy_grad": 1144.8723709445849,
+    "energy_curl": 3.0253835793982574e-30,
+    "energy_harmonic": 3.4529984690643273e-28,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.6425509569264415e-33,
+    "frac_harmonic": 3.016055375862906e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 406,
+    "n_triangles": 3654,
+    "energy_total": 1144.872370944585,
+    "energy_grad": 1144.8723709445846,
+    "energy_curl": 3.279765719363111e-30,
+    "energy_harmonic": 3.48052996967623e-28,
+    "frac_grad": 0.9999999999999996,
+    "frac_curl": 2.8647435317677523e-33,
+    "frac_harmonic": 3.040103035069834e-31
+   },
+   "R4_ranker": {
+    "m_edges": 406,
+    "n_triangles": 3654,
+    "energy_total": 55.05983342,
+    "energy_grad": 55.05983341999996,
+    "energy_curl": 1.4225221052314624e-31,
+    "energy_harmonic": 1.470180543990925e-29,
+    "frac_grad": 0.9999999999999993,
+    "frac_curl": 2.5835931873973737e-33,
+    "frac_harmonic": 2.6701507299818584e-31
+   },
+   "R5_comparator": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 129.56680951496116,
+    "energy_grad": 120.7880968163515,
+    "energy_curl": 8.778712698609645,
+    "energy_harmonic": 4.3899783831199846e-29,
+    "frac_grad": 0.9322456674554761,
+    "frac_curl": 0.06775433254452377,
+    "frac_harmonic": 3.3881967145398226e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 164.58532817389076,
+    "energy_grad": 164.58532817389073,
+    "energy_curl": 1.3913424741922972e-30,
+    "energy_harmonic": 4.59516748257403e-29,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 8.453623962898382e-33,
+    "frac_harmonic": 2.7919666555691147e-31
+   }
+  },
+  "KMgPO4": {
+   "which": "ASTRAL",
+   "n_nodes": 30,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1540,
+    "n_cyclic": 13,
+    "frac_cyclic": 0.008441558441558441
+   },
+   "R1_checker_10ch": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 1518.4461591220852,
+    "energy_grad": 1518.4461591220847,
+    "energy_curl": 4.083998644737947e-30,
+    "energy_harmonic": 3.053466914282039e-28,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.6895906846635763e-33,
+    "frac_harmonic": 2.0109154980163746e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 1518.4461591220852,
+    "energy_grad": 1518.446159122085,
+    "energy_curl": 4.286144251700834e-30,
+    "energy_harmonic": 3.1159101853109405e-28,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 2.8227173060775094e-33,
+    "frac_harmonic": 2.052038636070215e-31
+   },
+   "R4_ranker": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 53.70604901,
+    "energy_grad": 53.70604901,
+    "energy_curl": 1.3683090278223209e-31,
+    "energy_harmonic": 1.3243182199859213e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 2.547774511522051e-33,
+    "frac_harmonic": 2.465864170606434e-31
+   },
+   "R5_comparator": {
+    "m_edges": 231,
+    "n_triangles": 1540,
+    "energy_total": 131.85065459410177,
+    "energy_grad": 127.42473434983683,
+    "energy_curl": 4.425920244264919,
+    "energy_harmonic": 2.539263415198158e-29,
+    "frac_grad": 0.9664323225554701,
+    "frac_curl": 0.0335676774445298,
+    "frac_harmonic": 1.9258633360715602e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 231,
+    "n_triangles": 1540,
+    "energy_total": 162.5252457211527,
+    "energy_grad": 162.52524572115266,
+    "energy_curl": 1.4176157524743052e-30,
+    "energy_harmonic": 2.5595525795749674e-29,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 8.722434143594729e-33,
+    "frac_harmonic": 1.5748646114748444e-31
+   }
+  },
+  "NaSrBO3": {
+   "which": "ASTRAL",
+   "n_nodes": 26,
+   "missing_nodes": 4,
+   "cyclic_triads": {
+    "n_triangles_checked": 1330,
+    "n_cyclic": 18,
+    "frac_cyclic": 0.013533834586466165
+   },
+   "R1_checker_10ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 779.0479504164937,
+    "energy_grad": 779.0479504164939,
+    "energy_curl": 1.5595291798904277e-30,
+    "energy_harmonic": 1.9259732037367556e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.001839782848635e-33,
+    "frac_harmonic": 2.4722139410123525e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 715.64910356855,
+    "energy_grad": 715.6491035685499,
+    "energy_curl": 1.4433807893981538e-30,
+    "energy_harmonic": 2.138062535150969e-28,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 2.016883389081052e-33,
+    "frac_harmonic": 2.9875850112710577e-31
+   },
+   "R4_ranker": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 35.39822029,
+    "energy_grad": 35.39822028999999,
+    "energy_curl": 9.079162462230985e-32,
+    "energy_harmonic": 9.118409534860907e-30,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.5648641055538742e-33,
+    "frac_harmonic": 2.5759514066408754e-31
+   },
+   "R5_comparator": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 121.28112988489794,
+    "energy_grad": 111.05414162592517,
+    "energy_curl": 10.226988258972778,
+    "energy_harmonic": 5.808367147508464e-29,
+    "frac_grad": 0.9156753547012737,
+    "frac_curl": 0.08432464529872634,
+    "frac_harmonic": 4.789176315409417e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 150.05744720074102,
+    "energy_grad": 150.05744720074102,
+    "energy_curl": 1.2689402137869116e-30,
+    "energy_harmonic": 4.443857737737204e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 8.456362796105498e-33,
+    "frac_harmonic": 2.9614376498038007e-31
+   }
+  },
+  "K3Bi2(PO4)3": {
+   "which": "ASTRAL",
+   "n_nodes": 20,
+   "missing_nodes": 2,
+   "cyclic_triads": {
+    "n_triangles_checked": 680,
+    "n_cyclic": 10,
+    "frac_cyclic": 0.014705882352941176
+   },
+   "R1_checker_10ch": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 687.1864497277631,
+    "energy_grad": 687.1864497277634,
+    "energy_curl": 1.6002166721924625e-30,
+    "energy_harmonic": 2.0207688978246853e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.3286499214680482e-33,
+    "frac_harmonic": 2.940641362508292e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 689.6449826158289,
+    "energy_grad": 689.6449826158291,
+    "energy_curl": 1.8267060336523987e-30,
+    "energy_harmonic": 2.1037687747079976e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.6487628848160227e-33,
+    "frac_harmonic": 3.0505097952404234e-31
+   },
+   "R4_ranker": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 15.51028204,
+    "energy_grad": 15.510282040000002,
+    "energy_curl": 4.1937124539032094e-32,
+    "energy_harmonic": 2.7968836134877536e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.7038273340793546e-33,
+    "frac_harmonic": 1.803244845112922e-31
+   },
+   "R5_comparator": {
+    "m_edges": 136,
+    "n_triangles": 680,
+    "energy_total": 136.84489758024134,
+    "energy_grad": 133.3622394800284,
+    "energy_curl": 3.482658100212987,
+    "energy_harmonic": 3.074157434947577e-29,
+    "frac_grad": 0.9745503255013886,
+    "frac_curl": 0.02544967449861162,
+    "frac_harmonic": 2.2464538242246063e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 136,
+    "n_triangles": 680,
+    "energy_total": 141.20445733504403,
+    "energy_grad": 141.20445733504403,
+    "energy_curl": 9.701900417349885e-31,
+    "energy_harmonic": 2.0773992364634392e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 6.870817395182945e-33,
+    "frac_harmonic": 1.4711994760436445e-31
+   }
+  },
+  "K2Zr(PO4)2": {
+   "which": "ASTRAL",
+   "n_nodes": 18,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 364,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 153,
+    "n_triangles": 816,
+    "energy_total": 584.4766319825181,
+    "energy_grad": 584.4766319825185,
+    "energy_curl": 1.4955487994815027e-30,
+    "energy_harmonic": 2.1085594612469963e-28,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 2.5587828796656406e-33,
+    "frac_harmonic": 3.6076026753967193e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 153,
+    "n_triangles": 816,
+    "energy_total": 584.4766319825181,
+    "energy_grad": 584.4766319825185,
+    "energy_curl": 1.4955487994815027e-30,
+    "energy_harmonic": 2.1085594612469963e-28,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 2.5587828796656406e-33,
+    "frac_harmonic": 3.6076026753967193e-31
+   },
+   "R4_ranker": {
+    "m_edges": 153,
+    "n_triangles": 816,
+    "energy_total": 14.981390730000001,
+    "energy_grad": 14.981390730000001,
+    "energy_curl": 3.963135841116849e-32,
+    "energy_harmonic": 3.977088133602851e-30,
+    "frac_grad": 1.0,
+    "frac_curl": 2.64537245743196e-33,
+    "frac_harmonic": 2.6546855397335e-31
+   },
+   "R5_comparator": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 45.41782737455454,
+    "energy_grad": 43.68462129166895,
+    "energy_curl": 1.7332060828856009,
+    "energy_harmonic": 9.078908894562452e-30,
+    "frac_grad": 0.9618386395150063,
+    "frac_curl": 0.03816136048499392,
+    "frac_harmonic": 1.9989747241077705e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 55.530072218102134,
+    "energy_grad": 55.53007221810215,
+    "energy_curl": 4.372136106608222e-31,
+    "energy_harmonic": 8.311515754712636e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 7.873456546996815e-33,
+    "frac_harmonic": 1.4967593994958253e-31
+   }
+  },
+  "K3Al2(PO4)3": {
+   "which": "ASTRAL",
+   "n_nodes": 30,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1771,
+    "n_cyclic": 55,
+    "frac_cyclic": 0.031055900621118012
+   },
+   "R1_checker_10ch": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 1661.2946062464391,
+    "energy_grad": 1661.2946062464391,
+    "energy_curl": 4.122992306345307e-30,
+    "energy_harmonic": 4.786564150150141e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 2.4817947947600187e-33,
+    "frac_harmonic": 2.881225360121403e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 1661.2946062464391,
+    "energy_grad": 1661.2946062464391,
+    "energy_curl": 4.243157495342107e-30,
+    "energy_harmonic": 5.279585010939103e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 2.5541270521121947e-33,
+    "frac_harmonic": 3.1779944334303824e-31
+   },
+   "R4_ranker": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 41.58891656,
+    "energy_grad": 41.58891656000001,
+    "energy_curl": 1.381042233402551e-31,
+    "energy_harmonic": 1.76297370160054e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 3.3206977907446384e-33,
+    "frac_harmonic": 4.2390469563137375e-31
+   },
+   "R5_comparator": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 75.32223222057743,
+    "energy_grad": 67.67943341270197,
+    "energy_curl": 7.642798807875482,
+    "energy_harmonic": 3.7364514107086304e-29,
+    "frac_grad": 0.8985319661598198,
+    "frac_curl": 0.10146803384018047,
+    "frac_harmonic": 4.960622249970788e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 92.58246026815286,
+    "energy_grad": 92.58246026815289,
+    "energy_curl": 1.2942538377449152e-30,
+    "energy_harmonic": 1.6462847332895242e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 1.397947120865313e-32,
+    "frac_harmonic": 1.7781820968262002e-31
+   }
+  },
+  "KTiPO5": {
+   "which": "ASTRAL",
+   "n_nodes": 21,
+   "missing_nodes": 2,
+   "cyclic_triads": {
+    "n_triangles_checked": 364,
+    "n_cyclic": 1,
+    "frac_cyclic": 0.0027472527472527475
+   },
+   "R1_checker_10ch": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 722.3960380362864,
+    "energy_grad": 722.3960380362864,
+    "energy_curl": 2.00678231767161e-30,
+    "energy_harmonic": 2.4723628587723585e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 2.777953106064527e-33,
+    "frac_harmonic": 3.422447976726265e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 693.8402595661739,
+    "energy_grad": 693.8402595661739,
+    "energy_curl": 1.9950433161058168e-30,
+    "energy_harmonic": 2.381822874445821e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 2.8753640172930074e-33,
+    "frac_harmonic": 3.432811575296977e-31
+   },
+   "R4_ranker": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 23.28922676,
+    "energy_grad": 23.28922676000001,
+    "energy_curl": 5.369676106851073e-32,
+    "energy_harmonic": 9.037270355422558e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 2.305648084492726e-33,
+    "frac_harmonic": 3.8804510122012136e-31
+   },
+   "R5_comparator": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 75.10862790535083,
+    "energy_grad": 73.54971902744394,
+    "energy_curl": 1.558908877906899,
+    "energy_harmonic": 2.100427749386887e-29,
+    "frac_grad": 0.9792446098220384,
+    "frac_curl": 0.020755390177961703,
+    "frac_harmonic": 2.7965199311506132e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 78.87418788712273,
+    "energy_grad": 78.87418788712277,
+    "energy_curl": 4.452062199300305e-31,
+    "energy_harmonic": 1.739973842103295e-29,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 5.644510984596982e-33,
+    "frac_harmonic": 2.206011736809742e-31
+   }
+  },
+  "KNiPO4": {
+   "which": "ASTRAL",
+   "n_nodes": 30,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1330,
+    "n_cyclic": 31,
+    "frac_cyclic": 0.02330827067669173
+   },
+   "R1_checker_10ch": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 802.1262002743485,
+    "energy_grad": 802.1262002743485,
+    "energy_curl": 2.5405840663719427e-30,
+    "energy_harmonic": 2.91479584963561e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 3.167312157990844e-33,
+    "frac_harmonic": 3.6338369805632483e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 802.1262002743485,
+    "energy_grad": 802.1262002743485,
+    "energy_curl": 2.5931747933866756e-30,
+    "energy_harmonic": 3.250768422248801e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 3.2328763136021994e-33,
+    "frac_harmonic": 4.052689490926679e-31
+   },
+   "R4_ranker": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 90.60574048999999,
+    "energy_grad": 90.60574049,
+    "energy_curl": 3.0237100126879546e-31,
+    "energy_harmonic": 2.3907338771656514e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 3.337216821291446e-33,
+    "frac_harmonic": 2.638611929262377e-31
+   },
+   "R5_comparator": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 93.18061284927091,
+    "energy_grad": 85.7664501511077,
+    "energy_curl": 7.41416269816321,
+    "energy_harmonic": 2.748419390868502e-29,
+    "frac_grad": 0.9204323466925854,
+    "frac_curl": 0.0795676533074146,
+    "frac_harmonic": 2.9495614021280892e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 108.11124157428549,
+    "energy_grad": 108.11124157428549,
+    "energy_curl": 5.76623425349538e-31,
+    "energy_harmonic": 2.080358229565496e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 5.333612092072109e-33,
+    "frac_harmonic": 1.9242755880627255e-31
+   }
+  },
+  "K3Fe2(PO4)3": {
+   "which": "ASTRAL",
+   "n_nodes": 29,
+   "missing_nodes": 1,
+   "cyclic_triads": {
+    "n_triangles_checked": 1330,
+    "n_cyclic": 5,
+    "frac_cyclic": 0.0037593984962406013
+   },
+   "R1_checker_10ch": {
+    "m_edges": 406,
+    "n_triangles": 3654,
+    "energy_total": 1269.1053214704875,
+    "energy_grad": 1269.1053214704868,
+    "energy_curl": 2.326390550064994e-30,
+    "energy_harmonic": 5.099686635410065e-28,
+    "frac_grad": 0.9999999999999994,
+    "frac_curl": 1.8330949454765903e-33,
+    "frac_harmonic": 4.0183320872858355e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 406,
+    "n_triangles": 3654,
+    "energy_total": 1221.2976291627951,
+    "energy_grad": 1221.2976291627945,
+    "energy_curl": 3.258746518418335e-30,
+    "energy_harmonic": 4.769624480578114e-28,
+    "frac_grad": 0.9999999999999994,
+    "frac_curl": 2.6682656549920755e-33,
+    "frac_harmonic": 3.905374387607477e-31
+   },
+   "R4_ranker": {
+    "m_edges": 406,
+    "n_triangles": 3654,
+    "energy_total": 47.1802076,
+    "energy_grad": 47.18020759999999,
+    "energy_curl": 1.2109450553778235e-31,
+    "energy_harmonic": 1.9091693730177625e-29,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.5666378275491593e-33,
+    "frac_harmonic": 4.046547207261043e-31
+   },
+   "R5_comparator": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 165.5161413066606,
+    "energy_grad": 160.76333034970554,
+    "energy_curl": 4.752810956955127,
+    "energy_harmonic": 5.409356253385913e-29,
+    "frac_grad": 0.971284909620088,
+    "frac_curl": 0.028715090379912496,
+    "frac_harmonic": 3.2681744575978906e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 246.74300192353203,
+    "energy_grad": 246.74300192353212,
+    "energy_curl": 2.449907941708163e-30,
+    "energy_harmonic": 9.12537613742172e-29,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 9.928986526910346e-33,
+    "frac_harmonic": 3.698332299713918e-31
+   }
+  },
+  "KNbWO6": {
+   "which": "ASTRAL",
+   "n_nodes": 8,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 10,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 129.75,
+    "energy_grad": 129.75000000000009,
+    "energy_curl": 2.58844984525645e-31,
+    "energy_harmonic": 1.7145398736912928e-29,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 1.9949517111803082e-33,
+    "frac_harmonic": 1.3214180144056208e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 112.0,
+    "energy_grad": 112.00000000000006,
+    "energy_curl": 2.095411779493313e-31,
+    "energy_harmonic": 1.398995511602888e-29,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 1.870903374547601e-33,
+    "frac_harmonic": 1.2491031353597215e-31
+   },
+   "R4_ranker": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 3.4456551900000005,
+    "energy_grad": 3.445655190000001,
+    "energy_curl": 2.311115933264685e-33,
+    "energy_harmonic": 4.9688992565190685e-31,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 6.707333745907073e-34,
+    "frac_harmonic": 1.4420767553700194e-31
+   },
+   "R5_comparator": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 5.471810304953426,
+    "energy_grad": 5.436932685322295,
+    "energy_curl": 0.034877619631130764,
+    "energy_harmonic": 6.57291523747268e-32,
+    "frac_grad": 0.9936259450369547,
+    "frac_curl": 0.006374054963045293,
+    "frac_harmonic": 1.2012322926331099e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 5.058701940848765,
+    "energy_grad": 5.058701940848764,
+    "energy_curl": 2.1570415377137053e-32,
+    "energy_harmonic": 5.392603844284261e-32,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 4.264021804280862e-33,
+    "frac_harmonic": 1.0660054510702153e-32
+   }
+  },
+  "KTa2PO8": {
+   "which": "ASTRAL",
+   "n_nodes": 25,
+   "missing_nodes": 3,
+   "cyclic_triads": {
+    "n_triangles_checked": 364,
+    "n_cyclic": 2,
+    "frac_cyclic": 0.005494505494505495
+   },
+   "R1_checker_10ch": {
+    "m_edges": 300,
+    "n_triangles": 2300,
+    "energy_total": 963.5884773662552,
+    "energy_grad": 963.5884773662552,
+    "energy_curl": 2.1856069306488552e-30,
+    "energy_harmonic": 1.6660982674324828e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 2.26819537799238e-33,
+    "frac_harmonic": 1.7290558226540591e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 300,
+    "n_triangles": 2300,
+    "energy_total": 930.9125514403293,
+    "energy_grad": 930.9125514403293,
+    "energy_curl": 2.793977385201672e-30,
+    "energy_harmonic": 1.775117766013258e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 3.0013317372064285e-33,
+    "frac_harmonic": 1.9068576992186377e-31
+   },
+   "R4_ranker": {
+    "m_edges": 300,
+    "n_triangles": 2300,
+    "energy_total": 42.55770214,
+    "energy_grad": 42.55770213999999,
+    "energy_curl": 9.555104196026251e-32,
+    "energy_harmonic": 1.4764951492321492e-29,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.2452114929967998e-33,
+    "frac_harmonic": 3.46939584372999e-31
+   },
+   "R5_comparator": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 75.4942231182436,
+    "energy_grad": 73.64344015604782,
+    "energy_curl": 1.8507829621957903,
+    "energy_harmonic": 2.197606926460934e-29,
+    "frac_grad": 0.9754844425738779,
+    "frac_curl": 0.024515557426122297,
+    "frac_harmonic": 2.910960383046673e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 61.02790385873824,
+    "energy_grad": 61.027903858738256,
+    "energy_curl": 4.662401262512305e-31,
+    "energy_harmonic": 1.5635737915041306e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 7.63978601215667e-33,
+    "frac_harmonic": 2.562063732556417e-31
+   }
+  },
+  "Li3Y2(BO3)3": {
+   "which": "ASTRAL",
+   "n_nodes": 12,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 56,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 81.32967111360587,
+    "energy_grad": 81.3296711136059,
+    "energy_curl": 3.1453645875084156e-31,
+    "energy_harmonic": 1.550832618535137e-29,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 3.867425681722963e-33,
+    "frac_harmonic": 1.9068472764003271e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 85.44947725378418,
+    "energy_grad": 85.4494772537842,
+    "energy_curl": 2.93254932865363e-31,
+    "energy_harmonic": 1.8303524610137788e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 3.431910203433995e-33,
+    "frac_harmonic": 2.142028857096046e-31
+   },
+   "R4_ranker": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 9.65471444,
+    "energy_grad": 9.654714440000001,
+    "energy_curl": 2.4042025472434004e-32,
+    "energy_harmonic": 1.840643346683288e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.490185040877709e-33,
+    "frac_harmonic": 1.906471038705613e-31
+   },
+   "R5_comparator": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 7.368978724211792,
+    "energy_grad": 7.352818441014092,
+    "energy_curl": 0.016160283197704284,
+    "energy_harmonic": 1.3136894373491099e-30,
+    "frac_grad": 0.997806984685055,
+    "frac_curl": 0.002193015314945537,
+    "frac_harmonic": 1.7827293123167838e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 4.339496059469098,
+    "energy_grad": 4.3394960594691,
+    "energy_curl": 3.635192770030906e-32,
+    "energy_harmonic": 4.245231079915565e-31,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 8.37699290473752e-33,
+    "frac_harmonic": 9.782774363055728e-32
+   }
+  },
+  "Na2Al2B2O7": {
+   "which": "ASTRAL",
+   "n_nodes": 15,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 165,
+    "n_cyclic": 4,
+    "frac_cyclic": 0.024242424242424242
+   },
+   "R1_checker_10ch": {
+    "m_edges": 105,
+    "n_triangles": 455,
+    "energy_total": 257.38888888888886,
+    "energy_grad": 257.3888888888888,
+    "energy_curl": 5.752110767236539e-31,
+    "energy_harmonic": 3.625473243578233e-29,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.2347937364614226e-33,
+    "frac_harmonic": 1.4085585664668293e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 105,
+    "n_triangles": 455,
+    "energy_total": 261.5,
+    "energy_grad": 261.5,
+    "energy_curl": 6.319104542864141e-31,
+    "energy_harmonic": 3.5396846201354487e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 2.4164835727969948e-33,
+    "frac_harmonic": 1.3536078853290436e-31
+   },
+   "R4_ranker": {
+    "m_edges": 105,
+    "n_triangles": 455,
+    "energy_total": 14.94800876,
+    "energy_grad": 14.94800876,
+    "energy_curl": 3.5488469108575633e-32,
+    "energy_harmonic": 4.33329101673943e-30,
+    "frac_grad": 1.0,
+    "frac_curl": 2.3741268605314648e-33,
+    "frac_harmonic": 2.898908534449795e-31
+   },
+   "R5_comparator": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 18.759640514511545,
+    "energy_grad": 16.56109897950906,
+    "energy_curl": 2.1985415350024966,
+    "energy_harmonic": 6.435645372446854e-30,
+    "frac_grad": 0.8828047086882183,
+    "frac_curl": 0.11719529131178243,
+    "frac_harmonic": 3.430580328801371e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 22.562059840532324,
+    "energy_grad": 22.562059840532335,
+    "energy_curl": 2.3793989040202297e-31,
+    "energy_harmonic": 3.487964180009524e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 1.0546018053483235e-32,
+    "frac_harmonic": 1.5459422608850015e-31
+   }
+  },
+  "NaSiBO4": {
+   "which": "ASTRAL",
+   "n_nodes": 20,
+   "missing_nodes": 3,
+   "cyclic_triads": {
+    "n_triangles_checked": 120,
+    "n_cyclic": 2,
+    "frac_cyclic": 0.016666666666666666
+   },
+   "R1_checker_10ch": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 354.75,
+    "energy_grad": 354.7500000000001,
+    "energy_curl": 1.3114812549299324e-30,
+    "energy_harmonic": 1.1677113549534028e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 3.696916856743995e-33,
+    "frac_harmonic": 3.2916458208693525e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 369.0,
+    "energy_grad": 369.0000000000002,
+    "energy_curl": 8.652818054142979e-31,
+    "energy_harmonic": 1.3407923679395503e-28,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 2.3449371420441676e-33,
+    "frac_harmonic": 3.6335836529527105e-31
+   },
+   "R4_ranker": {
+    "m_edges": 190,
+    "n_triangles": 1140,
+    "energy_total": 56.837516840000006,
+    "energy_grad": 56.83751684000002,
+    "energy_curl": 1.17096540618744e-31,
+    "energy_harmonic": 2.1345466759632612e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.060198036947597e-33,
+    "frac_harmonic": 3.7555241584042096e-31
+   },
+   "R5_comparator": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 29.37161702933565,
+    "energy_grad": 28.25508389708944,
+    "energy_curl": 1.116533132246206,
+    "energy_harmonic": 4.420161246569286e-30,
+    "frac_grad": 0.961985983572813,
+    "frac_curl": 0.03801401642718684,
+    "frac_harmonic": 1.5049090563023949e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 32.79240822452904,
+    "energy_grad": 32.792408224529034,
+    "energy_curl": 2.2587306387773527e-31,
+    "energy_harmonic": 3.1431561878388564e-30,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 6.887968164191736e-33,
+    "frac_harmonic": 9.585011769546541e-32
+   }
+  },
+  "KTiNbO5": {
+   "which": "ASTRAL",
+   "n_nodes": 5,
+   "missing_nodes": 1,
+   "cyclic_triads": {
+    "n_triangles_checked": 1,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 14.0,
+    "energy_grad": 14.0,
+    "energy_curl": 2.711709361697227e-32,
+    "energy_harmonic": 5.275507303665516e-31,
+    "frac_grad": 1.0,
+    "frac_curl": 1.9369352583551622e-33,
+    "frac_harmonic": 3.768219502618226e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 16.0,
+    "energy_grad": 15.999999999999996,
+    "energy_curl": 9.860761315262677e-33,
+    "energy_harmonic": 1.6911205655675443e-30,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 6.162975822039173e-34,
+    "frac_harmonic": 1.0569503534797152e-31
+   },
+   "R4_ranker": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 1.51697374,
+    "energy_grad": 1.51697374,
+    "energy_curl": 2.311115933264683e-33,
+    "energy_harmonic": 7.549645381997965e-32,
+    "frac_grad": 1.0,
+    "frac_curl": 1.5235042455413124e-33,
+    "frac_harmonic": 4.976780535434953e-32
+   },
+   "R5_comparator": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 1.1783827297162563,
+    "energy_grad": 1.1703812337102073,
+    "energy_curl": 0.008001496006049234,
+    "energy_harmonic": 2.479634803398566e-32,
+    "frac_grad": 0.9932097647018505,
+    "frac_curl": 0.006790235298149626,
+    "frac_harmonic": 2.1042694710874108e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 1.4274022913465811,
+    "energy_grad": 1.4274022913465816,
+    "energy_curl": 4.108650548026106e-33,
+    "energy_harmonic": 5.752110767236545e-32,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.878411063884514e-33,
+    "frac_harmonic": 4.0297754894383174e-32
+   }
+  },
+  "LiSi2BO6": {
+   "which": "ASTRAL",
+   "n_nodes": 10,
+   "missing_nodes": 1,
+   "cyclic_triads": {
+    "n_triangles_checked": 56,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 60.02387941378439,
+    "energy_grad": 60.02387941378437,
+    "energy_curl": 6.964162678904211e-32,
+    "energy_harmonic": 1.6657445126202977e-29,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 1.1602320188096509e-33,
+    "frac_harmonic": 2.7751363772028406e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 60.02387941378439,
+    "energy_grad": 60.02387941378437,
+    "energy_curl": 6.964162678904211e-32,
+    "energy_harmonic": 1.6657445126202977e-29,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 1.1602320188096509e-33,
+    "frac_harmonic": 2.7751363772028406e-31
+   },
+   "R4_ranker": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 10.739753490000002,
+    "energy_grad": 10.73975349,
+    "energy_curl": 3.8749710481071205e-32,
+    "energy_harmonic": 2.1560400541426227e-30,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 3.6080633058432704e-33,
+    "frac_harmonic": 2.007532161841661e-31
+   },
+   "R5_comparator": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 12.466972114193089,
+    "energy_grad": 12.401419805356776,
+    "energy_curl": 0.06555230883631305,
+    "energy_harmonic": 5.281869772777539e-31,
+    "frac_grad": 0.9947419222377433,
+    "frac_curl": 0.005258077762256698,
+    "frac_harmonic": 4.236690131651427e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 7.68666921841263,
+    "energy_grad": 7.686669218412631,
+    "energy_curl": 2.8166725436663335e-32,
+    "energy_harmonic": 4.3213053127188604e-31,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 3.664360288744158e-33,
+    "frac_harmonic": 5.621817707945094e-32
+   }
+  },
+  "LiNbWO6": {
+   "which": "ASTRAL",
+   "n_nodes": 4,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 13.247018204439218,
+    "energy_grad": 13.247018204439229,
+    "energy_curl": 2.465190328815656e-32,
+    "energy_harmonic": 2.0461079729169994e-30,
+    "frac_grad": 1.0000000000000009,
+    "frac_curl": 1.860939790955782e-33,
+    "frac_harmonic": 1.5445800264933028e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 13.247018204439218,
+    "energy_grad": 13.247018204439229,
+    "energy_curl": 2.465190328815656e-32,
+    "energy_harmonic": 2.0461079729169994e-30,
+    "frac_grad": 1.0000000000000009,
+    "frac_curl": 1.860939790955782e-33,
+    "frac_harmonic": 1.5445800264933028e-31
+   },
+   "R4_ranker": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 0.64752531,
+    "energy_grad": 0.6475253100000002,
+    "energy_curl": 3.8518598887744495e-34,
+    "energy_harmonic": 3.813341289886727e-32,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 5.9485858379411445e-34,
+    "frac_harmonic": 5.889099979561767e-32
+   },
+   "R5_comparator": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 3.5015729689932824,
+    "energy_grad": 3.501572968993283,
+    "energy_curl": 3.697785493223493e-32,
+    "energy_harmonic": 2.465190328815662e-32,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 1.0560355377333811e-32,
+    "frac_harmonic": 7.040236918222541e-33
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 2.2060623200157963,
+    "energy_grad": 2.2060623200157967,
+    "energy_curl": 0.0,
+    "energy_harmonic": 9.860761315262648e-32,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 0.0,
+    "frac_harmonic": 4.4698471234448355e-32
+   }
+  },
+  "LiZnBO3": {
+   "which": "ASTRAL",
+   "n_nodes": 10,
+   "missing_nodes": 2,
+   "cyclic_triads": {
+    "n_triangles_checked": 120,
+    "n_cyclic": 6,
+    "frac_cyclic": 0.05
+   },
+   "R1_checker_10ch": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 10.176905890601526,
+    "energy_grad": 10.176905890601526,
+    "energy_curl": 8.127424365314134e-33,
+    "energy_harmonic": 5.485048481614848e-32,
+    "frac_grad": 1.0,
+    "frac_curl": 7.986144760186778e-34,
+    "frac_harmonic": 5.38970148744359e-33
+   },
+   "R2_checker_5ch": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 10.176905890601516,
+    "energy_grad": 10.17690589060152,
+    "energy_curl": 1.429040018735328e-32,
+    "energy_harmonic": 5.10910695647046e-31,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 1.404198912810093e-33,
+    "frac_harmonic": 5.020294981000832e-32
+   },
+   "R4_ranker": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 0.3294320399999999,
+    "energy_grad": 0.32943203999999987,
+    "energy_curl": 3.1476917528578906e-34,
+    "energy_harmonic": 3.03744730986941e-32,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 9.554904716790423e-34,
+    "frac_harmonic": 9.220254683999196e-32
+   },
+   "R5_comparator": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 17.79110122005882,
+    "energy_grad": 16.38709971688439,
+    "energy_curl": 1.4040015031744308,
+    "energy_harmonic": 3.7782022842773704e-30,
+    "frac_grad": 0.9210840584959704,
+    "frac_curl": 0.07891594150402956,
+    "frac_harmonic": 2.1236472310199576e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 16.011920466128938,
+    "energy_grad": 16.011920466128927,
+    "energy_curl": 1.0742837229792005e-31,
+    "energy_harmonic": 2.793985088921451e-30,
+    "frac_grad": 0.9999999999999993,
+    "frac_curl": 6.709274663533978e-33,
+    "frac_harmonic": 1.7449406489569756e-31
+   }
+  },
+  "(Ba0.7Ca0.3)TiO3": {
+   "which": "heldout",
+   "n_nodes": 4,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 14.182890776494133,
+    "energy_grad": 14.182890776494133,
+    "energy_curl": 1.2325951644078304e-32,
+    "energy_harmonic": 2.0954117794933126e-31,
+    "frac_grad": 1.0,
+    "frac_curl": 8.690718865653673e-34,
+    "frac_harmonic": 1.477422207161125e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 14.182890776494133,
+    "energy_grad": 14.182890776494133,
+    "energy_curl": 1.2325951644078304e-32,
+    "energy_harmonic": 2.0954117794933126e-31,
+    "frac_grad": 1.0,
+    "frac_curl": 8.690718865653673e-34,
+    "frac_harmonic": 1.477422207161125e-32
+   },
+   "R4_ranker": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 0.51299083,
+    "energy_grad": 0.5129908299999999,
+    "energy_curl": 7.703719777548945e-34,
+    "energy_harmonic": 1.617781153285278e-32,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 1.5017266054344374e-33,
+    "frac_harmonic": 3.1536258714123175e-32
+   },
+   "R5_comparator": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.1417143185901093,
+    "energy_grad": 0.14171431859010916,
+    "energy_curl": 0.0,
+    "energy_harmonic": 2.7733391199176196e-32,
+    "frac_grad": 0.999999999999999,
+    "frac_curl": 0.0,
+    "frac_harmonic": 1.956992876590792e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.5604287717306372,
+    "energy_grad": 0.5604287717306368,
+    "energy_curl": 0.0,
+    "energy_harmonic": 1.1093356479670479e-31,
+    "frac_grad": 0.9999999999999992,
+    "frac_curl": 0.0,
+    "frac_harmonic": 1.979440927954776e-31
+   }
+  },
+  "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+   "which": "heldout",
+   "n_nodes": 11,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 233.0000000000001,
+    "energy_grad": 233.0000000000001,
+    "energy_curl": 6.838101809817078e-31,
+    "energy_harmonic": 4.959682806312473e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 2.934807643698315e-33,
+    "frac_harmonic": 2.128619230177026e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 156.0,
+    "energy_grad": 156.00000000000006,
+    "energy_curl": 5.02002394231551e-31,
+    "energy_harmonic": 3.765914389583489e-29,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 3.2179640655868655e-33,
+    "frac_harmonic": 2.4140476856304415e-31
+   },
+   "R4_ranker": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 0.5218828599999998,
+    "energy_grad": 0.5218828600000002,
+    "energy_curl": 8.622913614642835e-34,
+    "energy_harmonic": 1.2550278711464325e-31,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 1.6522699393965222e-33,
+    "frac_harmonic": 2.4048076059566947e-31
+   },
+   "R5_comparator": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.6548786036272413,
+    "energy_grad": 0.6548786036272405,
+    "energy_curl": 0.0,
+    "energy_harmonic": 1.9721522630525295e-31,
+    "frac_grad": 0.9999999999999988,
+    "frac_curl": 0.0,
+    "frac_harmonic": 3.0114776267374953e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.11449555218351488,
+    "energy_grad": 0.11449555218351477,
+    "energy_curl": 0.0,
+    "energy_harmonic": 2.7733391199176196e-32,
+    "frac_grad": 0.999999999999999,
+    "frac_curl": 0.0,
+    "frac_harmonic": 2.422224328393541e-31
+   }
+  },
+  "(Y0.98Er0.01Yb0.01)2O3": {
+   "which": "heldout",
+   "n_nodes": 7,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 21,
+    "n_triangles": 35,
+    "energy_total": 43.33333333333334,
+    "energy_grad": 43.33333333333336,
+    "energy_curl": 9.508591268288987e-32,
+    "energy_harmonic": 4.089574670481696e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.1942902926820734e-33,
+    "frac_harmonic": 9.437480008803913e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 21,
+    "n_triangles": 35,
+    "energy_total": 48.0,
+    "energy_grad": 48.000000000000014,
+    "energy_curl": 1.0036846338749504e-31,
+    "energy_harmonic": 4.8669900491760636e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.0910096539061467e-33,
+    "frac_harmonic": 1.0139562602450133e-31
+   },
+   "R4_ranker": {
+    "m_edges": 21,
+    "n_triangles": 35,
+    "energy_total": 0.375,
+    "energy_grad": 0.3750000000000003,
+    "energy_curl": 1.540743955509792e-33,
+    "energy_harmonic": 6.008901426488176e-32,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 4.1086505480261125e-33,
+    "frac_harmonic": 1.6023737137301802e-31
+   },
+   "R5_comparator": {
+    "m": 0
+   },
+   "R5_fixed_channel_wrapper": {
+    "m": 0
+   }
+  },
+  "AgCuO": {
+   "which": "heldout",
+   "n_nodes": 12,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 20,
+    "n_cyclic": 1,
+    "frac_cyclic": 0.05
+   },
+   "R1_checker_10ch": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 188.1875,
+    "energy_grad": 188.1875,
+    "energy_curl": 3.6977854932234933e-31,
+    "energy_harmonic": 1.2745033999976975e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 1.9649474557149084e-33,
+    "frac_harmonic": 6.772518897364052e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 188.1875,
+    "energy_grad": 188.1875,
+    "energy_curl": 3.6977854932234933e-31,
+    "energy_harmonic": 1.2745033999976975e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 1.9649474557149084e-33,
+    "frac_harmonic": 6.772518897364052e-32
+   },
+   "R4_ranker": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 11.75787459,
+    "energy_grad": 11.757874590000002,
+    "energy_curl": 2.927413515468597e-32,
+    "energy_harmonic": 7.2877189095613005e-31,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.4897471843749244e-33,
+    "frac_harmonic": 6.198160095838631e-32
+   },
+   "R5_comparator": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 11.082259601800226,
+    "energy_grad": 10.479851559150372,
+    "energy_curl": 0.6024080426498577,
+    "energy_harmonic": 1.6415352676202064e-30,
+    "frac_grad": 0.9456421285644674,
+    "frac_curl": 0.05435787143553299,
+    "frac_harmonic": 1.4812279504385115e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 19.100663180652266,
+    "energy_grad": 19.100663180652273,
+    "energy_curl": 7.087422195345031e-32,
+    "energy_harmonic": 2.5884498452564453e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 3.710563412543775e-33,
+    "frac_harmonic": 1.3551622897985958e-31
+   }
+  },
+  "Ba(Ti0.78Hf0.22)O3": {
+   "which": "heldout",
+   "n_nodes": 6,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 78.20138888888944,
+    "energy_grad": 78.20138888888943,
+    "energy_curl": 8.217301096052212e-32,
+    "energy_harmonic": 5.0947266795523684e-30,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 1.0507871040151943e-33,
+    "frac_harmonic": 6.5148800448942e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 64.31250000000048,
+    "energy_grad": 64.31250000000048,
+    "energy_curl": 4.930380657631316e-32,
+    "energy_harmonic": 3.599177880070867e-30,
+    "frac_grad": 1.0,
+    "frac_curl": 7.666286736841639e-34,
+    "frac_harmonic": 5.596389317894406e-32
+   },
+   "R4_ranker": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 1.49606688,
+    "energy_grad": 1.4960668799999999,
+    "energy_curl": 1.8324446279094193e-63,
+    "energy_harmonic": 7.395570986446986e-32,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 1.2248413840358655e-63,
+    "frac_harmonic": 4.943342497126188e-32
+   },
+   "R5_comparator": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 1.0900069028805461,
+    "energy_grad": 1.0900069028805466,
+    "energy_curl": 1.0271626370065249e-33,
+    "energy_harmonic": 6.36840834944046e-32,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 9.423450753312263e-34,
+    "frac_harmonic": 5.842539467053608e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 1.1557462833203116,
+    "energy_grad": 1.155746283320312,
+    "energy_curl": 4.108650548026106e-33,
+    "energy_harmonic": 5.752110767236545e-32,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 3.554976215214361e-33,
+    "frac_harmonic": 4.976966701300103e-32
+   }
+  },
+  "Ba2Bi0.6667TeO6": {
+   "which": "heldout",
+   "n_nodes": 21,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 505.2812264619607,
+    "energy_grad": 505.28122646196096,
+    "energy_curl": 1.1230556060470615e-30,
+    "energy_harmonic": 1.3320709134106274e-28,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 2.2226347373141695e-33,
+    "frac_harmonic": 2.6362960736498095e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 488.0996479572549,
+    "energy_grad": 488.099647957255,
+    "energy_curl": 1.2269457699042967e-30,
+    "energy_harmonic": 9.344926658724452e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.5137198419199556e-33,
+    "frac_harmonic": 1.9145530421572503e-31
+   },
+   "R4_ranker": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 0.0,
+    "energy_grad": 0.0,
+    "energy_curl": 0.0,
+    "energy_harmonic": 0.0,
+    "frac_grad": null,
+    "frac_curl": null,
+    "frac_harmonic": null
+   },
+   "R5_comparator": {
+    "m": 0
+   },
+   "R5_fixed_channel_wrapper": {
+    "m": 0
+   }
+  },
+  "Ba2La3Ti3TaO15": {
+   "which": "heldout",
+   "n_nodes": 6,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 4,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 48.3318348372728,
+    "energy_grad": 48.33183483727282,
+    "energy_curl": 8.833598678256122e-32,
+    "energy_harmonic": 5.066993288353191e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 1.827697770630421e-33,
+    "frac_harmonic": 1.0483759421534728e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 38.42343536637333,
+    "energy_grad": 38.42343536637334,
+    "energy_curl": 3.69778549322349e-32,
+    "energy_harmonic": 1.2233507006747724e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 9.62377636971952e-34,
+    "frac_harmonic": 3.1838660156488776e-32
+   },
+   "R4_ranker": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 0.5129794799999999,
+    "energy_grad": 0.51297948,
+    "energy_curl": 1.476546290696881e-33,
+    "energy_harmonic": 1.913090411424654e-32,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.8783730115225687e-33,
+    "frac_harmonic": 3.7293702497118485e-32
+   },
+   "R5_comparator": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 1.6069861770881275,
+    "energy_grad": 1.6069861770881275,
+    "energy_curl": 2.4074124304840455e-33,
+    "energy_harmonic": 2.4074124304840448e-33,
+    "frac_grad": 1.0,
+    "frac_curl": 1.4980915609655692e-33,
+    "frac_harmonic": 1.4980915609655686e-33
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 3.1370312131097267,
+    "energy_grad": 3.137031213109726,
+    "energy_curl": 4.718528363748735e-33,
+    "energy_harmonic": 6.018531076210113e-32,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 1.5041381622311868e-33,
+    "frac_harmonic": 1.9185435742744704e-32
+   }
+  },
+  "Ba3In4Cu3O12": {
+   "which": "heldout",
+   "n_nodes": 7,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 21,
+    "n_triangles": 35,
+    "energy_total": 93.15454542008551,
+    "energy_grad": 93.15454542008554,
+    "energy_curl": 1.7608502348683267e-31,
+    "energy_harmonic": 1.5650436887509714e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 1.8902461784636236e-33,
+    "frac_harmonic": 1.6800508034184714e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 21,
+    "n_triangles": 35,
+    "energy_total": 93.15454542008557,
+    "energy_grad": 93.15454542008558,
+    "energy_curl": 3.1695304227629927e-31,
+    "energy_harmonic": 5.057161874541844e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 3.402443121234525e-33,
+    "frac_harmonic": 5.428787024547533e-32
+   },
+   "R4_ranker": {
+    "m_edges": 21,
+    "n_triangles": 35,
+    "energy_total": 1.3312872600000003,
+    "energy_grad": 1.33128726,
+    "energy_curl": 2.2010627935854118e-33,
+    "energy_harmonic": 1.3338440529127599e-31,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 1.6533342274945313e-33,
+    "frac_harmonic": 1.0019205418616863e-31
+   },
+   "R5_comparator": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 0.9956897370280389,
+    "energy_grad": 0.9956897370280382,
+    "energy_curl": 2.567906592516321e-34,
+    "energy_harmonic": 3.024993965984218e-31,
+    "frac_grad": 0.9999999999999993,
+    "frac_curl": 2.5790228592503896e-34,
+    "frac_harmonic": 3.0380889281969503e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 3.6131619301228683,
+    "energy_grad": 3.613161930122866,
+    "energy_curl": 4.10865054802611e-33,
+    "energy_harmonic": 5.99862980011811e-31,
+    "frac_grad": 0.9999999999999993,
+    "frac_curl": 1.1371343514311831e-33,
+    "frac_harmonic": 1.6602161530895247e-31
+   }
+  },
+  "BaBrCl": {
+   "which": "heldout",
+   "n_nodes": 19,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 20,
+    "n_cyclic": 1,
+    "frac_cyclic": 0.05
+   },
+   "R1_checker_10ch": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 439.1355114620675,
+    "energy_grad": 439.1355114620675,
+    "energy_curl": 1.1086869136699939e-30,
+    "energy_harmonic": 1.7573174132392155e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 2.524703388206313e-33,
+    "frac_harmonic": 4.001765667705543e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 439.8183865117942,
+    "energy_grad": 439.81838651179413,
+    "energy_curl": 1.1398261599287119e-30,
+    "energy_harmonic": 1.7604572872369698e-28,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 2.5915836965541373e-33,
+    "frac_harmonic": 4.002691431795704e-31
+   },
+   "R4_ranker": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 15.96875,
+    "energy_grad": 15.968749999999995,
+    "energy_curl": 2.903085979328975e-32,
+    "energy_harmonic": 5.397469351512187e-30,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 1.8179794782490646e-33,
+    "frac_harmonic": 3.3800199461524455e-31
+   },
+   "R5_comparator": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 4.756979265850142,
+    "energy_grad": 4.126485264570388,
+    "energy_curl": 0.630494001279754,
+    "energy_harmonic": 1.5983643597070957e-31,
+    "frac_grad": 0.8674591655662649,
+    "frac_curl": 0.132540834433735,
+    "frac_harmonic": 3.360040627424186e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 8.066054171659243,
+    "energy_grad": 8.066054171659246,
+    "energy_curl": 3.1842041747202296e-32,
+    "energy_harmonic": 6.44544554721595e-31,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 3.947660289597605e-33,
+    "frac_harmonic": 7.990828489427411e-32
+   }
+  },
+  "BaIn0.5Sn0.5O2.75": {
+   "which": "heldout",
+   "n_nodes": 14,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 20,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 209.61394423458626,
+    "energy_grad": 209.61394423458628,
+    "energy_curl": 4.719078629447119e-31,
+    "energy_harmonic": 3.426262387006797e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.2513190363737605e-33,
+    "frac_harmonic": 1.6345584257373392e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 215.96332822974,
+    "energy_grad": 215.96332822974003,
+    "energy_curl": 5.916456789157595e-31,
+    "energy_harmonic": 3.6188994027013917e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.739565479776139e-33,
+    "frac_harmonic": 1.6757008851297366e-31
+   },
+   "R4_ranker": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 9.98899725,
+    "energy_grad": 9.988997249999999,
+    "energy_curl": 1.9039193164513796e-32,
+    "energy_harmonic": 9.215849916742121e-31,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 1.9060164587104873e-33,
+    "frac_harmonic": 9.226001055052969e-32
+   },
+   "R5_comparator": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 1.6033912266303818,
+    "energy_grad": 1.6032029160120171,
+    "energy_curl": 0.00018831061836499145,
+    "energy_harmonic": 2.153147265958058e-31,
+    "frac_grad": 0.9998825547905982,
+    "frac_curl": 0.00011744520940203531,
+    "frac_harmonic": 1.3428708042035504e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 6.5045994046145745,
+    "energy_grad": 6.504599404614575,
+    "energy_curl": 2.6963019221421324e-32,
+    "energy_harmonic": 8.682092189297657e-31,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 4.1452236401050123e-33,
+    "frac_harmonic": 1.3347620121138128e-31
+   }
+  },
+  "Bi0.2Y2.8Fe5O12": {
+   "which": "heldout",
+   "n_nodes": 4,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 15.687499999999867,
+    "energy_grad": 15.687499999999872,
+    "energy_curl": 3.851859888774533e-34,
+    "energy_harmonic": 5.920308649046363e-31,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 2.455368853402114e-35,
+    "frac_harmonic": 3.773901927678989e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 16.687499999999908,
+    "energy_grad": 16.687499999999922,
+    "energy_curl": 2.627751322050315e-61,
+    "energy_harmonic": 2.3665827156630354e-30,
+    "frac_grad": 1.0000000000000009,
+    "frac_curl": 1.5746824401799727e-62,
+    "frac_harmonic": 1.418176908262501e-31
+   },
+   "R4_ranker": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 0.10546875,
+    "energy_grad": 0.10546875,
+    "energy_curl": 2.1666711874356416e-34,
+    "energy_harmonic": 6.500013562306922e-34,
+    "frac_grad": 1.0,
+    "frac_curl": 2.054325274013053e-33,
+    "frac_harmonic": 6.162975822039156e-33
+   },
+   "R5_comparator": {
+    "m": 0
+   },
+   "R5_fixed_channel_wrapper": {
+    "m": 0
+   }
+  },
+  "Bi0.8Ba0.2Fe0.95Cr0.05O3": {
+   "which": "heldout",
+   "n_nodes": 17,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 136,
+    "n_triangles": 680,
+    "energy_total": 223.08050024545793,
+    "energy_grad": 223.080500245458,
+    "energy_curl": 4.834763900392338e-31,
+    "energy_harmonic": 3.260505931600289e-29,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 2.1672732018587883e-33,
+    "frac_harmonic": 1.4615826699387524e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 136,
+    "n_triangles": 680,
+    "energy_total": 273.0586075028515,
+    "energy_grad": 273.05860750285154,
+    "energy_curl": 7.4825777039346e-31,
+    "energy_harmonic": 4.9566276840734196e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.7402826713149706e-33,
+    "frac_harmonic": 1.8152248447328872e-31
+   },
+   "R4_ranker": {
+    "m_edges": 136,
+    "n_triangles": 680,
+    "energy_total": 2.2101241199999997,
+    "energy_grad": 2.210124120000001,
+    "energy_curl": 3.568634896952819e-33,
+    "energy_harmonic": 4.465211931063442e-31,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 1.614676236804664e-33,
+    "frac_harmonic": 2.0203444189656836e-31
+   },
+   "R5_comparator": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 0.4216128126915687,
+    "energy_grad": 0.42161281269156886,
+    "energy_curl": 1.0271626370065264e-33,
+    "energy_harmonic": 3.9032180206247984e-32,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 2.436269975879382e-33,
+    "frac_harmonic": 9.257825908341646e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 1.5877678988135744,
+    "energy_grad": 1.587767898813575,
+    "energy_curl": 1.0271626370065264e-33,
+    "energy_harmonic": 1.006619384266395e-31,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 6.469224108725537e-34,
+    "frac_harmonic": 6.33983962655102e-32
+   }
+  },
+  "BiNiPO5": {
+   "which": "heldout",
+   "n_nodes": 23,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 165,
+    "n_cyclic": 2,
+    "frac_cyclic": 0.012121212121212121
+   },
+   "R1_checker_10ch": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 694.3957540112436,
+    "energy_grad": 694.3957540112438,
+    "energy_curl": 1.2535961744101068e-30,
+    "energy_harmonic": 1.4674949781988244e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 1.8053050687141853e-33,
+    "frac_harmonic": 2.1133409438662306e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 614.9869038049501,
+    "energy_grad": 614.9869038049501,
+    "energy_curl": 1.8798750978910174e-30,
+    "energy_harmonic": 7.43137653619568e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 3.05677256907448e-33,
+    "frac_harmonic": 1.2083796403171252e-31
+   },
+   "R4_ranker": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 25.495819839999996,
+    "energy_grad": 25.495819840000003,
+    "energy_curl": 9.548635060145113e-32,
+    "energy_harmonic": 2.9958719513831108e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 3.7451767074241745e-33,
+    "frac_harmonic": 1.1750443681292939e-31
+   },
+   "R5_comparator": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 27.60571689600949,
+    "energy_grad": 26.689518273400182,
+    "energy_curl": 0.9161986226093162,
+    "energy_harmonic": 3.6181627763836224e-30,
+    "frac_grad": 0.9668112722426075,
+    "frac_curl": 0.03318872775739275,
+    "frac_harmonic": 1.3106570606418996e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 26.095957154564825,
+    "energy_grad": 26.095957154564847,
+    "energy_curl": 1.3738555601583708e-31,
+    "energy_harmonic": 4.971974178759823e-30,
+    "frac_grad": 1.0000000000000009,
+    "frac_curl": 5.2646298889176774e-33,
+    "frac_harmonic": 1.9052660721778134e-31
+   }
+  },
+  "CoNb2O6": {
+   "which": "heldout",
+   "n_nodes": 4,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 12.366335729547513,
+    "energy_grad": 12.366335729547522,
+    "energy_curl": 2.676917940270201e-62,
+    "energy_harmonic": 9.860761315262648e-31,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 2.1646815991531795e-63,
+    "frac_harmonic": 7.973874825104279e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 10.672496646134388,
+    "energy_grad": 10.672496646134393,
+    "energy_curl": 6.162975822039141e-33,
+    "energy_harmonic": 6.101346063818764e-31,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 5.774633646075111e-34,
+    "frac_harmonic": 5.716887309614373e-32
+   },
+   "R4_ranker": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 0.63448011,
+    "energy_grad": 0.6344801100000002,
+    "energy_curl": 4.580527164380148e-64,
+    "energy_harmonic": 3.389636702121535e-32,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 7.219339254590893e-64,
+    "frac_harmonic": 5.342384495112912e-32
+   },
+   "R5_comparator": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.4170411881144832,
+    "energy_grad": 0.41704118811448276,
+    "energy_curl": 0.0,
+    "energy_harmonic": 1.1093356479670479e-31,
+    "frac_grad": 0.9999999999999989,
+    "frac_curl": 0.0,
+    "frac_harmonic": 2.6600145970774494e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.4170411881144832,
+    "energy_grad": 0.41704118811448276,
+    "energy_curl": 0.0,
+    "energy_harmonic": 1.1093356479670479e-31,
+    "frac_grad": 0.9999999999999989,
+    "frac_curl": 0.0,
+    "frac_harmonic": 2.6600145970774494e-31
+   }
+  },
+  "Cu2Zn0.75Mg0.25SnS4": {
+   "which": "heldout",
+   "n_nodes": 27,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1330,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 351,
+    "n_triangles": 2925,
+    "energy_total": 600.599724502697,
+    "energy_grad": 600.599724502697,
+    "energy_curl": 1.6556720416726307e-30,
+    "energy_harmonic": 1.698969229406093e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 2.756697970588556e-33,
+    "frac_harmonic": 2.828787893322558e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 351,
+    "n_triangles": 2925,
+    "energy_total": 557.3900052468717,
+    "energy_grad": 557.390005246872,
+    "energy_curl": 1.5576350744294517e-30,
+    "energy_harmonic": 1.4786063224299883e-28,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 2.7945156170131985e-33,
+    "frac_harmonic": 2.6527320341438557e-31
+   },
+   "R4_ranker": {
+    "m_edges": 351,
+    "n_triangles": 2925,
+    "energy_total": 12.10919994,
+    "energy_grad": 12.109199940000003,
+    "energy_curl": 3.269132335462309e-32,
+    "energy_harmonic": 4.057177395359654e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.6997096023358824e-33,
+    "frac_harmonic": 3.3504917050363396e-31
+   },
+   "R5_comparator": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 48.6917374422693,
+    "energy_grad": 48.685967597604055,
+    "energy_curl": 0.005769844665283295,
+    "energy_harmonic": 3.1085954035771795e-29,
+    "frac_grad": 0.9998815025922604,
+    "frac_curl": 0.0001184974077403632,
+    "frac_harmonic": 6.3842359440610304e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 153.64716639513858,
+    "energy_grad": 153.6471663951387,
+    "energy_curl": 1.5098190232599135e-30,
+    "energy_harmonic": 8.371975510491814e-29,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 9.826533470699167e-33,
+    "frac_harmonic": 5.448831701172658e-31
+   }
+  },
+  "CuSbSe2": {
+   "which": "heldout",
+   "n_nodes": 23,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 84,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 690.1215111559027,
+    "energy_grad": 690.1215111559025,
+    "energy_curl": 1.4255231031847019e-30,
+    "energy_harmonic": 3.685995452520461e-28,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.0656117511785073e-33,
+    "frac_harmonic": 5.341081813761594e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 690.1215111559027,
+    "energy_grad": 690.1215111559027,
+    "energy_curl": 1.7867270774503038e-30,
+    "energy_harmonic": 3.81377805730368e-28,
+    "frac_grad": 1.0,
+    "frac_curl": 2.5890036009132182e-33,
+    "frac_harmonic": 5.5262413874273866e-31
+   },
+   "R4_ranker": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 33.26121212,
+    "energy_grad": 33.26121212000001,
+    "energy_curl": 9.133932101467841e-32,
+    "energy_harmonic": 1.8370625125881362e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.7461212383103735e-33,
+    "frac_harmonic": 5.523137599316498e-31
+   },
+   "R5_comparator": {
+    "m_edges": 36,
+    "n_triangles": 84,
+    "energy_total": 15.259865561265956,
+    "energy_grad": 15.258413014929472,
+    "energy_curl": 0.0014525463364853171,
+    "energy_harmonic": 2.66386101797658e-30,
+    "frac_grad": 0.9999048126387056,
+    "frac_curl": 9.518736129447357e-05,
+    "frac_harmonic": 1.7456648010964434e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 36,
+    "n_triangles": 84,
+    "energy_total": 41.68188775216899,
+    "energy_grad": 41.68188775216899,
+    "energy_curl": 1.8274935250074419e-31,
+    "energy_harmonic": 8.256675663804123e-30,
+    "frac_grad": 1.0,
+    "frac_curl": 4.384382818439755e-33,
+    "frac_harmonic": 1.9808785323967176e-31
+   }
+  },
+  "InMn0.9957Fe0.01O3": {
+   "which": "heldout",
+   "n_nodes": 26,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 35,
+    "n_cyclic": 1,
+    "frac_cyclic": 0.02857142857142857
+   },
+   "R1_checker_10ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 1165.2910247467416,
+    "energy_grad": 1165.291024746741,
+    "energy_curl": 2.0344338744848692e-30,
+    "energy_harmonic": 5.0954109278936355e-28,
+    "frac_grad": 0.9999999999999994,
+    "frac_curl": 1.745859044033247e-33,
+    "frac_harmonic": 4.372650968457468e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 959.1964440105314,
+    "energy_grad": 959.1964440105312,
+    "energy_curl": 1.970418926102579e-30,
+    "energy_harmonic": 3.821428269723209e-28,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.05423918990357e-33,
+    "frac_harmonic": 3.983989195941235e-31
+   },
+   "R4_ranker": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 3.66330917,
+    "energy_grad": 3.6633091699999993,
+    "energy_curl": 6.24075376210094e-33,
+    "energy_harmonic": 1.7574295928105104e-30,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 1.7035836923643933e-33,
+    "frac_harmonic": 4.7973826702989155e-31
+   },
+   "R5_comparator": {
+    "m_edges": 21,
+    "n_triangles": 35,
+    "energy_total": 7.209260955035784,
+    "energy_grad": 6.514729704459868,
+    "energy_curl": 0.6945312505759164,
+    "energy_harmonic": 6.407012677349876e-31,
+    "frac_grad": 0.9036612414354658,
+    "frac_curl": 0.09633875856453429,
+    "frac_harmonic": 8.88719761610859e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 21,
+    "n_triangles": 35,
+    "energy_total": 16.8680170118366,
+    "energy_grad": 16.868017011836603,
+    "energy_curl": 1.6038426786420754e-31,
+    "energy_harmonic": 1.4383817596637513e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 9.508187462205127e-33,
+    "frac_harmonic": 8.527272403474648e-32
+   }
+  },
+  "K2Ba(WO4)2": {
+   "which": "heldout",
+   "n_nodes": 14,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 120,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 295.2569444444444,
+    "energy_grad": 295.25694444444446,
+    "energy_curl": 3.1123027901297618e-31,
+    "energy_harmonic": 7.637467787462022e-29,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 1.054099776039433e-33,
+    "frac_harmonic": 2.5867191038749943e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 277.31249999999994,
+    "energy_grad": 277.3124999999999,
+    "energy_curl": 6.322552874574096e-31,
+    "energy_harmonic": 7.610449741670761e-29,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.2799379308809005e-33,
+    "frac_harmonic": 2.744358707837102e-31
+   },
+   "R4_ranker": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 14.19714616,
+    "energy_grad": 14.19714616,
+    "energy_curl": 3.139265809351192e-32,
+    "energy_harmonic": 1.320995348855205e-30,
+    "frac_grad": 1.0,
+    "frac_curl": 2.2111949640949473e-33,
+    "frac_harmonic": 9.304654146458438e-32
+   },
+   "R5_comparator": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 24.98106970306068,
+    "energy_grad": 22.892445259026132,
+    "energy_curl": 2.08862444403454,
+    "energy_harmonic": 4.395849522075126e-30,
+    "frac_grad": 0.9163917130506766,
+    "frac_curl": 0.08360828694932315,
+    "frac_harmonic": 1.7596722535610821e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 34.16165831308649,
+    "energy_grad": 34.1616583130865,
+    "energy_curl": 3.389251516132658e-31,
+    "energy_harmonic": 8.54307856591179e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 9.921214845809517e-33,
+    "frac_harmonic": 2.5007798180099315e-31
+   }
+  },
+  "La0.25Sr0.75TiO3": {
+   "which": "heldout",
+   "n_nodes": 5,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 17.111111111111104,
+    "energy_grad": 17.1111111111111,
+    "energy_curl": 2.218671295934102e-32,
+    "energy_harmonic": 2.8251081168227484e-30,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 1.2966260820394108e-33,
+    "frac_harmonic": 1.6510372111301783e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 14.0,
+    "energy_grad": 13.999999999999996,
+    "energy_curl": 2.4651903288156608e-32,
+    "energy_harmonic": 8.874685183736381e-31,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 1.760850234868329e-33,
+    "frac_harmonic": 6.339060845525986e-32
+   },
+   "R4_ranker": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 1.02028226,
+    "energy_grad": 1.0202822599999999,
+    "energy_curl": 1.386669559958808e-33,
+    "energy_harmonic": 8.45098059597119e-32,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 1.3591038620614729e-33,
+    "frac_harmonic": 8.282982981563543e-32
+   },
+   "R5_comparator": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 0.09743448627158034,
+    "energy_grad": 0.08222727227088912,
+    "energy_curl": 0.015207214000691227,
+    "energy_harmonic": 5.7777898331617076e-34,
+    "frac_grad": 0.8439237011184729,
+    "frac_curl": 0.15607629888152713,
+    "frac_harmonic": 5.929922817119601e-33
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 0.12695560508617287,
+    "energy_grad": 0.12695560508617296,
+    "energy_curl": 6.41976648129078e-35,
+    "energy_harmonic": 6.29137115166497e-33,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 5.056701889556806e-34,
+    "frac_harmonic": 4.955567851765674e-32
+   }
+  },
+  "La0.82Sr0.18MnO3": {
+   "which": "heldout",
+   "n_nodes": 24,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 56,
+    "n_cyclic": 10,
+    "frac_cyclic": 0.17857142857142858
+   },
+   "R1_checker_10ch": {
+    "m_edges": 276,
+    "n_triangles": 2024,
+    "energy_total": 641.1597222222222,
+    "energy_grad": 641.1597222222224,
+    "energy_curl": 1.9783794365393824e-30,
+    "energy_harmonic": 2.0028201295103034e-28,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 3.085626510789596e-33,
+    "frac_harmonic": 3.123746018493872e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 276,
+    "n_triangles": 2024,
+    "energy_total": 575.0,
+    "energy_grad": 575.0000000000002,
+    "energy_curl": 1.8078704387963e-30,
+    "energy_harmonic": 2.22929665143728e-28,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 3.144122502254435e-33,
+    "frac_harmonic": 3.8770376546735305e-31
+   },
+   "R4_ranker": {
+    "m_edges": 276,
+    "n_triangles": 2024,
+    "energy_total": 39.595087910000004,
+    "energy_grad": 39.595087910000004,
+    "energy_curl": 1.0079033375626553e-31,
+    "energy_harmonic": 1.732425343108169e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 2.5455262022744556e-33,
+    "frac_harmonic": 4.375354203142541e-31
+   },
+   "R5_comparator": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 1.825277145883768,
+    "energy_grad": 0.5990258741449112,
+    "energy_curl": 1.2262512717388576,
+    "energy_harmonic": 3.9082234323031794e-31,
+    "frac_grad": 0.3281835174980362,
+    "frac_curl": 0.6718164825019642,
+    "frac_harmonic": 2.1411671324087522e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 3.282560176300797,
+    "energy_grad": 3.282560176300799,
+    "energy_curl": 4.0588973577960985e-32,
+    "energy_harmonic": 2.5715979582430562e-31,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 1.236503564230215e-32,
+    "frac_harmonic": 7.834122819162015e-32
+   }
+  },
+  "La1.85Sr0.15CuO4": {
+   "which": "heldout",
+   "n_nodes": 9,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 4,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 36,
+    "n_triangles": 84,
+    "energy_total": 78.70661320080234,
+    "energy_grad": 78.70661320080237,
+    "energy_curl": 3.1225744164998356e-31,
+    "energy_harmonic": 7.181921157949628e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 3.967359653163178e-33,
+    "frac_harmonic": 9.124927202275317e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 36,
+    "n_triangles": 84,
+    "energy_total": 78.70661320080234,
+    "energy_grad": 78.70661320080237,
+    "energy_curl": 3.1225744164998356e-31,
+    "energy_harmonic": 7.181921157949628e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 3.967359653163178e-33,
+    "frac_harmonic": 9.124927202275317e-32
+   },
+   "R4_ranker": {
+    "m_edges": 36,
+    "n_triangles": 84,
+    "energy_total": 0.8714418199999999,
+    "energy_grad": 0.87144182,
+    "energy_curl": 1.4337478474882754e-33,
+    "energy_harmonic": 3.496632810143048e-32,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 1.6452594018132796e-33,
+    "frac_harmonic": 4.012468451586416e-32
+   },
+   "R5_comparator": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 2.7566810649161675,
+    "energy_grad": 2.7566810649161706,
+    "energy_curl": 2.407412430484066e-35,
+    "energy_harmonic": 9.367963990742564e-31,
+    "frac_grad": 1.000000000000001,
+    "frac_curl": 8.733010362072034e-36,
+    "frac_harmonic": 3.398276322193061e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 3.843717776552348,
+    "energy_grad": 3.8437177765523507,
+    "energy_curl": 6.187049946343995e-33,
+    "energy_harmonic": 5.115510673535547e-31,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 1.6096525046887072e-33,
+    "frac_harmonic": 1.3308757226509859e-31
+   }
+  },
+  "LaNi0.5Rh0.5O3": {
+   "which": "heldout",
+   "n_nodes": 13,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 78,
+    "n_triangles": 286,
+    "energy_total": 287.4552469572173,
+    "energy_grad": 287.45524695721735,
+    "energy_curl": 5.80930841744391e-31,
+    "energy_harmonic": 1.311922070664511e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.020943600416702e-33,
+    "frac_harmonic": 4.563917634315326e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 78,
+    "n_triangles": 286,
+    "energy_total": 242.73739762592828,
+    "energy_grad": 242.73739762592828,
+    "energy_curl": 4.797639639925871e-31,
+    "energy_harmonic": 8.974620207066061e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 1.9764732121415005e-33,
+    "frac_harmonic": 3.6972548502379704e-31
+   },
+   "R4_ranker": {
+    "m_edges": 78,
+    "n_triangles": 286,
+    "energy_total": 0.0,
+    "energy_grad": 0.0,
+    "energy_curl": 0.0,
+    "energy_harmonic": 0.0,
+    "frac_grad": null,
+    "frac_curl": null,
+    "frac_harmonic": null
+   },
+   "R5_comparator": {
+    "m": 0
+   },
+   "R5_fixed_channel_wrapper": {
+    "m": 0
+   }
+  },
+  "Li2TeO4": {
+   "which": "heldout",
+   "n_nodes": 19,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 120,
+    "n_cyclic": 4,
+    "frac_cyclic": 0.03333333333333333
+   },
+   "R1_checker_10ch": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 376.60095252092606,
+    "energy_grad": 376.60095252092634,
+    "energy_curl": 1.0042812377374188e-30,
+    "energy_harmonic": 2.4024261471756594e-28,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 2.6666986129877494e-33,
+    "frac_harmonic": 6.37923545093043e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 382.8778484644887,
+    "energy_grad": 382.87784846448903,
+    "energy_curl": 1.113876788046443e-30,
+    "energy_harmonic": 2.8314105705186546e-28,
+    "frac_grad": 1.0000000000000009,
+    "frac_curl": 2.909222334260357e-33,
+    "frac_harmonic": 7.395075431691534e-31
+   },
+   "R4_ranker": {
+    "m_edges": 171,
+    "n_triangles": 969,
+    "energy_total": 52.5083447,
+    "energy_grad": 52.50834470000004,
+    "energy_curl": 1.349468702611959e-31,
+    "energy_harmonic": 3.098056990425343e-29,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 2.5700080821857617e-33,
+    "frac_harmonic": 5.900123129239195e-31
+   },
+   "R5_comparator": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 8.203332296686765,
+    "energy_grad": 7.266491367165166,
+    "energy_curl": 0.9368409295216004,
+    "energy_harmonic": 1.6720961392989208e-30,
+    "frac_grad": 0.8857975154925787,
+    "frac_curl": 0.11420248450742145,
+    "frac_harmonic": 2.038313308329911e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 45,
+    "n_triangles": 120,
+    "energy_total": 21.093307475074297,
+    "energy_grad": 21.0933074750743,
+    "energy_curl": 1.650136776350984e-31,
+    "energy_harmonic": 8.449439852015683e-31,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 7.82303476257069e-33,
+    "frac_harmonic": 4.0057444106384367e-32
+   }
+  },
+  "Li3BiO4": {
+   "which": "heldout",
+   "n_nodes": 21,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 56,
+    "n_cyclic": 2,
+    "frac_cyclic": 0.03571428571428571
+   },
+   "R1_checker_10ch": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 622.9332425467287,
+    "energy_grad": 622.9332425467288,
+    "energy_curl": 1.5357548798443288e-30,
+    "energy_harmonic": 1.6473979205481657e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.4653602905597478e-33,
+    "frac_harmonic": 2.6445818075354804e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 603.5541561890121,
+    "energy_grad": 603.554156189012,
+    "energy_curl": 1.5935694625558413e-30,
+    "energy_harmonic": 2.016382619889628e-28,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.6403089867163317e-33,
+    "frac_harmonic": 3.340847874566151e-31
+   },
+   "R4_ranker": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 40.9267394,
+    "energy_grad": 40.926739399999995,
+    "energy_curl": 9.185768725229766e-32,
+    "energy_harmonic": 1.6706873659670925e-29,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.2444418636559564e-33,
+    "frac_harmonic": 4.082141383506091e-31
+   },
+   "R5_comparator": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 10.314851543350228,
+    "energy_grad": 9.038848657134187,
+    "energy_curl": 1.276002886216041,
+    "energy_harmonic": 4.679453520934174e-31,
+    "frac_grad": 0.8762945951424135,
+    "frac_curl": 0.12370540485758652,
+    "frac_harmonic": 4.5366174212666405e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 15.824881121343372,
+    "energy_grad": 15.82488112134337,
+    "energy_curl": 6.740754805355328e-32,
+    "energy_harmonic": 3.878822907995893e-31,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 4.259592696885363e-33,
+    "frac_harmonic": 2.4510913404363194e-32
+   }
+  },
+  "Li5P3O10": {
+   "which": "heldout",
+   "n_nodes": 8,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 56,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 1.9046046190373926,
+    "energy_grad": 1.9046046190373938,
+    "energy_curl": 1.2037062152420214e-33,
+    "energy_harmonic": 2.772857637431523e-31,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 6.319979502361951e-34,
+    "frac_harmonic": 1.4558704781641003e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 1.9046046190373938,
+    "energy_grad": 1.9046046190373953,
+    "energy_curl": 1.2037062152420214e-33,
+    "energy_harmonic": 2.772857637431523e-31,
+    "frac_grad": 1.0000000000000009,
+    "frac_curl": 6.3199795023619475e-34,
+    "frac_harmonic": 1.4558704781640994e-31
+   },
+   "R4_ranker": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 0.7889971099999997,
+    "energy_grad": 0.78899711,
+    "energy_curl": 1.3481509610710648e-33,
+    "energy_harmonic": 6.292976093285293e-32,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 1.708689352577052e-33,
+    "frac_harmonic": 7.975917799350742e-32
+   },
+   "R5_comparator": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 8.816091767583194,
+    "energy_grad": 8.513244427023128,
+    "energy_curl": 0.3028473405600706,
+    "energy_harmonic": 1.8538686252412424e-30,
+    "frac_grad": 0.9656483452595587,
+    "frac_curl": 0.03435165474044197,
+    "frac_harmonic": 2.1028236480680986e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 28,
+    "n_triangles": 56,
+    "energy_total": 12.896904823300732,
+    "energy_grad": 12.89690482330074,
+    "energy_curl": 7.332978263254399e-32,
+    "energy_harmonic": 1.2865693510992832e-30,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 5.685843513403284e-33,
+    "frac_harmonic": 9.975799377652605e-32
+   }
+  },
+  "Li9V3(P2O7)3(PO4)2": {
+   "which": "heldout",
+   "n_nodes": 38,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1771,
+    "n_cyclic": 11,
+    "frac_cyclic": 0.006211180124223602
+   },
+   "R1_checker_10ch": {
+    "m_edges": 703,
+    "n_triangles": 8436,
+    "energy_total": 2500.6654790486864,
+    "energy_grad": 2500.665479048686,
+    "energy_curl": 5.835811006854714e-30,
+    "energy_harmonic": 1.5839731357661432e-27,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.3337031905102305e-33,
+    "frac_harmonic": 6.334206430396779e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 703,
+    "n_triangles": 8436,
+    "energy_total": 2399.754598505005,
+    "energy_grad": 2399.754598505004,
+    "energy_curl": 5.920541787934359e-30,
+    "energy_harmonic": 1.2140902111772816e-27,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.4671446787195355e-33,
+    "frac_harmonic": 5.059226522302044e-31
+   },
+   "R4_ranker": {
+    "m_edges": 703,
+    "n_triangles": 8436,
+    "energy_total": 82.08484457,
+    "energy_grad": 82.08484456999997,
+    "energy_curl": 2.53338345355706e-31,
+    "energy_harmonic": 6.207193336326483e-29,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 3.086298654554497e-33,
+    "frac_harmonic": 7.561923725192824e-31
+   },
+   "R5_comparator": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 145.0066116331438,
+    "energy_grad": 142.4804533734322,
+    "energy_curl": 2.526158259711602,
+    "energy_harmonic": 6.694221646117108e-29,
+    "frac_grad": 0.9825790132514606,
+    "frac_curl": 0.017420986748539435,
+    "frac_harmonic": 4.616494083078779e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 253,
+    "n_triangles": 1771,
+    "energy_total": 133.67475593409566,
+    "energy_grad": 133.67475593409566,
+    "energy_curl": 9.827843814074592e-31,
+    "energy_harmonic": 5.301870880871556e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 7.352056673228501e-33,
+    "frac_harmonic": 3.966246913131066e-31
+   }
+  },
+  "LiBi3O4Cl2": {
+   "which": "heldout",
+   "n_nodes": 30,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 220,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 1345.313994709123,
+    "energy_grad": 1345.3139947091233,
+    "energy_curl": 2.8366123383572187e-30,
+    "energy_harmonic": 4.618271127401069e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.1085132166268267e-33,
+    "frac_harmonic": 3.432857418835971e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 1345.313994709123,
+    "energy_grad": 1345.3139947091233,
+    "energy_curl": 2.8760553836182713e-30,
+    "energy_harmonic": 4.601606440778276e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.1378320562554745e-33,
+    "frac_harmonic": 3.4204702090928676e-31
+   },
+   "R4_ranker": {
+    "m_edges": 435,
+    "n_triangles": 4060,
+    "energy_total": 65.58815321,
+    "energy_grad": 65.58815321,
+    "energy_curl": 1.3661263072186778e-31,
+    "energy_harmonic": 3.277444863094497e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 2.0828857657336647e-33,
+    "frac_harmonic": 4.997007390344993e-31
+   },
+   "R5_comparator": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 39.66957766438228,
+    "energy_grad": 39.6034227519898,
+    "energy_curl": 0.06615491239247773,
+    "energy_harmonic": 5.8699220692795764e-30,
+    "frac_grad": 0.9983323514822321,
+    "frac_curl": 0.001667648517767699,
+    "frac_harmonic": 1.4797036961020998e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 40.49073503093824,
+    "energy_grad": 40.490735030938254,
+    "energy_curl": 2.597357271249233e-31,
+    "energy_harmonic": 7.605232535017841e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 6.414695285883645e-33,
+    "frac_harmonic": 1.8782648744723502e-31
+   }
+  },
+  "LiFe(BO3)0.5(PO4)0.5": {
+   "which": "heldout",
+   "n_nodes": 32,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1330,
+    "n_cyclic": 6,
+    "frac_cyclic": 0.004511278195488722
+   },
+   "R1_checker_10ch": {
+    "m_edges": 496,
+    "n_triangles": 4960,
+    "energy_total": 1811.9208931754497,
+    "energy_grad": 1811.9208931754488,
+    "energy_curl": 4.9912400438739646e-30,
+    "energy_harmonic": 1.3854007573114477e-27,
+    "frac_grad": 0.9999999999999994,
+    "frac_curl": 2.7546677466291896e-33,
+    "frac_harmonic": 7.646033347976292e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 496,
+    "n_triangles": 4960,
+    "energy_total": 1811.9208931754497,
+    "energy_grad": 1811.9208931754488,
+    "energy_curl": 4.815017453962516e-30,
+    "energy_harmonic": 1.3182464690455812e-27,
+    "frac_grad": 0.9999999999999994,
+    "frac_curl": 2.6574104157075218e-33,
+    "frac_harmonic": 7.275408512649312e-31
+   },
+   "R4_ranker": {
+    "m_edges": 496,
+    "n_triangles": 4960,
+    "energy_total": 40.22661599,
+    "energy_grad": 40.22661598999997,
+    "energy_curl": 7.878257178759048e-32,
+    "energy_harmonic": 2.695857754548706e-29,
+    "frac_grad": 0.9999999999999993,
+    "frac_curl": 1.9584687861185033e-33,
+    "frac_harmonic": 6.701676708821029e-31
+   },
+   "R5_comparator": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 78.00350975693794,
+    "energy_grad": 76.19005740981126,
+    "energy_curl": 1.8134523471267028,
+    "energy_harmonic": 3.07110192931658e-29,
+    "frac_grad": 0.9767516570372605,
+    "frac_curl": 0.02324834296273966,
+    "frac_harmonic": 3.9371330070739844e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 210,
+    "n_triangles": 1330,
+    "energy_total": 79.28541200044651,
+    "energy_grad": 79.28541200044651,
+    "energy_curl": 6.867843253947454e-31,
+    "energy_harmonic": 3.5762450985354495e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 8.662177670097464e-33,
+    "frac_harmonic": 4.510596600690312e-31
+   }
+  },
+  "LiPO3": {
+   "which": "heldout",
+   "n_nodes": 11,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 10,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 149.9211248285323,
+    "energy_grad": 149.9211248285323,
+    "energy_curl": 3.8098395990787455e-31,
+    "energy_harmonic": 2.4961172620317123e-29,
+    "frac_grad": 1.0,
+    "frac_curl": 2.541229332047857e-33,
+    "frac_harmonic": 1.6649536647264152e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 121.36556927297671,
+    "energy_grad": 121.36556927297667,
+    "energy_curl": 3.6641692614669125e-31,
+    "energy_harmonic": 2.5456451768197364e-29,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 3.0191175993460093e-33,
+    "frac_harmonic": 2.0975019456251586e-31
+   },
+   "R4_ranker": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 10.640594099999998,
+    "energy_grad": 10.640594100000001,
+    "energy_curl": 4.258056022499786e-32,
+    "energy_harmonic": 1.6029339842594567e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 4.0017089106892884e-33,
+    "frac_harmonic": 1.5064327886160578e-31
+   },
+   "R5_comparator": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 2.99424738654854,
+    "energy_grad": 2.8045494655058114,
+    "energy_curl": 0.18969792104272795,
+    "energy_harmonic": 1.3924473497919715e-31,
+    "frac_grad": 0.9366458757232505,
+    "frac_curl": 0.06335412427674929,
+    "frac_harmonic": 4.6504085001374634e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 4.138896129099659,
+    "energy_grad": 4.138896129099659,
+    "energy_curl": 1.402076999513906e-32,
+    "energy_harmonic": 1.1617209424543805e-31,
+    "frac_grad": 1.0,
+    "frac_curl": 3.3875626635232867e-33,
+    "frac_harmonic": 2.806837635490726e-32
+   }
+  },
+  "Mg2FeV3O11": {
+   "which": "heldout",
+   "n_nodes": 6,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 61.8888888888889,
+    "energy_grad": 61.88888888888893,
+    "energy_curl": 2.054325274013055e-33,
+    "energy_harmonic": 7.988243827999752e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 3.319376564832584e-35,
+    "frac_harmonic": 1.2907395772351481e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 56.0,
+    "energy_grad": 56.000000000000014,
+    "energy_curl": 1.15042215344731e-31,
+    "energy_harmonic": 5.1234872333885495e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.0543252740130535e-33,
+    "frac_harmonic": 9.149084345336695e-32
+   },
+   "R4_ranker": {
+    "m_edges": 15,
+    "n_triangles": 20,
+    "energy_total": 1.40633864,
+    "energy_grad": 1.40633864,
+    "energy_curl": 2.054325274013047e-33,
+    "energy_harmonic": 1.6511639389879903e-31,
+    "frac_grad": 1.0,
+    "frac_curl": 1.4607614521727477e-33,
+    "frac_harmonic": 1.1740870171838486e-31
+   },
+   "R5_comparator": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.09861025722939341,
+    "energy_grad": 0.0986102572293933,
+    "energy_curl": 0.0,
+    "energy_harmonic": 2.7733391199176196e-32,
+    "frac_grad": 0.9999999999999989,
+    "frac_curl": 0.0,
+    "frac_harmonic": 2.812424587298361e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.028830704861965258,
+    "energy_grad": 0.02883070486196523,
+    "energy_curl": 0.0,
+    "energy_harmonic": 6.933347799794049e-33,
+    "frac_grad": 0.999999999999999,
+    "frac_curl": 0.0,
+    "frac_harmonic": 2.4048485227778207e-31
+   }
+  },
+  "Na0.65Bi0.45Cu3Ti4O12": {
+   "which": "heldout",
+   "n_nodes": 11,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 10,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 231.20126817448593,
+    "energy_grad": 231.20126817448585,
+    "energy_curl": 3.552115155611651e-31,
+    "energy_harmonic": 2.527044195247764e-29,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 1.5363735604299953e-33,
+    "frac_harmonic": 1.0930061998365086e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 223.120190016206,
+    "energy_grad": 223.12019001620592,
+    "energy_curl": 4.762299498848435e-31,
+    "energy_harmonic": 1.837015011391089e-29,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.1344099332752147e-33,
+    "frac_harmonic": 8.233297987320914e-32
+   },
+   "R4_ranker": {
+    "m_edges": 55,
+    "n_triangles": 165,
+    "energy_total": 4.273572400000001,
+    "energy_grad": 4.273572400000001,
+    "energy_curl": 7.353550696751272e-33,
+    "energy_harmonic": 4.386918244233326e-31,
+    "frac_grad": 1.0,
+    "frac_curl": 1.7207034322739614e-33,
+    "frac_harmonic": 1.0265225047394364e-31
+   },
+   "R5_comparator": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 5.760243067069495,
+    "energy_grad": 5.626257960493107,
+    "energy_curl": 0.13398510657638377,
+    "energy_harmonic": 1.1067837907907348e-30,
+    "frac_grad": 0.976739678340596,
+    "frac_curl": 0.023260321659403213,
+    "frac_harmonic": 1.9214185545711831e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 3.8852962011770504,
+    "energy_grad": 3.8852962011770487,
+    "energy_curl": 3.49748877900722e-32,
+    "energy_harmonic": 3.2016659395493415e-31,
+    "frac_grad": 0.9999999999999996,
+    "frac_curl": 9.001858797657836e-33,
+    "frac_harmonic": 8.240468097591625e-32
+   }
+  },
+  "Na2PdCl4": {
+   "which": "heldout",
+   "n_nodes": 4,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 25.79280962652198,
+    "energy_grad": 25.79280962652199,
+    "energy_curl": 1.848892746611742e-32,
+    "energy_harmonic": 2.2248342717561352e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 7.168248722739304e-34,
+    "frac_harmonic": 8.625792629696318e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 25.79280962652198,
+    "energy_grad": 25.79280962652199,
+    "energy_curl": 1.848892746611742e-32,
+    "energy_harmonic": 2.2248342717561352e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 7.168248722739304e-34,
+    "frac_harmonic": 8.625792629696318e-32
+   },
+   "R4_ranker": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 0.78673923,
+    "energy_grad": 0.7867392300000005,
+    "energy_curl": 1.540743955509785e-33,
+    "energy_harmonic": 1.2788174830731246e-31,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 1.958392179718539e-33,
+    "frac_harmonic": 1.6254655091663913e-31
+   },
+   "R5_comparator": {
+    "m": 0
+   },
+   "R5_fixed_channel_wrapper": {
+    "m": 0
+   }
+  },
+  "NaNiO2": {
+   "which": "heldout",
+   "n_nodes": 28,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 220,
+    "n_cyclic": 11,
+    "frac_cyclic": 0.05
+   },
+   "R1_checker_10ch": {
+    "m_edges": 378,
+    "n_triangles": 3276,
+    "energy_total": 967.5485814361613,
+    "energy_grad": 967.5485814361615,
+    "energy_curl": 2.59989537178309e-30,
+    "energy_harmonic": 5.246026268608234e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.6870954303131607e-33,
+    "frac_harmonic": 5.4219771174915065e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 378,
+    "n_triangles": 3276,
+    "energy_total": 932.5647047433379,
+    "energy_grad": 932.564704743338,
+    "energy_curl": 2.5705662100585645e-30,
+    "energy_harmonic": 4.3785802682021435e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.7564481016532148e-33,
+    "frac_harmonic": 4.695202644847281e-31
+   },
+   "R4_ranker": {
+    "m_edges": 378,
+    "n_triangles": 3276,
+    "energy_total": 70.10886907,
+    "energy_grad": 70.10886907000003,
+    "energy_curl": 1.5550508636680915e-31,
+    "energy_harmonic": 3.882685773198635e-29,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 2.218051559376112e-33,
+    "frac_harmonic": 5.538080737434202e-31
+   },
+   "R5_comparator": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 21.943176620280866,
+    "energy_grad": 18.270530353936365,
+    "energy_curl": 3.672646266344503,
+    "energy_harmonic": 9.252859590999559e-30,
+    "frac_grad": 0.8326292345954106,
+    "frac_curl": 0.16737076540458956,
+    "frac_harmonic": 4.216736597037482e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 29.385900914372947,
+    "energy_grad": 29.385900914372954,
+    "energy_curl": 3.2870006855018915e-31,
+    "energy_harmonic": 4.4592580696936974e-30,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 1.1185638633574054e-32,
+    "frac_harmonic": 1.5174821703399361e-31
+   }
+  },
+  "Pb(Zr0.47Ti0.53)O3": {
+   "which": "heldout",
+   "n_nodes": 4,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 18.699702789208963,
+    "energy_grad": 18.699702789208963,
+    "energy_curl": 2.4651903288156575e-32,
+    "energy_harmonic": 6.162975822039155e-31,
+    "frac_grad": 1.0,
+    "frac_curl": 1.3183045509355608e-33,
+    "frac_harmonic": 3.295761377338908e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 18.699702789208963,
+    "energy_grad": 18.699702789208963,
+    "energy_curl": 2.4651903288156575e-32,
+    "energy_harmonic": 6.162975822039155e-31,
+    "frac_grad": 1.0,
+    "frac_curl": 1.3183045509355608e-33,
+    "frac_harmonic": 3.295761377338908e-32
+   },
+   "R4_ranker": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 0.10682307000000002,
+    "energy_grad": 0.10682307000000008,
+    "energy_curl": 3.129636159629255e-34,
+    "energy_harmonic": 1.1724098536457297e-32,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 2.9297380796388404e-33,
+    "frac_harmonic": 1.0975249575262436e-31
+   },
+   "R5_comparator": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.3762662928888214,
+    "energy_grad": 0.37626629288882113,
+    "energy_curl": 0.0,
+    "energy_harmonic": 4.930380657631324e-32,
+    "frac_grad": 0.9999999999999992,
+    "frac_curl": 0.0,
+    "frac_harmonic": 1.3103434325136706e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.2059353188962342,
+    "energy_grad": 0.20593531889623398,
+    "energy_curl": 0.0,
+    "energy_harmonic": 4.930380657631324e-32,
+    "frac_grad": 0.9999999999999989,
+    "frac_curl": 0.0,
+    "frac_harmonic": 2.3941403951770034e-31
+   }
+  },
+  "Sr0.5Ca0.5Fe12O19": {
+   "which": "heldout",
+   "n_nodes": 4,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 23.775949922291225,
+    "energy_grad": 23.775949922291225,
+    "energy_curl": 2.465190328815662e-32,
+    "energy_harmonic": 2.711709361697228e-31,
+    "frac_grad": 1.0,
+    "frac_curl": 1.0368419923800453e-33,
+    "frac_harmonic": 1.1405261916180499e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 23.775949922291243,
+    "energy_grad": 23.775949922291243,
+    "energy_curl": 2.465190328815662e-32,
+    "energy_harmonic": 2.711709361697228e-31,
+    "frac_grad": 1.0,
+    "frac_curl": 1.0368419923800446e-33,
+    "frac_harmonic": 1.140526191618049e-32
+   },
+   "R4_ranker": {
+    "m_edges": 6,
+    "n_triangles": 4,
+    "energy_total": 0.25148475,
+    "energy_grad": 0.2514847500000001,
+    "energy_curl": 5.777789833161694e-34,
+    "energy_harmonic": 2.8311170182492367e-32,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 2.2974712515020074e-33,
+    "frac_harmonic": 1.1257609132359862e-31
+   },
+   "R5_comparator": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.06854910621969654,
+    "energy_grad": 0.06854910621969648,
+    "energy_curl": 0.0,
+    "energy_harmonic": 1.232595164407831e-32,
+    "frac_grad": 0.9999999999999992,
+    "frac_curl": 0.0,
+    "frac_harmonic": 1.7981199644783458e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.264448976116101,
+    "energy_grad": 0.2644489761161008,
+    "energy_curl": 0.0,
+    "energy_harmonic": 4.930380657631324e-32,
+    "frac_grad": 0.9999999999999991,
+    "frac_curl": 0.0,
+    "frac_harmonic": 1.8643977110604274e-31
+   }
+  },
+  "Sr2MnNbO6": {
+   "which": "heldout",
+   "n_nodes": 26,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 364,
+    "n_cyclic": 15,
+    "frac_cyclic": 0.04120879120879121
+   },
+   "R1_checker_10ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 999.7972218722883,
+    "energy_grad": 999.7972218722884,
+    "energy_curl": 2.41019762148054e-30,
+    "energy_harmonic": 4.025219657897801e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.4106864559665805e-33,
+    "frac_harmonic": 4.026036049950109e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 999.7972218722883,
+    "energy_grad": 999.7972218722886,
+    "energy_curl": 2.4414865756539695e-30,
+    "energy_harmonic": 3.9297504216637816e-28,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.441981756142386e-33,
+    "frac_harmonic": 3.93054745071672e-31
+   },
+   "R4_ranker": {
+    "m_edges": 325,
+    "n_triangles": 2600,
+    "energy_total": 47.53304533000001,
+    "energy_grad": 47.53304532999999,
+    "energy_curl": 1.247558158591146e-31,
+    "energy_harmonic": 1.8275193686827659e-29,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.62461230903664e-33,
+    "frac_harmonic": 3.8447344494659282e-31
+   },
+   "R5_comparator": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 26.857981875280093,
+    "energy_grad": 23.328688108837568,
+    "energy_curl": 3.5292937664425352,
+    "energy_harmonic": 9.342872358527651e-30,
+    "frac_grad": 0.8685942308386594,
+    "frac_curl": 0.13140576916134097,
+    "frac_harmonic": 3.4786203974345403e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 91,
+    "n_triangles": 364,
+    "energy_total": 44.220365526265475,
+    "energy_grad": 44.2203655262655,
+    "energy_curl": 1.6642786047997681e-31,
+    "energy_harmonic": 6.323185680127252e-30,
+    "frac_grad": 1.0000000000000007,
+    "frac_curl": 3.7636020982486906e-33,
+    "frac_harmonic": 1.4299261448599928e-31
+   }
+  },
+  "Sr3NiIrO6": {
+   "which": "heldout",
+   "n_nodes": 5,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 1,
+    "n_cyclic": 0,
+    "frac_cyclic": 0.0
+   },
+   "R1_checker_10ch": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 35.36913259772545,
+    "energy_grad": 35.36913259772546,
+    "energy_curl": 4.930380657631322e-32,
+    "energy_harmonic": 2.933576491290638e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 1.3939783917540545e-33,
+    "frac_harmonic": 8.294171430936628e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 35.36913259772544,
+    "energy_grad": 35.369132597725454,
+    "energy_curl": 4.930380657631322e-32,
+    "energy_harmonic": 2.933576491290638e-30,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 1.3939783917540547e-33,
+    "frac_harmonic": 8.294171430936629e-32
+   },
+   "R4_ranker": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 0.76862544,
+    "energy_grad": 0.7686254400000001,
+    "energy_curl": 2.0029671421627264e-33,
+    "energy_harmonic": 1.5330402357322396e-32,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 2.6059079467402567e-33,
+    "frac_harmonic": 1.994521851543503e-32
+   },
+   "R5_comparator": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 0.8289179995813083,
+    "energy_grad": 0.8289179995813087,
+    "energy_curl": 9.244463733058732e-33,
+    "energy_harmonic": 5.546678239835239e-32,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 1.1152446608383663e-32,
+    "frac_harmonic": 6.691467965030197e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 0.7156043942825476,
+    "energy_grad": 0.7156043942825479,
+    "energy_curl": 2.311115933264683e-33,
+    "energy_harmonic": 2.9274135154685985e-32,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 3.2295999741334275e-33,
+    "frac_harmonic": 4.0908266339023416e-32
+   }
+  },
+  "SrPuO3": {
+   "which": "heldout",
+   "n_nodes": 3,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 0,
+    "n_cyclic": 0,
+    "frac_cyclic": null
+   },
+   "R1_checker_10ch": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 13.809701213150436,
+    "energy_grad": 13.809701213150436,
+    "energy_curl": 3.697785493223493e-32,
+    "energy_harmonic": 1.7256332301709633e-31,
+    "frac_grad": 1.0,
+    "frac_curl": 2.6776723378361272e-33,
+    "frac_harmonic": 1.249580424323526e-32
+   },
+   "R2_checker_5ch": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 13.809701213150426,
+    "energy_grad": 13.80970121315043,
+    "energy_curl": 6.62004941271062e-64,
+    "energy_harmonic": 3.944304526105059e-31,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 4.79376730208081e-65,
+    "frac_harmonic": 2.8561838270252045e-32
+   },
+   "R4_ranker": {
+    "m_edges": 3,
+    "n_triangles": 1,
+    "energy_total": 0.27806994,
+    "energy_grad": 0.2780699400000001,
+    "energy_curl": 2.567906592516316e-34,
+    "energy_harmonic": 6.676557140542419e-33,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 9.234750769954912e-34,
+    "frac_harmonic": 2.4010352001882757e-32
+   },
+   "R5_comparator": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.1810733542454387,
+    "energy_grad": 0.1810733542454385,
+    "energy_curl": 0.0,
+    "energy_harmonic": 4.930380657631324e-32,
+    "frac_grad": 0.9999999999999989,
+    "frac_curl": 0.0,
+    "frac_harmonic": 2.722863713535876e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 1,
+    "n_triangles": 0,
+    "energy_total": 0.9992086966925084,
+    "energy_grad": 0.9992086966925076,
+    "energy_curl": 0.0,
+    "energy_harmonic": 1.9721522630525295e-31,
+    "frac_grad": 0.9999999999999991,
+    "frac_curl": 0.0,
+    "frac_harmonic": 1.9737140695237862e-31
+   }
+  },
+  "SrUO4": {
+   "which": "heldout",
+   "n_nodes": 12,
+   "missing_nodes": 0,
+   "cyclic_triads": {
+    "n_triangles_checked": 10,
+    "n_cyclic": 1,
+    "frac_cyclic": 0.1
+   },
+   "R1_checker_10ch": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 184.78536601298876,
+    "energy_grad": 184.78536601298885,
+    "energy_curl": 3.687513866853438e-31,
+    "energy_harmonic": 5.141257147008763e-29,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 1.9955659619681346e-33,
+    "frac_harmonic": 2.782285880066595e-31
+   },
+   "R2_checker_5ch": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 184.78536601298876,
+    "energy_grad": 184.78536601298885,
+    "energy_curl": 4.370577020462767e-31,
+    "energy_harmonic": 5.111623504931126e-29,
+    "frac_grad": 1.0000000000000004,
+    "frac_curl": 2.365218152694816e-33,
+    "frac_harmonic": 2.766249089536573e-31
+   },
+   "R4_ranker": {
+    "m_edges": 66,
+    "n_triangles": 220,
+    "energy_total": 8.390151389999998,
+    "energy_grad": 8.390151389999998,
+    "energy_curl": 1.6434602192104403e-32,
+    "energy_harmonic": 1.1884271710165504e-30,
+    "frac_grad": 1.0,
+    "frac_curl": 1.9587968593382447e-33,
+    "frac_harmonic": 1.416454978908969e-31
+   },
+   "R5_comparator": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 3.7788974171721654,
+    "energy_grad": 3.476116704799431,
+    "energy_curl": 0.30278071237273263,
+    "energy_harmonic": 2.0714580258099964e-31,
+    "frac_grad": 0.9198759111594746,
+    "frac_curl": 0.0801240888405249,
+    "frac_harmonic": 5.481646621040365e-32
+   },
+   "R5_fixed_channel_wrapper": {
+    "m_edges": 10,
+    "n_triangles": 10,
+    "energy_total": 5.593195114372465,
+    "energy_grad": 5.593195114372463,
+    "energy_curl": 6.0089014264881805e-33,
+    "energy_harmonic": 1.9505818476753926e-31,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 1.0743235849304635e-33,
+    "frac_harmonic": 3.48741963723581e-32
+   }
+  },
+  "TbTaO4": {
+   "which": "heldout",
+   "n_nodes": 2,
+   "note": "fewer than 3 nodes with a reconstructable full route -- skipped (no triangle possible)"
+  }
+ },
+ "pooled": {
+  "ASTRAL": {
+   "R1_checker_10ch": {
+    "energy_total": 22394.408578712253,
+    "frac_grad": 1.0,
+    "frac_curl": 2.4604980462584097e-33,
+    "frac_harmonic": 3.614140353525208e-31
+   },
+   "R2_checker_5ch": {
+    "energy_total": 21850.69877130385,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.6155450745034393e-33,
+    "frac_harmonic": 3.577352766790956e-31
+   },
+   "R4_ranker": {
+    "energy_total": 985.3444237300004,
+    "frac_grad": 0.9999999999999997,
+    "frac_curl": 2.695719780442826e-33,
+    "frac_harmonic": 3.3498540269455963e-31
+   },
+   "R5_comparator": {
+    "energy_total": 1948.2947484315966,
+    "frac_grad": 0.9481315282548081,
+    "frac_curl": 0.05186847174519212,
+    "frac_harmonic": 3.4349534832517363e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "energy_total": 2284.13350574673,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 8.301682481929648e-33,
+    "frac_harmonic": 2.656845965265965e-31
+   },
+   "cyclic_triads": {
+    "n_cyclic": 324,
+    "n_checked": 20409,
+    "frac_cyclic": 0.01587534911068646
+   }
+  },
+  "heldout": {
+   "R1_checker_10ch": {
+    "energy_total": 15945.583077724274,
+    "frac_grad": 1.0,
+    "frac_curl": 2.304424246528045e-33,
+    "frac_harmonic": 4.366047245264203e-31
+   },
+   "R2_checker_5ch": {
+    "energy_total": 15236.41865718453,
+    "frac_grad": 1.0,
+    "frac_curl": 2.5200255515671117e-33,
+    "frac_harmonic": 4.08299741537443e-31
+   },
+   "R4_ranker": {
+    "energy_total": 602.2974096900002,
+    "frac_grad": 1.0,
+    "frac_curl": 2.4888088205103317e-33,
+    "frac_harmonic": 4.717693227121467e-31
+   },
+   "R5_comparator": {
+    "energy_total": 504.09954112761363,
+    "frac_grad": 0.958478466475101,
+    "frac_curl": 0.04152153352489906,
+    "frac_harmonic": 3.4567185757238645e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "energy_total": 716.668588140392,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 7.405438136554349e-33,
+    "frac_harmonic": 3.118952966326499e-31
+   },
+   "cyclic_triads": {
+    "n_cyclic": 65,
+    "n_checked": 6030,
+    "frac_cyclic": 0.01077943615257048
+   }
+  },
+  "overall": {
+   "R1_checker_10ch": {
+    "energy_total": 38339.99165643653,
+    "frac_grad": 1.0,
+    "frac_curl": 2.395587032136193e-33,
+    "frac_harmonic": 3.926858048311788e-31
+   },
+   "R2_checker_5ch": {
+    "energy_total": 37087.117428488375,
+    "frac_grad": 0.9999999999999998,
+    "frac_curl": 2.57630299956465e-33,
+    "frac_harmonic": 3.7850856425648166e-31
+   },
+   "R4_ranker": {
+    "energy_total": 1587.6418334200007,
+    "frac_grad": 0.9999999999999999,
+    "frac_curl": 2.617224787063016e-33,
+    "frac_harmonic": 3.868765780085591e-31
+   },
+   "R5_comparator": {
+    "energy_total": 2452.394289559211,
+    "frac_grad": 0.9502583831537658,
+    "frac_curl": 0.04974161684623416,
+    "frac_harmonic": 3.4394273858270717e-31
+   },
+   "R5_fixed_channel_wrapper": {
+    "energy_total": 3000.802093887121,
+    "frac_grad": 1.0000000000000002,
+    "frac_curl": 8.08763632042591e-33,
+    "frac_harmonic": 2.7672089821055235e-31
+   },
+   "cyclic_triads": {
+    "n_cyclic": 389,
+    "n_checked": 26439,
+    "frac_cyclic": 0.01471311320397897
+   }
+  }
+ },
+ "channel_set_curl_prediction": {
+  "n_triangles_same_channel_set": 10190,
+  "n_triangles_different_channel_set": 16249,
+  "mean_abs_curl_same_channel_set": 5.624051392923507e-17,
+  "mean_abs_curl_different_channel_set": 0.26811192843677273,
+  "ratio_diff_over_same": "undefined -- same-channel-set curl is numerically zero (<1e-9); the entire curl signal is attributable to channel-set heterogeneity across the triangle's three comparisons",
+  "same_channel_set_curl_is_numerically_zero": true,
+  "prereg_prediction": ">= 1.5x higher on different-channel-set triangles"
+ },
+ "missing_nodes_by_target": {
+  "LiZnPO4": 1,
+  "LiMnPO4": 6,
+  "Li2CuP2O7": 1,
+  "LiMgPO4": 1,
+  "BaLiBO3": 2,
+  "SrLiBO3": 1,
+  "Li3Pr2(BO3)3": 2,
+  "K3LiP2O7": 2,
+  "Li3Sc2(PO4)3": 1,
+  "Li3V2(PO4)3": 6,
+  "KLi(PO3)2": 6,
+  "Li3Fe2(PO4)3": 4,
+  "BaNaBO3": 1,
+  "NaSrBO3": 4,
+  "K3Bi2(PO4)3": 2,
+  "KTiPO5": 2,
+  "K3Fe2(PO4)3": 1,
+  "KTa2PO8": 3,
+  "NaSiBO4": 3,
+  "KTiNbO5": 1,
+  "LiSi2BO6": 1,
+  "LiZnBO3": 2
+ }
+}

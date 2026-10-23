@@ -1,0 +1,73 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "G2",
+ "subproperty": "G2 groundwork: antisymmetry check on real ARROWS3 pairs (NOT the G1 pre-registered top-30-recipe graph -- that is results/phase17/hodge_comparator.json). Filed separately per regular Claude: this script verifies compare()/comparator_rule antisymmetry empirically on YBCO/LTOPO/NTMO lab pairs; no G2 triangle-curl decomposition against real yields has been run yet.",
+ "statement": "c(a,b) + c(b,a) should be exactly 0 for every ordered pair (R-a's symmetry axiom, applied to the pairwise comparator). Checker/ranker run first as a trivial control (any scalar-derived pairwise rule is antisymmetric by construction). R5 (comparator) is the real test -- its compare() claims exact antisymmetry by its own docstring/tests/test_comparator.py, but that test covers compare() directly, not the gate-wrapped comparator_rule() used throughout R5/R-f/R-g/Block G, which adds its own branching on top.",
+ "per_target": {
+  "YBCO": {
+   "pool_size": 200,
+   "R2_checker_control": {
+    "n_ordered_pairs": 39800,
+    "n_violations": 0,
+    "mean_energy_c_ab_plus_c_ba_squared": 0.0
+   },
+   "R4_ranker_control": {
+    "n_ordered_pairs": 39800,
+    "n_violations": 0,
+    "mean_energy_c_ab_plus_c_ba_squared": 0.0
+   },
+   "R5_comparator": {
+    "n_ordered_pairs_both_defined": 34250,
+    "n_both_gate_fail_excluded": 5550,
+    "n_violations": 0,
+    "mean_energy_c_ab_plus_c_ba_squared": 0.0,
+    "violation_examples": []
+   }
+  },
+  "LTOPO": {
+   "pool_size": 58,
+   "R2_checker_control": {
+    "n_ordered_pairs": 3306,
+    "n_violations": 0,
+    "mean_energy_c_ab_plus_c_ba_squared": 0.0
+   },
+   "R4_ranker_control": {
+    "n_ordered_pairs": 3306,
+    "n_violations": 0,
+    "mean_energy_c_ab_plus_c_ba_squared": 0.0
+   },
+   "R5_comparator": {
+    "n_ordered_pairs_both_defined": 3306,
+    "n_both_gate_fail_excluded": 0,
+    "n_violations": 0,
+    "mean_energy_c_ab_plus_c_ba_squared": 0.0,
+    "violation_examples": []
+   }
+  },
+  "NTMO": {
+   "pool_size": 18,
+   "R2_checker_control": {
+    "n_ordered_pairs": 306,
+    "n_violations": 0,
+    "mean_energy_c_ab_plus_c_ba_squared": 0.0
+   },
+   "R4_ranker_control": {
+    "n_ordered_pairs": 306,
+    "n_violations": 0,
+    "mean_energy_c_ab_plus_c_ba_squared": 0.0
+   },
+   "R5_comparator": {
+    "n_ordered_pairs_both_defined": 306,
+    "n_both_gate_fail_excluded": 0,
+    "n_violations": 0,
+    "mean_energy_c_ab_plus_c_ba_squared": 0.0,
+    "violation_examples": []
+   }
+  }
+ },
+ "verdict": {
+  "checker_ranker_controls_zero_violations": true,
+  "comparator_any_violation": false,
+  "interpretation": "R5 (comparator) shows ZERO antisymmetry violations across all three ARROWS3 pools -- comparator_rule (compare()'s margin plus the gate-failure wrapper) is exactly antisymmetric empirically, matching compare()'s own docstring claim and extending it to the gate-wrapped rule actually used throughout R5/R-f/R-g. The edge flow equals the raw margin unchanged -- no symmetric part to subtract. This does NOT by itself mean the comparator is curl-free (consistent with a global ranking): antisymmetry is necessary but not sufficient -- the real triangle-curl projection (does c(a,b)+c(b,c)+c(c,a) sum to zero over every triple?) is the next, separate G1 step."
+ }
+}
