@@ -211,5 +211,15 @@
   "checker_r2_on_rssft_samples_capacity_pct": 26.75,
   "ranker_r4_on_rssft_samples_capacity_pct": 46.31,
   "note": "This file's combined capacity_pct is R5's own first computed capacity number -- R5 was never trained, so there is no training-log capacity to compare against (unlike R1/R2/R4)."
+ },
+ "pairwise_to_persample_method": "NOT win-share, NOT Borda count. Each route's per-channel raw value (computed by calling the private _c2.._c7 methods directly, bypassing score_channels()'s gate) is percentile-ranked against the SAME global calibration table compare() itself uses (misc/comparator_scales_v2.json) -- this percentile rank IS the exact per-route building block of every pairwise margin that route would enter: compare(a,b) = sum_c [percentile_rank(c, raw_a) - percentile_rank(c, raw_b)]. Treating a route's own percentile-ranked channel vector as its 'score' for capacity_metrics is therefore not an invented reduction -- it is the literal per-route term the pairwise comparator already computes internally.",
+ "shapley_baseline": "Characteristic function for the 2-player Shapley game {Gate, Channels}: v(empty coalition)=0, v({Gate} alone)=0 (a gate that passes/fails contributes nothing on its own -- matches score()'s own convention that the gate ONLY ever multiplies, never adds), v({Channels} alone)=C (the channel-only value AS IF the gate always passed), v({Gate,Channels} together)=G*C (the real score). phi_gate=0.5*(G-1)*C, phi_channels=0.5*(G+1)*C sum to G*C for ANY C -- this is an algebraic identity of the chosen characteristic function, so the 'efficiency_check' field confirms the ARITHMETIC was implemented correctly, not that this characteristic function is the right model of how a gate and its channels jointly produce a decision. The independent CORRECTNESS check is comparing G*C against the reward actually returned by score()/compare() itself: exact for R6 (reward IS G*(0.5+0.5N) by definition, so this is tautological, not an independent check), near-exact (4.5e-05, float rounding) for R4 against ranker.score()'s literal output, and implicit-but-unverified-against-a-literal-call for R5 (compare()'s pairwise margin was checked analytically -- gate failure on either route zeroes every channel term in the real comparator -- but not resampled against a live compare() call the way R4 was against score()).",
+ "re_predictions": {
+  "c7_median_tie_prediction": {
+   "statement": "Pre-registered: R5's C7 (C7_gas_evolution) calibration set shows >50% median ties (finding-23-style MAD-collapse signature).",
+   "observed_C7_pct_tied_at_median": 1.9,
+   "passes": false,
+   "actual_finding": "C4_interface_count hit it instead (52.9% tied at median), not C7 (1.9%). Reported as a genuine non-matching finding, not forced to fit the prediction."
+  }
  }
 }

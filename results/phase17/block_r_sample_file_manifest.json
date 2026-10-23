@@ -1,0 +1,12 @@
+{
+ "rssft_reference_heldout.jsonl": {
+  "path": "data/novelty/rssft_reference_heldout.jsonl",
+  "sha256": "ff8884b775a7f6c289fa5f47a879195865081e51ef3520fa752fd5ca451f2ace"
+ },
+ "rssft_reference_astral.jsonl": {
+  "path": "data/novelty/rssft_reference_astral.jsonl",
+  "sha256": "6969034c9c5481a81d74a8cc52bb03410acfcac12678b660ccc271a1daf39fbb"
+ },
+ "identical_across_R2_R4_R5": true,
+ "note": "R2 (results/phase17/r2_checker_capacity_rssft.json), R4 (results/ranker_capacity.json + results/phase17/r4_gate_channel_shapley.json), and R5 (results/phase17/r5_comparator_capacity_rssft.json) all read these exact two paths with the sample_group=='resampling_rate' filter -- confirmed identical by construction (same hardcoded paths in each script) and here by sha256."
+}

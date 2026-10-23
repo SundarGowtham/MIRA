@@ -35,5 +35,58 @@
  "comparison_reference": {
   "r5_comparator_shapley_pct_pairs_gate_blocked": 11.98,
   "note": "R4 is a per-SAMPLE scalar decomposition (one Shapley split per route); R5's is per-PAIR (one split per within-group comparison), since the comparator itself is pairwise. Not directly numerically comparable, but both answer the same question: how much of this reward's output is actually the gate, not the scored channels."
- }
+ },
+ "tie_rate_check": {
+  "temperature_economy": {
+   "n_groups": 164,
+   "observed_tie_rate": 0.1402,
+   "predicted_tie_rate_from_pass_rates": 0.7788,
+   "agrees_within_5pp": false,
+   "share_targets_pass_rate_in_0.1_0.9": 0.2561
+  },
+  "driving_force_margin": {
+   "n_groups": 272,
+   "observed_tie_rate": 0.1066,
+   "predicted_tie_rate_from_pass_rates": 0.6197,
+   "agrees_within_5pp": false,
+   "share_targets_pass_rate_in_0.1_0.9": 0.4338
+  },
+  "volatility_risk": {
+   "n_groups": 220,
+   "observed_tie_rate": 0.1909,
+   "predicted_tie_rate_from_pass_rates": 0.6801,
+   "agrees_within_5pp": false,
+   "share_targets_pass_rate_in_0.1_0.9": 0.3773
+  },
+  "precursor_instability": {
+   "n_groups": 283,
+   "observed_tie_rate": 0.9223,
+   "predicted_tie_rate_from_pass_rates": 0.9834,
+   "agrees_within_5pp": false,
+   "share_targets_pass_rate_in_0.1_0.9": 0.0212
+  },
+  "n_precursors": {
+   "n_groups": 300,
+   "observed_tie_rate": 0.6833,
+   "predicted_tie_rate_from_pass_rates": 0.9677,
+   "agrees_within_5pp": false,
+   "share_targets_pass_rate_in_0.1_0.9": 0.04
+  },
+  "slice_competing_phases": {
+   "n_groups": 83,
+   "observed_tie_rate": 0.6747,
+   "predicted_tie_rate_from_pass_rates": 0.7521,
+   "agrees_within_5pp": false,
+   "share_targets_pass_rate_in_0.1_0.9": 0.2771
+  },
+  "precursor_decomposition_match": {
+   "n_groups": 206,
+   "observed_tie_rate": 0.0728,
+   "predicted_tie_rate_from_pass_rates": 0.6471,
+   "agrees_within_5pp": false,
+   "share_targets_pass_rate_in_0.1_0.9": 0.3932
+  }
+ },
+ "tie_rate_check_note": "Objectives are gate-free (channels_nogate), continuous on [0,1] by construction -- same generic-liveness-check caveat as R5's own tie-rate framing (binary pass/fail at 0.5 is not a natural cutoff for a continuous objective).",
+ "shapley_baseline": "Characteristic function for the 2-player Shapley game {Gate, Channels}: v(empty coalition)=0, v({Gate} alone)=0 (a gate that passes/fails contributes nothing on its own -- matches score()'s own convention that the gate ONLY ever multiplies, never adds), v({Channels} alone)=C (the channel-only value AS IF the gate always passed), v({Gate,Channels} together)=G*C (the real score). phi_gate=0.5*(G-1)*C, phi_channels=0.5*(G+1)*C sum to G*C for ANY C -- this is an algebraic identity of the chosen characteristic function, so the 'efficiency_check' field confirms the ARITHMETIC was implemented correctly, not that this characteristic function is the right model of how a gate and its channels jointly produce a decision. The independent CORRECTNESS check is comparing G*C against the reward actually returned by score()/compare() itself: exact for R6 (reward IS G*(0.5+0.5N) by definition, so this is tautological, not an independent check), near-exact (4.5e-05, float rounding) for R4 against ranker.score()'s literal output, and implicit-but-unverified-against-a-literal-call for R5 (compare()'s pairwise margin was checked analytically -- gate failure on either route zeroes every channel term in the real comparator -- but not resampled against a live compare() call the way R4 was against score())."
 }
