@@ -1,0 +1,1363 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R-g",
+ "subproperty": "Table 2 verdict",
+ "n_lo": 1,
+ "n_hi_default": 16,
+ "per_target": {
+  "YBCO": {
+   "pool_size": 200,
+   "all_temperatures": {
+    "R2_checker": {
+     "n_replicates": 1000,
+     "yield_n1": {
+      "mean": 23.1665,
+      "ci95": [
+       19.0145,
+       27.3097
+      ]
+     },
+     "yield_n16": {
+      "mean": 28.6705,
+      "ci95": [
+       23.1617,
+       34.159
+      ]
+     },
+     "diff": {
+      "mean": 5.5041,
+      "ci95": [
+       -0.836,
+       12.035
+      ]
+     },
+     "verdict": "no climb"
+    },
+    "R4_ranker": {
+     "n_replicates": 1000,
+     "yield_n1": {
+      "mean": 23.1665,
+      "ci95": [
+       19.0145,
+       27.3097
+      ]
+     },
+     "yield_n16": {
+      "mean": 37.7256,
+      "ci95": [
+       27.875,
+       48.0637
+      ]
+     },
+     "diff": {
+      "mean": 14.5591,
+      "ci95": [
+       4.265,
+       25.0047
+      ]
+     },
+     "verdict": "climbs"
+    },
+    "R5_comparator": {
+     "n_replicates": 1000,
+     "yield_n1": {
+      "mean": 23.1665,
+      "ci95": [
+       19.0145,
+       27.3097
+      ]
+     },
+     "yield_n16": {
+      "mean": 28.1258,
+      "ci95": [
+       19.8717,
+       38.7767
+      ]
+     },
+     "diff": {
+      "mean": 4.9593,
+      "ci95": [
+       -3.5157,
+       15.8448
+      ]
+     },
+     "verdict": "no climb"
+    }
+   },
+   "within_temperature_n_hi": 16,
+   "within_temperature_qualifying_strata": [
+    "600 C",
+    "700 C",
+    "800 C",
+    "900 C"
+   ],
+   "within_temperature_per_stratum": {
+    "600 C": {
+     "pool_size": 47,
+     "R2_checker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R4_ranker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R5_comparator": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     }
+    },
+    "700 C": {
+     "pool_size": 47,
+     "R2_checker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R4_ranker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R5_comparator": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     }
+    },
+    "800 C": {
+     "pool_size": 47,
+     "R2_checker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 25.2812,
+       "ci95": [
+        18.976,
+        31.939
+       ]
+      },
+      "yield_n16": {
+       "mean": 37.5102,
+       "ci95": [
+        23.3467,
+        53.41
+       ]
+      },
+      "diff": {
+       "mean": 12.2289,
+       "ci95": [
+        1.6125,
+        26.2215
+       ]
+      },
+      "verdict": "climbs"
+     },
+     "R4_ranker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 25.2812,
+       "ci95": [
+        18.976,
+        31.939
+       ]
+      },
+      "yield_n16": {
+       "mean": 36.0787,
+       "ci95": [
+        17.8583,
+        59.95
+       ]
+      },
+      "diff": {
+       "mean": 10.7975,
+       "ci95": [
+        -6.0,
+        33.8492
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R5_comparator": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 25.2812,
+       "ci95": [
+        18.976,
+        31.939
+       ]
+      },
+      "yield_n16": {
+       "mean": 21.1803,
+       "ci95": [
+        7.8283,
+        36.8483
+       ]
+      },
+      "diff": {
+       "mean": -4.101,
+       "ci95": [
+        -15.447,
+        9.2773
+       ]
+      },
+      "verdict": "no climb"
+     }
+    },
+    "900 C": {
+     "pool_size": 47,
+     "R2_checker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 63.4647,
+       "ci95": [
+        55.0783,
+        72.375
+       ]
+      },
+      "yield_n16": {
+       "mean": 69.5155,
+       "ci95": [
+        59.6707,
+        81.5327
+       ]
+      },
+      "diff": {
+       "mean": 6.0507,
+       "ci95": [
+        -4.2213,
+        17.7265
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R4_ranker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 63.4647,
+       "ci95": [
+        55.0783,
+        72.375
+       ]
+      },
+      "yield_n16": {
+       "mean": 79.122,
+       "ci95": [
+        59.952,
+        95.0133
+       ]
+      },
+      "diff": {
+       "mean": 15.6573,
+       "ci95": [
+        -2.7192,
+        30.915
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R5_comparator": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 63.4647,
+       "ci95": [
+        55.0783,
+        72.375
+       ]
+      },
+      "yield_n16": {
+       "mean": 65.3937,
+       "ci95": [
+        44.4643,
+        86.8833
+       ]
+      },
+      "diff": {
+       "mean": 1.9289,
+       "ci95": [
+        -14.9333,
+        18.8473
+       ]
+      },
+      "verdict": "no climb"
+     }
+    }
+   },
+   "within_temperature_pooled_over_strata": {
+    "R2_checker": {
+     "n_replicates": 4000,
+     "yield_n1": {
+      "mean": 22.1865,
+      "ci95": [
+       0.0,
+       68.9903
+      ]
+     },
+     "yield_n16": {
+      "mean": 26.7564,
+      "ci95": [
+       0.0,
+       76.565
+      ]
+     },
+     "diff": {
+      "mean": 4.5699,
+      "ci95": [
+       -1.113,
+       20.666
+      ]
+     },
+     "verdict": "no climb"
+    },
+    "R4_ranker": {
+     "n_replicates": 4000,
+     "yield_n1": {
+      "mean": 22.1865,
+      "ci95": [
+       0.0,
+       68.9903
+      ]
+     },
+     "yield_n16": {
+      "mean": 28.8002,
+      "ci95": [
+       0.0,
+       91.0783
+      ]
+     },
+     "diff": {
+      "mean": 6.6137,
+      "ci95": [
+       -3.0,
+       29.451
+      ]
+     },
+     "verdict": "no climb"
+    },
+    "R5_comparator": {
+     "n_replicates": 4000,
+     "yield_n1": {
+      "mean": 22.1865,
+      "ci95": [
+       0.0,
+       68.9903
+      ]
+     },
+     "yield_n16": {
+      "mean": 21.6435,
+      "ci95": [
+       0.0,
+       79.3063
+      ]
+     },
+     "diff": {
+      "mean": -0.543,
+      "ci95": [
+       -13.3507,
+       13.3947
+      ]
+     },
+     "verdict": "no climb"
+    }
+   }
+  },
+  "LTOPO": {
+   "pool_size": 58,
+   "all_temperatures": {
+    "R2_checker": {
+     "n_replicates": 1000,
+     "yield_n1": {
+      "mean": 12.8043,
+      "ci95": [
+       9.84,
+       15.9133
+      ]
+     },
+     "yield_n16": {
+      "mean": 12.2012,
+      "ci95": [
+       9.0667,
+       16.2467
+      ]
+     },
+     "diff": {
+      "mean": -0.6031,
+      "ci95": [
+       -5.0333,
+       4.3267
+      ]
+     },
+     "verdict": "no climb"
+    },
+    "R4_ranker": {
+     "n_replicates": 1000,
+     "yield_n1": {
+      "mean": 12.8043,
+      "ci95": [
+       9.84,
+       15.9133
+      ]
+     },
+     "yield_n16": {
+      "mean": 31.8727,
+      "ci95": [
+       14.8633,
+       44.68
+      ]
+     },
+     "diff": {
+      "mean": 19.0684,
+      "ci95": [
+       1.8633,
+       32.0733
+      ]
+     },
+     "verdict": "climbs"
+    },
+    "R5_comparator": {
+     "n_replicates": 1000,
+     "yield_n1": {
+      "mean": 12.8043,
+      "ci95": [
+       9.84,
+       15.9133
+      ]
+     },
+     "yield_n16": {
+      "mean": 19.4861,
+      "ci95": [
+       12.32,
+       28.6833
+      ]
+     },
+     "diff": {
+      "mean": 6.6817,
+      "ci95": [
+       -1.6033,
+       16.2767
+      ]
+     },
+     "verdict": "no climb"
+    }
+   },
+   "within_temperature_n_hi": 8,
+   "within_temperature_qualifying_strata": [
+    "400 C",
+    "500 C",
+    "600 C",
+    "700 C"
+   ],
+   "within_temperature_per_stratum": {
+    "400 C": {
+     "pool_size": 15,
+     "R2_checker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R4_ranker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R5_comparator": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     }
+    },
+    "500 C": {
+     "pool_size": 15,
+     "R2_checker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R4_ranker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R5_comparator": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     }
+    },
+    "600 C": {
+     "pool_size": 14,
+     "R2_checker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R4_ranker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R5_comparator": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "yield_n16": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "diff": {
+       "mean": 0.0,
+       "ci95": [
+        0.0,
+        0.0
+       ]
+      },
+      "verdict": "no climb"
+     }
+    },
+    "700 C": {
+     "pool_size": 14,
+     "R2_checker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 53.1269,
+       "ci95": [
+        46.4933,
+        60.2333
+       ]
+      },
+      "yield_n16": {
+       "mean": 50.4174,
+       "ci95": [
+        41.8867,
+        62.4733
+       ]
+      },
+      "diff": {
+       "mean": -2.7095,
+       "ci95": [
+        -12.5267,
+        8.3433
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R4_ranker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 53.1269,
+       "ci95": [
+        46.4933,
+        60.2333
+       ]
+      },
+      "yield_n16": {
+       "mean": 53.8035,
+       "ci95": [
+        48.2667,
+        62.4267
+       ]
+      },
+      "diff": {
+       "mean": 0.6766,
+       "ci95": [
+        -8.2033,
+        11.3067
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R5_comparator": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 53.1269,
+       "ci95": [
+        46.4933,
+        60.2333
+       ]
+      },
+      "yield_n16": {
+       "mean": 51.6584,
+       "ci95": [
+        41.5433,
+        62.9933
+       ]
+      },
+      "diff": {
+       "mean": -1.4685,
+       "ci95": [
+        -10.0433,
+        7.6233
+       ]
+      },
+      "verdict": "no climb"
+     }
+    }
+   },
+   "within_temperature_pooled_over_strata": {
+    "R2_checker": {
+     "n_replicates": 4000,
+     "yield_n1": {
+      "mean": 13.2817,
+      "ci95": [
+       0.0,
+       57.8567
+      ]
+     },
+     "yield_n16": {
+      "mean": 12.6043,
+      "ci95": [
+       0.0,
+       57.3867
+      ]
+     },
+     "diff": {
+      "mean": -0.6774,
+      "ci95": [
+       -9.17,
+       4.33
+      ]
+     },
+     "verdict": "no climb"
+    },
+    "R4_ranker": {
+     "n_replicates": 4000,
+     "yield_n1": {
+      "mean": 13.2817,
+      "ci95": [
+       0.0,
+       57.8567
+      ]
+     },
+     "yield_n16": {
+      "mean": 13.4509,
+      "ci95": [
+       0.0,
+       60.28
+      ]
+     },
+     "diff": {
+      "mean": 0.1692,
+      "ci95": [
+       -5.5367,
+       7.6667
+      ]
+     },
+     "verdict": "no climb"
+    },
+    "R5_comparator": {
+     "n_replicates": 4000,
+     "yield_n1": {
+      "mean": 13.2817,
+      "ci95": [
+       0.0,
+       57.8567
+      ]
+     },
+     "yield_n16": {
+      "mean": 12.9146,
+      "ci95": [
+       0.0,
+       59.4067
+      ]
+     },
+     "diff": {
+      "mean": -0.3671,
+      "ci95": [
+       -7.2267,
+       4.5867
+      ]
+     },
+     "verdict": "no climb"
+    }
+   }
+  },
+  "NTMO": {
+   "pool_size": 18,
+   "all_temperatures": {
+    "R2_checker": {
+     "n_replicates": 927,
+     "yield_n1": {
+      "mean": 22.8117,
+      "ci95": [
+       13.0167,
+       32.1633
+      ]
+     },
+     "yield_n16": {
+      "mean": 17.5349,
+      "ci95": [
+       3.2667,
+       33.5333
+      ]
+     },
+     "diff": {
+      "mean": -5.2767,
+      "ci95": [
+       -18.3967,
+       5.9367
+      ]
+     },
+     "verdict": "no climb"
+    },
+    "R4_ranker": {
+     "n_replicates": 927,
+     "yield_n1": {
+      "mean": 22.8117,
+      "ci95": [
+       13.0167,
+       32.1633
+      ]
+     },
+     "yield_n16": {
+      "mean": 22.9916,
+      "ci95": [
+       0.0,
+       46.0
+      ]
+     },
+     "diff": {
+      "mean": 0.1799,
+      "ci95": [
+       -20.3267,
+       22.1067
+      ]
+     },
+     "verdict": "no climb"
+    },
+    "R5_comparator": {
+     "n_replicates": 927,
+     "yield_n1": {
+      "mean": 22.8117,
+      "ci95": [
+       13.0167,
+       32.1633
+      ]
+     },
+     "yield_n16": {
+      "mean": 19.3619,
+      "ci95": [
+       0.0,
+       52.9067
+      ]
+     },
+     "diff": {
+      "mean": -3.4497,
+      "ci95": [
+       -24.8133,
+       27.7933
+      ]
+     },
+     "verdict": "no climb"
+    }
+   },
+   "within_temperature_n_hi": 8,
+   "within_temperature_qualifying_strata": [
+    "400 C"
+   ],
+   "within_temperature_per_stratum": {
+    "400 C": {
+     "pool_size": 13,
+     "R2_checker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 31.7891,
+       "ci95": [
+        18.0533,
+        45.8233
+       ]
+      },
+      "yield_n16": {
+       "mean": 27.1867,
+       "ci95": [
+        5.7467,
+        50.3667
+       ]
+      },
+      "diff": {
+       "mean": -4.6024,
+       "ci95": [
+        -20.7867,
+        11.29
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R4_ranker": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 31.7891,
+       "ci95": [
+        18.0533,
+        45.8233
+       ]
+      },
+      "yield_n16": {
+       "mean": 29.5492,
+       "ci95": [
+        0.2333,
+        46.0967
+       ]
+      },
+      "diff": {
+       "mean": -2.2399,
+       "ci95": [
+        -28.2433,
+        16.82
+       ]
+      },
+      "verdict": "no climb"
+     },
+     "R5_comparator": {
+      "n_replicates": 1000,
+      "yield_n1": {
+       "mean": 31.7891,
+       "ci95": [
+        18.0533,
+        45.8233
+       ]
+      },
+      "yield_n16": {
+       "mean": 29.0277,
+       "ci95": [
+        2.53,
+        57.8333
+       ]
+      },
+      "diff": {
+       "mean": -2.7614,
+       "ci95": [
+        -22.5567,
+        19.8
+       ]
+      },
+      "verdict": "no climb"
+     }
+    }
+   },
+   "within_temperature_pooled_over_strata": {
+    "R2_checker": {
+     "n_replicates": 1000,
+     "yield_n1": {
+      "mean": 31.7891,
+      "ci95": [
+       18.0533,
+       45.8233
+      ]
+     },
+     "yield_n16": {
+      "mean": 27.1867,
+      "ci95": [
+       5.7467,
+       50.3667
+      ]
+     },
+     "diff": {
+      "mean": -4.6024,
+      "ci95": [
+       -20.7867,
+       11.29
+      ]
+     },
+     "verdict": "no climb"
+    },
+    "R4_ranker": {
+     "n_replicates": 1000,
+     "yield_n1": {
+      "mean": 31.7891,
+      "ci95": [
+       18.0533,
+       45.8233
+      ]
+     },
+     "yield_n16": {
+      "mean": 29.5492,
+      "ci95": [
+       0.2333,
+       46.0967
+      ]
+     },
+     "diff": {
+      "mean": -2.2399,
+      "ci95": [
+       -28.2433,
+       16.82
+      ]
+     },
+     "verdict": "no climb"
+    },
+    "R5_comparator": {
+     "n_replicates": 1000,
+     "yield_n1": {
+      "mean": 31.7891,
+      "ci95": [
+       18.0533,
+       45.8233
+      ]
+     },
+     "yield_n16": {
+      "mean": 29.0277,
+      "ci95": [
+       2.53,
+       57.8333
+      ]
+     },
+     "diff": {
+      "mean": -2.7614,
+      "ci95": [
+       -22.5567,
+       19.8
+      ]
+     },
+     "verdict": "no climb"
+    }
+   }
+  }
+ },
+ "pooled_over_targets": {
+  "all_temperatures": {
+   "R2_checker": {
+    "n_replicates": 2927,
+    "yield_n1": {
+     "mean": 19.5139,
+     "ci95": [
+      10.5367,
+      30.0733
+     ]
+    },
+    "yield_n16": {
+     "mean": 19.5171,
+     "ci95": [
+      7.66,
+      33.3583
+     ]
+    },
+    "diff": {
+     "mean": 0.0032,
+     "ci95": [
+      -13.8367,
+      10.344
+     ]
+    },
+    "verdict": "no climb"
+   },
+   "R4_ranker": {
+    "n_replicates": 2927,
+    "yield_n1": {
+     "mean": 19.5139,
+     "ci95": [
+      10.5367,
+      30.0733
+     ]
+    },
+    "yield_n16": {
+     "mean": 31.0596,
+     "ci95": [
+      7.7733,
+      46.09
+     ]
+    },
+    "diff": {
+     "mean": 11.5457,
+     "ci95": [
+      -13.89,
+      29.4033
+     ]
+    },
+    "verdict": "no climb"
+   },
+   "R5_comparator": {
+    "n_replicates": 2927,
+    "yield_n1": {
+     "mean": 19.5139,
+     "ci95": [
+      10.5367,
+      30.0733
+     ]
+    },
+    "yield_n16": {
+     "mean": 22.3985,
+     "ci95": [
+      0.0,
+      48.2367
+     ]
+    },
+    "diff": {
+     "mean": 2.8846,
+     "ci95": [
+      -20.4833,
+      20.7007
+     ]
+    },
+    "verdict": "no climb"
+   }
+  },
+  "within_temperature": {
+   "R2_checker": {
+    "n_replicates": 9000,
+    "yield_n1": {
+     "mean": 19.2958,
+     "ci95": [
+      0.0,
+      66.773
+     ]
+    },
+    "yield_n16": {
+     "mean": 20.5144,
+     "ci95": [
+      0.0,
+      73.9547
+     ]
+    },
+    "diff": {
+     "mean": 1.2186,
+     "ci95": [
+      -11.66,
+      17.4227
+     ]
+    },
+    "verdict": "no climb"
+   },
+   "R4_ranker": {
+    "n_replicates": 9000,
+    "yield_n1": {
+     "mean": 19.2958,
+     "ci95": [
+      0.0,
+      66.773
+     ]
+    },
+    "yield_n16": {
+     "mean": 22.0615,
+     "ci95": [
+      0.0,
+      86.776
+     ]
+    },
+    "diff": {
+     "mean": 2.7657,
+     "ci95": [
+      -11.1433,
+      25.8683
+     ]
+    },
+    "verdict": "no climb"
+   },
+   "R5_comparator": {
+    "n_replicates": 9000,
+    "yield_n1": {
+     "mean": 19.2958,
+     "ci95": [
+      0.0,
+      66.773
+     ]
+    },
+    "yield_n16": {
+     "mean": 18.5844,
+     "ci95": [
+      0.0,
+      73.1867
+     ]
+    },
+    "diff": {
+     "mean": -0.7113,
+     "ci95": [
+      -14.8882,
+      12.5967
+     ]
+    },
+    "verdict": "no climb"
+   }
+  },
+  "note": "within_temperature pooling mixes targets whose n_hi differs (YBCO reaches 16 on 4/5 strata; LTOPO/NTMO cap at 8) -- an equal-weight concatenation of whatever n_hi each qualifying stratum supports, not a single matched n. Per-target rows above give the matched-n detail."
+ }
+}

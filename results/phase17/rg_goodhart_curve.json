@@ -1,0 +1,519 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R",
+ "subproperty": "R-g (Goodhart curve: best-of-n as a free simulation of practice)",
+ "seed": 20261016,
+ "n_draws_per_n": 2000,
+ "n_values": [
+  1,
+  2,
+  4,
+  8,
+  16
+ ],
+ "targets": [
+  "YBCO",
+  "LTOPO",
+  "NTMO"
+ ],
+ "pool_sizes": {
+  "YBCO": 200,
+  "LTOPO": 58,
+  "NTMO": 18
+ },
+ "r5_scalar_method_note": "R5 (comparator) has no native per-sample scalar; best-of-n here uses a Copeland score (count of pairwise wins via comparator_rule against the other n-1 draws in THIS specific sample, ties=0.5) -- a documented simplification, not Block G's rigorous Hodge-gradient scalar.",
+ "curve": {
+  "R2_checker": {
+   "1": {
+    "n_draws": 6000,
+    "kl_bound": 0.0,
+    "mean": 18.8473,
+    "ci95": [
+     18.1627,
+     19.516
+    ]
+   },
+   "2": {
+    "n_draws": 6000,
+    "kl_bound": 0.1931,
+    "mean": 20.834,
+    "ci95": [
+     20.1334,
+     21.5366
+    ]
+   },
+   "4": {
+    "n_draws": 6000,
+    "kl_bound": 0.6363,
+    "mean": 21.2992,
+    "ci95": [
+     20.5763,
+     22.0047
+    ]
+   },
+   "8": {
+    "n_draws": 6000,
+    "kl_bound": 1.2044,
+    "mean": 21.5493,
+    "ci95": [
+     20.8508,
+     22.266
+    ]
+   },
+   "16": {
+    "n_draws": 6000,
+    "kl_bound": 1.8351,
+    "mean": 19.772,
+    "ci95": [
+     19.0864,
+     20.4672
+    ]
+   }
+  },
+  "R4_ranker": {
+   "1": {
+    "n_draws": 6000,
+    "kl_bound": 0.0,
+    "mean": 18.8473,
+    "ci95": [
+     18.1627,
+     19.516
+    ]
+   },
+   "2": {
+    "n_draws": 6000,
+    "kl_bound": 0.1931,
+    "mean": 19.8617,
+    "ci95": [
+     19.1679,
+     20.5599
+    ]
+   },
+   "4": {
+    "n_draws": 6000,
+    "kl_bound": 0.6363,
+    "mean": 21.5714,
+    "ci95": [
+     20.8634,
+     22.2855
+    ]
+   },
+   "8": {
+    "n_draws": 6000,
+    "kl_bound": 1.2044,
+    "mean": 24.0421,
+    "ci95": [
+     23.3519,
+     24.7651
+    ]
+   },
+   "16": {
+    "n_draws": 6000,
+    "kl_bound": 1.8351,
+    "mean": 27.1056,
+    "ci95": [
+     26.3464,
+     27.8357
+    ]
+   }
+  },
+  "R5_comparator": {
+   "1": {
+    "n_draws": 6000,
+    "kl_bound": 0.0,
+    "mean": 18.8473,
+    "ci95": [
+     18.1627,
+     19.516
+    ]
+   },
+   "2": {
+    "n_draws": 6000,
+    "kl_bound": 0.1931,
+    "mean": 18.8767,
+    "ci95": [
+     18.1877,
+     19.5696
+    ]
+   },
+   "4": {
+    "n_draws": 6000,
+    "kl_bound": 0.6363,
+    "mean": 19.289,
+    "ci95": [
+     18.5822,
+     19.9985
+    ]
+   },
+   "8": {
+    "n_draws": 6000,
+    "kl_bound": 1.2044,
+    "mean": 21.6864,
+    "ci95": [
+     20.9629,
+     22.4222
+    ]
+   },
+   "16": {
+    "n_draws": 6000,
+    "kl_bound": 1.8351,
+    "mean": 23.2401,
+    "ci95": [
+     22.5358,
+     23.946
+    ]
+   }
+  },
+  "carbonate_free": {
+   "1": {
+    "n_draws": 6000,
+    "kl_bound": 0.0,
+    "mean": 18.8473,
+    "ci95": [
+     18.1627,
+     19.516
+    ]
+   },
+   "2": {
+    "n_draws": 6000,
+    "kl_bound": 0.1931,
+    "mean": 18.2747,
+    "ci95": [
+     17.5891,
+     18.9687
+    ]
+   },
+   "4": {
+    "n_draws": 6000,
+    "kl_bound": 0.6363,
+    "mean": 19.0307,
+    "ci95": [
+     18.3203,
+     19.7196
+    ]
+   },
+   "8": {
+    "n_draws": 6000,
+    "kl_bound": 1.2044,
+    "mean": 18.9055,
+    "ci95": [
+     18.226,
+     19.6036
+    ]
+   },
+   "16": {
+    "n_draws": 6000,
+    "kl_bound": 1.8351,
+    "mean": 18.8843,
+    "ci95": [
+     18.1932,
+     19.5773
+    ]
+   }
+  },
+  "random": {
+   "1": {
+    "n_draws": 6000,
+    "kl_bound": 0.0,
+    "mean": 18.8473,
+    "ci95": [
+     18.1627,
+     19.516
+    ]
+   },
+   "2": {
+    "n_draws": 6000,
+    "kl_bound": 0.1931,
+    "mean": 19.8099,
+    "ci95": [
+     19.121,
+     20.517
+    ]
+   },
+   "4": {
+    "n_draws": 6000,
+    "kl_bound": 0.6363,
+    "mean": 19.3592,
+    "ci95": [
+     18.6546,
+     20.0613
+    ]
+   },
+   "8": {
+    "n_draws": 6000,
+    "kl_bound": 1.2044,
+    "mean": 19.9143,
+    "ci95": [
+     19.2225,
+     20.5962
+    ]
+   },
+   "16": {
+    "n_draws": 6000,
+    "kl_bound": 1.8351,
+    "mean": 19.4152,
+    "ci95": [
+     18.749,
+     20.1023
+    ]
+   }
+  },
+  "oracle": {
+   "1": {
+    "n_draws": 6000,
+    "kl_bound": 0.0,
+    "mean": 18.8473,
+    "ci95": [
+     18.1627,
+     19.516
+    ]
+   },
+   "2": {
+    "n_draws": 6000,
+    "kl_bound": 0.1931,
+    "mean": 33.002,
+    "ci95": [
+     32.2572,
+     33.7612
+    ]
+   },
+   "4": {
+    "n_draws": 6000,
+    "kl_bound": 0.6363,
+    "mean": 48.9205,
+    "ci95": [
+     48.2453,
+     49.6122
+    ]
+   },
+   "8": {
+    "n_draws": 6000,
+    "kl_bound": 1.2044,
+    "mean": 63.0531,
+    "ci95": [
+     62.5359,
+     63.5549
+    ]
+   },
+   "16": {
+    "n_draws": 6000,
+    "kl_bound": 1.8351,
+    "mean": 71.6335,
+    "ci95": [
+     71.242,
+     72.0297
+    ]
+   }
+  }
+ },
+ "prediction_check": {
+  "statement": "At every n, the CIs of R2 and R4 overlap the carbonate-free rule's.",
+  "rows": [
+   {
+    "n": 1,
+    "method": "R2_checker",
+    "overlaps_carbonate_free": true
+   },
+   {
+    "n": 1,
+    "method": "R4_ranker",
+    "overlaps_carbonate_free": true
+   },
+   {
+    "n": 2,
+    "method": "R2_checker",
+    "overlaps_carbonate_free": false
+   },
+   {
+    "n": 2,
+    "method": "R4_ranker",
+    "overlaps_carbonate_free": false
+   },
+   {
+    "n": 4,
+    "method": "R2_checker",
+    "overlaps_carbonate_free": false
+   },
+   {
+    "n": 4,
+    "method": "R4_ranker",
+    "overlaps_carbonate_free": false
+   },
+   {
+    "n": 8,
+    "method": "R2_checker",
+    "overlaps_carbonate_free": false
+   },
+   {
+    "n": 8,
+    "method": "R4_ranker",
+    "overlaps_carbonate_free": false
+   },
+   {
+    "n": 16,
+    "method": "R2_checker",
+    "overlaps_carbonate_free": true
+   },
+   {
+    "n": 16,
+    "method": "R4_ranker",
+    "overlaps_carbonate_free": false
+   }
+  ],
+  "n_pass": 3,
+  "n_total": 10,
+  "passes": false
+ },
+ "exploratory_turn_down_E": {
+  "R2_checker": {
+   "values_by_n": [
+    [
+     1,
+     18.8473
+    ],
+    [
+     2,
+     20.834
+    ],
+    [
+     4,
+     21.2992
+    ],
+    [
+     8,
+     21.5493
+    ],
+    [
+     16,
+     19.772
+    ]
+   ],
+   "turns_down_anywhere": true
+  },
+  "R4_ranker": {
+   "values_by_n": [
+    [
+     1,
+     18.8473
+    ],
+    [
+     2,
+     19.8617
+    ],
+    [
+     4,
+     21.5714
+    ],
+    [
+     8,
+     24.0421
+    ],
+    [
+     16,
+     27.1056
+    ]
+   ],
+   "turns_down_anywhere": false
+  },
+  "R5_comparator": {
+   "values_by_n": [
+    [
+     1,
+     18.8473
+    ],
+    [
+     2,
+     18.8767
+    ],
+    [
+     4,
+     19.289
+    ],
+    [
+     8,
+     21.6864
+    ],
+    [
+     16,
+     23.2401
+    ]
+   ],
+   "turns_down_anywhere": false
+  },
+  "carbonate_free": {
+   "values_by_n": [
+    [
+     1,
+     18.8473
+    ],
+    [
+     2,
+     18.2747
+    ],
+    [
+     4,
+     19.0307
+    ],
+    [
+     8,
+     18.9055
+    ],
+    [
+     16,
+     18.8843
+    ]
+   ],
+   "turns_down_anywhere": true
+  },
+  "random": {
+   "values_by_n": [
+    [
+     1,
+     18.8473
+    ],
+    [
+     2,
+     19.8099
+    ],
+    [
+     4,
+     19.3592
+    ],
+    [
+     8,
+     19.9143
+    ],
+    [
+     16,
+     19.4152
+    ]
+   ],
+   "turns_down_anywhere": true
+  },
+  "oracle": {
+   "values_by_n": [
+    [
+     1,
+     18.8473
+    ],
+    [
+     2,
+     33.002
+    ],
+    [
+     4,
+     48.9205
+    ],
+    [
+     8,
+     63.0531
+    ],
+    [
+     16,
+     71.6335
+    ]
+   ],
+   "turns_down_anywhere": false
+  }
+ }
+}

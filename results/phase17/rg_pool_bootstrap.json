@@ -1,0 +1,2539 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R",
+ "subproperty": "R-g follow-up (pool bootstrap, within-temperature control, per-target curves)",
+ "cross_reference": "results/phase17/rg_goodhart_curve.json",
+ "seed": 20261016,
+ "deviation_note": "Nominal convention is 10,000 bootstrap resamples; this uses a NESTED design (resample the pool, THEN redraw best-of-n from it), which is combinatorially heavier than a flat resample. Used N_BOOT_POOL=1000 outer x N_DRAWS_INNER=300 inner draws per (target,n,method) -- a documented reduction from 10,000, made tractable chiefly by precomputing each target's full pairwise comparator win-matrix ONCE instead of per-draw.",
+ "per_target": {
+  "YBCO": {
+   "pool_size": 200,
+   "carbonate_free_pool_share": 0.695,
+   "fresh_curve_per_target_c": {
+    "1": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 22.6964
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 22.6964
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 22.6964
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 22.6964
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 22.6964
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 22.6964
+     },
+     "carbonate_free_tie_share": 0.0
+    },
+    "2": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 25.2339
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 24.94
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 23.681
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 24.3342
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 23.3723
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 39.2484
+     },
+     "carbonate_free_tie_share": 0.5845
+    },
+    "4": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 26.2552
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 27.1568
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 23.7171
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 25.7611
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 23.6945
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 57.6944
+     },
+     "carbonate_free_tie_share": 0.2445
+    },
+    "8": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 27.4474
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 29.9358
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 26.7467
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 24.9681
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 23.0133
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 75.6687
+     },
+     "carbonate_free_tie_share": 0.047
+    },
+    "16": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 27.9415
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 36.8417
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 28.1429
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 24.8468
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 22.3671
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 88.0319
+     },
+     "carbonate_free_tie_share": 0.002
+    }
+   },
+   "pool_bootstrap_ci_a": {
+    "1": {
+     "R2_checker": {
+      "mean": 23.1981,
+      "ci95": [
+       18.8325,
+       27.916
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 23.1981,
+      "ci95": [
+       18.8325,
+       27.916
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 23.1981,
+      "ci95": [
+       18.8325,
+       27.916
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 23.1981,
+      "ci95": [
+       18.8325,
+       27.916
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 23.1981,
+      "ci95": [
+       18.8325,
+       27.916
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 23.1981,
+      "ci95": [
+       18.8325,
+       27.916
+      ],
+      "n": 1000
+     }
+    },
+    "2": {
+     "R2_checker": {
+      "mean": 25.2951,
+      "ci95": [
+       20.5558,
+       30.1457
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 24.4663,
+      "ci95": [
+       19.7153,
+       29.5883
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 23.6629,
+      "ci95": [
+       19.0027,
+       28.4667
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 24.1736,
+      "ci95": [
+       19.5113,
+       29.386
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 23.1034,
+      "ci95": [
+       18.5712,
+       27.6725
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 38.8287,
+      "ci95": [
+       33.3763,
+       44.7427
+      ],
+      "n": 1000
+     }
+    },
+    "4": {
+     "R2_checker": {
+      "mean": 26.9578,
+      "ci95": [
+       22.2193,
+       32.0857
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 27.0734,
+      "ci95": [
+       21.3317,
+       32.8833
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 24.9054,
+      "ci95": [
+       19.5755,
+       30.5027
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 24.6064,
+      "ci95": [
+       19.9598,
+       29.6182
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 23.1975,
+      "ci95": [
+       18.7865,
+       27.6132
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 57.762,
+      "ci95": [
+       51.8487,
+       63.6972
+      ],
+      "n": 1000
+     }
+    },
+    "8": {
+     "R2_checker": {
+      "mean": 28.2385,
+      "ci95": [
+       22.7303,
+       34.0833
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 31.4941,
+      "ci95": [
+       24.215,
+       39.377
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 27.0605,
+      "ci95": [
+       20.918,
+       35.1833
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 24.7356,
+      "ci95": [
+       19.8043,
+       29.858
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 23.2026,
+      "ci95": [
+       18.7583,
+       27.934
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 75.0246,
+      "ci95": [
+       68.5303,
+       81.2028
+      ],
+      "n": 1000
+     }
+    },
+    "16": {
+     "R2_checker": {
+      "mean": 28.8551,
+      "ci95": [
+       23.4717,
+       35.566
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 37.7284,
+      "ci95": [
+       28.2827,
+       48.3383
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 28.3677,
+      "ci95": [
+       20.4883,
+       38.7553
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 24.7501,
+      "ci95": [
+       20.293,
+       29.6873
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 23.2462,
+      "ci95": [
+       19.1895,
+       28.052
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 87.8845,
+      "ci95": [
+       81.0242,
+       93.1057
+      ],
+      "n": 1000
+     }
+    }
+   },
+   "within_temperature_E_b": {
+    "600 C": {
+     "pool_size": 47,
+     "curve": {
+      "1": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "2": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "4": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "8": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "16": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      }
+     }
+    },
+    "700 C": {
+     "pool_size": 47,
+     "curve": {
+      "1": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "2": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "4": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "8": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "16": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      }
+     }
+    },
+    "800 C": {
+     "pool_size": 47,
+     "curve": {
+      "1": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 28.2297
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 28.2297
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 28.2297
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 28.2297
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 28.2297
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 28.2297
+       }
+      },
+      "2": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 28.1143
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 26.2695
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 21.9282
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 25.1177
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 24.1405
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 36.3083
+       }
+      },
+      "4": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 31.2187
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 30.0773
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 20.9425
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 26.5952
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 25.7412
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 48.4892
+       }
+      },
+      "8": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 38.8133
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 36.5933
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 20.845
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 27.7213
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 23.6887
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 60.6772
+       }
+      },
+      "16": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 36.2983
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 34.3017
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 21.445
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 27.6647
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 23.7168
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 71.3717
+       }
+      }
+     }
+    },
+    "900 C": {
+     "pool_size": 47,
+     "curve": {
+      "1": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 63.6648
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 63.6648
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 63.6648
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 63.6648
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 63.6648
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 63.6648
+       }
+      },
+      "2": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 67.2038
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 66.0735
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 66.9662
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 70.4285
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 65.332
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 80.015
+       }
+      },
+      "4": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 67.6737
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 69.6907
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 65.3948
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 73.0277
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 61.1487
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 91.1305
+       }
+      },
+      "8": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 68.1713
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 72.4703
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 68.862
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 68.395
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 61.765
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 97.1867
+       }
+      },
+      "16": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 70.5533
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 81.1273
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 65.507
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 69.4978
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 62.0597
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 99.94
+       }
+      }
+     }
+    },
+    "1000 C": {
+     "pool_size": 12,
+     "curve": {
+      "1": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 38.4983
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 38.4983
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 38.4983
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 38.4983
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 38.4983
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 38.4983
+       }
+      },
+      "2": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 42.6833
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 41.8
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 42.0767
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 39.7
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 37.7883
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 45.9667
+       }
+      },
+      "4": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 43.4067
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 44.0667
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 47.515
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 42.8383
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 37.505
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 53.9383
+       }
+      },
+      "8": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 41.5267
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 42.4233
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 51.1533
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 44.28
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 37.6783
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 60.0767
+       }
+      }
+     }
+    }
+   }
+  },
+  "LTOPO": {
+   "pool_size": 58,
+   "carbonate_free_pool_share": 0.7931,
+   "fresh_curve_per_target_c": {
+    "1": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 13.8785
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 13.8785
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 13.8785
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 13.8785
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 13.8785
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 13.8785
+     },
+     "carbonate_free_tie_share": 0.0
+    },
+    "2": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 17.7445
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 16.1395
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 14.3615
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 12.451
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 13.42
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 23.473
+     },
+     "carbonate_free_tie_share": 0.6725
+    },
+    "4": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 19.7405
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 17.309
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 16.3605
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 11.516
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 13.6675
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 38.3045
+     },
+     "carbonate_free_tie_share": 0.365
+    },
+    "8": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 18.1065
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 18.1185
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 18.127
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 11.237
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 12.5605
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 53.587
+     },
+     "carbonate_free_tie_share": 0.1355
+    },
+    "16": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 13.164
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 20.9115
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 18.8335
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 11.907
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 12.7225
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 65.064
+     },
+     "carbonate_free_tie_share": 0.0105
+    }
+   },
+   "pool_bootstrap_ci_a": {
+    "1": {
+     "R2_checker": {
+      "mean": 12.8078,
+      "ci95": [
+       9.64,
+       16.27
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 12.8078,
+      "ci95": [
+       9.64,
+       16.27
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 12.8078,
+      "ci95": [
+       9.64,
+       16.27
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 12.8078,
+      "ci95": [
+       9.64,
+       16.27
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 12.8078,
+      "ci95": [
+       9.64,
+       16.27
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 12.8078,
+      "ci95": [
+       9.64,
+       16.27
+      ],
+      "n": 1000
+     }
+    },
+    "2": {
+     "R2_checker": {
+      "mean": 17.075,
+      "ci95": [
+       12.5,
+       21.3933
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 15.9923,
+      "ci95": [
+       11.7733,
+       20.62
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 14.2655,
+      "ci95": [
+       10.86,
+       18.1033
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 12.0478,
+      "ci95": [
+       9.21,
+       15.2033
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 12.8026,
+      "ci95": [
+       9.7367,
+       16.1667
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 23.0707,
+      "ci95": [
+       18.5933,
+       27.7633
+      ],
+      "n": 1000
+     }
+    },
+    "4": {
+     "R2_checker": {
+      "mean": 20.2393,
+      "ci95": [
+       13.2033,
+       29.3967
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 18.2413,
+      "ci95": [
+       12.9033,
+       24.9567
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 16.6874,
+      "ci95": [
+       11.82,
+       23.0033
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 11.7873,
+      "ci95": [
+       8.7767,
+       14.95
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 12.7102,
+      "ci95": [
+       9.71,
+       15.9967
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 37.9354,
+      "ci95": [
+       31.89,
+       43.3367
+      ],
+      "n": 1000
+     }
+    },
+    "8": {
+     "R2_checker": {
+      "mean": 20.0197,
+      "ci95": [
+       11.0967,
+       37.3033
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 20.44,
+      "ci95": [
+       13.53,
+       29.5767
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 18.7327,
+      "ci95": [
+       12.3767,
+       28.1867
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 11.8648,
+      "ci95": [
+       8.74,
+       15.21
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 12.8145,
+      "ci95": [
+       9.6833,
+       16.0833
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 53.8476,
+      "ci95": [
+       46.9333,
+       59.3533
+      ],
+      "n": 1000
+     }
+    },
+    "16": {
+     "R2_checker": {
+      "mean": 17.3248,
+      "ci95": [
+       9.5867,
+       44.3633
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 24.092,
+      "ci95": [
+       12.7667,
+       40.0333
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 19.2034,
+      "ci95": [
+       12.2933,
+       29.0533
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 11.8145,
+      "ci95": [
+       8.7867,
+       14.96
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 12.8464,
+      "ci95": [
+       9.82,
+       16.3533
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 64.2654,
+      "ci95": [
+       57.8633,
+       69.18
+      ],
+      "n": 1000
+     }
+    }
+   },
+   "within_temperature_E_b": {
+    "400 C": {
+     "pool_size": 15,
+     "curve": {
+      "1": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "2": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "4": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "8": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      }
+     }
+    },
+    "500 C": {
+     "pool_size": 15,
+     "curve": {
+      "1": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "2": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "4": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "8": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      }
+     }
+    },
+    "600 C": {
+     "pool_size": 14,
+     "curve": {
+      "1": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "2": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "4": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "8": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      }
+     }
+    },
+    "700 C": {
+     "pool_size": 14,
+     "curve": {
+      "1": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 53.9233
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 53.9233
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 53.9233
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 53.9233
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 53.9233
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 53.9233
+       }
+      },
+      "2": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 50.7767
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 50.6033
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 53.5233
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 48.72
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 51.92
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 60.4767
+       }
+      },
+      "4": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 50.05
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 46.44
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 50.9367
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 49.7133
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 54.91
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 66.74
+       }
+      },
+      "8": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 49.0967
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 48.57
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 44.5333
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 47.7033
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 54.47
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 70.4867
+       }
+      }
+     }
+    }
+   }
+  },
+  "NTMO": {
+   "pool_size": 18,
+   "carbonate_free_pool_share": 0.8333,
+   "fresh_curve_per_target_c": {
+    "1": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 23.067
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 23.067
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 23.067
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 23.067
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 23.067
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 23.067
+     },
+     "carbonate_free_tie_share": 0.0
+    },
+    "2": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 21.025
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 18.7495
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 19.11
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 20.18
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 22.611
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 37.6285
+     },
+     "carbonate_free_tie_share": 0.6975
+    },
+    "4": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 19.9685
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 20.941
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 18.907
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 19.45
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 23.0135
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 51.3405
+     },
+     "carbonate_free_tie_share": 0.4495
+    },
+    "8": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 17.6385
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 22.4665
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 19.8915
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 20.242
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 22.704
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 58.811
+     },
+     "carbonate_free_tie_share": 0.147
+    },
+    "16": {
+     "R2_checker": {
+      "n_draws": 2000,
+      "mean": 18.7965
+     },
+     "R4_ranker": {
+      "n_draws": 2000,
+      "mean": 22.535
+     },
+     "R5_comparator": {
+      "n_draws": 2000,
+      "mean": 22.4165
+     },
+     "carbonate_free": {
+      "n_draws": 2000,
+      "mean": 19.625
+     },
+     "random": {
+      "n_draws": 2000,
+      "mean": 22.9855
+     },
+     "oracle": {
+      "n_draws": 2000,
+      "mean": 61.7395
+     },
+     "carbonate_free_tie_share": 0.0
+    }
+   },
+   "pool_bootstrap_ci_a": {
+    "1": {
+     "R2_checker": {
+      "mean": 23.0546,
+      "ci95": [
+       13.2033,
+       34.0967
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 23.0546,
+      "ci95": [
+       13.2033,
+       34.0967
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 23.0546,
+      "ci95": [
+       13.2033,
+       34.0967
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 23.0546,
+      "ci95": [
+       13.2033,
+       34.0967
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 23.0546,
+      "ci95": [
+       13.2033,
+       34.0967
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 23.0546,
+      "ci95": [
+       13.2033,
+       34.0967
+      ],
+      "n": 1000
+     }
+    },
+    "2": {
+     "R2_checker": {
+      "mean": 21.4867,
+      "ci95": [
+       9.67,
+       35.5733
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 19.4475,
+      "ci95": [
+       8.6667,
+       30.6367
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 20.4188,
+      "ci95": [
+       8.4367,
+       32.9933
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 20.4015,
+      "ci95": [
+       10.61,
+       29.99
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 23.0758,
+      "ci95": [
+       12.7733,
+       33.8833
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 36.8286,
+      "ci95": [
+       23.34,
+       48.28
+      ],
+      "n": 1000
+     }
+    },
+    "4": {
+     "R2_checker": {
+      "mean": 19.3312,
+      "ci95": [
+       6.3833,
+       35.02
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 19.9226,
+      "ci95": [
+       3.4833,
+       33.5733
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 18.7181,
+      "ci95": [
+       5.0467,
+       32.2567
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 19.7957,
+      "ci95": [
+       9.8667,
+       29.9967
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 22.9925,
+      "ci95": [
+       13.3033,
+       33.9167
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 49.9674,
+      "ci95": [
+       37.3567,
+       57.69
+      ],
+      "n": 1000
+     }
+    },
+    "8": {
+     "R2_checker": {
+      "mean": 18.3122,
+      "ci95": [
+       3.8233,
+       35.8267
+      ],
+      "n": 1000
+     },
+     "R4_ranker": {
+      "mean": 22.0753,
+      "ci95": [
+       0.1867,
+       41.2933
+      ],
+      "n": 1000
+     },
+     "R5_comparator": {
+      "mean": 19.581,
+      "ci95": [
+       2.2233,
+       38.83
+      ],
+      "n": 1000
+     },
+     "carbonate_free": {
+      "mean": 19.6937,
+      "ci95": [
+       9.7067,
+       29.6367
+      ],
+      "n": 1000
+     },
+     "random": {
+      "mean": 23.0379,
+      "ci95": [
+       12.8867,
+       34.01
+      ],
+      "n": 1000
+     },
+     "oracle": {
+      "mean": 57.4485,
+      "ci95": [
+       49.4733,
+       61.3033
+      ],
+      "n": 1000
+     }
+    },
+    "16": {
+     "R2_checker": {
+      "mean": 17.8636,
+      "ci95": [
+       4.09,
+       34.56
+      ],
+      "n": 933
+     },
+     "R4_ranker": {
+      "mean": 22.7494,
+      "ci95": [
+       0.0,
+       46.0
+      ],
+      "n": 933
+     },
+     "R5_comparator": {
+      "mean": 19.9356,
+      "ci95": [
+       0.0,
+       56.96
+      ],
+      "n": 933
+     },
+     "carbonate_free": {
+      "mean": 19.7134,
+      "ci95": [
+       10.4067,
+       29.2867
+      ],
+      "n": 933
+     },
+     "random": {
+      "mean": 22.8201,
+      "ci95": [
+       13.1467,
+       33.3233
+      ],
+      "n": 933
+     },
+     "oracle": {
+      "mean": 60.3238,
+      "ci95": [
+       53.0,
+       62.0
+      ],
+      "n": 933
+     }
+    }
+   },
+   "within_temperature_E_b": {
+    "400 C": {
+     "pool_size": 13,
+     "curve": {
+      "1": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 30.31
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 30.31
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 30.31
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 30.31
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 30.31
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 30.31
+       }
+      },
+      "2": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 28.9067
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 26.22
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 27.8333
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 29.12
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 32.1433
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 45.49
+       }
+      },
+      "4": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 24.52
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 27.4
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 27.0567
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 29.3133
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 30.29
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 56.2067
+       }
+      },
+      "8": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 26.5333
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 31.1567
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 29.15
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 29.1633
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 32.0733
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 60.4367
+       }
+      }
+     }
+    },
+    "300 C": {
+     "pool_size": 5,
+     "curve": {
+      "1": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "2": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      },
+      "4": {
+       "R2_checker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R4_ranker": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "R5_comparator": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "carbonate_free": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "random": {
+        "n_draws": 300,
+        "mean": 0.0
+       },
+       "oracle": {
+        "n_draws": 300,
+        "mean": 0.0
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "r2_n16_dip_goodhart_check_d": {
+  "statement": "R2_checker's original 21.5%->19.8% (n=8->n=16) dip is called 'Goodhart' only if the pool-bootstrap CI at n=16 sits clearly below (no overlap with) the CI at n=8, per target.",
+  "rows": [
+   {
+    "target": "YBCO",
+    "n8": {
+     "mean": 28.2385,
+     "ci95": [
+      22.7303,
+      34.0833
+     ],
+     "n": 1000
+    },
+    "n16": {
+     "mean": 28.8551,
+     "ci95": [
+      23.4717,
+      35.566
+     ],
+     "n": 1000
+    },
+    "n16_clearly_below_n8": false
+   },
+   {
+    "target": "LTOPO",
+    "n8": {
+     "mean": 20.0197,
+     "ci95": [
+      11.0967,
+      37.3033
+     ],
+     "n": 1000
+    },
+    "n16": {
+     "mean": 17.3248,
+     "ci95": [
+      9.5867,
+      44.3633
+     ],
+     "n": 1000
+    },
+    "n16_clearly_below_n8": false
+   },
+   {
+    "target": "NTMO",
+    "n8": {
+     "mean": 18.3122,
+     "ci95": [
+      3.8233,
+      35.8267
+     ],
+     "n": 1000
+    },
+    "n16": {
+     "mean": 17.8636,
+     "ci95": [
+      4.09,
+      34.56
+     ],
+     "n": 933
+    },
+    "n16_clearly_below_n8": false
+   }
+  ],
+  "any_target_confirms_goodhart": false,
+  "verdict": "No target's pool-bootstrap CI confirms the dip survives pool uncertainty -- the original point-estimate dip is likely noise; do NOT call it Goodhart."
+ }
+}
