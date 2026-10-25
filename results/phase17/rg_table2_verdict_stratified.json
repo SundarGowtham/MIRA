@@ -1,0 +1,251 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R-g",
+ "subproperty": "Table 2 verdict, within-temperature pooling fixed to stratify by n_hi",
+ "fix_note": "rg_table2_verdict.json's pooled_over_targets.within_temperature concatenated YBCO's n_hi=16 replicates with LTOPO/NTMO's n_hi=8 replicates into one array. This file reruns the identical deterministic bootstrap (same seed) and pools only within matching n_hi -- one CI per n_hi bucket. all_temperatures is NOT re-fixed: it already uses n_hi=16 uniformly for all three targets, so the original mega-pooled CI there is already a single matched-n CI.",
+ "by_n_hi": {
+  "8": {
+   "targets_pooled": [
+    "LTOPO",
+    "NTMO"
+   ],
+   "R2_checker": {
+    "n_replicates": 5000,
+    "yield_n1": {
+     "mean": 16.9832,
+     "ci95": [
+      0.0,
+      57.4133
+     ]
+    },
+    "yield_n16": {
+     "mean": 15.5208,
+     "ci95": [
+      0.0,
+      56.7533
+     ]
+    },
+    "diff": {
+     "mean": -1.4624,
+     "ci95": [
+      -14.5067,
+      6.82
+     ]
+    },
+    "verdict": "no climb"
+   },
+   "R4_ranker": {
+    "n_replicates": 5000,
+    "yield_n1": {
+     "mean": 16.9832,
+     "ci95": [
+      0.0,
+      57.4133
+     ]
+    },
+    "yield_n16": {
+     "mean": 16.6705,
+     "ci95": [
+      0.0,
+      59.78
+     ]
+    },
+    "diff": {
+     "mean": -0.3126,
+     "ci95": [
+      -16.4367,
+      11.7133
+     ]
+    },
+    "verdict": "no climb"
+   },
+   "R5_comparator": {
+    "n_replicates": 5000,
+    "yield_n1": {
+     "mean": 16.9832,
+     "ci95": [
+      0.0,
+      57.4133
+     ]
+    },
+    "yield_n16": {
+     "mean": 16.1372,
+     "ci95": [
+      0.0,
+      59.2267
+     ]
+    },
+    "diff": {
+     "mean": -0.846,
+     "ci95": [
+      -16.6,
+      11.96
+     ]
+    },
+    "verdict": "no climb"
+   }
+  },
+  "16": {
+   "targets_pooled": [
+    "YBCO"
+   ],
+   "R2_checker": {
+    "n_replicates": 4000,
+    "yield_n1": {
+     "mean": 22.1865,
+     "ci95": [
+      0.0,
+      68.9903
+     ]
+    },
+    "yield_n16": {
+     "mean": 26.7564,
+     "ci95": [
+      0.0,
+      76.565
+     ]
+    },
+    "diff": {
+     "mean": 4.5699,
+     "ci95": [
+      -1.113,
+      20.666
+     ]
+    },
+    "verdict": "no climb"
+   },
+   "R4_ranker": {
+    "n_replicates": 4000,
+    "yield_n1": {
+     "mean": 22.1865,
+     "ci95": [
+      0.0,
+      68.9903
+     ]
+    },
+    "yield_n16": {
+     "mean": 28.8002,
+     "ci95": [
+      0.0,
+      91.0783
+     ]
+    },
+    "diff": {
+     "mean": 6.6137,
+     "ci95": [
+      -3.0,
+      29.451
+     ]
+    },
+    "verdict": "no climb"
+   },
+   "R5_comparator": {
+    "n_replicates": 4000,
+    "yield_n1": {
+     "mean": 22.1865,
+     "ci95": [
+      0.0,
+      68.9903
+     ]
+    },
+    "yield_n16": {
+     "mean": 21.6435,
+     "ci95": [
+      0.0,
+      79.3063
+     ]
+    },
+    "diff": {
+     "mean": -0.543,
+     "ci95": [
+      -13.3507,
+      13.3947
+     ]
+    },
+    "verdict": "no climb"
+   }
+  }
+ },
+ "per_target_n_hi_within": {
+  "YBCO": 16,
+  "LTOPO": 8,
+  "NTMO": 8
+ },
+ "all_temperatures_pooled_unchanged": {
+  "R2_checker": {
+   "n_replicates": 2927,
+   "yield_n1": {
+    "mean": 19.5139,
+    "ci95": [
+     10.5367,
+     30.0733
+    ]
+   },
+   "yield_n16": {
+    "mean": 19.5171,
+    "ci95": [
+     7.66,
+     33.3583
+    ]
+   },
+   "diff": {
+    "mean": 0.0032,
+    "ci95": [
+     -13.8367,
+     10.344
+    ]
+   },
+   "verdict": "no climb"
+  },
+  "R4_ranker": {
+   "n_replicates": 2927,
+   "yield_n1": {
+    "mean": 19.5139,
+    "ci95": [
+     10.5367,
+     30.0733
+    ]
+   },
+   "yield_n16": {
+    "mean": 31.0596,
+    "ci95": [
+     7.7733,
+     46.09
+    ]
+   },
+   "diff": {
+    "mean": 11.5457,
+    "ci95": [
+     -13.89,
+     29.4033
+    ]
+   },
+   "verdict": "no climb"
+  },
+  "R5_comparator": {
+   "n_replicates": 2927,
+   "yield_n1": {
+    "mean": 19.5139,
+    "ci95": [
+     10.5367,
+     30.0733
+    ]
+   },
+   "yield_n16": {
+    "mean": 22.3985,
+    "ci95": [
+     0.0,
+     48.2367
+    ]
+   },
+   "diff": {
+    "mean": 2.8846,
+    "ci95": [
+     -20.4833,
+     20.7007
+    ]
+   },
+   "verdict": "no climb"
+  }
+ }
+}

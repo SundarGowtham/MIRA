@@ -290,6 +290,28 @@
     "clears_chance_above": false,
     "below_chance_significant": false
    }
+  },
+  "R1_checker_10ch": {
+   "beyond_rule_tie_stratum": {
+    "n": 1112,
+    "agreement": 0.5315,
+    "ci95": [
+     0.4631,
+     0.5961
+    ],
+    "clears_chance_above": false,
+    "below_chance_significant": false
+   },
+   "symmetrized_rule_decided": {
+    "n": 803,
+    "agreement": 0.5623,
+    "ci95": [
+     0.4775,
+     0.6539
+    ],
+    "clears_chance_above": false,
+    "below_chance_significant": false
+   }
   }
  },
  "astral_35_pairs_small": {
@@ -627,5 +649,5 @@
   "n_significant_raw_0.05": 8,
   "n_significant_holm_0.05": 8
  },
- "beyond_rule_tie_stratum_label_note": "R2_checker in beyond_rule_tie_stratum/symmetrized_rule_decided is the 5-channel RUN3 aggregate (gdpo_vote_and_channels, votes over RUN3_CHECKS only -- confirmed by direct source read, matching the pre-reg's own R2 definition, docs/phases/PHASE17_PREREG.md line 445). R1_checker_10ch (added here) is the original 10-channel checker aggregate (run 1), computed on the IDENTICAL n=1,112 tie-stratum pairs for a clean side-by-side. An earlier prose report described the 0.5841 result as 'the full 10-channel checker' -- that was a prose mislabel of a correctly-computed R2 number, not a wrong computation; no number in the file needed to change, only this label."
+ "beyond_rule_tie_stratum_label_note": "R2_checker in beyond_rule_tie_stratum/symmetrized_rule_decided is the 5-channel RUN3 aggregate (gdpo_vote_and_channels, votes over RUN3_CHECKS only -- confirmed by direct source read, matching the pre-reg's own R2 definition, docs/phases/PHASE17_PREREG.md line 445). R1_checker_10ch (added here) is the original 10-channel checker aggregate (run 1), computed on the IDENTICAL n=1,112 tie-stratum pairs for a clean side-by-side. An earlier prose report described the 0.5841 result as 'the full 10-channel checker' -- that was a prose mislabel of a correctly-computed R2 number, not a wrong computation; no number in the file needed to change, only this label. Structural note: the two lines above were initially written to a sibling key ybco_primary.beyond_rule_tie_stratum.R1_checker_10ch / top-level symmetrized_rule_decided.R1_checker_10ch, inconsistent with R2/R4/R5 own per-reward nesting (ybco_primary.<reward>.beyond_rule_tie_stratum). Both locations are now populated (old one left in place, never delete) -- ybco_primary.R1_checker_10ch.{beyond_rule_tie_stratum,symmetrized_rule_decided} is the canonical, schema-consistent location to read going forward."
 }

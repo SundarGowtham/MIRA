@@ -1,0 +1,37 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "A",
+ "subproperty": "GPU time estimate for the real Block A forward-pass job, computed BEFORE launch per the pre-reg's instruction",
+ "method": "Timed the actual score_continuations() function (research/phase17_block_a_forward_pass.py) on a representative real prefix (4,173 tokens, drawn from data/novelty/base_reference_astral.jsonl) against 40 synthetic candidate continuations, on the idle GPU, after fixing a tokenizer boundary bug found during this same timing exercise (see note below). Warm steady-state: 1.94-2.28s for one prefix prefill + 40 continuations scored via KV-cache reuse.",
+ "tokenizer_boundary_bug_found_and_fixed": "Qwen's tokenizer does not guarantee tok(prefix) is a literal token-id prefix of tok(prefix+continuation) -- prefix text ending in '[' tokenizes its last token DIFFERENTLY when immediately followed by '{' (they merge). Naively caching the standalone prefix tokenization and scoring continuations tokenized separately gave results off by 20-40 nats versus a from-scratch full-sequence forward pass (checked directly). Fixed by tokenizing prefix+continuation TOGETHER per continuation and using the longest common token prefix across the batch (never the full standalone length) as the safe cached length. Verified in fp32 against a from-scratch reference: diff 2.5e-7 (exact). In bf16 (what the real run uses): diff -0.3 to -0.9 nats on a 5-continuation check -- small, attributed to bf16 split-computation rounding, not a remaining logic error; immaterial for Spearman rank correlation (Gate G1's actual use of this number).",
+ "inputs": {
+  "n_models": 12,
+  "note_on_13_vs_12": "the pre-reg's own prose says 'Models (13)' but lists only 12 named checkpoints (Base, Corpus SFT, RS-SFT, E3, E3c, GDPO-300, Phase12@100/200/300, E1@100/200/300) -- a pre-existing miscount in the pre-reg text, not resolved here. This estimate uses the actual 12.",
+  "n_targets": 75,
+  "mean_recipes_per_target_in_universe_v2": 20.45,
+  "median_recipes_per_target": 17,
+  "min_max_recipes_per_target": [3, 101],
+  "k_traces_marginal": 8,
+  "max_surface_forms_per_recipe": 8,
+  "per_trace_batch_continuations_timed": 40
+ },
+ "per_model_target_cost": {
+  "marginal_estimator": "8 traces x ~2.0s/trace (warm) = ~16s",
+  "answer_only_estimator": "1 fixed prefix (short) + ~40 continuations = ~1.5-2s (not independently re-timed; upper-bounded by the same per-continuation rate since its prefill is much shorter)",
+  "combined_per_model_target": "~18s"
+ },
+ "coverage_gap_adjustment": {
+  "statement": "4 models (corpus_sft, gdpo_v3_ckpt300, phase12_ckpt300, e1_ckpt300) have no raw-trace file for the ASTRAL target set (see results/phase17/inventory_v2.json's block_a_marginal_estimator_coverage_gap) -- the marginal estimator's 8-trace pass is skipped for these 4 x 35 = 140 (model,target) cells, only the answer-only pass runs.",
+  "cells_skipping_marginal": 140,
+  "savings": "~140 x 16s = ~2,240s (~0.62h)"
+ },
+ "total_estimate": {
+  "base_case": "900 (model,target) pairs x ~18s - 0.62h coverage-gap savings =~ 3.9 hours GPU wall-clock",
+  "with_2x_safety_margin_for_real_world_overhead": "~8 hours (larger-than-average U(x) targets, CPU-GPU sync overhead not captured in the tight timed loop, model-load variance)",
+  "with_3x_safety_margin": "~12 hours",
+  "decision_threshold": 24,
+  "decision": "LAUNCH -- even the 3x-safety-margin estimate (~12h) is comfortably under the pre-reg's 24h gate, and the base-case estimate (~3.9h) has a wide margin to spare.",
+  "units": "hours"
+ },
+ "resume_safety": "research/phase17_block_a_forward_pass.py appends to results/phase17/logp_universe.jsonl and skips any (model,target) pair already present on restart -- same per-unit resume convention as scripts/run_phase17_block_a_regen.sh's per-target resume, plus a shell-level retry loop with tee+ntfy."
+}

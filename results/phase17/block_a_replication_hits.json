@@ -1,0 +1,76 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "A",
+ "subproperty": "replication hit counts",
+ "note": "hit()/conv() logic is scripts/build_claims_ledger.py's, reimplemented verbatim (not imported -- that file is a script with module-level side effects, not a library). clean-22 = the 35 ASTRAL targets minus results/phase16/astral_clean_subset.json's 13 overlapping_targets, the same definition used for every clean22 number in findings 16/18/22/30.",
+ "models": {
+  "Phase12@300": {
+   "n_targets_compared": 35,
+   "n_clean22_in_compared": 22,
+   "original_hits_exact": 14,
+   "original_hits_superset": 14,
+   "original_hits_clean22": 12,
+   "original_hits_stated_in_claude_md": 14,
+   "replication_hits_exact": 14,
+   "replication_hits_superset": 14,
+   "replication_hits_clean22": 12,
+   "mcnemar_original_vs_replication_exact": {
+    "original_only": 0,
+    "replication_only": 0,
+    "p_two_sided": 1.0,
+    "p_one_sided": 1.0
+   }
+  },
+  "E1@300": {
+   "n_targets_compared": 35,
+   "n_clean22_in_compared": 22,
+   "original_hits_exact": 14,
+   "original_hits_superset": 14,
+   "original_hits_clean22": 11,
+   "original_hits_stated_in_claude_md": 14,
+   "replication_hits_exact": 14,
+   "replication_hits_superset": 14,
+   "replication_hits_clean22": 11,
+   "mcnemar_original_vs_replication_exact": {
+    "original_only": 0,
+    "replication_only": 0,
+    "p_two_sided": 1.0,
+    "p_one_sided": 1.0
+   }
+  },
+  "GDPO-300": {
+   "n_targets_compared": 35,
+   "n_clean22_in_compared": 22,
+   "original_hits_exact": 2,
+   "original_hits_superset": 3,
+   "original_hits_clean22": 2,
+   "original_hits_stated_in_claude_md": 3,
+   "replication_hits_exact": 2,
+   "replication_hits_superset": 3,
+   "replication_hits_clean22": 2,
+   "mcnemar_original_vs_replication_exact": {
+    "original_only": 0,
+    "replication_only": 0,
+    "p_two_sided": 1.0,
+    "p_one_sided": 1.0
+   }
+  },
+  "Corpus SFT": {
+   "n_targets_compared": 35,
+   "n_clean22_in_compared": 22,
+   "original_hits_exact": 0,
+   "original_hits_superset": 1,
+   "original_hits_clean22": 0,
+   "original_hits_stated_in_claude_md": "0 (1 superset)",
+   "replication_hits_exact": 0,
+   "replication_hits_superset": 1,
+   "replication_hits_clean22": 0,
+   "mcnemar_original_vs_replication_exact": {
+    "original_only": 0,
+    "replication_only": 0,
+    "p_two_sided": 1.0,
+    "p_one_sided": 1.0
+   }
+  }
+ }
+}

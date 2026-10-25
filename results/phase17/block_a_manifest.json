@@ -1,0 +1,26 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "A",
+ "subproperty": "manifest -- sha256 + row counts of the two gitignored held-out generation files, for traceability",
+ "note": "These two files (data/novelty/*.jsonl) are gitignored by the project's standing convention (data/ holds generation dumps, not tracked results). Recorded here by sha256 so the held-out legs' outputs are checkable without being committed.",
+ "files": {
+  "gdpo300_heldout_n32": {
+   "path": "data/novelty/gdpo300_heldout_n32.jsonl",
+   "sha256": "215393e009a0f679c507878667f48b75646f1c7438b29a13403ec96e1f25baea",
+   "n_rows": 1280,
+   "expected_rows": "40 held-out targets x 32 samples",
+   "generated_by": "data_curation/phase17_block_a_heldout_sampling.py",
+   "checkpoint": "runs/gdpo-qlora-gdpo-v3/checkpoint-300",
+   "leg": 4
+  },
+  "corpus_sft_heldout_n32": {
+   "path": "data/novelty/corpus_sft_heldout_n32.jsonl",
+   "sha256": "45a55ae1f2dcb3a729dea61c63675dcbc07b3d66edfaf93fbfb4b3783d87feef",
+   "n_rows": 1280,
+   "expected_rows": "40 held-out targets x 32 samples",
+   "generated_by": "data_curation/phase17_block_a_heldout_sampling.py",
+   "checkpoint": "runs/sft-qlora-sft-v3-2nd-rank16/final",
+   "leg": 6
+  }
+ }
+}

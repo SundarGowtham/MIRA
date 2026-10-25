@@ -1,0 +1,701 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "seed": 20261016,
+ "rebuild_note": "v2 of Block 0's inventory/universe/probe set, after Block A's GPU regeneration job (data_curation/phase17_block_a_heldout_sampling.py + scripts/run_phase17_block_a_regen.sh) resolved the corpus_sft/heldout and gdpo_v3_ckpt300/heldout raw-completions gaps. Block 0's original inventory.json/universe.jsonl/probe_targets.json are untouched.",
+ "block_a_marginal_estimator_coverage_gap": {
+  "statement": "Block A's forward-pass marginal estimator needs K=8 real sampled <think> traces per (model, target) as tau_k. These four (model, ASTRAL) combinations still have NO raw trace file after Block A's regeneration -- only the pre-existing structured-only fallback (precursors/max_T/reward/match, no reasoning text) -- because astral_model_generations.py (the script Block A's ASTRAL legs used) never persists completion text.",
+  "still_gapped": [
+   "corpus_sft/astral",
+   "gdpo_v3_ckpt300/astral",
+   "phase12_ckpt300/astral",
+   "e1_ckpt300/astral"
+  ],
+  "resolved_by_block_a": [
+   "corpus_sft/heldout",
+   "gdpo_v3_ckpt300/heldout"
+  ],
+  "consequence": "the marginal estimator cannot be computed for these 4 models x 35 ASTRAL targets = 140 (model,target) cells; only the answer-only (empty-think) estimator can be. Gate G1's own rule (median Spearman >=0.5 under the MARGINAL estimator, every model) has no marginal-estimator number to check for these 4 models on ASTRAL at all -- this is a coverage gap, not a predicted gate failure, and needs a decision (skip ASTRAL for these 4 under G1 and gate on held-out only, or spend a 7th GPU leg re-generating ASTRAL samples with completion text saved) before Block A's real forward-pass job is scoped."
+ },
+ "models": {
+  "base": {
+   "step_role": "S1/S2/S3/S4 before",
+   "adapter_path": null,
+   "storage": "no adapter (Qwen/Qwen3-8B base weights)",
+   "continued_from": null,
+   "lora_config": null,
+   "adapter_exists": true,
+   "intermediate_checkpoints": []
+  },
+  "corpus_sft": {
+   "step_role": "S1 after, S5 before",
+   "adapter_path": "runs/sft-qlora-sft-v3-2nd-rank16/final",
+   "storage": "LoRA adapter, fine-tuned fresh from base",
+   "continued_from": "base",
+   "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "adapter_exists": true,
+   "intermediate_checkpoints": [
+    "checkpoint-117"
+   ]
+  },
+  "rs_sft": {
+   "step_role": "S2 after, S6/S7 before",
+   "adapter_path": "runs/sft-qlora-rs-sft-from-base/final",
+   "storage": "LoRA adapter, fine-tuned fresh from base",
+   "continued_from": "base",
+   "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "adapter_exists": true,
+   "intermediate_checkpoints": [
+    "checkpoint-27"
+   ]
+  },
+  "e3": {
+   "step_role": "S3 after",
+   "adapter_path": "runs/sft-qlora-e3-round1/final",
+   "storage": "LoRA adapter, fine-tuned fresh from base",
+   "continued_from": "base",
+   "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "adapter_exists": true,
+   "intermediate_checkpoints": [
+    "checkpoint-48"
+   ]
+  },
+  "e3c": {
+   "step_role": "S4 after",
+   "adapter_path": "runs/sft-qlora-e3c-round1/final",
+   "storage": "LoRA adapter, fine-tuned fresh from base",
+   "continued_from": "base",
+   "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "adapter_exists": true,
+   "intermediate_checkpoints": [
+    "checkpoint-48"
+   ]
+  },
+  "gdpo_v3_ckpt300": {
+   "step_role": "S5 after (Corpus SFT -> GDPO-300, checker reward)",
+   "adapter_path": "runs/gdpo-qlora-gdpo-v3/checkpoint-300",
+   "storage": "LoRA adapter, CONTINUES corpus_sft's adapter (core/model.py::load_with_adapter, is_trainable=True) -- weight change is delta-W = B1A1 - B0A0, not stacked",
+   "continued_from": "corpus_sft (runs/sft-qlora-sft-v3-2nd-rank16/final, confirmed via scripts/run_gdpo.sh:SFT_INIT)",
+   "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "adapter_exists": true,
+   "intermediate_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ]
+  },
+  "phase12_ckpt100": {
+   "step_role": "S6 @100 (RS-SFT -> Phase 12, checker reward, beta=0)",
+   "adapter_path": "runs/gdpo-qlora-gdpo-phase12-rssft-beta0/checkpoint-100",
+   "storage": "LoRA adapter, continues rs_sft's adapter",
+   "continued_from": "rs_sft (runs/sft-qlora-rs-sft-from-base/final, confirmed via scripts/run_gdpo_phase12_beta0.sh:RS_SFT_INIT)",
+   "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "adapter_exists": true,
+   "intermediate_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ]
+  },
+  "phase12_ckpt200": {
+   "step_role": "S6 @200",
+   "adapter_path": "runs/gdpo-qlora-gdpo-phase12-rssft-beta0/checkpoint-200",
+   "storage": "LoRA adapter, continues rs_sft's adapter",
+   "continued_from": "rs_sft",
+   "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "adapter_exists": true,
+   "intermediate_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ]
+  },
+  "phase12_ckpt300": {
+   "step_role": "S6 @300 (pre-registered stopping point, finding 22)",
+   "adapter_path": "runs/gdpo-qlora-gdpo-phase12-rssft-beta0/checkpoint-300",
+   "storage": "LoRA adapter, continues rs_sft's adapter",
+   "continued_from": "rs_sft",
+   "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "adapter_exists": true,
+   "intermediate_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ]
+  },
+  "e1_ckpt100": {
+   "step_role": "S7 @100 (RS-SFT -> E1, ranker v2 reward, beta=0)",
+   "adapter_path": "runs/gdpo-qlora-gdpo-e1-ranker-rssft/checkpoint-100",
+   "storage": "LoRA adapter, continues rs_sft's adapter",
+   "continued_from": "rs_sft (confirmed via scripts/run_gdpo_e1.sh:RS_SFT_INIT)",
+   "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "adapter_exists": true,
+   "intermediate_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ]
+  },
+  "e1_ckpt200": {
+   "step_role": "S7 @200",
+   "adapter_path": "runs/gdpo-qlora-gdpo-e1-ranker-rssft/checkpoint-200",
+   "storage": "LoRA adapter, continues rs_sft's adapter",
+   "continued_from": "rs_sft",
+   "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "adapter_exists": true,
+   "intermediate_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ]
+  },
+  "e1_ckpt300": {
+   "step_role": "S7 @300",
+   "adapter_path": "runs/gdpo-qlora-gdpo-e1-ranker-rssft/checkpoint-300",
+   "storage": "LoRA adapter, continues rs_sft's adapter",
+   "continued_from": "rs_sft",
+   "lora_config": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "adapter_exists": true,
+   "intermediate_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ]
+  }
+ },
+ "raw_completions": {
+  "base": {
+   "astral": {
+    "raw_completions_file": "data/novelty/base_reference_astral.jsonl",
+    "n_rows": 8120,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/base_reference_heldout.jsonl",
+    "n_rows": 9280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  },
+  "corpus_sft": {
+   "astral": {
+    "raw_completions_file": null,
+    "n_rows": null,
+    "has_think_trace": false,
+    "structured_only_fallback": "results/astral_gen_n32_sft.json",
+    "structured_only_schema": [
+     "match",
+     "max_T",
+     "precursors",
+     "reward"
+    ]
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/corpus_sft_heldout_n32.jsonl",
+    "n_rows": 1280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  },
+  "rs_sft": {
+   "astral": {
+    "raw_completions_file": "data/novelty/rssft_reference_astral.jsonl",
+    "n_rows": 8120,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/rssft_reference_heldout.jsonl",
+    "n_rows": 9280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  },
+  "e3": {
+   "astral": {
+    "raw_completions_file": "data/novelty/e3_astral_n32.jsonl",
+    "n_rows": 1120,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/e3_heldout_n32.jsonl",
+    "n_rows": 1280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  },
+  "e3c": {
+   "astral": {
+    "raw_completions_file": "data/novelty/e3c_astral_n32.jsonl",
+    "n_rows": 1120,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/e3c_heldout_n32.jsonl",
+    "n_rows": 1280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  },
+  "gdpo_v3_ckpt300": {
+   "astral": {
+    "raw_completions_file": null,
+    "n_rows": null,
+    "has_think_trace": false,
+    "structured_only_fallback": "results/astral_gen_n32_gdpo300.json",
+    "structured_only_schema": [
+     "match",
+     "max_T",
+     "precursors",
+     "reward"
+    ]
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/gdpo300_heldout_n32.jsonl",
+    "n_rows": 1280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  },
+  "phase12_ckpt100": {
+   "astral": {
+    "raw_completions_file": "data/novelty/phase12_ckpt100_astral_n32.jsonl",
+    "n_rows": 1120,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/phase12_ckpt100_heldout_n32.jsonl",
+    "n_rows": 1280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  },
+  "phase12_ckpt200": {
+   "astral": {
+    "raw_completions_file": "data/novelty/phase12_ckpt200_astral_n32.jsonl",
+    "n_rows": 1120,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/phase12_ckpt200_heldout_n32.jsonl",
+    "n_rows": 1280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  },
+  "phase12_ckpt300": {
+   "astral": {
+    "raw_completions_file": null,
+    "n_rows": null,
+    "has_think_trace": false,
+    "structured_only_fallback": "results/astral_gen_n32_gdpo_phase12_beta0.json",
+    "structured_only_schema": [
+     "match",
+     "max_T",
+     "precursors",
+     "reward"
+    ]
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/phase12_ckpt300_heldout_n32.jsonl",
+    "n_rows": 1280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  },
+  "e1_ckpt100": {
+   "astral": {
+    "raw_completions_file": "data/novelty/e1_ckpt100_astral_n32.jsonl",
+    "n_rows": 1120,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/e1_ckpt100_heldout_n32.jsonl",
+    "n_rows": 1280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  },
+  "e1_ckpt200": {
+   "astral": {
+    "raw_completions_file": "data/novelty/e1_ckpt200_astral_n32.jsonl",
+    "n_rows": 1120,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/e1_ckpt200_heldout_n32.jsonl",
+    "n_rows": 1280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  },
+  "e1_ckpt300": {
+   "astral": {
+    "raw_completions_file": null,
+    "n_rows": null,
+    "has_think_trace": false,
+    "structured_only_fallback": "results/astral_gen_n32_e1.json",
+    "structured_only_schema": [
+     "match",
+     "max_T",
+     "precursors",
+     "reward"
+    ]
+   },
+   "heldout": {
+    "raw_completions_file": "data/novelty/e1_heldout_n32.jsonl",
+    "n_rows": 1280,
+    "has_think_trace": true,
+    "structured_only_fallback": null,
+    "structured_only_schema": null
+   }
+  }
+ },
+ "raw_completions_gaps": [
+  "corpus_sft/astral: NO raw <think>-trace completions (structured-only fallback exists: results/astral_gen_n32_sft.json, schema ['match', 'max_T', 'precursors', 'reward'] -- no reasoning text)",
+  "gdpo_v3_ckpt300/astral: NO raw <think>-trace completions (structured-only fallback exists: results/astral_gen_n32_gdpo300.json, schema ['match', 'max_T', 'precursors', 'reward'] -- no reasoning text)",
+  "phase12_ckpt300/astral: NO raw <think>-trace completions (structured-only fallback exists: results/astral_gen_n32_gdpo_phase12_beta0.json, schema ['match', 'max_T', 'precursors', 'reward'] -- no reasoning text)",
+  "e1_ckpt300/astral: NO raw <think>-trace completions (structured-only fallback exists: results/astral_gen_n32_e1.json, schema ['match', 'max_T', 'precursors', 'reward'] -- no reasoning text)"
+ ],
+ "block_r_scored_sample_files": {
+  "R1": {
+   "reward": "Checker, 10 channels (run 1)",
+   "policy": "Corpus SFT",
+   "file": "results/hardening.json",
+   "filter": "condition == 'baseline'",
+   "note": "40 targets x 8 samples = 320 rows at condition=='baseline'; 10-channel breakdown present."
+  },
+  "R2": {
+   "reward": "Checker, 5-channel RUN3 aggregate",
+   "policy": "RS-SFT",
+   "file": null,
+   "filter": null,
+   "note": "GAP (the one regular Claude flagged as not like-for-like with R4). Raw RS-SFT samples exist (data/novelty/rssft_reference_{astral,heldout}.jsonl, sample_group=='resampling_rate', same 2400-row/300-group scope as R4/results/ranker_capacity.json) but have NEVER been scored with the 5-channel checker aggregate -- no breakdown field in the raw jsonl. This is the computation R-a/R-b needs to run first."
+  },
+  "R3": {
+   "reward": "Low-temperature objective (temperature_economy added)",
+   "policy": "Corpus SFT (hardening-probe samples)",
+   "file": "misc/hardening_low_temp2.json",
+   "filter": "condition in {'baseline','low_temp'}",
+   "note": "misc/ is gitignored scratch, not git-tracked, but present on disk. 640 rows at baseline+low_temp (40 targets x 8 samples x 2 conditions) carry temperature_economy; superset of misc/hardening_low_temp.json (same two conditions, earlier version) and adds low_temp_ceiling/low_temp_inventory (1280 rows total, 4 conditions)."
+  },
+  "R4": {
+   "reward": "Ranker v2",
+   "policy": "RS-SFT",
+   "file": "results/ranker_capacity.json",
+   "filter": "n_records=2400, n_groups=300 (both astral+heldout, sample_group=='resampling_rate')",
+   "note": "Aggregated capacity file, not a per-sample jsonl -- per-sample breakdown would need rerunning research/ranker_capacity_rssft.py with raw output kept, or reading its source if it persisted one."
+  },
+  "R5": {
+   "reward": "Comparator (core/comparator.py)",
+   "policy": "RS-SFT",
+   "file": null,
+   "filter": null,
+   "note": "GAP. Only two comparator-scored artifacts exist and neither is RS-SFT's own group-of-8 samples: (a) results/phase13_astral_scoring_v2.json -- ASTRAL's 35 fixed traditional-vs-predicted ground-truth pairs, not model samples; (b) results/external/arrows_gate.json -- ARROWS3 pairs (useful for R-f/R-g directly, see below). R-b (capacity/tie-rate) and R-e (aggregation) need the comparator run pairwise within RS-SFT's existing groups of 8 (data/novelty/rssft_reference_{astral,heldout}.jsonl, resampling_rate) -- not yet computed."
+  },
+  "R6": {
+   "reward": "Novelty reward (Phase 16)",
+   "policy": "E3",
+   "file": null,
+   "filter": null,
+   "note": "GAP, but audit-only / lowest priority (E4 never ran). core/novelty_reward.py is applied live inside research/phase16_e3_e3c_*.py and never persisted per-sample; only aggregate stats survive (results/phase16/e3_e3c_bootstrap.json). E3's raw samples exist in groups-of-32 (data/novelty/e3_{astral,heldout}_n32.jsonl) and could be rescored, but no scored file exists yet."
+  },
+  "R-f_R-g_arrows": {
+   "reward": "ARROWS3 pair data (R-f info bound, R-g Goodhart curve inputs)",
+   "policy": "n/a (external robot-lab data, not a model's own samples)",
+   "file": "results/external/arrows_gate.json",
+   "filter": null,
+   "note": "Already exists from Phase 15; covers R2/R4/R5/carbonate-free baseline comparator+validator votes on YBCO pairs. Usable as-is for R-f and R-g's per-reward comparison columns."
+  }
+ },
+ "block_r_gaps": [
+  "R2 (Checker, 5-channel RUN3 aggregate on RS-SFT): GAP (the one regular Claude flagged as not like-for-like with R4). Raw RS-SFT samples exist (data/novelty/rssft_reference_{astral,heldout}.jsonl, sample_group=='resampling_rate', same 2400-row/300-group scope as R4/results/ranker_capacity.json) but have NEVER been scored with the 5-channel checker aggregate -- no breakdown field in the raw jsonl. This is the computation R-a/R-b needs to run first.",
+  "R5 (Comparator (core/comparator.py) on RS-SFT): GAP. Only two comparator-scored artifacts exist and neither is RS-SFT's own group-of-8 samples: (a) results/phase13_astral_scoring_v2.json -- ASTRAL's 35 fixed traditional-vs-predicted ground-truth pairs, not model samples; (b) results/external/arrows_gate.json -- ARROWS3 pairs (useful for R-f/R-g directly, see below). R-b (capacity/tie-rate) and R-e (aggregation) need the comparator run pairwise within RS-SFT's existing groups of 8 (data/novelty/rssft_reference_{astral,heldout}.jsonl, resampling_rate) -- not yet computed.",
+  "R6 (Novelty reward (Phase 16) on E3): GAP, but audit-only / lowest priority (E4 never ran). core/novelty_reward.py is applied live inside research/phase16_e3_e3c_*.py and never persisted per-sample; only aggregate stats survive (results/phase16/e3_e3c_bootstrap.json). E3's raw samples exist in groups-of-32 (data/novelty/e3_{astral,heldout}_n32.jsonl) and could be rescored, but no scored file exists yet."
+ ],
+ "training_set_membership": {
+  "S1": {
+   "note": "Kononova corpus, filtered >=0.65 (data/novelty/training_targets.json, n=360)",
+   "n_training_targets": 360,
+   "astral_overlap": [],
+   "heldout_overlap": []
+  },
+  "S2": {
+   "note": "base's own validator-passing samples, drawn from data/rl's 400-target pool (distinct from the Kononova corpus); recovered exactly from data/rs_sft/rs_sft_{train,val}.jsonl, n=295 (finding 18: 295/400 survival)",
+   "n_training_targets": 295,
+   "astral_overlap": [],
+   "heldout_overlap": [
+    "(Ba0.7Ca0.3)TiO3",
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3",
+    "(Y0.98Er0.01Yb0.01)2O3",
+    "AgCuO",
+    "Ba(Ti0.78Hf0.22)O3",
+    "Ba2La3Ti3TaO15",
+    "Ba3In4Cu3O12",
+    "BaBrCl",
+    "BaIn0.5Sn0.5O2.75",
+    "Bi0.2Y2.8Fe5O12",
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3",
+    "BiNiPO5",
+    "CoNb2O6",
+    "Cu2Zn0.75Mg0.25SnS4",
+    "CuSbSe2",
+    "InMn0.9957Fe0.01O3",
+    "K2Ba(WO4)2",
+    "La0.82Sr0.18MnO3",
+    "Li5P3O10",
+    "Li9V3(P2O7)3(PO4)2",
+    "LiBi3O4Cl2",
+    "LiFe(BO3)0.5(PO4)0.5",
+    "LiPO3",
+    "Mg2FeV3O11",
+    "Na0.65Bi0.45Cu3Ti4O12",
+    "Na2PdCl4",
+    "NaNiO2",
+    "Pb(Zr0.47Ti0.53)O3",
+    "Sr0.5Ca0.5Fe12O19",
+    "Sr2MnNbO6",
+    "Sr3NiIrO6",
+    "SrPuO3",
+    "SrUO4",
+    "TbTaO4"
+   ]
+  },
+  "S3": {
+   "note": "E3: base's own checker-valid + rare samples (data/novelty/e3_round1_filtered.jsonl)",
+   "n_training_targets": 256,
+   "astral_overlap": [],
+   "heldout_overlap": []
+  },
+  "S4": {
+   "note": "E3c: base's own checker-valid samples, rarity ignored (data/novelty/e3c_round1_filtered.jsonl)",
+   "n_training_targets": 279,
+   "astral_overlap": [],
+   "heldout_overlap": []
+  },
+  "held_out_40_by_construction": {
+   "e3_excludes_heldout": true,
+   "e3c_excludes_heldout": true
+  },
+  "astral_targets_n": 35,
+  "heldout_targets_n": 40
+ },
+ "universe_n_target_recipe_rows": 1534,
+ "probe_targets": {
+  "seed": 20261016,
+  "astral_clean_22_pool_size": 22,
+  "heldout_40_pool_size": 40,
+  "probe_astral_20": [
+   "BaLiBO3",
+   "BaNaBO3",
+   "K2Zr(PO4)2",
+   "K3Al2(PO4)3",
+   "K3Bi2(PO4)3",
+   "K3LiP2O7",
+   "KLi(PO3)2",
+   "KNiPO4",
+   "KTa2PO8",
+   "KTiPO5",
+   "Li2TiGeO5",
+   "Li3Pr2(BO3)3",
+   "Li3Y2(BO3)3",
+   "LiGeBO4",
+   "LiNbGeO5",
+   "LiNbWO6",
+   "LiSi2BO6",
+   "LiZnPO4",
+   "NaSiBO4",
+   "SrLiBO3"
+  ],
+  "probe_heldout_20": [
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3",
+   "Ba2Bi0.6667TeO6",
+   "Ba2La3Ti3TaO15",
+   "Ba3In4Cu3O12",
+   "BaBrCl",
+   "Bi0.8Ba0.2Fe0.95Cr0.05O3",
+   "InMn0.9957Fe0.01O3",
+   "La0.25Sr0.75TiO3",
+   "La1.85Sr0.15CuO4",
+   "LaNi0.5Rh0.5O3",
+   "Li2TeO4",
+   "LiBi3O4Cl2",
+   "LiFe(BO3)0.5(PO4)0.5",
+   "LiPO3",
+   "NaNiO2",
+   "Pb(Zr0.47Ti0.53)O3",
+   "Sr0.5Ca0.5Fe12O19",
+   "Sr2MnNbO6",
+   "SrUO4",
+   "TbTaO4"
+  ]
+ }
+}
