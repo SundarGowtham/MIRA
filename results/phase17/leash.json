@@ -1,0 +1,119 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "B3",
+ "noise_floor_note": "The pre-reg's literal noise floor (two independent halves of the K=8 tau_k, re-estimating pi_before from each) needs per-trace log-probabilities that were never persisted -- NOT computed; would need new GPU forward passes. A substitute IS computed below: splitting each model's own raw completion SAMPLES in half (by row parity) and comparing empirical sample-frequency crossing counts between the two halves (pure resampling noise, no training step) to the real before-vs-after crossing count.",
+ "steps": {
+  "S1": {
+   "b_s_point": 6.9962812248936395,
+   "leash_L_s_nats": 5.9898,
+   "n_recipes_below_epsilon_at_before": 673,
+   "max_observed_delta_among_below_epsilon": 83.1373,
+   "n_crossing_below_to_above_epsilon": 32,
+   "crossing_count_note": "exact: pi_tilde_after(y) is the after-model's own probability, renormalised over its own (model,target) key set the same way pi_tilde_before is -- not a proxy derived from before*exp(delta).",
+   "noise_floor_crossing_substitute": {
+    "before_model_own_samples_split_in_half": 216,
+    "n_below_epsilon_in_half1": 216,
+    "n_targets": 75,
+    "resolution_adequate_for_epsilon": false,
+    "degenerate_warning": "min resolvable frequency per half (~1/91) is NOT finer than epsilon=0.005 -- this substitute cannot meaningfully test the leash's noise floor at this epsilon; any zero-count recipe that appears even once in the other half trivially 'crosses', which is exactly what happened (n_cross == n_below_half1 below). Treat the real crossing counts as UNVALIDATED by this substitute, not confirmed above noise."
+   },
+   "n_obs": 737
+  },
+  "S2": {
+   "b_s_point": 5.827805550144686,
+   "leash_L_s_nats": 5.6997,
+   "n_recipes_below_epsilon_at_before": 1316,
+   "max_observed_delta_among_below_epsilon": 61.1417,
+   "n_crossing_below_to_above_epsilon": 145,
+   "crossing_count_note": "exact: pi_tilde_after(y) is the after-model's own probability, renormalised over its own (model,target) key set the same way pi_tilde_before is -- not a proxy derived from before*exp(delta).",
+   "noise_floor_crossing_substitute": {
+    "before_model_own_samples_split_in_half": 216,
+    "n_below_epsilon_in_half1": 216,
+    "n_targets": 75,
+    "resolution_adequate_for_epsilon": false,
+    "degenerate_warning": "min resolvable frequency per half (~1/91) is NOT finer than epsilon=0.005 -- this substitute cannot meaningfully test the leash's noise floor at this epsilon; any zero-count recipe that appears even once in the other half trivially 'crosses', which is exactly what happened (n_cross == n_below_half1 below). Treat the real crossing counts as UNVALIDATED by this substitute, not confirmed above noise."
+   },
+   "n_obs": 1463
+  },
+  "S3": {
+   "b_s_point": 2.6025556956380607,
+   "leash_L_s_nats": 2.5453,
+   "n_recipes_below_epsilon_at_before": 1316,
+   "max_observed_delta_among_below_epsilon": 48.3342,
+   "n_crossing_below_to_above_epsilon": 131,
+   "crossing_count_note": "exact: pi_tilde_after(y) is the after-model's own probability, renormalised over its own (model,target) key set the same way pi_tilde_before is -- not a proxy derived from before*exp(delta).",
+   "noise_floor_crossing_substitute": {
+    "before_model_own_samples_split_in_half": 216,
+    "n_below_epsilon_in_half1": 216,
+    "n_targets": 75,
+    "resolution_adequate_for_epsilon": false,
+    "degenerate_warning": "min resolvable frequency per half (~1/91) is NOT finer than epsilon=0.005 -- this substitute cannot meaningfully test the leash's noise floor at this epsilon; any zero-count recipe that appears even once in the other half trivially 'crosses', which is exactly what happened (n_cross == n_below_half1 below). Treat the real crossing counts as UNVALIDATED by this substitute, not confirmed above noise."
+   },
+   "n_obs": 1463
+  },
+  "S4": {
+   "b_s_point": 3.489217808434488,
+   "leash_L_s_nats": 3.4125,
+   "n_recipes_below_epsilon_at_before": 1316,
+   "max_observed_delta_among_below_epsilon": 50.7535,
+   "n_crossing_below_to_above_epsilon": 128,
+   "crossing_count_note": "exact: pi_tilde_after(y) is the after-model's own probability, renormalised over its own (model,target) key set the same way pi_tilde_before is -- not a proxy derived from before*exp(delta).",
+   "noise_floor_crossing_substitute": {
+    "before_model_own_samples_split_in_half": 216,
+    "n_below_epsilon_in_half1": 216,
+    "n_targets": 75,
+    "resolution_adequate_for_epsilon": false,
+    "degenerate_warning": "min resolvable frequency per half (~1/91) is NOT finer than epsilon=0.005 -- this substitute cannot meaningfully test the leash's noise floor at this epsilon; any zero-count recipe that appears even once in the other half trivially 'crosses', which is exactly what happened (n_cross == n_below_half1 below). Treat the real crossing counts as UNVALIDATED by this substitute, not confirmed above noise."
+   },
+   "n_obs": 1463
+  },
+  "S5": {
+   "b_s_point": 5.665961764586674,
+   "leash_L_s_nats": 2.8645,
+   "n_recipes_below_epsilon_at_before": 675,
+   "max_observed_delta_among_below_epsilon": 17.0476,
+   "n_crossing_below_to_above_epsilon": 24,
+   "crossing_count_note": "exact: pi_tilde_after(y) is the after-model's own probability, renormalised over its own (model,target) key set the same way pi_tilde_before is -- not a proxy derived from before*exp(delta).",
+   "noise_floor_crossing_substitute": {
+    "before_model_own_samples_split_in_half": 0,
+    "n_below_epsilon_in_half1": 0,
+    "n_targets": 0,
+    "resolution_adequate_for_epsilon": false,
+    "degenerate_warning": "min resolvable frequency per half (~1/None) is NOT finer than epsilon=0.005 -- this substitute cannot meaningfully test the leash's noise floor at this epsilon; any zero-count recipe that appears even once in the other half trivially 'crosses', which is exactly what happened (n_cross == n_below_half1 below). Treat the real crossing counts as UNVALIDATED by this substitute, not confirmed above noise."
+   },
+   "n_obs": 737
+  },
+  "S6": {
+   "b_s_point": 4.795772561481597,
+   "leash_L_s_nats": 4.3288,
+   "n_recipes_below_epsilon_at_before": 636,
+   "max_observed_delta_among_below_epsilon": 29.89,
+   "n_crossing_below_to_above_epsilon": 28,
+   "crossing_count_note": "exact: pi_tilde_after(y) is the after-model's own probability, renormalised over its own (model,target) key set the same way pi_tilde_before is -- not a proxy derived from before*exp(delta).",
+   "noise_floor_crossing_substitute": {
+    "before_model_own_samples_split_in_half": 201,
+    "n_below_epsilon_in_half1": 201,
+    "n_targets": 75,
+    "resolution_adequate_for_epsilon": false,
+    "degenerate_warning": "min resolvable frequency per half (~1/67) is NOT finer than epsilon=0.005 -- this substitute cannot meaningfully test the leash's noise floor at this epsilon; any zero-count recipe that appears even once in the other half trivially 'crosses', which is exactly what happened (n_cross == n_below_half1 below). Treat the real crossing counts as UNVALIDATED by this substitute, not confirmed above noise."
+   },
+   "n_obs": 737
+  },
+  "S7": {
+   "b_s_point": 1.860027722373517,
+   "leash_L_s_nats": 2.6809,
+   "n_recipes_below_epsilon_at_before": 636,
+   "max_observed_delta_among_below_epsilon": 19.9265,
+   "n_crossing_below_to_above_epsilon": 24,
+   "crossing_count_note": "exact: pi_tilde_after(y) is the after-model's own probability, renormalised over its own (model,target) key set the same way pi_tilde_before is -- not a proxy derived from before*exp(delta).",
+   "noise_floor_crossing_substitute": {
+    "before_model_own_samples_split_in_half": 201,
+    "n_below_epsilon_in_half1": 201,
+    "n_targets": 75,
+    "resolution_adequate_for_epsilon": false,
+    "degenerate_warning": "min resolvable frequency per half (~1/67) is NOT finer than epsilon=0.005 -- this substitute cannot meaningfully test the leash's noise floor at this epsilon; any zero-count recipe that appears even once in the other half trivially 'crosses', which is exactly what happened (n_cross == n_below_half1 below). Treat the real crossing counts as UNVALIDATED by this substitute, not confirmed above noise."
+   },
+   "n_obs": 737
+  }
+ }
+}

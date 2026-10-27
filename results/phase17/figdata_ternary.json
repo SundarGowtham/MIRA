@@ -1,0 +1,2150 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "B4",
+ "ternary": {
+  "base": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9972,
+    "other": 0.0028
+   },
+   "BaLiBO3": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "BaNaBO3": {
+    "carbonate": 0.9853,
+    "bare_oxide": 0.0147,
+    "other": 0.0
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "K2Zr(PO4)2": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "K3Al2(PO4)3": {
+    "carbonate": 0.5036,
+    "bare_oxide": 0.0,
+    "other": 0.4964
+   },
+   "K3Bi2(PO4)3": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "K3Fe2(PO4)3": {
+    "carbonate": 0.0001,
+    "bare_oxide": 0.0,
+    "other": 0.9999
+   },
+   "K3LiP2O7": {
+    "carbonate": 0.8942,
+    "bare_oxide": 0.1058,
+    "other": 0.0
+   },
+   "KBaPO4": {
+    "carbonate": 0.8752,
+    "bare_oxide": 0.0,
+    "other": 0.1248
+   },
+   "KLi(PO3)2": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "KMgPO4": {
+    "carbonate": 0.9923,
+    "bare_oxide": 0.0,
+    "other": 0.0077
+   },
+   "KNbWO6": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "KNiPO4": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "KTa2PO8": {
+    "carbonate": 0.3599,
+    "bare_oxide": 0.6401,
+    "other": 0.0
+   },
+   "KTiNbO5": {
+    "carbonate": 0.0271,
+    "bare_oxide": 0.9729,
+    "other": 0.0
+   },
+   "KTiPO5": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "Li2CuP2O7": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "Li2TeO4": {
+    "carbonate": 0.9994,
+    "bare_oxide": 0.0005,
+    "other": 0.0001
+   },
+   "Li2TiGeO5": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "Li2TiSiO5": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "Li3BiO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "Li3Fe2(PO4)3": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "Li3Pr2(BO3)3": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9919,
+    "other": 0.0081
+   },
+   "Li3Sc2(PO4)3": {
+    "carbonate": 0.7107,
+    "bare_oxide": 0.0,
+    "other": 0.2893
+   },
+   "Li3V2(PO4)3": {
+    "carbonate": 0.0964,
+    "bare_oxide": 0.1153,
+    "other": 0.7883
+   },
+   "Li3Y2(BO3)3": {
+    "carbonate": 0.9997,
+    "bare_oxide": 0.0003,
+    "other": 0.0
+   },
+   "Li5P3O10": {
+    "carbonate": 0.0004,
+    "bare_oxide": 0.0001,
+    "other": 0.9995
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 0.1571,
+    "bare_oxide": 0.0,
+    "other": 0.8429
+   },
+   "LiGeBO4": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "LiMgPO4": {
+    "carbonate": 0.8626,
+    "bare_oxide": 0.0262,
+    "other": 0.1111
+   },
+   "LiMnPO4": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "LiNbGeO5": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "LiNbWO6": {
+    "carbonate": 0.8469,
+    "bare_oxide": 0.1519,
+    "other": 0.0012
+   },
+   "LiPO3": {
+    "carbonate": 0.8192,
+    "bare_oxide": 0.0,
+    "other": 0.1808
+   },
+   "LiSi2BO6": {
+    "carbonate": 0.5471,
+    "bare_oxide": 0.0344,
+    "other": 0.4185
+   },
+   "LiZnBO3": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "LiZnPO4": {
+    "carbonate": 0.9915,
+    "bare_oxide": 0.0,
+    "other": 0.0085
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.2943,
+    "bare_oxide": 0.7057,
+    "other": 0.0
+   },
+   "Na2Al2B2O7": {
+    "carbonate": 0.3276,
+    "bare_oxide": 0.6724,
+    "other": 0.0
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "NaSiBO4": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "NaSrBO3": {
+    "carbonate": 0.9655,
+    "bare_oxide": 0.0,
+    "other": 0.0345
+   },
+   "SrLiBO3": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   }
+  },
+  "corpus_sft": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.9998,
+    "bare_oxide": 0.0002,
+    "other": 0.0
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "Li2TeO4": {
+    "carbonate": 0.9998,
+    "bare_oxide": 0.0002,
+    "other": 0.0
+   },
+   "Li3BiO4": {
+    "carbonate": 0.9953,
+    "bare_oxide": 0.0047,
+    "other": 0.0
+   },
+   "Li5P3O10": {
+    "carbonate": 0.9977,
+    "bare_oxide": 0.0023,
+    "other": 0.0
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 0.9998,
+    "bare_oxide": 0.0002,
+    "other": 0.0
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.9985,
+    "bare_oxide": 0.0015,
+    "other": 0.0
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "LiPO3": {
+    "carbonate": 0.9996,
+    "bare_oxide": 0.0004,
+    "other": 0.0
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.9984,
+    "bare_oxide": 0.0016,
+    "other": 0.0
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.9996,
+    "bare_oxide": 0.0003,
+    "other": 0.0002
+   }
+  },
+  "rs_sft": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "BaLiBO3": {
+    "carbonate": 0.1867,
+    "bare_oxide": 0.5733,
+    "other": 0.24
+   },
+   "BaNaBO3": {
+    "carbonate": 0.7371,
+    "bare_oxide": 0.2127,
+    "other": 0.0503
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 0.9999,
+    "bare_oxide": 0.0001,
+    "other": 0.0
+   },
+   "K2Zr(PO4)2": {
+    "carbonate": 0.0183,
+    "bare_oxide": 0.0005,
+    "other": 0.9812
+   },
+   "K3Al2(PO4)3": {
+    "carbonate": 0.0252,
+    "bare_oxide": 0.1583,
+    "other": 0.8164
+   },
+   "K3Bi2(PO4)3": {
+    "carbonate": 0.723,
+    "bare_oxide": 0.2221,
+    "other": 0.0549
+   },
+   "K3Fe2(PO4)3": {
+    "carbonate": 0.4182,
+    "bare_oxide": 0.0,
+    "other": 0.5818
+   },
+   "K3LiP2O7": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.6342,
+    "other": 0.3658
+   },
+   "KBaPO4": {
+    "carbonate": 0.1148,
+    "bare_oxide": 0.8628,
+    "other": 0.0224
+   },
+   "KLi(PO3)2": {
+    "carbonate": 0.5877,
+    "bare_oxide": 0.0269,
+    "other": 0.3853
+   },
+   "KMgPO4": {
+    "carbonate": 0.1194,
+    "bare_oxide": 0.1768,
+    "other": 0.7037
+   },
+   "KNbWO6": {
+    "carbonate": 0.0415,
+    "bare_oxide": 0.9447,
+    "other": 0.0137
+   },
+   "KNiPO4": {
+    "carbonate": 0.0418,
+    "bare_oxide": 0.0,
+    "other": 0.9582
+   },
+   "KTa2PO8": {
+    "carbonate": 0.7418,
+    "bare_oxide": 0.0575,
+    "other": 0.2007
+   },
+   "KTiNbO5": {
+    "carbonate": 0.0603,
+    "bare_oxide": 0.8123,
+    "other": 0.1274
+   },
+   "KTiPO5": {
+    "carbonate": 0.097,
+    "bare_oxide": 0.2725,
+    "other": 0.6306
+   },
+   "Li2CuP2O7": {
+    "carbonate": 0.2448,
+    "bare_oxide": 0.6456,
+    "other": 0.1096
+   },
+   "Li2TeO4": {
+    "carbonate": 0.0078,
+    "bare_oxide": 0.9914,
+    "other": 0.0008
+   },
+   "Li2TiGeO5": {
+    "carbonate": 0.2652,
+    "bare_oxide": 0.7348,
+    "other": 0.0
+   },
+   "Li2TiSiO5": {
+    "carbonate": 0.9903,
+    "bare_oxide": 0.0097,
+    "other": 0.0
+   },
+   "Li3BiO4": {
+    "carbonate": 0.015,
+    "bare_oxide": 0.985,
+    "other": 0.0
+   },
+   "Li3Fe2(PO4)3": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "Li3Pr2(BO3)3": {
+    "carbonate": 0.1886,
+    "bare_oxide": 0.404,
+    "other": 0.4074
+   },
+   "Li3Sc2(PO4)3": {
+    "carbonate": 0.2331,
+    "bare_oxide": 0.0621,
+    "other": 0.7048
+   },
+   "Li3V2(PO4)3": {
+    "carbonate": 0.0001,
+    "bare_oxide": 0.0,
+    "other": 0.9998
+   },
+   "Li3Y2(BO3)3": {
+    "carbonate": 0.9873,
+    "bare_oxide": 0.0,
+    "other": 0.0127
+   },
+   "Li5P3O10": {
+    "carbonate": 0.0002,
+    "bare_oxide": 0.8974,
+    "other": 0.1024
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 0.0786,
+    "bare_oxide": 0.0008,
+    "other": 0.9206
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.0202,
+    "bare_oxide": 0.1764,
+    "other": 0.8034
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 0.4054,
+    "bare_oxide": 0.0005,
+    "other": 0.5941
+   },
+   "LiGeBO4": {
+    "carbonate": 0.2984,
+    "bare_oxide": 0.562,
+    "other": 0.1396
+   },
+   "LiMgPO4": {
+    "carbonate": 0.1488,
+    "bare_oxide": 0.1713,
+    "other": 0.6799
+   },
+   "LiMnPO4": {
+    "carbonate": 0.3307,
+    "bare_oxide": 0.0,
+    "other": 0.6693
+   },
+   "LiNbGeO5": {
+    "carbonate": 0.0323,
+    "bare_oxide": 0.9677,
+    "other": 0.0
+   },
+   "LiNbWO6": {
+    "carbonate": 0.1525,
+    "bare_oxide": 0.1818,
+    "other": 0.6657
+   },
+   "LiPO3": {
+    "carbonate": 0.9881,
+    "bare_oxide": 0.0029,
+    "other": 0.009
+   },
+   "LiSi2BO6": {
+    "carbonate": 0.2885,
+    "bare_oxide": 0.6455,
+    "other": 0.0661
+   },
+   "LiZnBO3": {
+    "carbonate": 0.1745,
+    "bare_oxide": 0.8254,
+    "other": 0.0001
+   },
+   "LiZnPO4": {
+    "carbonate": 0.0576,
+    "bare_oxide": 0.0,
+    "other": 0.9424
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.2857,
+    "bare_oxide": 0.7143,
+    "other": 0.0
+   },
+   "Na2Al2B2O7": {
+    "carbonate": 0.0034,
+    "bare_oxide": 0.9958,
+    "other": 0.0008
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.4213,
+    "bare_oxide": 0.2629,
+    "other": 0.3159
+   },
+   "NaSiBO4": {
+    "carbonate": 0.2061,
+    "bare_oxide": 0.0228,
+    "other": 0.7711
+   },
+   "NaSrBO3": {
+    "carbonate": 0.2555,
+    "bare_oxide": 0.0117,
+    "other": 0.7328
+   },
+   "SrLiBO3": {
+    "carbonate": 0.408,
+    "bare_oxide": 0.592,
+    "other": 0.0
+   }
+  },
+  "e3": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.0137,
+    "bare_oxide": 0.9863,
+    "other": 0.0
+   },
+   "BaLiBO3": {
+    "carbonate": 0.013,
+    "bare_oxide": 0.0296,
+    "other": 0.9574
+   },
+   "BaNaBO3": {
+    "carbonate": 0.863,
+    "bare_oxide": 0.0021,
+    "other": 0.1349
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 0.5886,
+    "bare_oxide": 0.4114,
+    "other": 0.0
+   },
+   "K2Zr(PO4)2": {
+    "carbonate": 0.0017,
+    "bare_oxide": 0.0,
+    "other": 0.9983
+   },
+   "K3Al2(PO4)3": {
+    "carbonate": 0.5068,
+    "bare_oxide": 0.151,
+    "other": 0.3422
+   },
+   "K3Bi2(PO4)3": {
+    "carbonate": 0.0237,
+    "bare_oxide": 0.0,
+    "other": 0.9763
+   },
+   "K3Fe2(PO4)3": {
+    "carbonate": 0.4486,
+    "bare_oxide": 0.0,
+    "other": 0.5514
+   },
+   "K3LiP2O7": {
+    "carbonate": 0.0664,
+    "bare_oxide": 0.0003,
+    "other": 0.9334
+   },
+   "KBaPO4": {
+    "carbonate": 0.2194,
+    "bare_oxide": 0.7805,
+    "other": 0.0001
+   },
+   "KLi(PO3)2": {
+    "carbonate": 0.3799,
+    "bare_oxide": 0.2898,
+    "other": 0.3303
+   },
+   "KMgPO4": {
+    "carbonate": 0.1714,
+    "bare_oxide": 0.0,
+    "other": 0.8286
+   },
+   "KNbWO6": {
+    "carbonate": 0.0282,
+    "bare_oxide": 0.9702,
+    "other": 0.0016
+   },
+   "KNiPO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "KTa2PO8": {
+    "carbonate": 0.2751,
+    "bare_oxide": 0.0315,
+    "other": 0.6934
+   },
+   "KTiNbO5": {
+    "carbonate": 0.1334,
+    "bare_oxide": 0.8666,
+    "other": 0.0
+   },
+   "KTiPO5": {
+    "carbonate": 0.0216,
+    "bare_oxide": 0.0059,
+    "other": 0.9726
+   },
+   "Li2CuP2O7": {
+    "carbonate": 0.8,
+    "bare_oxide": 0.1582,
+    "other": 0.0417
+   },
+   "Li2TeO4": {
+    "carbonate": 0.037,
+    "bare_oxide": 0.9558,
+    "other": 0.0072
+   },
+   "Li2TiGeO5": {
+    "carbonate": 0.2401,
+    "bare_oxide": 0.7599,
+    "other": 0.0
+   },
+   "Li2TiSiO5": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "Li3BiO4": {
+    "carbonate": 0.2084,
+    "bare_oxide": 0.7916,
+    "other": 0.0
+   },
+   "Li3Fe2(PO4)3": {
+    "carbonate": 0.0168,
+    "bare_oxide": 0.0,
+    "other": 0.9832
+   },
+   "Li3Pr2(BO3)3": {
+    "carbonate": 0.9047,
+    "bare_oxide": 0.0457,
+    "other": 0.0496
+   },
+   "Li3Sc2(PO4)3": {
+    "carbonate": 0.0092,
+    "bare_oxide": 0.0,
+    "other": 0.9908
+   },
+   "Li3V2(PO4)3": {
+    "carbonate": 0.0168,
+    "bare_oxide": 0.0,
+    "other": 0.9832
+   },
+   "Li3Y2(BO3)3": {
+    "carbonate": 0.9929,
+    "bare_oxide": 0.0071,
+    "other": 0.0
+   },
+   "Li5P3O10": {
+    "carbonate": 0.1862,
+    "bare_oxide": 0.2302,
+    "other": 0.5837
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 0.1102,
+    "bare_oxide": 0.0007,
+    "other": 0.889
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.0006,
+    "bare_oxide": 0.2753,
+    "other": 0.7241
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 0.5873,
+    "bare_oxide": 0.396,
+    "other": 0.0167
+   },
+   "LiGeBO4": {
+    "carbonate": 0.1494,
+    "bare_oxide": 0.0224,
+    "other": 0.8282
+   },
+   "LiMgPO4": {
+    "carbonate": 0.7839,
+    "bare_oxide": 0.0216,
+    "other": 0.1945
+   },
+   "LiMnPO4": {
+    "carbonate": 0.4664,
+    "bare_oxide": 0.0,
+    "other": 0.5336
+   },
+   "LiNbGeO5": {
+    "carbonate": 0.0002,
+    "bare_oxide": 0.9907,
+    "other": 0.0091
+   },
+   "LiNbWO6": {
+    "carbonate": 0.1523,
+    "bare_oxide": 0.8448,
+    "other": 0.0028
+   },
+   "LiPO3": {
+    "carbonate": 0.6596,
+    "bare_oxide": 0.0473,
+    "other": 0.2931
+   },
+   "LiSi2BO6": {
+    "carbonate": 0.9989,
+    "bare_oxide": 0.0007,
+    "other": 0.0004
+   },
+   "LiZnBO3": {
+    "carbonate": 0.5462,
+    "bare_oxide": 0.4537,
+    "other": 0.0
+   },
+   "LiZnPO4": {
+    "carbonate": 0.7054,
+    "bare_oxide": 0.0,
+    "other": 0.2946
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.0679,
+    "bare_oxide": 0.9321,
+    "other": 0.0
+   },
+   "Na2Al2B2O7": {
+    "carbonate": 0.62,
+    "bare_oxide": 0.0,
+    "other": 0.38
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.0281,
+    "bare_oxide": 0.0118,
+    "other": 0.96
+   },
+   "NaSiBO4": {
+    "carbonate": 0.196,
+    "bare_oxide": 0.0711,
+    "other": 0.733
+   },
+   "NaSrBO3": {
+    "carbonate": 0.0403,
+    "bare_oxide": 0.0,
+    "other": 0.9597
+   },
+   "SrLiBO3": {
+    "carbonate": 0.7765,
+    "bare_oxide": 0.2235,
+    "other": 0.0
+   }
+  },
+  "e3c": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "BaLiBO3": {
+    "carbonate": 0.1325,
+    "bare_oxide": 0.8675,
+    "other": 0.0
+   },
+   "BaNaBO3": {
+    "carbonate": 0.6118,
+    "bare_oxide": 0.0,
+    "other": 0.3881
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 0.176,
+    "bare_oxide": 0.824,
+    "other": 0.0
+   },
+   "K2Zr(PO4)2": {
+    "carbonate": 0.1815,
+    "bare_oxide": 0.0,
+    "other": 0.8185
+   },
+   "K3Al2(PO4)3": {
+    "carbonate": 0.2614,
+    "bare_oxide": 0.0,
+    "other": 0.7386
+   },
+   "K3Bi2(PO4)3": {
+    "carbonate": 0.9901,
+    "bare_oxide": 0.0,
+    "other": 0.0099
+   },
+   "K3Fe2(PO4)3": {
+    "carbonate": 0.0455,
+    "bare_oxide": 0.0,
+    "other": 0.9545
+   },
+   "K3LiP2O7": {
+    "carbonate": 0.0066,
+    "bare_oxide": 0.3973,
+    "other": 0.596
+   },
+   "KBaPO4": {
+    "carbonate": 0.8442,
+    "bare_oxide": 0.0364,
+    "other": 0.1195
+   },
+   "KLi(PO3)2": {
+    "carbonate": 0.2131,
+    "bare_oxide": 0.7685,
+    "other": 0.0183
+   },
+   "KMgPO4": {
+    "carbonate": 0.0237,
+    "bare_oxide": 0.0149,
+    "other": 0.9614
+   },
+   "KNbWO6": {
+    "carbonate": 0.0223,
+    "bare_oxide": 0.9678,
+    "other": 0.0099
+   },
+   "KNiPO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "KTa2PO8": {
+    "carbonate": 0.9848,
+    "bare_oxide": 0.0009,
+    "other": 0.0144
+   },
+   "KTiNbO5": {
+    "carbonate": 0.0381,
+    "bare_oxide": 0.9619,
+    "other": 0.0001
+   },
+   "KTiPO5": {
+    "carbonate": 0.5611,
+    "bare_oxide": 0.2848,
+    "other": 0.1541
+   },
+   "Li2CuP2O7": {
+    "carbonate": 0.4205,
+    "bare_oxide": 0.5795,
+    "other": 0.0
+   },
+   "Li2TeO4": {
+    "carbonate": 0.1764,
+    "bare_oxide": 0.7984,
+    "other": 0.0252
+   },
+   "Li2TiGeO5": {
+    "carbonate": 0.3255,
+    "bare_oxide": 0.6266,
+    "other": 0.048
+   },
+   "Li2TiSiO5": {
+    "carbonate": 0.9999,
+    "bare_oxide": 0.0001,
+    "other": 0.0
+   },
+   "Li3BiO4": {
+    "carbonate": 0.4991,
+    "bare_oxide": 0.2112,
+    "other": 0.2897
+   },
+   "Li3Fe2(PO4)3": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "Li3Pr2(BO3)3": {
+    "carbonate": 0.9923,
+    "bare_oxide": 0.007,
+    "other": 0.0007
+   },
+   "Li3Sc2(PO4)3": {
+    "carbonate": 0.7791,
+    "bare_oxide": 0.0004,
+    "other": 0.2205
+   },
+   "Li3V2(PO4)3": {
+    "carbonate": 0.0011,
+    "bare_oxide": 0.0,
+    "other": 0.9989
+   },
+   "Li3Y2(BO3)3": {
+    "carbonate": 0.8401,
+    "bare_oxide": 0.0,
+    "other": 0.1599
+   },
+   "Li5P3O10": {
+    "carbonate": 0.3495,
+    "bare_oxide": 0.0013,
+    "other": 0.6492
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 0.5473,
+    "bare_oxide": 0.0001,
+    "other": 0.4525
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.0001,
+    "bare_oxide": 0.0,
+    "other": 0.9998
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 0.67,
+    "bare_oxide": 0.0005,
+    "other": 0.3296
+   },
+   "LiGeBO4": {
+    "carbonate": 0.914,
+    "bare_oxide": 0.0002,
+    "other": 0.0858
+   },
+   "LiMgPO4": {
+    "carbonate": 0.1324,
+    "bare_oxide": 0.2289,
+    "other": 0.6387
+   },
+   "LiMnPO4": {
+    "carbonate": 0.2518,
+    "bare_oxide": 0.0,
+    "other": 0.7482
+   },
+   "LiNbGeO5": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.1817,
+    "other": 0.8183
+   },
+   "LiNbWO6": {
+    "carbonate": 0.9952,
+    "bare_oxide": 0.0018,
+    "other": 0.003
+   },
+   "LiPO3": {
+    "carbonate": 0.9051,
+    "bare_oxide": 0.0008,
+    "other": 0.0941
+   },
+   "LiSi2BO6": {
+    "carbonate": 0.2911,
+    "bare_oxide": 0.5653,
+    "other": 0.1436
+   },
+   "LiZnBO3": {
+    "carbonate": 0.9779,
+    "bare_oxide": 0.0002,
+    "other": 0.0219
+   },
+   "LiZnPO4": {
+    "carbonate": 0.9567,
+    "bare_oxide": 0.0001,
+    "other": 0.0432
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.2013,
+    "bare_oxide": 0.7986,
+    "other": 0.0
+   },
+   "Na2Al2B2O7": {
+    "carbonate": 0.5366,
+    "bare_oxide": 0.4633,
+    "other": 0.0001
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.0006,
+    "bare_oxide": 0.001,
+    "other": 0.9984
+   },
+   "NaSiBO4": {
+    "carbonate": 0.0154,
+    "bare_oxide": 0.0001,
+    "other": 0.9845
+   },
+   "NaSrBO3": {
+    "carbonate": 0.0971,
+    "bare_oxide": 0.0931,
+    "other": 0.8098
+   },
+   "SrLiBO3": {
+    "carbonate": 0.1246,
+    "bare_oxide": 0.6368,
+    "other": 0.2386
+   }
+  },
+  "gdpo_v3_ckpt300": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.9992,
+    "bare_oxide": 0.0008,
+    "other": 0.0
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 0.9999,
+    "bare_oxide": 0.0001,
+    "other": 0.0
+   },
+   "Li2TeO4": {
+    "carbonate": 0.9995,
+    "bare_oxide": 0.0005,
+    "other": 0.0
+   },
+   "Li3BiO4": {
+    "carbonate": 0.9983,
+    "bare_oxide": 0.0017,
+    "other": 0.0
+   },
+   "Li5P3O10": {
+    "carbonate": 0.9694,
+    "bare_oxide": 0.0306,
+    "other": 0.0
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 1.0,
+    "bare_oxide": 0.0,
+    "other": 0.0
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.9995,
+    "bare_oxide": 0.0004,
+    "other": 0.0
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 0.9993,
+    "bare_oxide": 0.0007,
+    "other": 0.0
+   },
+   "LiPO3": {
+    "carbonate": 0.9998,
+    "bare_oxide": 0.0002,
+    "other": 0.0
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.8925,
+    "bare_oxide": 0.1075,
+    "other": 0.0
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.9997,
+    "bare_oxide": 0.0002,
+    "other": 0.0002
+   }
+  },
+  "phase12_ckpt100": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "BaLiBO3": {
+    "carbonate": 0.0619,
+    "bare_oxide": 0.5278,
+    "other": 0.4103
+   },
+   "BaNaBO3": {
+    "carbonate": 0.118,
+    "bare_oxide": 0.7061,
+    "other": 0.1759
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 0.3197,
+    "bare_oxide": 0.6247,
+    "other": 0.0556
+   },
+   "K2Zr(PO4)2": {
+    "carbonate": 0.5778,
+    "bare_oxide": 0.4062,
+    "other": 0.0161
+   },
+   "K3Al2(PO4)3": {
+    "carbonate": 0.0049,
+    "bare_oxide": 0.011,
+    "other": 0.9842
+   },
+   "K3Bi2(PO4)3": {
+    "carbonate": 0.2605,
+    "bare_oxide": 0.6495,
+    "other": 0.09
+   },
+   "K3Fe2(PO4)3": {
+    "carbonate": 0.3944,
+    "bare_oxide": 0.0,
+    "other": 0.6056
+   },
+   "K3LiP2O7": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.825,
+    "other": 0.175
+   },
+   "KBaPO4": {
+    "carbonate": 0.0112,
+    "bare_oxide": 0.9341,
+    "other": 0.0547
+   },
+   "KLi(PO3)2": {
+    "carbonate": 0.0164,
+    "bare_oxide": 0.6355,
+    "other": 0.3481
+   },
+   "KMgPO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0013,
+    "other": 0.9987
+   },
+   "KNbWO6": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.8082,
+    "other": 0.1918
+   },
+   "KNiPO4": {
+    "carbonate": 0.0899,
+    "bare_oxide": 0.134,
+    "other": 0.7761
+   },
+   "KTa2PO8": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9999,
+    "other": 0.0001
+   },
+   "KTiNbO5": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9999,
+    "other": 0.0001
+   },
+   "KTiPO5": {
+    "carbonate": 0.0285,
+    "bare_oxide": 0.9715,
+    "other": 0.0
+   },
+   "Li2CuP2O7": {
+    "carbonate": 0.0108,
+    "bare_oxide": 0.0201,
+    "other": 0.9691
+   },
+   "Li2TeO4": {
+    "carbonate": 0.0846,
+    "bare_oxide": 0.8781,
+    "other": 0.0373
+   },
+   "Li2TiGeO5": {
+    "carbonate": 0.0076,
+    "bare_oxide": 0.9924,
+    "other": 0.0
+   },
+   "Li2TiSiO5": {
+    "carbonate": 0.1379,
+    "bare_oxide": 0.8621,
+    "other": 0.0
+   },
+   "Li3BiO4": {
+    "carbonate": 0.0231,
+    "bare_oxide": 0.9766,
+    "other": 0.0003
+   },
+   "Li3Fe2(PO4)3": {
+    "carbonate": 0.1276,
+    "bare_oxide": 0.0,
+    "other": 0.8724
+   },
+   "Li3Pr2(BO3)3": {
+    "carbonate": 0.0147,
+    "bare_oxide": 0.0022,
+    "other": 0.983
+   },
+   "Li3Sc2(PO4)3": {
+    "carbonate": 0.53,
+    "bare_oxide": 0.0001,
+    "other": 0.47
+   },
+   "Li3V2(PO4)3": {
+    "carbonate": 0.2102,
+    "bare_oxide": 0.0567,
+    "other": 0.7331
+   },
+   "Li3Y2(BO3)3": {
+    "carbonate": 0.2086,
+    "bare_oxide": 0.6337,
+    "other": 0.1577
+   },
+   "Li5P3O10": {
+    "carbonate": 0.0049,
+    "bare_oxide": 0.0655,
+    "other": 0.9296
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 0.3141,
+    "bare_oxide": 0.2902,
+    "other": 0.3957
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0226,
+    "other": 0.9774
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 0.2366,
+    "bare_oxide": 0.0015,
+    "other": 0.7619
+   },
+   "LiGeBO4": {
+    "carbonate": 0.2589,
+    "bare_oxide": 0.462,
+    "other": 0.2791
+   },
+   "LiMgPO4": {
+    "carbonate": 0.2861,
+    "bare_oxide": 0.3268,
+    "other": 0.387
+   },
+   "LiMnPO4": {
+    "carbonate": 0.7627,
+    "bare_oxide": 0.0,
+    "other": 0.2373
+   },
+   "LiNbGeO5": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9997,
+    "other": 0.0003
+   },
+   "LiNbWO6": {
+    "carbonate": 0.0002,
+    "bare_oxide": 0.0207,
+    "other": 0.9791
+   },
+   "LiPO3": {
+    "carbonate": 0.8311,
+    "bare_oxide": 0.0082,
+    "other": 0.1608
+   },
+   "LiSi2BO6": {
+    "carbonate": 0.169,
+    "bare_oxide": 0.6379,
+    "other": 0.1931
+   },
+   "LiZnBO3": {
+    "carbonate": 0.0002,
+    "bare_oxide": 0.9997,
+    "other": 0.0001
+   },
+   "LiZnPO4": {
+    "carbonate": 0.285,
+    "bare_oxide": 0.0019,
+    "other": 0.7132
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "Na2Al2B2O7": {
+    "carbonate": 0.2942,
+    "bare_oxide": 0.651,
+    "other": 0.0547
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.9879,
+    "bare_oxide": 0.0092,
+    "other": 0.0028
+   },
+   "NaSiBO4": {
+    "carbonate": 0.0022,
+    "bare_oxide": 0.8696,
+    "other": 0.1283
+   },
+   "NaSrBO3": {
+    "carbonate": 0.3291,
+    "bare_oxide": 0.3494,
+    "other": 0.3216
+   },
+   "SrLiBO3": {
+    "carbonate": 0.194,
+    "bare_oxide": 0.806,
+    "other": 0.0
+   }
+  },
+  "phase12_ckpt200": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "BaLiBO3": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.5208,
+    "other": 0.4792
+   },
+   "BaNaBO3": {
+    "carbonate": 0.0337,
+    "bare_oxide": 0.8488,
+    "other": 0.1176
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 0.0208,
+    "bare_oxide": 0.877,
+    "other": 0.1021
+   },
+   "K2Zr(PO4)2": {
+    "carbonate": 0.3836,
+    "bare_oxide": 0.2883,
+    "other": 0.3281
+   },
+   "K3Al2(PO4)3": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9996,
+    "other": 0.0004
+   },
+   "K3Bi2(PO4)3": {
+    "carbonate": 0.4437,
+    "bare_oxide": 0.097,
+    "other": 0.4593
+   },
+   "K3Fe2(PO4)3": {
+    "carbonate": 0.0378,
+    "bare_oxide": 0.0,
+    "other": 0.9622
+   },
+   "K3LiP2O7": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.862,
+    "other": 0.1379
+   },
+   "KBaPO4": {
+    "carbonate": 0.0001,
+    "bare_oxide": 0.9967,
+    "other": 0.0032
+   },
+   "KLi(PO3)2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.238,
+    "other": 0.7619
+   },
+   "KMgPO4": {
+    "carbonate": 0.0674,
+    "bare_oxide": 0.7249,
+    "other": 0.2077
+   },
+   "KNbWO6": {
+    "carbonate": 0.0002,
+    "bare_oxide": 0.9998,
+    "other": 0.0
+   },
+   "KNiPO4": {
+    "carbonate": 0.138,
+    "bare_oxide": 0.0001,
+    "other": 0.862
+   },
+   "KTa2PO8": {
+    "carbonate": 0.0001,
+    "bare_oxide": 0.7372,
+    "other": 0.2626
+   },
+   "KTiNbO5": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "KTiPO5": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.2325,
+    "other": 0.7675
+   },
+   "Li2CuP2O7": {
+    "carbonate": 0.6546,
+    "bare_oxide": 0.3454,
+    "other": 0.0
+   },
+   "Li2TeO4": {
+    "carbonate": 0.0602,
+    "bare_oxide": 0.9394,
+    "other": 0.0004
+   },
+   "Li2TiGeO5": {
+    "carbonate": 0.0636,
+    "bare_oxide": 0.9364,
+    "other": 0.0
+   },
+   "Li2TiSiO5": {
+    "carbonate": 0.1065,
+    "bare_oxide": 0.8935,
+    "other": 0.0
+   },
+   "Li3BiO4": {
+    "carbonate": 0.0006,
+    "bare_oxide": 0.9992,
+    "other": 0.0002
+   },
+   "Li3Fe2(PO4)3": {
+    "carbonate": 0.1816,
+    "bare_oxide": 0.0,
+    "other": 0.8184
+   },
+   "Li3Pr2(BO3)3": {
+    "carbonate": 0.1923,
+    "bare_oxide": 0.3022,
+    "other": 0.5054
+   },
+   "Li3Sc2(PO4)3": {
+    "carbonate": 0.0001,
+    "bare_oxide": 0.5093,
+    "other": 0.4906
+   },
+   "Li3V2(PO4)3": {
+    "carbonate": 0.1243,
+    "bare_oxide": 0.003,
+    "other": 0.8727
+   },
+   "Li3Y2(BO3)3": {
+    "carbonate": 0.0005,
+    "bare_oxide": 0.508,
+    "other": 0.4915
+   },
+   "Li5P3O10": {
+    "carbonate": 0.0302,
+    "bare_oxide": 0.8379,
+    "other": 0.1319
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 0.1671,
+    "bare_oxide": 0.275,
+    "other": 0.5579
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0253,
+    "other": 0.9746
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 0.1637,
+    "bare_oxide": 0.2022,
+    "other": 0.6341
+   },
+   "LiGeBO4": {
+    "carbonate": 0.3485,
+    "bare_oxide": 0.2826,
+    "other": 0.3689
+   },
+   "LiMgPO4": {
+    "carbonate": 0.0276,
+    "bare_oxide": 0.8191,
+    "other": 0.1533
+   },
+   "LiMnPO4": {
+    "carbonate": 0.3542,
+    "bare_oxide": 0.0,
+    "other": 0.6458
+   },
+   "LiNbGeO5": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.7927,
+    "other": 0.2073
+   },
+   "LiNbWO6": {
+    "carbonate": 0.0004,
+    "bare_oxide": 0.9991,
+    "other": 0.0006
+   },
+   "LiPO3": {
+    "carbonate": 0.0048,
+    "bare_oxide": 0.9952,
+    "other": 0.0
+   },
+   "LiSi2BO6": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9943,
+    "other": 0.0057
+   },
+   "LiZnBO3": {
+    "carbonate": 0.1324,
+    "bare_oxide": 0.8675,
+    "other": 0.0001
+   },
+   "LiZnPO4": {
+    "carbonate": 0.0001,
+    "bare_oxide": 0.0002,
+    "other": 0.9997
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "Na2Al2B2O7": {
+    "carbonate": 0.1328,
+    "bare_oxide": 0.731,
+    "other": 0.1362
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9421,
+    "other": 0.0579
+   },
+   "NaSiBO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.7796,
+    "other": 0.2204
+   },
+   "NaSrBO3": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.89,
+    "other": 0.11
+   },
+   "SrLiBO3": {
+    "carbonate": 0.1332,
+    "bare_oxide": 0.8667,
+    "other": 0.0001
+   }
+  },
+  "phase12_ckpt300": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 0.0366,
+    "bare_oxide": 0.9144,
+    "other": 0.049
+   },
+   "Li2TeO4": {
+    "carbonate": 0.019,
+    "bare_oxide": 0.9544,
+    "other": 0.0266
+   },
+   "Li3BiO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.8941,
+    "other": 0.1059
+   },
+   "Li5P3O10": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9133,
+    "other": 0.0867
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 0.0371,
+    "bare_oxide": 0.6827,
+    "other": 0.2803
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0013,
+    "other": 0.9987
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 0.0917,
+    "bare_oxide": 0.6567,
+    "other": 0.2516
+   },
+   "LiPO3": {
+    "carbonate": 0.2227,
+    "bare_oxide": 0.7769,
+    "other": 0.0004
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.0082,
+    "bare_oxide": 0.8153,
+    "other": 0.1765
+   }
+  },
+  "e1_ckpt100": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "BaLiBO3": {
+    "carbonate": 0.6629,
+    "bare_oxide": 0.3371,
+    "other": 0.0
+   },
+   "BaNaBO3": {
+    "carbonate": 0.0014,
+    "bare_oxide": 0.5884,
+    "other": 0.4102
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9987,
+    "other": 0.0013
+   },
+   "K2Zr(PO4)2": {
+    "carbonate": 0.9901,
+    "bare_oxide": 0.0036,
+    "other": 0.0063
+   },
+   "K3Al2(PO4)3": {
+    "carbonate": 0.0098,
+    "bare_oxide": 0.1941,
+    "other": 0.7961
+   },
+   "K3Bi2(PO4)3": {
+    "carbonate": 0.2678,
+    "bare_oxide": 0.5816,
+    "other": 0.1506
+   },
+   "K3Fe2(PO4)3": {
+    "carbonate": 0.0014,
+    "bare_oxide": 0.0,
+    "other": 0.9986
+   },
+   "K3LiP2O7": {
+    "carbonate": 0.3467,
+    "bare_oxide": 0.6531,
+    "other": 0.0002
+   },
+   "KBaPO4": {
+    "carbonate": 0.1711,
+    "bare_oxide": 0.8289,
+    "other": 0.0
+   },
+   "KLi(PO3)2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.999,
+    "other": 0.001
+   },
+   "KMgPO4": {
+    "carbonate": 0.345,
+    "bare_oxide": 0.4374,
+    "other": 0.2175
+   },
+   "KNbWO6": {
+    "carbonate": 0.0842,
+    "bare_oxide": 0.9101,
+    "other": 0.0057
+   },
+   "KNiPO4": {
+    "carbonate": 0.0738,
+    "bare_oxide": 0.0552,
+    "other": 0.8711
+   },
+   "KTa2PO8": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.176,
+    "other": 0.824
+   },
+   "KTiNbO5": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9433,
+    "other": 0.0567
+   },
+   "KTiPO5": {
+    "carbonate": 0.0011,
+    "bare_oxide": 0.6388,
+    "other": 0.3601
+   },
+   "Li2CuP2O7": {
+    "carbonate": 0.6618,
+    "bare_oxide": 0.3382,
+    "other": 0.0
+   },
+   "Li2TeO4": {
+    "carbonate": 0.0092,
+    "bare_oxide": 0.1776,
+    "other": 0.8132
+   },
+   "Li2TiGeO5": {
+    "carbonate": 0.0039,
+    "bare_oxide": 0.9961,
+    "other": 0.0
+   },
+   "Li2TiSiO5": {
+    "carbonate": 0.2289,
+    "bare_oxide": 0.7711,
+    "other": 0.0
+   },
+   "Li3BiO4": {
+    "carbonate": 0.0005,
+    "bare_oxide": 0.6265,
+    "other": 0.373
+   },
+   "Li3Fe2(PO4)3": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "Li3Pr2(BO3)3": {
+    "carbonate": 0.0004,
+    "bare_oxide": 0.0002,
+    "other": 0.9994
+   },
+   "Li3Sc2(PO4)3": {
+    "carbonate": 0.2837,
+    "bare_oxide": 0.0,
+    "other": 0.7163
+   },
+   "Li3V2(PO4)3": {
+    "carbonate": 0.0754,
+    "bare_oxide": 0.0,
+    "other": 0.9246
+   },
+   "Li3Y2(BO3)3": {
+    "carbonate": 0.9983,
+    "bare_oxide": 0.0017,
+    "other": 0.0
+   },
+   "Li5P3O10": {
+    "carbonate": 0.0263,
+    "bare_oxide": 0.4451,
+    "other": 0.5286
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.0964,
+    "bare_oxide": 0.0001,
+    "other": 0.9035
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 0.234,
+    "bare_oxide": 0.1427,
+    "other": 0.6232
+   },
+   "LiGeBO4": {
+    "carbonate": 0.0285,
+    "bare_oxide": 0.9402,
+    "other": 0.0312
+   },
+   "LiMgPO4": {
+    "carbonate": 0.2177,
+    "bare_oxide": 0.4444,
+    "other": 0.338
+   },
+   "LiMnPO4": {
+    "carbonate": 0.4921,
+    "bare_oxide": 0.0,
+    "other": 0.5079
+   },
+   "LiNbGeO5": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9274,
+    "other": 0.0726
+   },
+   "LiNbWO6": {
+    "carbonate": 0.0469,
+    "bare_oxide": 0.8964,
+    "other": 0.0567
+   },
+   "LiPO3": {
+    "carbonate": 0.0235,
+    "bare_oxide": 0.9687,
+    "other": 0.0078
+   },
+   "LiSi2BO6": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9841,
+    "other": 0.0159
+   },
+   "LiZnBO3": {
+    "carbonate": 0.6258,
+    "bare_oxide": 0.3455,
+    "other": 0.0287
+   },
+   "LiZnPO4": {
+    "carbonate": 0.16,
+    "bare_oxide": 0.0452,
+    "other": 0.7948
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.0105,
+    "bare_oxide": 0.9895,
+    "other": 0.0
+   },
+   "Na2Al2B2O7": {
+    "carbonate": 0.0314,
+    "bare_oxide": 0.9685,
+    "other": 0.0
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.0973,
+    "bare_oxide": 0.3428,
+    "other": 0.5599
+   },
+   "NaSiBO4": {
+    "carbonate": 0.0435,
+    "bare_oxide": 0.3252,
+    "other": 0.6313
+   },
+   "NaSrBO3": {
+    "carbonate": 0.1432,
+    "bare_oxide": 0.3796,
+    "other": 0.4772
+   },
+   "SrLiBO3": {
+    "carbonate": 0.0449,
+    "bare_oxide": 0.7507,
+    "other": 0.2044
+   }
+  },
+  "e1_ckpt200": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "BaLiBO3": {
+    "carbonate": 0.4668,
+    "bare_oxide": 0.3047,
+    "other": 0.2285
+   },
+   "BaNaBO3": {
+    "carbonate": 0.0004,
+    "bare_oxide": 0.0035,
+    "other": 0.9961
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 0.0119,
+    "bare_oxide": 0.9654,
+    "other": 0.0227
+   },
+   "K2Zr(PO4)2": {
+    "carbonate": 0.95,
+    "bare_oxide": 0.0001,
+    "other": 0.0499
+   },
+   "K3Al2(PO4)3": {
+    "carbonate": 0.0555,
+    "bare_oxide": 0.6372,
+    "other": 0.3073
+   },
+   "K3Bi2(PO4)3": {
+    "carbonate": 0.0693,
+    "bare_oxide": 0.5957,
+    "other": 0.335
+   },
+   "K3Fe2(PO4)3": {
+    "carbonate": 0.1905,
+    "bare_oxide": 0.0,
+    "other": 0.8095
+   },
+   "K3LiP2O7": {
+    "carbonate": 0.0001,
+    "bare_oxide": 0.5445,
+    "other": 0.4554
+   },
+   "KBaPO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.8703,
+    "other": 0.1297
+   },
+   "KLi(PO3)2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9948,
+    "other": 0.0052
+   },
+   "KMgPO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.7083,
+    "other": 0.2917
+   },
+   "KNbWO6": {
+    "carbonate": 0.0118,
+    "bare_oxide": 0.9882,
+    "other": 0.0
+   },
+   "KNiPO4": {
+    "carbonate": 0.0044,
+    "bare_oxide": 0.3164,
+    "other": 0.6792
+   },
+   "KTa2PO8": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9996,
+    "other": 0.0004
+   },
+   "KTiNbO5": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "KTiPO5": {
+    "carbonate": 0.0004,
+    "bare_oxide": 0.8827,
+    "other": 0.1169
+   },
+   "Li2CuP2O7": {
+    "carbonate": 0.0014,
+    "bare_oxide": 0.9442,
+    "other": 0.0543
+   },
+   "Li2TeO4": {
+    "carbonate": 0.0009,
+    "bare_oxide": 0.974,
+    "other": 0.0251
+   },
+   "Li2TiGeO5": {
+    "carbonate": 0.0013,
+    "bare_oxide": 0.9987,
+    "other": 0.0
+   },
+   "Li2TiSiO5": {
+    "carbonate": 0.9813,
+    "bare_oxide": 0.0187,
+    "other": 0.0
+   },
+   "Li3BiO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.5305,
+    "other": 0.4695
+   },
+   "Li3Fe2(PO4)3": {
+    "carbonate": 0.0001,
+    "bare_oxide": 0.0,
+    "other": 0.9999
+   },
+   "Li3Pr2(BO3)3": {
+    "carbonate": 0.0001,
+    "bare_oxide": 0.6149,
+    "other": 0.385
+   },
+   "Li3Sc2(PO4)3": {
+    "carbonate": 0.0158,
+    "bare_oxide": 0.0156,
+    "other": 0.9686
+   },
+   "Li3V2(PO4)3": {
+    "carbonate": 0.0016,
+    "bare_oxide": 0.0,
+    "other": 0.9984
+   },
+   "Li3Y2(BO3)3": {
+    "carbonate": 0.8211,
+    "bare_oxide": 0.1753,
+    "other": 0.0036
+   },
+   "Li5P3O10": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9117,
+    "other": 0.0883
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0082,
+    "other": 0.9918
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 0.2992,
+    "bare_oxide": 0.434,
+    "other": 0.2667
+   },
+   "LiGeBO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.6197,
+    "other": 0.3803
+   },
+   "LiMgPO4": {
+    "carbonate": 0.0238,
+    "bare_oxide": 0.1726,
+    "other": 0.8036
+   },
+   "LiMnPO4": {
+    "carbonate": 0.1444,
+    "bare_oxide": 0.0,
+    "other": 0.8556
+   },
+   "LiNbGeO5": {
+    "carbonate": 0.0043,
+    "bare_oxide": 0.9957,
+    "other": 0.0
+   },
+   "LiNbWO6": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.8131,
+    "other": 0.1869
+   },
+   "LiPO3": {
+    "carbonate": 0.0117,
+    "bare_oxide": 0.0073,
+    "other": 0.981
+   },
+   "LiSi2BO6": {
+    "carbonate": 0.0003,
+    "bare_oxide": 0.9972,
+    "other": 0.0025
+   },
+   "LiZnBO3": {
+    "carbonate": 0.0227,
+    "bare_oxide": 0.5222,
+    "other": 0.4551
+   },
+   "LiZnPO4": {
+    "carbonate": 0.0003,
+    "bare_oxide": 0.0006,
+    "other": 0.999
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "Na2Al2B2O7": {
+    "carbonate": 0.3125,
+    "bare_oxide": 0.46,
+    "other": 0.2274
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0001,
+    "other": 0.9999
+   },
+   "NaSiBO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0953,
+    "other": 0.9047
+   },
+   "NaSrBO3": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0003,
+    "other": 0.9997
+   },
+   "SrLiBO3": {
+    "carbonate": 0.096,
+    "bare_oxide": 0.6505,
+    "other": 0.2535
+   }
+  },
+  "e1_ckpt300": {
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "carbonate": 0.0,
+    "bare_oxide": 1.0,
+    "other": 0.0
+   },
+   "K2Ba(WO4)2": {
+    "carbonate": 0.1868,
+    "bare_oxide": 0.8132,
+    "other": 0.0
+   },
+   "Li2TeO4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.9573,
+    "other": 0.0426
+   },
+   "Li3BiO4": {
+    "carbonate": 0.0094,
+    "bare_oxide": 0.9895,
+    "other": 0.0011
+   },
+   "Li5P3O10": {
+    "carbonate": 0.0001,
+    "bare_oxide": 0.9998,
+    "other": 0.0002
+   },
+   "Li9V3(P2O7)3(PO4)2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.022,
+    "other": 0.978
+   },
+   "LiBi3O4Cl2": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0001,
+    "other": 0.9999
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "carbonate": 0.5396,
+    "bare_oxide": 0.0081,
+    "other": 0.4524
+   },
+   "LiPO3": {
+    "carbonate": 0.1251,
+    "bare_oxide": 0.003,
+    "other": 0.8719
+   },
+   "Na0.65Bi0.45Cu3Ti4O12": {
+    "carbonate": 0.0003,
+    "bare_oxide": 0.9997,
+    "other": 0.0
+   },
+   "Na2PdCl4": {
+    "carbonate": 0.0,
+    "bare_oxide": 0.0,
+    "other": 1.0
+   },
+   "NaNiO2": {
+    "carbonate": 0.1971,
+    "bare_oxide": 0.2314,
+    "other": 0.5715
+   }
+  }
+ }
+}
