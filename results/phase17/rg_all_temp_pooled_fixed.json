@@ -1,0 +1,52 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R-g",
+ "subproperty": "all-temperatures pooled CI, fixed",
+ "fix_note": "Replaces concatenate-then-percentile (rg_table2_verdict.json's pooled_over_targets.all_temperatures) with average-within-replicate-then-percentile, per regular Claude's review (2026-10-27). Does not overwrite the original file.",
+ "seed": 20261016,
+ "n_hi": 16,
+ "results": {
+  "R2_checker": {
+   "n_replicates_used": 927,
+   "lengths_per_target": {
+    "YBCO": 1000,
+    "LTOPO": 1000,
+    "NTMO": 927
+   },
+   "mean_diff": -0.1264,
+   "ci95": [
+    -5.0798,
+    4.2647
+   ],
+   "verdict": "no climb"
+  },
+  "R4_ranker": {
+   "n_replicates_used": 927,
+   "lengths_per_target": {
+    "YBCO": 1000,
+    "LTOPO": 1000,
+    "NTMO": 927
+   },
+   "mean_diff": 11.2742,
+   "ci95": [
+    1.8824,
+    20.623
+   ],
+   "verdict": "climbs"
+  },
+  "R5_comparator": {
+   "n_replicates_used": 927,
+   "lengths_per_target": {
+    "YBCO": 1000,
+    "LTOPO": 1000,
+    "NTMO": 927
+   },
+   "mean_diff": 2.7145,
+   "ci95": [
+    -5.6667,
+    13.8904
+   ],
+   "verdict": "no climb"
+  }
+ }
+}
