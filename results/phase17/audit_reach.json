@@ -1,0 +1,2862 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "R",
+ "subproperty": "R-h reachability",
+ "skipped_rewards_note": "R3, R5, R6 skipped -- same precedent as R-c (research/phase17_rc_price_equation.py) and the pre-reg's own back-test table (line 'R1 -> GDPO-300 (run 1), R2 -> Phase 12, R4 -> E1 (the three rewards that were actually trained with)'). R3 is additionally scored on a disjoint target set (the hardening probe's 40 targets, not U(x)'s ASTRAL+held-out 75), so it has no pi_init from Block A at all. R5/R6 were never trained with.",
+ "epsilons_tested": [
+  0.01,
+  0.005,
+  0.002
+ ],
+ "primary_epsilon": "1/200",
+ "by_reward": {
+  "R1": {
+   "reward_id": "R1",
+   "status": "ok",
+   "init_model": "corpus_sft",
+   "b_step": "S5",
+   "b_s_point": 5.665961764586674,
+   "n_targets": 25,
+   "mean_unreachable_reward_share_primary_eps": 0.9153,
+   "passes_R_h_threshold_lt_50pct": false,
+   "tilt_ceiling_nats": 2.0015,
+   "per_target": {
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+     "n_covered_recipes": 11,
+     "decile_cutoff_reward": 0.9439,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      }
+     }
+    },
+    "AgCuO": {
+     "n_covered_recipes": 15,
+     "decile_cutoff_reward": 0.95,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Ba2Bi0.6667TeO6": {
+     "n_covered_recipes": 21,
+     "decile_cutoff_reward": 0.814,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "BaBrCl": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 0.95,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 2,
+       "unreachable_share": 0.5
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 2,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 2,
+       "unreachable_share": 0.5
+      }
+     }
+    },
+    "BaIn0.5Sn0.5O2.75": {
+     "n_covered_recipes": 14,
+     "decile_cutoff_reward": 0.9,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 5,
+       "n_unreachable": 4,
+       "unreachable_share": 0.8
+      },
+      "1/200": {
+       "n_top_decile": 5,
+       "n_unreachable": 4,
+       "unreachable_share": 0.8
+      },
+      "1/500": {
+       "n_top_decile": 5,
+       "n_unreachable": 4,
+       "unreachable_share": 0.8
+      }
+     }
+    },
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3": {
+     "n_covered_recipes": 19,
+     "decile_cutoff_reward": 0.9475,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "BiNiPO5": {
+     "n_covered_recipes": 23,
+     "decile_cutoff_reward": 0.9908,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "Cu2Zn0.75Mg0.25SnS4": {
+     "n_covered_recipes": 36,
+     "decile_cutoff_reward": 0.9488,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "CuSbSe2": {
+     "n_covered_recipes": 23,
+     "decile_cutoff_reward": 0.9997,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "InMn0.9957Fe0.01O3": {
+     "n_covered_recipes": 29,
+     "decile_cutoff_reward": 0.9404,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "K2Ba(WO4)2": {
+     "n_covered_recipes": 14,
+     "decile_cutoff_reward": 0.9484,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "La0.82Sr0.18MnO3": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 0.95,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "La1.85Sr0.15CuO4": {
+     "n_covered_recipes": 10,
+     "decile_cutoff_reward": 0.85,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "LaNi0.5Rh0.5O3": {
+     "n_covered_recipes": 15,
+     "decile_cutoff_reward": 0.8491,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li2TeO4": {
+     "n_covered_recipes": 19,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li3BiO4": {
+     "n_covered_recipes": 21,
+     "decile_cutoff_reward": 0.9973,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li5P3O10": {
+     "n_covered_recipes": 10,
+     "decile_cutoff_reward": 0.95,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li9V3(P2O7)3(PO4)2": {
+     "n_covered_recipes": 95,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 12,
+       "n_unreachable": 12,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 12,
+       "n_unreachable": 12,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 12,
+       "n_unreachable": 12,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "LiBi3O4Cl2": {
+     "n_covered_recipes": 35,
+     "decile_cutoff_reward": 0.9853,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "LiFe(BO3)0.5(PO4)0.5": {
+     "n_covered_recipes": 101,
+     "decile_cutoff_reward": 0.9414,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 11,
+       "n_unreachable": 11,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 11,
+       "n_unreachable": 11,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 11,
+       "n_unreachable": 11,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "LiPO3": {
+     "n_covered_recipes": 13,
+     "decile_cutoff_reward": 0.9984,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Na0.65Bi0.45Cu3Ti4O12": {
+     "n_covered_recipes": 12,
+     "decile_cutoff_reward": 0.95,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "NaNiO2": {
+     "n_covered_recipes": 28,
+     "decile_cutoff_reward": 0.9974,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Sr2MnNbO6": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 7,
+       "n_unreachable": 7,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 7,
+       "n_unreachable": 7,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 7,
+       "n_unreachable": 7,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "SrUO4": {
+     "n_covered_recipes": 14,
+     "decile_cutoff_reward": 0.9999,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    }
+   }
+  },
+  "R2": {
+   "reward_id": "R2",
+   "status": "ok",
+   "init_model": "rs_sft",
+   "b_step": "S6",
+   "b_s_point": 4.795772561481597,
+   "n_targets": 53,
+   "mean_unreachable_reward_share_primary_eps": 0.8378,
+   "passes_R_h_threshold_lt_50pct": false,
+   "tilt_ceiling_nats": 3.2308,
+   "per_target": {
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+     "n_covered_recipes": 11,
+     "decile_cutoff_reward": 0.9878,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      }
+     }
+    },
+    "AgCuO": {
+     "n_covered_recipes": 15,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Ba2Bi0.6667TeO6": {
+     "n_covered_recipes": 21,
+     "decile_cutoff_reward": 0.928,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "BaBrCl": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 0.9,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      }
+     }
+    },
+    "BaIn0.5Sn0.5O2.75": {
+     "n_covered_recipes": 14,
+     "decile_cutoff_reward": 0.9,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 6,
+       "n_unreachable": 4,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 6,
+       "n_unreachable": 4,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 6,
+       "n_unreachable": 4,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "BaLiBO3": {
+     "n_covered_recipes": 15,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 6,
+       "n_unreachable": 5,
+       "unreachable_share": 0.8333
+      },
+      "1/200": {
+       "n_top_decile": 6,
+       "n_unreachable": 5,
+       "unreachable_share": 0.8333
+      },
+      "1/500": {
+       "n_top_decile": 6,
+       "n_unreachable": 5,
+       "unreachable_share": 0.8333
+      }
+     }
+    },
+    "BaNaBO3": {
+     "n_covered_recipes": 29,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 6,
+       "n_unreachable": 5,
+       "unreachable_share": 0.8333
+      },
+      "1/200": {
+       "n_top_decile": 6,
+       "n_unreachable": 5,
+       "unreachable_share": 0.8333
+      },
+      "1/500": {
+       "n_top_decile": 6,
+       "n_unreachable": 5,
+       "unreachable_share": 0.8333
+      }
+     }
+    },
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3": {
+     "n_covered_recipes": 19,
+     "decile_cutoff_reward": 0.9951,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "BiNiPO5": {
+     "n_covered_recipes": 23,
+     "decile_cutoff_reward": 0.9816,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      }
+     }
+    },
+    "Cu2Zn0.75Mg0.25SnS4": {
+     "n_covered_recipes": 36,
+     "decile_cutoff_reward": 0.9976,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "CuSbSe2": {
+     "n_covered_recipes": 23,
+     "decile_cutoff_reward": 0.9994,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "InMn0.9957Fe0.01O3": {
+     "n_covered_recipes": 29,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "K2Ba(WO4)2": {
+     "n_covered_recipes": 14,
+     "decile_cutoff_reward": 0.9967,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "K2Zr(PO4)2": {
+     "n_covered_recipes": 18,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 6,
+       "n_unreachable": 6,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 6,
+       "n_unreachable": 5,
+       "unreachable_share": 0.8333
+      },
+      "1/500": {
+       "n_top_decile": 6,
+       "n_unreachable": 5,
+       "unreachable_share": 0.8333
+      }
+     }
+    },
+    "K3Al2(PO4)3": {
+     "n_covered_recipes": 33,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 7,
+       "n_unreachable": 6,
+       "unreachable_share": 0.8571
+      },
+      "1/200": {
+       "n_top_decile": 7,
+       "n_unreachable": 6,
+       "unreachable_share": 0.8571
+      },
+      "1/500": {
+       "n_top_decile": 7,
+       "n_unreachable": 6,
+       "unreachable_share": 0.8571
+      }
+     }
+    },
+    "K3Bi2(PO4)3": {
+     "n_covered_recipes": 20,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 6,
+       "n_unreachable": 5,
+       "unreachable_share": 0.8333
+      },
+      "1/200": {
+       "n_top_decile": 6,
+       "n_unreachable": 5,
+       "unreachable_share": 0.8333
+      },
+      "1/500": {
+       "n_top_decile": 6,
+       "n_unreachable": 5,
+       "unreachable_share": 0.8333
+      }
+     }
+    },
+    "K3Fe2(PO4)3": {
+     "n_covered_recipes": 35,
+     "decile_cutoff_reward": 0.9996,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "K3LiP2O7": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "KBaPO4": {
+     "n_covered_recipes": 38,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 7,
+       "n_unreachable": 6,
+       "unreachable_share": 0.8571
+      },
+      "1/200": {
+       "n_top_decile": 7,
+       "n_unreachable": 6,
+       "unreachable_share": 0.8571
+      },
+      "1/500": {
+       "n_top_decile": 7,
+       "n_unreachable": 6,
+       "unreachable_share": 0.8571
+      }
+     }
+    },
+    "KLi(PO3)2": {
+     "n_covered_recipes": 24,
+     "decile_cutoff_reward": 0.9755,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      }
+     }
+    },
+    "KMgPO4": {
+     "n_covered_recipes": 44,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 6,
+       "n_unreachable": 6,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 6,
+       "n_unreachable": 6,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 6,
+       "n_unreachable": 6,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "KNiPO4": {
+     "n_covered_recipes": 48,
+     "decile_cutoff_reward": 0.8,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 12,
+       "n_unreachable": 12,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 12,
+       "n_unreachable": 12,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 12,
+       "n_unreachable": 12,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "KTa2PO8": {
+     "n_covered_recipes": 25,
+     "decile_cutoff_reward": 0.9767,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      }
+     }
+    },
+    "KTiPO5": {
+     "n_covered_recipes": 21,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "La0.82Sr0.18MnO3": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "La1.85Sr0.15CuO4": {
+     "n_covered_recipes": 10,
+     "decile_cutoff_reward": 0.8,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "LaNi0.5Rh0.5O3": {
+     "n_covered_recipes": 15,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li2CuP2O7": {
+     "n_covered_recipes": 12,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "Li2TeO4": {
+     "n_covered_recipes": 19,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li3BiO4": {
+     "n_covered_recipes": 21,
+     "decile_cutoff_reward": 0.9947,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li3Fe2(PO4)3": {
+     "n_covered_recipes": 27,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 5,
+       "n_unreachable": 4,
+       "unreachable_share": 0.8
+      },
+      "1/200": {
+       "n_top_decile": 5,
+       "n_unreachable": 4,
+       "unreachable_share": 0.8
+      },
+      "1/500": {
+       "n_top_decile": 5,
+       "n_unreachable": 4,
+       "unreachable_share": 0.8
+      }
+     }
+    },
+    "Li3Pr2(BO3)3": {
+     "n_covered_recipes": 30,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 9,
+       "n_unreachable": 9,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 9,
+       "n_unreachable": 9,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 9,
+       "n_unreachable": 9,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li3Sc2(PO4)3": {
+     "n_covered_recipes": 20,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li3V2(PO4)3": {
+     "n_covered_recipes": 23,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 8,
+       "n_unreachable": 8,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 8,
+       "n_unreachable": 7,
+       "unreachable_share": 0.875
+      },
+      "1/500": {
+       "n_top_decile": 8,
+       "n_unreachable": 7,
+       "unreachable_share": 0.875
+      }
+     }
+    },
+    "Li3Y2(BO3)3": {
+     "n_covered_recipes": 12,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li5P3O10": {
+     "n_covered_recipes": 10,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li9V3(P2O7)3(PO4)2": {
+     "n_covered_recipes": 95,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 12,
+       "n_unreachable": 11,
+       "unreachable_share": 0.9167
+      },
+      "1/200": {
+       "n_top_decile": 12,
+       "n_unreachable": 11,
+       "unreachable_share": 0.9167
+      },
+      "1/500": {
+       "n_top_decile": 12,
+       "n_unreachable": 11,
+       "unreachable_share": 0.9167
+      }
+     }
+    },
+    "LiBi3O4Cl2": {
+     "n_covered_recipes": 35,
+     "decile_cutoff_reward": 0.9706,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "LiFe(BO3)0.5(PO4)0.5": {
+     "n_covered_recipes": 101,
+     "decile_cutoff_reward": 0.9829,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 11,
+       "n_unreachable": 10,
+       "unreachable_share": 0.9091
+      },
+      "1/200": {
+       "n_top_decile": 11,
+       "n_unreachable": 10,
+       "unreachable_share": 0.9091
+      },
+      "1/500": {
+       "n_top_decile": 11,
+       "n_unreachable": 10,
+       "unreachable_share": 0.9091
+      }
+     }
+    },
+    "LiMgPO4": {
+     "n_covered_recipes": 33,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 7,
+       "n_unreachable": 6,
+       "unreachable_share": 0.8571
+      },
+      "1/200": {
+       "n_top_decile": 7,
+       "n_unreachable": 6,
+       "unreachable_share": 0.8571
+      },
+      "1/500": {
+       "n_top_decile": 7,
+       "n_unreachable": 6,
+       "unreachable_share": 0.8571
+      }
+     }
+    },
+    "LiMnPO4": {
+     "n_covered_recipes": 32,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 10,
+       "n_unreachable": 10,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 10,
+       "n_unreachable": 10,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 10,
+       "n_unreachable": 10,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "LiPO3": {
+     "n_covered_recipes": 13,
+     "decile_cutoff_reward": 0.9968,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 0,
+       "unreachable_share": 0.0
+      }
+     }
+    },
+    "LiSi2BO6": {
+     "n_covered_recipes": 10,
+     "decile_cutoff_reward": 0.8,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "LiZnBO3": {
+     "n_covered_recipes": 10,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "LiZnPO4": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Na0.65Bi0.45Cu3Ti4O12": {
+     "n_covered_recipes": 12,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Na2Al2B2O7": {
+     "n_covered_recipes": 15,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 6,
+       "n_unreachable": 6,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 6,
+       "n_unreachable": 6,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 6,
+       "n_unreachable": 6,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "NaNiO2": {
+     "n_covered_recipes": 28,
+     "decile_cutoff_reward": 0.9949,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "NaSiBO4": {
+     "n_covered_recipes": 20,
+     "decile_cutoff_reward": 0.8,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 6,
+       "n_unreachable": 4,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 6,
+       "n_unreachable": 4,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 6,
+       "n_unreachable": 4,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "NaSrBO3": {
+     "n_covered_recipes": 27,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 2,
+       "unreachable_share": 0.5
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 2,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 2,
+       "unreachable_share": 0.5
+      }
+     }
+    },
+    "Sr2MnNbO6": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 7,
+       "n_unreachable": 7,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 7,
+       "n_unreachable": 7,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 7,
+       "n_unreachable": 7,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "SrLiBO3": {
+     "n_covered_recipes": 16,
+     "decile_cutoff_reward": 1.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "SrUO4": {
+     "n_covered_recipes": 14,
+     "decile_cutoff_reward": 0.9997,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      }
+     }
+    }
+   }
+  },
+  "R4": {
+   "reward_id": "R4",
+   "status": "ok",
+   "init_model": "rs_sft",
+   "b_step": "S7",
+   "b_s_point": 1.860027722373517,
+   "n_targets": 53,
+   "mean_unreachable_reward_share_primary_eps": 0.7916,
+   "passes_R_h_threshold_lt_50pct": false,
+   "tilt_ceiling_nats": 2.5119,
+   "per_target": {
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+     "n_covered_recipes": 11,
+     "decile_cutoff_reward": 0.1327,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      }
+     }
+    },
+    "AgCuO": {
+     "n_covered_recipes": 15,
+     "decile_cutoff_reward": 0.6,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Ba2Bi0.6667TeO6": {
+     "n_covered_recipes": 21,
+     "decile_cutoff_reward": 0.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 21,
+       "n_unreachable": 20,
+       "unreachable_share": 0.9524
+      },
+      "1/200": {
+       "n_top_decile": 21,
+       "n_unreachable": 19,
+       "unreachable_share": 0.9048
+      },
+      "1/500": {
+       "n_top_decile": 21,
+       "n_unreachable": 19,
+       "unreachable_share": 0.9048
+      }
+     }
+    },
+    "BaBrCl": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 0.5,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "BaIn0.5Sn0.5O2.75": {
+     "n_covered_recipes": 14,
+     "decile_cutoff_reward": 0.5,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "BaLiBO3": {
+     "n_covered_recipes": 15,
+     "decile_cutoff_reward": 0.7,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      }
+     }
+    },
+    "BaNaBO3": {
+     "n_covered_recipes": 29,
+     "decile_cutoff_reward": 0.6812,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3": {
+     "n_covered_recipes": 19,
+     "decile_cutoff_reward": 0.2106,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "BiNiPO5": {
+     "n_covered_recipes": 23,
+     "decile_cutoff_reward": 0.5131,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 1,
+       "unreachable_share": 0.3333
+      }
+     }
+    },
+    "Cu2Zn0.75Mg0.25SnS4": {
+     "n_covered_recipes": 36,
+     "decile_cutoff_reward": 0.331,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "CuSbSe2": {
+     "n_covered_recipes": 23,
+     "decile_cutoff_reward": 0.6042,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "InMn0.9957Fe0.01O3": {
+     "n_covered_recipes": 29,
+     "decile_cutoff_reward": 0.2182,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "K2Ba(WO4)2": {
+     "n_covered_recipes": 14,
+     "decile_cutoff_reward": 0.7651,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "K2Zr(PO4)2": {
+     "n_covered_recipes": 18,
+     "decile_cutoff_reward": 0.66,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      }
+     }
+    },
+    "K3Al2(PO4)3": {
+     "n_covered_recipes": 33,
+     "decile_cutoff_reward": 0.6291,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "K3Bi2(PO4)3": {
+     "n_covered_recipes": 20,
+     "decile_cutoff_reward": 0.5834,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      }
+     }
+    },
+    "K3Fe2(PO4)3": {
+     "n_covered_recipes": 35,
+     "decile_cutoff_reward": 0.5696,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "K3LiP2O7": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 0.7821,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "KBaPO4": {
+     "n_covered_recipes": 38,
+     "decile_cutoff_reward": 0.6,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "KLi(PO3)2": {
+     "n_covered_recipes": 24,
+     "decile_cutoff_reward": 0.75,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "KMgPO4": {
+     "n_covered_recipes": 44,
+     "decile_cutoff_reward": 0.59,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 5,
+       "n_unreachable": 4,
+       "unreachable_share": 0.8
+      },
+      "1/200": {
+       "n_top_decile": 5,
+       "n_unreachable": 4,
+       "unreachable_share": 0.8
+      },
+      "1/500": {
+       "n_top_decile": 5,
+       "n_unreachable": 4,
+       "unreachable_share": 0.8
+      }
+     }
+    },
+    "KNiPO4": {
+     "n_covered_recipes": 48,
+     "decile_cutoff_reward": 0.8215,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 5,
+       "n_unreachable": 5,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 5,
+       "n_unreachable": 5,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 5,
+       "n_unreachable": 5,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "KTa2PO8": {
+     "n_covered_recipes": 25,
+     "decile_cutoff_reward": 0.5664,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "KTiPO5": {
+     "n_covered_recipes": 21,
+     "decile_cutoff_reward": 0.5726,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "La0.82Sr0.18MnO3": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 0.5347,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "La1.85Sr0.15CuO4": {
+     "n_covered_recipes": 10,
+     "decile_cutoff_reward": 0.2802,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "LaNi0.5Rh0.5O3": {
+     "n_covered_recipes": 15,
+     "decile_cutoff_reward": 0.0,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 15,
+       "n_unreachable": 13,
+       "unreachable_share": 0.8667
+      },
+      "1/200": {
+       "n_top_decile": 15,
+       "n_unreachable": 13,
+       "unreachable_share": 0.8667
+      },
+      "1/500": {
+       "n_top_decile": 15,
+       "n_unreachable": 13,
+       "unreachable_share": 0.8667
+      }
+     }
+    },
+    "Li2CuP2O7": {
+     "n_covered_recipes": 12,
+     "decile_cutoff_reward": 0.7397,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li2TeO4": {
+     "n_covered_recipes": 19,
+     "decile_cutoff_reward": 0.9622,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li3BiO4": {
+     "n_covered_recipes": 21,
+     "decile_cutoff_reward": 0.7117,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li3Fe2(PO4)3": {
+     "n_covered_recipes": 27,
+     "decile_cutoff_reward": 0.6028,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "Li3Pr2(BO3)3": {
+     "n_covered_recipes": 30,
+     "decile_cutoff_reward": 0.7,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 4,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "Li3Sc2(PO4)3": {
+     "n_covered_recipes": 20,
+     "decile_cutoff_reward": 0.5938,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      }
+     }
+    },
+    "Li3V2(PO4)3": {
+     "n_covered_recipes": 23,
+     "decile_cutoff_reward": 0.5789,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "Li3Y2(BO3)3": {
+     "n_covered_recipes": 12,
+     "decile_cutoff_reward": 0.5862,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      }
+     }
+    },
+    "Li5P3O10": {
+     "n_covered_recipes": 10,
+     "decile_cutoff_reward": 0.6436,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Li9V3(P2O7)3(PO4)2": {
+     "n_covered_recipes": 95,
+     "decile_cutoff_reward": 0.5507,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 10,
+       "n_unreachable": 9,
+       "unreachable_share": 0.9
+      },
+      "1/200": {
+       "n_top_decile": 10,
+       "n_unreachable": 9,
+       "unreachable_share": 0.9
+      },
+      "1/500": {
+       "n_top_decile": 10,
+       "n_unreachable": 9,
+       "unreachable_share": 0.9
+      }
+     }
+    },
+    "LiBi3O4Cl2": {
+     "n_covered_recipes": 35,
+     "decile_cutoff_reward": 0.7146,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 1,
+       "unreachable_share": 0.25
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 1,
+       "unreachable_share": 0.25
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 1,
+       "unreachable_share": 0.25
+      }
+     }
+    },
+    "LiFe(BO3)0.5(PO4)0.5": {
+     "n_covered_recipes": 101,
+     "decile_cutoff_reward": 0.45,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 11,
+       "n_unreachable": 9,
+       "unreachable_share": 0.8182
+      },
+      "1/200": {
+       "n_top_decile": 11,
+       "n_unreachable": 9,
+       "unreachable_share": 0.8182
+      },
+      "1/500": {
+       "n_top_decile": 11,
+       "n_unreachable": 9,
+       "unreachable_share": 0.8182
+      }
+     }
+    },
+    "LiMgPO4": {
+     "n_covered_recipes": 33,
+     "decile_cutoff_reward": 0.6545,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "LiMnPO4": {
+     "n_covered_recipes": 32,
+     "decile_cutoff_reward": 0.6262,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/200": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      },
+      "1/500": {
+       "n_top_decile": 4,
+       "n_unreachable": 3,
+       "unreachable_share": 0.75
+      }
+     }
+    },
+    "LiPO3": {
+     "n_covered_recipes": 13,
+     "decile_cutoff_reward": 0.5818,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 0,
+       "unreachable_share": 0.0
+      }
+     }
+    },
+    "LiSi2BO6": {
+     "n_covered_recipes": 10,
+     "decile_cutoff_reward": 0.9773,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 1,
+       "n_unreachable": 0,
+       "unreachable_share": 0.0
+      },
+      "1/200": {
+       "n_top_decile": 1,
+       "n_unreachable": 0,
+       "unreachable_share": 0.0
+      },
+      "1/500": {
+       "n_top_decile": 1,
+       "n_unreachable": 0,
+       "unreachable_share": 0.0
+      }
+     }
+    },
+    "LiZnBO3": {
+     "n_covered_recipes": 10,
+     "decile_cutoff_reward": 0.6,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 1,
+       "n_unreachable": 1,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "LiZnPO4": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 0.611,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "Na0.65Bi0.45Cu3Ti4O12": {
+     "n_covered_recipes": 12,
+     "decile_cutoff_reward": 0.4703,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Na2Al2B2O7": {
+     "n_covered_recipes": 15,
+     "decile_cutoff_reward": 0.6726,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "NaNiO2": {
+     "n_covered_recipes": 28,
+     "decile_cutoff_reward": 0.7169,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 2,
+       "unreachable_share": 0.6667
+      }
+     }
+    },
+    "NaSiBO4": {
+     "n_covered_recipes": 20,
+     "decile_cutoff_reward": 0.8333,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 1,
+       "unreachable_share": 0.5
+      }
+     }
+    },
+    "NaSrBO3": {
+     "n_covered_recipes": 27,
+     "decile_cutoff_reward": 0.6729,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "Sr2MnNbO6": {
+     "n_covered_recipes": 26,
+     "decile_cutoff_reward": 0.6664,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 3,
+       "n_unreachable": 3,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "SrLiBO3": {
+     "n_covered_recipes": 16,
+     "decile_cutoff_reward": 0.6813,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    },
+    "SrUO4": {
+     "n_covered_recipes": 14,
+     "decile_cutoff_reward": 0.5,
+     "by_epsilon": {
+      "1/100": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/200": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      },
+      "1/500": {
+       "n_top_decile": 2,
+       "n_unreachable": 2,
+       "unreachable_share": 1.0
+      }
+     }
+    }
+   }
+  }
+ },
+ "l6_gains_backtest_no_direction_predicted": {
+  "BaLiBO3": {
+   "status": "ok",
+   "predicted_set": [
+    "BaO",
+    "LiBO2"
+   ],
+   "pi_tilde_rs_sft": 3.16e-06,
+   "below_epsilon_by_eps": {
+    "1/100": true,
+    "1/200": true,
+    "1/500": true
+   },
+   "below_epsilon_primary": true
+  },
+  "KLi(PO3)2": {
+   "status": "ok",
+   "predicted_set": [
+    "KPO3",
+    "LiPO3"
+   ],
+   "pi_tilde_rs_sft": 6e-07,
+   "below_epsilon_by_eps": {
+    "1/100": true,
+    "1/200": true,
+    "1/500": true
+   },
+   "below_epsilon_primary": true
+  },
+  "Li2TiSiO5": {
+   "status": "ok",
+   "predicted_set": [
+    "Li2TiO3",
+    "SiO2"
+   ],
+   "pi_tilde_rs_sft": 1e-08,
+   "below_epsilon_by_eps": {
+    "1/100": true,
+    "1/200": true,
+    "1/500": true
+   },
+   "below_epsilon_primary": true
+  },
+  "NaSrBO3": {
+   "status": "ok",
+   "predicted_set": [
+    "NaBO2",
+    "SrO"
+   ],
+   "pi_tilde_rs_sft": 0.49242519,
+   "below_epsilon_by_eps": {
+    "1/100": false,
+    "1/200": false,
+    "1/500": false
+   },
+   "below_epsilon_primary": false
+  }
+ }
+}
