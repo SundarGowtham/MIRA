@@ -22,5 +22,14 @@
    "checkpoint": "runs/sft-qlora-sft-v3-2nd-rank16/final",
    "leg": 6
   }
+ },
+ "astral_legs_relabel": {
+  "note": "Per regular Claude's review (2026-10-27): these four ASTRAL legs used astral_model_generations.py's default --seed=42, which scripts/run_phase17_block_a_regen.sh never overrides -- the same seed, model and sampling config as each model's ORIGINAL headline ASTRAL generation. Confirmed directly: results/astral_gen_n32_gdpo_phase12_beta0.json vs results/phase17/block_a_astral_gen_n32_phase12_beta0_ckpt300_replication.json are 1,120/1,120 samples byte-identical. These are DETERMINISTIC RE-RUNS, not independent replications -- relabelled here, filenames left unchanged (never renaming a committed file retroactively). The real sampling-noise check is results/phase17/block_a_hit_bootstrap.json.",
+  "files": {
+   "block_a_astral_gen_n32_phase12_beta0_ckpt300_replication.json": "deterministic re-run (seed=42, identical to results/astral_gen_n32_gdpo_phase12_beta0.json)",
+   "block_a_astral_gen_n32_e1_replication.json": "deterministic re-run (seed=42, identical to results/astral_gen_n32_e1.json)",
+   "block_a_astral_gen_n32_gdpo300_replication.json": "deterministic re-run (seed=42, identical to results/astral_gen_n32_gdpo300.json)",
+   "block_a_astral_gen_n32_corpus_sft_replication.json": "deterministic re-run (seed=42, identical to results/astral_gen_n32_sft.json)"
+  }
  }
 }

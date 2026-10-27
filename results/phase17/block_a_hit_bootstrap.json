@@ -1,0 +1,60 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "A",
+ "subproperty": "hit-count bootstrap (sampling-noise floor)",
+ "seed": 20261016,
+ "n_boot": 10000,
+ "deterministic_rerun_note": "Confirmed directly: astral_model_generations.py defaults --seed=42, scripts/run_phase17_block_a_regen.sh never overrides it, and 1,120/1,120 samples are byte-identical between the original Phase12@300 ASTRAL file and its 'replication'. The *_replication.json files are deterministic re-runs, not independent replications -- relabelled in block_a_manifest.json accordingly. This bootstrap is the real check: how much of the headline hit count is sampling variance from one n=32 draw per target, using ONLY the original headline file's own 32 samples/target, resampled with replacement.",
+ "models": {
+  "Phase12@300": {
+   "n_targets": 35,
+   "orig_hits_stated": 14,
+   "bootstrap_median_hits": 12,
+   "bootstrap_95pct_interval": [
+    9,
+    14
+   ],
+   "p_hits_ge_13": 0.2593
+  },
+  "E1@300": {
+   "n_targets": 35,
+   "orig_hits_stated": 14,
+   "bootstrap_median_hits": 13,
+   "bootstrap_95pct_interval": [
+    11,
+    14
+   ],
+   "p_hits_ge_13": 0.589
+  },
+  "GDPO-300": {
+   "n_targets": 35,
+   "orig_hits_stated": 3,
+   "bootstrap_median_hits": 2,
+   "bootstrap_95pct_interval": [
+    0,
+    2
+   ],
+   "p_hits_ge_13": 0.0
+  },
+  "Corpus SFT": {
+   "n_targets": 35,
+   "orig_hits_stated": 0,
+   "bootstrap_median_hits": 0,
+   "bootstrap_95pct_interval": [
+    0,
+    0
+   ],
+   "p_hits_ge_13": 0.0
+  },
+  "RS-SFT": {
+   "n_targets": 35,
+   "orig_hits_stated": 10,
+   "bootstrap_median_hits": 9,
+   "bootstrap_95pct_interval": [
+    8,
+    10
+   ],
+   "p_hits_ge_13": 0.0
+  }
+ }
+}
