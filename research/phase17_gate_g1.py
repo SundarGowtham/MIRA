@@ -143,12 +143,12 @@ def gate_for_estimator(rows_by_model_target: dict, held_out: dict, logp_field: s
            "per_model": per_model_summary}
 
 
-def epsilon_support_count(rows: list) -> int | None:
-    """|{y in U(x): pi_tilde(y) > EPSILON}|, pi_tilde renormalised over
+def epsilon_support_count(rows: list, epsilon: float) -> int | None:
+    """|{y in U(x): pi_tilde(y) > epsilon}|, pi_tilde renormalised over
     this (model,target)'s scored node_keys -- per the pre-reg's own
     definition (line 128: "epsilon-support ... with pi renormalised on
     U(x)", same convention as effective support / Fisher-Rao, lines
-    126-127). Raw sequence log p is NOT comparable to EPSILON=1/200
+    126-127). Raw sequence log p is NOT comparable to epsilon=1/200
     directly: a ~50-150 token JSON completion has a raw summed log p of
     -15 to -30 nats even when it is the model's overwhelmingly preferred
     choice, so every raw-logp count was trivially 0 (caught by direct
@@ -158,7 +158,7 @@ def epsilon_support_count(rows: list) -> int | None:
     if not logps:
         return None
     log_z = logsumexp(logps)
-    return sum(1 for lp in logps if math.exp(lp - log_z) > EPSILON)
+    return sum(1 for lp in logps if math.exp(lp - log_z) > epsilon)
 
 
 def logsumexp(xs: list[float]) -> float:
@@ -167,6 +167,12 @@ def logsumexp(xs: list[float]) -> float:
 
 
 def epsilon_support_sign_check() -> dict:
+    """Per regular Claude (2026-10-27): report Phase 16's point AND ci95
+    (not just the point) alongside Block A's eps-support change, and
+    repeat the whole check at epsilon in {1/100, 1/200, 1/500} -- a
+    disagreement that is really just two overlapping-CI point estimates
+    moving in opposite directions by noise should show up as unstable
+    across these three epsilons; a real disagreement should not."""
     sg = json.loads(SUPPORT_GROWTH_PATH.read_text())["by_checkpoint"]
     rows_by_model_target = defaultdict(list)
     with LOGP_PATH.open() as f:
@@ -174,44 +180,59 @@ def epsilon_support_sign_check() -> dict:
             r = json.loads(line)
             rows_by_model_target[(r["model"], r["target"])].append(r)
 
-    checks = []
-    for family, ckpts in (("phase12", ["phase12_ckpt100", "phase12_ckpt200", "phase12_ckpt300"]),
-                          ("e1", ["e1_ckpt100", "e1_ckpt200", "e1_ckpt300"])):
-        for tset in ("astral", "heldout"):
-            eps_counts = []
-            for ck in ckpts:
-                counts = []
-                for (model, target), rows in rows_by_model_target.items():
-                    if model != ck:
-                        continue
-                    row_tset = rows[0]["target_set"]
-                    if row_tset != tset:
-                        continue
-                    n_eps = epsilon_support_count(rows)
-                    if n_eps is not None:
-                        counts.append(n_eps)
-                eps_counts.append(st.mean(counts) if counts else None)
-            sg_points = [sg[ck][tset]["point"] for ck in ckpts]
-            for i in range(len(ckpts) - 1):
-                a, b = eps_counts[i], eps_counts[i + 1]
-                sa, sb = sg_points[i], sg_points[i + 1]
-                if a is None or b is None:
-                    sign_a = None
-                else:
-                    sign_a = (b - a > 1e-9) - (b - a < -1e-9)
-                sign_b = (sb - sa > 1e-9) - (sb - sa < -1e-9)
-                checks.append({
-                    "family": family, "target_set": tset,
-                    "step": f"{ckpts[i]}->{ckpts[i+1]}",
-                    "block_a_mean_eps_support": [a, b],
-                    "phase16_support_growth_point": [round(sa, 4), round(sb, 4)],
-                    "block_a_sign": sign_a, "phase16_sign": sign_b,
-                    "agrees": (sign_a == sign_b) if sign_a is not None else None,
-                })
-    return {"epsilon": EPSILON, "checks": checks,
-           "n_agree": sum(1 for c in checks if c["agrees"] is True),
-           "n_disagree": sum(1 for c in checks if c["agrees"] is False),
-           "n_undetermined": sum(1 for c in checks if c["agrees"] is None)}
+    epsilons = {"1/100": 1.0 / 100, "1/200": 1.0 / 200, "1/500": 1.0 / 500}
+    by_epsilon = {}
+    for eps_label, eps_val in epsilons.items():
+        checks = []
+        for family, ckpts in (("phase12", ["phase12_ckpt100", "phase12_ckpt200", "phase12_ckpt300"]),
+                              ("e1", ["e1_ckpt100", "e1_ckpt200", "e1_ckpt300"])):
+            for tset in ("astral", "heldout"):
+                eps_counts = []
+                for ck in ckpts:
+                    counts = []
+                    for (model, target), rows in rows_by_model_target.items():
+                        if model != ck:
+                            continue
+                        row_tset = rows[0]["target_set"]
+                        if row_tset != tset:
+                            continue
+                        n_eps = epsilon_support_count(rows, eps_val)
+                        if n_eps is not None:
+                            counts.append(n_eps)
+                    eps_counts.append(st.mean(counts) if counts else None)
+                sg_cells = [sg[ck][tset] for ck in ckpts]
+                sg_points = [c["point"] for c in sg_cells]
+                sg_cis = [c["ci95"] for c in sg_cells]
+                for i in range(len(ckpts) - 1):
+                    a, b = eps_counts[i], eps_counts[i + 1]
+                    sa, sb = sg_points[i], sg_points[i + 1]
+                    cia, cib = sg_cis[i], sg_cis[i + 1]
+                    ci_overlap = (cia[0] <= cib[1]) and (cib[0] <= cia[1])
+                    if a is None or b is None:
+                        sign_a = None
+                    else:
+                        sign_a = (b - a > 1e-9) - (b - a < -1e-9)
+                    sign_b = (sb - sa > 1e-9) - (sb - sa < -1e-9)
+                    checks.append({
+                        "family": family, "target_set": tset,
+                        "step": f"{ckpts[i]}->{ckpts[i+1]}",
+                        "block_a_mean_eps_support": [a, b],
+                        "phase16_support_growth_point": [round(sa, 4), round(sb, 4)],
+                        "phase16_support_growth_ci95": [cia, cib],
+                        "phase16_cis_overlap": ci_overlap,
+                        "block_a_sign": sign_a, "phase16_sign": sign_b,
+                        "agrees": (sign_a == sign_b) if sign_a is not None else None,
+                    })
+        by_epsilon[eps_label] = {
+            "checks": checks,
+            "n_agree": sum(1 for c in checks if c["agrees"] is True),
+            "n_disagree": sum(1 for c in checks if c["agrees"] is False),
+            "n_undetermined": sum(1 for c in checks if c["agrees"] is None),
+            "n_disagree_with_overlapping_phase16_cis":
+                sum(1 for c in checks if c["agrees"] is False and c["phase16_cis_overlap"]),
+        }
+    return {"epsilons_tested": list(epsilons.values()), "by_epsilon": by_epsilon,
+           "primary_epsilon": "1/200", **by_epsilon["1/200"]}
 
 
 def load_universe_node_keys() -> dict[str, set]:

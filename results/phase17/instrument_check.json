@@ -1680,7 +1680,686 @@
   }
  },
  "epsilon_support_sign_consistency_check": {
-  "epsilon": 0.005,
+  "epsilons_tested": [
+   0.01,
+   0.005,
+   0.002
+  ],
+  "by_epsilon": {
+   "1/100": {
+    "checks": [
+     {
+      "family": "phase12",
+      "target_set": "astral",
+      "step": "phase12_ckpt100->phase12_ckpt200",
+      "block_a_mean_eps_support": [
+       3.085714285714286,
+       2.9714285714285715
+      ],
+      "phase16_support_growth_point": [
+       0.0973,
+       0.0683
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.06046511627906977,
+        0.1322314049586777
+       ],
+       [
+        0.04522613065326633,
+        0.08968609865470852
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": -1,
+      "agrees": true
+     },
+     {
+      "family": "phase12",
+      "target_set": "astral",
+      "step": "phase12_ckpt200->phase12_ckpt300",
+      "block_a_mean_eps_support": [
+       2.9714285714285715,
+       null
+      ],
+      "phase16_support_growth_point": [
+       0.0683,
+       0.0642
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.04522613065326633,
+        0.08968609865470852
+       ],
+       [
+        0.03365384615384615,
+        0.09606986899563319
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": null,
+      "phase16_sign": -1,
+      "agrees": null
+     },
+     {
+      "family": "phase12",
+      "target_set": "heldout",
+      "step": "phase12_ckpt100->phase12_ckpt200",
+      "block_a_mean_eps_support": [
+       2.2,
+       2.25
+      ],
+      "phase16_support_growth_point": [
+       0.0962,
+       0.08
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.058333333333333334,
+        0.13043478260869565
+       ],
+       [
+        0.0390625,
+        0.11904761904761904
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": 1,
+      "phase16_sign": -1,
+      "agrees": false
+     },
+     {
+      "family": "phase12",
+      "target_set": "heldout",
+      "step": "phase12_ckpt200->phase12_ckpt300",
+      "block_a_mean_eps_support": [
+       2.25,
+       2.1
+      ],
+      "phase16_support_growth_point": [
+       0.08,
+       0.0563
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.0390625,
+        0.11904761904761904
+       ],
+       [
+        0.015384615384615385,
+        0.0979020979020979
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": -1,
+      "agrees": true
+     },
+     {
+      "family": "e1",
+      "target_set": "astral",
+      "step": "e1_ckpt100->e1_ckpt200",
+      "block_a_mean_eps_support": [
+       2.857142857142857,
+       2.8857142857142857
+      ],
+      "phase16_support_growth_point": [
+       0.0749,
+       0.1136
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.043478260869565216,
+        0.10833333333333334
+       ],
+       [
+        0.0748663101604278,
+        0.15254237288135594
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": 1,
+      "phase16_sign": 1,
+      "agrees": true
+     },
+     {
+      "family": "e1",
+      "target_set": "astral",
+      "step": "e1_ckpt200->e1_ckpt300",
+      "block_a_mean_eps_support": [
+       2.8857142857142857,
+       null
+      ],
+      "phase16_support_growth_point": [
+       0.1136,
+       0.0826
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.0748663101604278,
+        0.15254237288135594
+       ],
+       [
+        0.045871559633027525,
+        0.12173913043478261
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": null,
+      "phase16_sign": -1,
+      "agrees": null
+     },
+     {
+      "family": "e1",
+      "target_set": "heldout",
+      "step": "e1_ckpt100->e1_ckpt200",
+      "block_a_mean_eps_support": [
+       2.15,
+       2.025
+      ],
+      "phase16_support_growth_point": [
+       0.0927,
+       0.0946
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.041666666666666664,
+        0.1484375
+       ],
+       [
+        0.05504587155963303,
+        0.13636363636363635
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": 1,
+      "agrees": false
+     },
+     {
+      "family": "e1",
+      "target_set": "heldout",
+      "step": "e1_ckpt200->e1_ckpt300",
+      "block_a_mean_eps_support": [
+       2.025,
+       1.9
+      ],
+      "phase16_support_growth_point": [
+       0.0946,
+       0.1
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.05504587155963303,
+        0.13636363636363635
+       ],
+       [
+        0.06557377049180328,
+        0.12849162011173185
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": 1,
+      "agrees": false
+     }
+    ],
+    "n_agree": 3,
+    "n_disagree": 3,
+    "n_undetermined": 2,
+    "n_disagree_with_overlapping_phase16_cis": 3
+   },
+   "1/200": {
+    "checks": [
+     {
+      "family": "phase12",
+      "target_set": "astral",
+      "step": "phase12_ckpt100->phase12_ckpt200",
+      "block_a_mean_eps_support": [
+       3.2857142857142856,
+       3.0285714285714285
+      ],
+      "phase16_support_growth_point": [
+       0.0973,
+       0.0683
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.06046511627906977,
+        0.1322314049586777
+       ],
+       [
+        0.04522613065326633,
+        0.08968609865470852
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": -1,
+      "agrees": true
+     },
+     {
+      "family": "phase12",
+      "target_set": "astral",
+      "step": "phase12_ckpt200->phase12_ckpt300",
+      "block_a_mean_eps_support": [
+       3.0285714285714285,
+       null
+      ],
+      "phase16_support_growth_point": [
+       0.0683,
+       0.0642
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.04522613065326633,
+        0.08968609865470852
+       ],
+       [
+        0.03365384615384615,
+        0.09606986899563319
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": null,
+      "phase16_sign": -1,
+      "agrees": null
+     },
+     {
+      "family": "phase12",
+      "target_set": "heldout",
+      "step": "phase12_ckpt100->phase12_ckpt200",
+      "block_a_mean_eps_support": [
+       2.325,
+       2.3
+      ],
+      "phase16_support_growth_point": [
+       0.0962,
+       0.08
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.058333333333333334,
+        0.13043478260869565
+       ],
+       [
+        0.0390625,
+        0.11904761904761904
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": -1,
+      "agrees": true
+     },
+     {
+      "family": "phase12",
+      "target_set": "heldout",
+      "step": "phase12_ckpt200->phase12_ckpt300",
+      "block_a_mean_eps_support": [
+       2.3,
+       2.225
+      ],
+      "phase16_support_growth_point": [
+       0.08,
+       0.0563
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.0390625,
+        0.11904761904761904
+       ],
+       [
+        0.015384615384615385,
+        0.0979020979020979
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": -1,
+      "agrees": true
+     },
+     {
+      "family": "e1",
+      "target_set": "astral",
+      "step": "e1_ckpt100->e1_ckpt200",
+      "block_a_mean_eps_support": [
+       3,
+       3
+      ],
+      "phase16_support_growth_point": [
+       0.0749,
+       0.1136
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.043478260869565216,
+        0.10833333333333334
+       ],
+       [
+        0.0748663101604278,
+        0.15254237288135594
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": 0,
+      "phase16_sign": 1,
+      "agrees": false
+     },
+     {
+      "family": "e1",
+      "target_set": "astral",
+      "step": "e1_ckpt200->e1_ckpt300",
+      "block_a_mean_eps_support": [
+       3,
+       null
+      ],
+      "phase16_support_growth_point": [
+       0.1136,
+       0.0826
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.0748663101604278,
+        0.15254237288135594
+       ],
+       [
+        0.045871559633027525,
+        0.12173913043478261
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": null,
+      "phase16_sign": -1,
+      "agrees": null
+     },
+     {
+      "family": "e1",
+      "target_set": "heldout",
+      "step": "e1_ckpt100->e1_ckpt200",
+      "block_a_mean_eps_support": [
+       2.35,
+       2.2
+      ],
+      "phase16_support_growth_point": [
+       0.0927,
+       0.0946
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.041666666666666664,
+        0.1484375
+       ],
+       [
+        0.05504587155963303,
+        0.13636363636363635
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": 1,
+      "agrees": false
+     },
+     {
+      "family": "e1",
+      "target_set": "heldout",
+      "step": "e1_ckpt200->e1_ckpt300",
+      "block_a_mean_eps_support": [
+       2.2,
+       2.025
+      ],
+      "phase16_support_growth_point": [
+       0.0946,
+       0.1
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.05504587155963303,
+        0.13636363636363635
+       ],
+       [
+        0.06557377049180328,
+        0.12849162011173185
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": 1,
+      "agrees": false
+     }
+    ],
+    "n_agree": 3,
+    "n_disagree": 3,
+    "n_undetermined": 2,
+    "n_disagree_with_overlapping_phase16_cis": 3
+   },
+   "1/500": {
+    "checks": [
+     {
+      "family": "phase12",
+      "target_set": "astral",
+      "step": "phase12_ckpt100->phase12_ckpt200",
+      "block_a_mean_eps_support": [
+       3.4571428571428573,
+       3.2285714285714286
+      ],
+      "phase16_support_growth_point": [
+       0.0973,
+       0.0683
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.06046511627906977,
+        0.1322314049586777
+       ],
+       [
+        0.04522613065326633,
+        0.08968609865470852
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": -1,
+      "agrees": true
+     },
+     {
+      "family": "phase12",
+      "target_set": "astral",
+      "step": "phase12_ckpt200->phase12_ckpt300",
+      "block_a_mean_eps_support": [
+       3.2285714285714286,
+       null
+      ],
+      "phase16_support_growth_point": [
+       0.0683,
+       0.0642
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.04522613065326633,
+        0.08968609865470852
+       ],
+       [
+        0.03365384615384615,
+        0.09606986899563319
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": null,
+      "phase16_sign": -1,
+      "agrees": null
+     },
+     {
+      "family": "phase12",
+      "target_set": "heldout",
+      "step": "phase12_ckpt100->phase12_ckpt200",
+      "block_a_mean_eps_support": [
+       2.475,
+       2.425
+      ],
+      "phase16_support_growth_point": [
+       0.0962,
+       0.08
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.058333333333333334,
+        0.13043478260869565
+       ],
+       [
+        0.0390625,
+        0.11904761904761904
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": -1,
+      "agrees": true
+     },
+     {
+      "family": "phase12",
+      "target_set": "heldout",
+      "step": "phase12_ckpt200->phase12_ckpt300",
+      "block_a_mean_eps_support": [
+       2.425,
+       2.275
+      ],
+      "phase16_support_growth_point": [
+       0.08,
+       0.0563
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.0390625,
+        0.11904761904761904
+       ],
+       [
+        0.015384615384615385,
+        0.0979020979020979
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": -1,
+      "agrees": true
+     },
+     {
+      "family": "e1",
+      "target_set": "astral",
+      "step": "e1_ckpt100->e1_ckpt200",
+      "block_a_mean_eps_support": [
+       3.3142857142857145,
+       3.2
+      ],
+      "phase16_support_growth_point": [
+       0.0749,
+       0.1136
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.043478260869565216,
+        0.10833333333333334
+       ],
+       [
+        0.0748663101604278,
+        0.15254237288135594
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": 1,
+      "agrees": false
+     },
+     {
+      "family": "e1",
+      "target_set": "astral",
+      "step": "e1_ckpt200->e1_ckpt300",
+      "block_a_mean_eps_support": [
+       3.2,
+       null
+      ],
+      "phase16_support_growth_point": [
+       0.1136,
+       0.0826
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.0748663101604278,
+        0.15254237288135594
+       ],
+       [
+        0.045871559633027525,
+        0.12173913043478261
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": null,
+      "phase16_sign": -1,
+      "agrees": null
+     },
+     {
+      "family": "e1",
+      "target_set": "heldout",
+      "step": "e1_ckpt100->e1_ckpt200",
+      "block_a_mean_eps_support": [
+       2.575,
+       2.325
+      ],
+      "phase16_support_growth_point": [
+       0.0927,
+       0.0946
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.041666666666666664,
+        0.1484375
+       ],
+       [
+        0.05504587155963303,
+        0.13636363636363635
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": 1,
+      "agrees": false
+     },
+     {
+      "family": "e1",
+      "target_set": "heldout",
+      "step": "e1_ckpt200->e1_ckpt300",
+      "block_a_mean_eps_support": [
+       2.325,
+       2.1
+      ],
+      "phase16_support_growth_point": [
+       0.0946,
+       0.1
+      ],
+      "phase16_support_growth_ci95": [
+       [
+        0.05504587155963303,
+        0.13636363636363635
+       ],
+       [
+        0.06557377049180328,
+        0.12849162011173185
+       ]
+      ],
+      "phase16_cis_overlap": true,
+      "block_a_sign": -1,
+      "phase16_sign": 1,
+      "agrees": false
+     }
+    ],
+    "n_agree": 3,
+    "n_disagree": 3,
+    "n_undetermined": 2,
+    "n_disagree_with_overlapping_phase16_cis": 3
+   }
+  },
+  "primary_epsilon": "1/200",
   "checks": [
    {
     "family": "phase12",
@@ -1694,6 +2373,17 @@
      0.0973,
      0.0683
     ],
+    "phase16_support_growth_ci95": [
+     [
+      0.06046511627906977,
+      0.1322314049586777
+     ],
+     [
+      0.04522613065326633,
+      0.08968609865470852
+     ]
+    ],
+    "phase16_cis_overlap": true,
     "block_a_sign": -1,
     "phase16_sign": -1,
     "agrees": true
@@ -1710,6 +2400,17 @@
      0.0683,
      0.0642
     ],
+    "phase16_support_growth_ci95": [
+     [
+      0.04522613065326633,
+      0.08968609865470852
+     ],
+     [
+      0.03365384615384615,
+      0.09606986899563319
+     ]
+    ],
+    "phase16_cis_overlap": true,
     "block_a_sign": null,
     "phase16_sign": -1,
     "agrees": null
@@ -1726,6 +2427,17 @@
      0.0962,
      0.08
     ],
+    "phase16_support_growth_ci95": [
+     [
+      0.058333333333333334,
+      0.13043478260869565
+     ],
+     [
+      0.0390625,
+      0.11904761904761904
+     ]
+    ],
+    "phase16_cis_overlap": true,
     "block_a_sign": -1,
     "phase16_sign": -1,
     "agrees": true
@@ -1742,6 +2454,17 @@
      0.08,
      0.0563
     ],
+    "phase16_support_growth_ci95": [
+     [
+      0.0390625,
+      0.11904761904761904
+     ],
+     [
+      0.015384615384615385,
+      0.0979020979020979
+     ]
+    ],
+    "phase16_cis_overlap": true,
     "block_a_sign": -1,
     "phase16_sign": -1,
     "agrees": true
@@ -1758,6 +2481,17 @@
      0.0749,
      0.1136
     ],
+    "phase16_support_growth_ci95": [
+     [
+      0.043478260869565216,
+      0.10833333333333334
+     ],
+     [
+      0.0748663101604278,
+      0.15254237288135594
+     ]
+    ],
+    "phase16_cis_overlap": true,
     "block_a_sign": 0,
     "phase16_sign": 1,
     "agrees": false
@@ -1774,6 +2508,17 @@
      0.1136,
      0.0826
     ],
+    "phase16_support_growth_ci95": [
+     [
+      0.0748663101604278,
+      0.15254237288135594
+     ],
+     [
+      0.045871559633027525,
+      0.12173913043478261
+     ]
+    ],
+    "phase16_cis_overlap": true,
     "block_a_sign": null,
     "phase16_sign": -1,
     "agrees": null
@@ -1790,6 +2535,17 @@
      0.0927,
      0.0946
     ],
+    "phase16_support_growth_ci95": [
+     [
+      0.041666666666666664,
+      0.1484375
+     ],
+     [
+      0.05504587155963303,
+      0.13636363636363635
+     ]
+    ],
+    "phase16_cis_overlap": true,
     "block_a_sign": -1,
     "phase16_sign": 1,
     "agrees": false
@@ -1806,6 +2562,17 @@
      0.0946,
      0.1
     ],
+    "phase16_support_growth_ci95": [
+     [
+      0.05504587155963303,
+      0.13636363636363635
+     ],
+     [
+      0.06557377049180328,
+      0.12849162011173185
+     ]
+    ],
+    "phase16_cis_overlap": true,
     "block_a_sign": -1,
     "phase16_sign": 1,
     "agrees": false
@@ -1813,7 +2580,8 @@
   ],
   "n_agree": 3,
   "n_disagree": 3,
-  "n_undetermined": 2
+  "n_undetermined": 2,
+  "n_disagree_with_overlapping_phase16_cis": 3
  },
  "verdict": {
   "models_passing": [
