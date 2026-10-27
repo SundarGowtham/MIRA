@@ -1,0 +1,525 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "B1",
+ "subproperty": "signature regression",
+ "seed": 20261016,
+ "n_boot": 10000,
+ "prereg_deviation_S5_reward": "The pre-reg (line 122) names S5's recipe reward as the 5-channel RUN3 checker aggregate, but its own governing rule (line 121, 'the reward the step itself trained on') requires the ORIGINAL 10-channel checker: S5 is run 1 (Corpus SFT -> GDPO-300), and run 1 trained against the 10-channel checker (R1 in Block R), not the 5-channel RUN3 subset introduced only for run 3 onward. Per regular Claude's decision (2026-10-27): S5 uses the 10-channel checker as PRIMARY and the 5-channel aggregate as a sensitivity check (reported in each step's 'sensitivity' field).",
+ "reward_per_step": {
+  "S1": "r2_5ch",
+  "S2": "r2_5ch",
+  "S3": "r2_5ch",
+  "S4": "r2_5ch",
+  "S5": "r1_10ch",
+  "S6": "r2_5ch",
+  "S7": "r4_ranker"
+ },
+ "coverage_scope_note": "r(y) pools every existing sample (any model, any target set) whose parsed route canonicalises to recipe y -- results/phase17/universe_scores.jsonl, scored over the FULL raw-completion corpus (54,320 rows), not a subsample. pi~_before(y) is renormalised over every y in U(x) with a defined marginal log-probability (Block A), regardless of reward coverage; the pi-weighted-mean-reward term in r~(y) then renormalises those same weights onto just the reward-covered subset of that renormalised pi~ -- the only point coverage narrows the pre-reg's literal 'renormalised on U(x)' scope, done because r(y') is undefined, not 0, for uncovered y'.",
+ "steps": {
+  "S1": {
+   "before": "base",
+   "after": "corpus_sft",
+   "reward_field": "r2_5ch",
+   "fit": {
+    "point": {
+     "b": 6.9962812248936395,
+     "c": -0.5828593365139716,
+     "d": 108.67697593166984,
+     "n_obs": 737,
+     "n_targets": 40
+    },
+    "b_ci95": [
+     1.797414640207152,
+     10.775224929755781
+    ],
+    "c_ci95": [
+     -0.6320926888730076,
+     -0.5338877802984778
+    ],
+    "d_ci95": [
+     2.4510347538041057,
+     228.5043510931373
+    ],
+    "n_boot_valid": 10000
+   },
+   "coverage": {
+    "n_recipes_both_logp_defined": 737,
+    "n_recipes_with_reward_coverage": 737,
+    "coverage_share": 1.0
+   },
+   "n_obs": 737
+  },
+  "S2": {
+   "before": "base",
+   "after": "rs_sft",
+   "reward_field": "r2_5ch",
+   "fit": {
+    "point": {
+     "b": 5.827805550144686,
+     "c": -0.49322438336708285,
+     "d": 36.22581657769475,
+     "n_obs": 1463,
+     "n_targets": 75
+    },
+    "b_ci95": [
+     2.766216234636217,
+     8.907092420702252
+    ],
+    "c_ci95": [
+     -0.549561998580137,
+     -0.44295974776546704
+    ],
+    "d_ci95": [
+     -3.3340841929134375,
+     84.24512195572743
+    ],
+    "n_boot_valid": 10000
+   },
+   "coverage": {
+    "n_recipes_both_logp_defined": 1463,
+    "n_recipes_with_reward_coverage": 1463,
+    "coverage_share": 1.0
+   },
+   "n_obs": 1463
+  },
+  "S3": {
+   "before": "base",
+   "after": "e3",
+   "reward_field": "r2_5ch",
+   "fit": {
+    "point": {
+     "b": 2.6025556956380607,
+     "c": -0.4816191991379769,
+     "d": 33.26826150248809,
+     "n_obs": 1463,
+     "n_targets": 75
+    },
+    "b_ci95": [
+     -0.7599192597318214,
+     6.143819956789505
+    ],
+    "c_ci95": [
+     -0.532667236639261,
+     -0.4345075466248482
+    ],
+    "d_ci95": [
+     -2.215037162872839,
+     75.19020010407637
+    ],
+    "n_boot_valid": 10000
+   },
+   "coverage": {
+    "n_recipes_both_logp_defined": 1463,
+    "n_recipes_with_reward_coverage": 1463,
+    "coverage_share": 1.0
+   },
+   "n_obs": 1463
+  },
+  "S4": {
+   "before": "base",
+   "after": "e3c",
+   "reward_field": "r2_5ch",
+   "fit": {
+    "point": {
+     "b": 3.489217808434488,
+     "c": -0.4959273147665941,
+     "d": 34.40992152518907,
+     "n_obs": 1463,
+     "n_targets": 75
+    },
+    "b_ci95": [
+     -0.4561722395753649,
+     7.286556991531797
+    ],
+    "c_ci95": [
+     -0.5498192330689501,
+     -0.444404094891067
+    ],
+    "d_ci95": [
+     -16.117517010912863,
+     93.6180250374517
+    ],
+    "n_boot_valid": 10000
+   },
+   "coverage": {
+    "n_recipes_both_logp_defined": 1463,
+    "n_recipes_with_reward_coverage": 1463,
+    "coverage_share": 1.0
+   },
+   "n_obs": 1463
+  },
+  "S5": {
+   "before": "corpus_sft",
+   "after": "gdpo_v3_ckpt300",
+   "reward_field": "r1_10ch",
+   "fit": {
+    "point": {
+     "b": 5.665961764586674,
+     "c": -0.09372986079695977,
+     "d": -58.08219426528574,
+     "n_obs": 737,
+     "n_targets": 40
+    },
+    "b_ci95": [
+     -0.5985167739370266,
+     10.963443890214588
+    ],
+    "c_ci95": [
+     -0.17077596851426838,
+     -0.020708431576419026
+    ],
+    "d_ci95": [
+     -150.0986990697911,
+     35.9038010456232
+    ],
+    "n_boot_valid": 10000
+   },
+   "coverage": {
+    "n_recipes_both_logp_defined": 737,
+    "n_recipes_with_reward_coverage": 737,
+    "coverage_share": 1.0
+   },
+   "n_obs": 737,
+   "sensitivity": {
+    "reward_field": "r2_5ch",
+    "fit": {
+     "point": {
+      "b": 2.0894816559028904,
+      "c": -0.08507131814659397,
+      "d": -26.48198426539166,
+      "n_obs": 737,
+      "n_targets": 40
+     },
+     "b_ci95": [
+      -0.8166242004774361,
+      4.65221730152425
+     ],
+     "c_ci95": [
+      -0.15962991310019545,
+      -0.0161256637812896
+     ],
+     "d_ci95": [
+      -71.80274339683973,
+      20.344791478112292
+     ],
+     "n_boot_valid": 10000
+    },
+    "coverage": {
+     "n_recipes_both_logp_defined": 737,
+     "n_recipes_with_reward_coverage": 737,
+     "coverage_share": 1.0
+    }
+   }
+  },
+  "S6": {
+   "before": "rs_sft",
+   "after": "phase12_ckpt300",
+   "reward_field": "r2_5ch",
+   "fit": {
+    "point": {
+     "b": 4.795772561481597,
+     "c": -0.11125304985561284,
+     "d": 54.30300615831584,
+     "n_obs": 737,
+     "n_targets": 40
+    },
+    "b_ci95": [
+     1.130435391306707,
+     7.8593487815670615
+    ],
+    "c_ci95": [
+     -0.15514013725829726,
+     -0.08115908202065285
+    ],
+    "d_ci95": [
+     -4.074582561673887,
+     127.83630394600621
+    ],
+    "n_boot_valid": 10000
+   },
+   "coverage": {
+    "n_recipes_both_logp_defined": 737,
+    "n_recipes_with_reward_coverage": 737,
+    "coverage_share": 1.0
+   },
+   "n_obs": 737,
+   "supplementary_checkpoints": {
+    "phase12_ckpt100": {
+     "fit": {
+      "point": {
+       "b": 4.683161186687413,
+       "c": -0.12008086264218916,
+       "d": 28.53379549080851,
+       "n_obs": 1463,
+       "n_targets": 75
+      },
+      "b_ci95": [
+       2.5552413209233475,
+       6.90475770899356
+      ],
+      "c_ci95": [
+       -0.15711877662464896,
+       -0.08990033169081568
+      ],
+      "d_ci95": [
+       -21.318127635725077,
+       87.68448757315602
+      ],
+      "n_boot_valid": 10000
+     },
+     "coverage": {
+      "n_recipes_both_logp_defined": 1463,
+      "n_recipes_with_reward_coverage": 1463,
+      "coverage_share": 1.0
+     }
+    },
+    "phase12_ckpt200": {
+     "fit": {
+      "point": {
+       "b": 4.008457030748922,
+       "c": -0.13247680246389293,
+       "d": 30.51463136456859,
+       "n_obs": 1463,
+       "n_targets": 75
+      },
+      "b_ci95": [
+       2.0589741503787105,
+       6.084039159788349
+      ],
+      "c_ci95": [
+       -0.17340076444412064,
+       -0.10013419729241987
+      ],
+      "d_ci95": [
+       -23.00199121724179,
+       93.2330879647026
+      ],
+      "n_boot_valid": 10000
+     },
+     "coverage": {
+      "n_recipes_both_logp_defined": 1463,
+      "n_recipes_with_reward_coverage": 1463,
+      "coverage_share": 1.0
+     }
+    }
+   }
+  },
+  "S7": {
+   "before": "rs_sft",
+   "after": "e1_ckpt300",
+   "reward_field": "r4_ranker",
+   "fit": {
+    "point": {
+     "b": 1.860027722373517,
+     "c": -0.07227371522045335,
+     "d": 14.881992689049772,
+     "n_obs": 737,
+     "n_targets": 40
+    },
+    "b_ci95": [
+     -0.0781992687388447,
+     3.7550071329263295
+    ],
+    "c_ci95": [
+     -0.11229427682723453,
+     -0.03361673453342821
+    ],
+    "d_ci95": [
+     -17.20909181904954,
+     102.28786745487199
+    ],
+    "n_boot_valid": 10000
+   },
+   "coverage": {
+    "n_recipes_both_logp_defined": 737,
+    "n_recipes_with_reward_coverage": 737,
+    "coverage_share": 1.0
+   },
+   "n_obs": 737,
+   "supplementary_checkpoints": {
+    "e1_ckpt100": {
+     "fit": {
+      "point": {
+       "b": 1.201726810929251,
+       "c": -0.13585144235697635,
+       "d": -10.50731406604657,
+       "n_obs": 1463,
+       "n_targets": 75
+      },
+      "b_ci95": [
+       -0.42675442271124275,
+       2.8325615905324013
+      ],
+      "c_ci95": [
+       -0.17656889630603917,
+       -0.10083717488070044
+      ],
+      "d_ci95": [
+       -31.396299375652774,
+       27.010270109572172
+      ],
+      "n_boot_valid": 10000
+     },
+     "coverage": {
+      "n_recipes_both_logp_defined": 1463,
+      "n_recipes_with_reward_coverage": 1463,
+      "coverage_share": 1.0
+     }
+    },
+    "e1_ckpt200": {
+     "fit": {
+      "point": {
+       "b": 0.9616849115392093,
+       "c": -0.12253854278888444,
+       "d": 11.500715529315507,
+       "n_obs": 1463,
+       "n_targets": 75
+      },
+      "b_ci95": [
+       -0.475715059220706,
+       2.4417358646559437
+      ],
+      "c_ci95": [
+       -0.16785110566800635,
+       -0.08317880184986742
+      ],
+      "d_ci95": [
+       -17.13124781662586,
+       63.885416437822954
+      ],
+      "n_boot_valid": 10000
+     },
+     "coverage": {
+      "n_recipes_both_logp_defined": 1463,
+      "n_recipes_with_reward_coverage": 1463,
+      "coverage_share": 1.0
+     }
+    }
+   }
+  }
+ },
+ "predictions": {
+  "P_B1a_c_negative_S2_S3_S4": {
+   "S2": {
+    "c_point": -0.49322438336708285,
+    "c_ci95": [
+     -0.549561998580137,
+     -0.44295974776546704
+    ],
+    "met": true
+   },
+   "S3": {
+    "c_point": -0.4816191991379769,
+    "c_ci95": [
+     -0.532667236639261,
+     -0.4345075466248482
+    ],
+    "met": true
+   },
+   "S4": {
+    "c_point": -0.4959273147665941,
+    "c_ci95": [
+     -0.5498192330689501,
+     -0.444404094891067
+    ],
+    "met": true
+   }
+  },
+  "P_B1b_b_positive_c_not_below_0_S5_S6_S7": {
+   "S5": {
+    "b_point": 5.665961764586674,
+    "b_ci95": [
+     -0.5985167739370266,
+     10.963443890214588
+    ],
+    "b_met": false,
+    "c_point": -0.09372986079695977,
+    "c_ci95": [
+     -0.17077596851426838,
+     -0.020708431576419026
+    ],
+    "c_not_entirely_below_0": false,
+    "met": false
+   },
+   "S6": {
+    "b_point": 4.795772561481597,
+    "b_ci95": [
+     1.130435391306707,
+     7.8593487815670615
+    ],
+    "b_met": true,
+    "c_point": -0.11125304985561284,
+    "c_ci95": [
+     -0.15514013725829726,
+     -0.08115908202065285
+    ],
+    "c_not_entirely_below_0": false,
+    "met": false
+   },
+   "S7": {
+    "b_point": 1.860027722373517,
+    "b_ci95": [
+     -0.0781992687388447,
+     3.7550071329263295
+    ],
+    "b_met": false,
+    "c_point": -0.07227371522045335,
+    "c_ci95": [
+     -0.11229427682723453,
+     -0.03361673453342821
+    ],
+    "c_not_entirely_below_0": false,
+    "met": false
+   }
+  },
+  "P_B1c_c_S3_minus_c_S4_CI_includes_0": {
+   "point_diff_c_S3_minus_c_S4": 0.014308115628617168,
+   "ci95": [
+    -0.009735900845721235,
+    0.037566973873357945
+   ],
+   "met_includes_0": true,
+   "n_boot_valid": 10000
+  }
+ },
+ "measured_no_direction_predicted": {
+  "d_sign_S5_S7": {
+   "S5": -58.08219426528574,
+   "S6": 54.30300615831584,
+   "S7": 14.881992689049772
+  },
+  "c_S1": -0.5828593365139716
+ },
+ "does_not_support_checks": {
+  "c_s_negative_for_any_practice_step": [
+   "S5",
+   "S6",
+   "S7"
+  ],
+  "c_s_ci_entirely_above_0_for_any_own_sample_ft_step": []
+ },
+ "m_flow_curve_fits_S2_S4": {
+  "S2": {
+   "estimable": true,
+   "n_qualifying_targets": 34,
+   "n_rows": 645,
+   "lambda": 0.0005,
+   "r2_m_flow": -1.5113,
+   "e_flow_alt": {
+    "t": 0.9762,
+    "psi": -15.0881,
+    "r2": 0.0003
+   }
+  },
+  "S3": {
+   "estimable": false,
+   "n_qualifying_targets": 0,
+   "reason": "fewer than 10 targets with training-file recipes present in U(x)"
+  },
+  "S4": {
+   "estimable": false,
+   "n_qualifying_targets": 0,
+   "reason": "fewer than 10 targets with training-file recipes present in U(x)"
+  }
+ }
+}
