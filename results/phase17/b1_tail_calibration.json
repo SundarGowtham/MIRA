@@ -1,0 +1,651 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "B1",
+ "subproperty": "tail calibration check",
+ "bin_edges": [
+  0.0,
+  1e-06,
+  1e-05,
+  0.0001,
+  0.001,
+  0.01,
+  0.1,
+  1.000000001
+ ],
+ "bin_labels": [
+  "<1e-6",
+  "[1e-6,1e-5)",
+  "[1e-5,1e-4)",
+  "[1e-4,1e-3)",
+  "[1e-3,1e-2)",
+  "[1e-2,1e-1)",
+  ">=1e-1"
+ ],
+ "note_200_sample_reference": "For base and rs_sft, the held-out pool already includes BOTH the 32-sample resampling_rate draw AND the 200-sample 'reference' sample_group -- the scan (held_out_frequencies, reused from phase17_gate_g1.py) does not filter by sample_group, both live in the same raw file. No separate step was needed.",
+ "per_model": {
+  "base": {
+   "<1e-6": {
+    "n_recipes": 1256,
+    "expected_count": 0.0028,
+    "observed_count": 4857,
+    "observed_over_expected": 1724610.701
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 28,
+    "expected_count": 0.0213,
+    "observed_count": 605,
+    "observed_over_expected": 28429.351
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 13,
+    "expected_count": 0.1486,
+    "observed_count": 172,
+    "observed_over_expected": 1157.433
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 12,
+    "expected_count": 0.9773,
+    "observed_count": 260,
+    "observed_over_expected": 266.046
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 13,
+    "expected_count": 12.9454,
+    "observed_count": 249,
+    "observed_over_expected": 19.235
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 32,
+    "expected_count": 357.8042,
+    "observed_count": 798,
+    "observed_over_expected": 2.23
+   },
+   ">=1e-1": {
+    "n_recipes": 109,
+    "expected_count": 16176.1004,
+    "observed_count": 9607,
+    "observed_over_expected": 0.594
+   }
+  },
+  "corpus_sft": {
+   "<1e-6": {
+    "n_recipes": 553,
+    "expected_count": 0.0005,
+    "observed_count": 54,
+    "observed_over_expected": 104378.169
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 44,
+    "expected_count": 0.0041,
+    "observed_count": 15,
+    "observed_over_expected": 3695.9
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 45,
+    "expected_count": 0.0464,
+    "observed_count": 48,
+    "observed_over_expected": 1033.599
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 19,
+    "expected_count": 0.1664,
+    "observed_count": 7,
+    "observed_over_expected": 42.057
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 16,
+    "expected_count": 0.9639,
+    "observed_count": 59,
+    "observed_over_expected": 61.21
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 6,
+    "expected_count": 6.1536,
+    "observed_count": 10,
+    "observed_over_expected": 1.625
+   },
+   ">=1e-1": {
+    "n_recipes": 54,
+    "expected_count": 928.665,
+    "observed_count": 743,
+    "observed_over_expected": 0.8
+   }
+  },
+  "rs_sft": {
+   "<1e-6": {
+    "n_recipes": 961,
+    "expected_count": 0.0108,
+    "observed_count": 1085,
+    "observed_over_expected": 100757.319
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 118,
+    "expected_count": 0.0884,
+    "observed_count": 481,
+    "observed_over_expected": 5442.615
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 65,
+    "expected_count": 0.473,
+    "observed_count": 514,
+    "observed_over_expected": 1086.578
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 58,
+    "expected_count": 4.6718,
+    "observed_count": 737,
+    "observed_over_expected": 157.753
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 41,
+    "expected_count": 41.3681,
+    "observed_count": 769,
+    "observed_over_expected": 18.589
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 84,
+    "expected_count": 725.3348,
+    "observed_count": 2575,
+    "observed_over_expected": 3.55
+   },
+   ">=1e-1": {
+    "n_recipes": 136,
+    "expected_count": 15206.053,
+    "observed_count": 9817,
+    "observed_over_expected": 0.646
+   }
+  },
+  "e3": {
+   "<1e-6": {
+    "n_recipes": 947,
+    "expected_count": 0.0016,
+    "observed_count": 112,
+    "observed_over_expected": 72124.565
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 111,
+    "expected_count": 0.0091,
+    "observed_count": 43,
+    "observed_over_expected": 4729.036
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 88,
+    "expected_count": 0.0735,
+    "observed_count": 50,
+    "observed_over_expected": 680.521
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 62,
+    "expected_count": 0.5066,
+    "observed_count": 103,
+    "observed_over_expected": 203.3
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 52,
+    "expected_count": 5.3117,
+    "observed_count": 94,
+    "observed_over_expected": 17.697
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 71,
+    "expected_count": 77.9679,
+    "observed_count": 231,
+    "observed_over_expected": 2.963
+   },
+   ">=1e-1": {
+    "n_recipes": 132,
+    "expected_count": 1686.1297,
+    "observed_count": 1137,
+    "observed_over_expected": 0.674
+   }
+  },
+  "e3c": {
+   "<1e-6": {
+    "n_recipes": 970,
+    "expected_count": 0.0013,
+    "observed_count": 145,
+    "observed_over_expected": 108423.371
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 116,
+    "expected_count": 0.0099,
+    "observed_count": 79,
+    "observed_over_expected": 8000.688
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 77,
+    "expected_count": 0.0707,
+    "observed_count": 63,
+    "observed_over_expected": 890.503
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 53,
+    "expected_count": 0.4139,
+    "observed_count": 71,
+    "observed_over_expected": 171.534
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 37,
+    "expected_count": 3.3109,
+    "observed_count": 83,
+    "observed_over_expected": 25.068
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 76,
+    "expected_count": 75.5754,
+    "observed_count": 217,
+    "observed_over_expected": 2.871
+   },
+   ">=1e-1": {
+    "n_recipes": 134,
+    "expected_count": 1685.6178,
+    "observed_count": 1107,
+    "observed_over_expected": 0.657
+   }
+  },
+  "gdpo_v3_ckpt300": {
+   "<1e-6": {
+    "n_recipes": 549,
+    "expected_count": 0.0006,
+    "observed_count": 41,
+    "observed_over_expected": 64488.943
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 51,
+    "expected_count": 0.0045,
+    "observed_count": 19,
+    "observed_over_expected": 4177.753
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 24,
+    "expected_count": 0.0225,
+    "observed_count": 11,
+    "observed_over_expected": 488.171
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 30,
+    "expected_count": 0.2533,
+    "observed_count": 44,
+    "observed_over_expected": 173.675
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 18,
+    "expected_count": 1.5091,
+    "observed_count": 75,
+    "observed_over_expected": 49.698
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 12,
+    "expected_count": 13.4553,
+    "observed_count": 26,
+    "observed_over_expected": 1.932
+   },
+   ">=1e-1": {
+    "n_recipes": 53,
+    "expected_count": 916.7545,
+    "observed_count": 716,
+    "observed_over_expected": 0.781
+   }
+  },
+  "phase12_ckpt100": {
+   "<1e-6": {
+    "n_recipes": 1041,
+    "expected_count": 0.0013,
+    "observed_count": 152,
+    "observed_over_expected": 120215.316
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 94,
+    "expected_count": 0.0074,
+    "observed_count": 18,
+    "observed_over_expected": 2429.146
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 65,
+    "expected_count": 0.0612,
+    "observed_count": 51,
+    "observed_over_expected": 833.018
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 39,
+    "expected_count": 0.2738,
+    "observed_count": 73,
+    "observed_over_expected": 266.595
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 28,
+    "expected_count": 2.9799,
+    "observed_count": 80,
+    "observed_over_expected": 26.846
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 65,
+    "expected_count": 63.4974,
+    "observed_count": 192,
+    "observed_over_expected": 3.024
+   },
+   ">=1e-1": {
+    "n_recipes": 131,
+    "expected_count": 1633.1789,
+    "observed_count": 1134,
+    "observed_over_expected": 0.694
+   }
+  },
+  "phase12_ckpt200": {
+   "<1e-6": {
+    "n_recipes": 1034,
+    "expected_count": 0.0014,
+    "observed_count": 124,
+    "observed_over_expected": 90209.139
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 94,
+    "expected_count": 0.0072,
+    "observed_count": 34,
+    "observed_over_expected": 4720.513
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 74,
+    "expected_count": 0.0592,
+    "observed_count": 47,
+    "observed_over_expected": 794.253
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 41,
+    "expected_count": 0.2959,
+    "observed_count": 70,
+    "observed_over_expected": 236.59
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 26,
+    "expected_count": 1.8001,
+    "observed_count": 32,
+    "observed_over_expected": 17.777
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 62,
+    "expected_count": 59.4025,
+    "observed_count": 134,
+    "observed_over_expected": 2.256
+   },
+   ">=1e-1": {
+    "n_recipes": 132,
+    "expected_count": 1626.4338,
+    "observed_count": 1247,
+    "observed_over_expected": 0.767
+   }
+  },
+  "phase12_ckpt300": {
+   "<1e-6": {
+    "n_recipes": 550,
+    "expected_count": 0.0005,
+    "observed_count": 22,
+    "observed_over_expected": 46077.555
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 47,
+    "expected_count": 0.0033,
+    "observed_count": 21,
+    "observed_over_expected": 6443.096
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 24,
+    "expected_count": 0.0186,
+    "observed_count": 16,
+    "observed_over_expected": 858.579
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 20,
+    "expected_count": 0.1753,
+    "observed_count": 17,
+    "observed_over_expected": 96.957
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 12,
+    "expected_count": 1.1127,
+    "observed_count": 12,
+    "observed_over_expected": 10.785
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 27,
+    "expected_count": 28.718,
+    "observed_count": 64,
+    "observed_over_expected": 2.229
+   },
+   ">=1e-1": {
+    "n_recipes": 57,
+    "expected_count": 858.9717,
+    "observed_count": 737,
+    "observed_over_expected": 0.858
+   }
+  },
+  "e1_ckpt100": {
+   "<1e-6": {
+    "n_recipes": 1067,
+    "expected_count": 0.0013,
+    "observed_count": 142,
+    "observed_over_expected": 108481.558
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 92,
+    "expected_count": 0.0076,
+    "observed_count": 41,
+    "observed_over_expected": 5430.088
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 45,
+    "expected_count": 0.0261,
+    "observed_count": 37,
+    "observed_over_expected": 1415.557
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 28,
+    "expected_count": 0.2584,
+    "observed_count": 41,
+    "observed_over_expected": 158.696
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 45,
+    "expected_count": 4.1226,
+    "observed_count": 78,
+    "observed_over_expected": 18.92
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 60,
+    "expected_count": 58.1485,
+    "observed_count": 184,
+    "observed_over_expected": 3.164
+   },
+   ">=1e-1": {
+    "n_recipes": 126,
+    "expected_count": 1656.4355,
+    "observed_count": 1196,
+    "observed_over_expected": 0.722
+   }
+  },
+  "e1_ckpt200": {
+   "<1e-6": {
+    "n_recipes": 1063,
+    "expected_count": 0.001,
+    "observed_count": 124,
+    "observed_over_expected": 120048.906
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 89,
+    "expected_count": 0.0062,
+    "observed_count": 51,
+    "observed_over_expected": 8230.386
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 62,
+    "expected_count": 0.056,
+    "observed_count": 58,
+    "observed_over_expected": 1036.439
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 29,
+    "expected_count": 0.2243,
+    "observed_count": 52,
+    "observed_over_expected": 231.812
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 38,
+    "expected_count": 3.0406,
+    "observed_count": 90,
+    "observed_over_expected": 29.599
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 63,
+    "expected_count": 60.4074,
+    "observed_count": 168,
+    "observed_over_expected": 2.781
+   },
+   ">=1e-1": {
+    "n_recipes": 119,
+    "expected_count": 1654.2645,
+    "observed_count": 1175,
+    "observed_over_expected": 0.71
+   }
+  },
+  "e1_ckpt300": {
+   "<1e-6": {
+    "n_recipes": 568,
+    "expected_count": 0.0004,
+    "observed_count": 39,
+    "observed_over_expected": 108111.922
+   },
+   "[1e-6,1e-5)": {
+    "n_recipes": 43,
+    "expected_count": 0.003,
+    "observed_count": 19,
+    "observed_over_expected": 6369.19
+   },
+   "[1e-5,1e-4)": {
+    "n_recipes": 22,
+    "expected_count": 0.0151,
+    "observed_count": 13,
+    "observed_over_expected": 859.171
+   },
+   "[1e-4,1e-3)": {
+    "n_recipes": 14,
+    "expected_count": 0.095,
+    "observed_count": 26,
+    "observed_over_expected": 273.654
+   },
+   "[1e-3,1e-2)": {
+    "n_recipes": 14,
+    "expected_count": 1.0994,
+    "observed_count": 35,
+    "observed_over_expected": 31.836
+   },
+   "[1e-2,1e-1)": {
+    "n_recipes": 21,
+    "expected_count": 15.7254,
+    "observed_count": 100,
+    "observed_over_expected": 6.359
+   },
+   ">=1e-1": {
+    "n_recipes": 55,
+    "expected_count": 886.0617,
+    "observed_count": 671,
+    "observed_over_expected": 0.757
+   }
+  }
+ },
+ "pooled_tail_pi_lt_1e4": {
+  "expected": 1.2664,
+  "observed": 9403,
+  "observed_over_expected": 7425.069
+ },
+ "l6_gains_detail": {
+  "BaLiBO3": {
+   "predicted_set": [
+    "BaO",
+    "LiBO2"
+   ],
+   "pi_tilde_rs_sft": 3.16e-06,
+   "n_samples_on_disk_rs_sft_astral_file": 232,
+   "n_hits_on_disk": 10,
+   "empirical_rate_on_disk": 0.0431,
+   "by_sample_group": {
+    "reference": {
+     "n": 200,
+     "hits": 10,
+     "rate": 0.05
+    },
+    "resampling_rate": {
+     "n": 32,
+     "hits": 0,
+     "rate": 0.0
+    }
+   }
+  },
+  "KLi(PO3)2": {
+   "predicted_set": [
+    "KPO3",
+    "LiPO3"
+   ],
+   "pi_tilde_rs_sft": 6e-07,
+   "n_samples_on_disk_rs_sft_astral_file": 232,
+   "n_hits_on_disk": 0,
+   "empirical_rate_on_disk": 0.0,
+   "by_sample_group": {
+    "reference": {
+     "n": 200,
+     "hits": 0,
+     "rate": 0.0
+    },
+    "resampling_rate": {
+     "n": 32,
+     "hits": 0,
+     "rate": 0.0
+    }
+   }
+  },
+  "Li2TiSiO5": {
+   "predicted_set": [
+    "Li2TiO3",
+    "SiO2"
+   ],
+   "pi_tilde_rs_sft": 1e-08,
+   "n_samples_on_disk_rs_sft_astral_file": 232,
+   "n_hits_on_disk": 1,
+   "empirical_rate_on_disk": 0.0043,
+   "by_sample_group": {
+    "reference": {
+     "n": 200,
+     "hits": 1,
+     "rate": 0.005
+    },
+    "resampling_rate": {
+     "n": 32,
+     "hits": 0,
+     "rate": 0.0
+    }
+   }
+  },
+  "NaSrBO3": {
+   "predicted_set": [
+    "NaBO2",
+    "SrO"
+   ],
+   "pi_tilde_rs_sft": 0.49242519,
+   "n_samples_on_disk_rs_sft_astral_file": 232,
+   "n_hits_on_disk": 18,
+   "empirical_rate_on_disk": 0.0776,
+   "by_sample_group": {
+    "reference": {
+     "n": 200,
+     "hits": 16,
+     "rate": 0.08
+    },
+    "resampling_rate": {
+     "n": 32,
+     "hits": 2,
+     "rate": 0.0625
+    }
+   }
+  }
+ },
+ "nasrbo3_explanation": "NaSrBO3: pi~_rs_sft=0.49242519 vs empirical rate 18/232=0.0776 across every RS-SFT sample on disk for this target (both the 32-sample resampling_rate draw AND the 200-sample reference pool). The estimator OVERSTATES the true rate by roughly 6.3x -- not the 'tails underestimated' direction regular Claude's hypothesis 2 predicted, the OPPOSITE: this specific cell is a case where the sparse 8-trace average happened to draw at least one trace assigning this recipe very high probability, and that one trace dominates the mean (log of an average of mostly-near-zero and one large value is pulled toward the large value). Not a canonicaliser or surface-form mismatch (checked: the exact predicted set does appear, hit rate ~7.76%, in both sample groups, so the key itself resolves correctly) -- an estimator-variance artifact specific to whichever traces happened to be among this target's up-to-8."
+}
