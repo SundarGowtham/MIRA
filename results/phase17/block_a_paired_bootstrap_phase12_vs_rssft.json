@@ -1,0 +1,22 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "A",
+ "subproperty": "paired bootstrap, Phase12@300 vs RS-SFT hits",
+ "seed": 20261016,
+ "n_boot": 10000,
+ "n_targets": 35,
+ "skipped_targets": [],
+ "orig_hits": {
+  "Phase12@300": 14,
+  "RS-SFT": 10,
+  "orig_diff": 4
+ },
+ "paired_diff_hits_bootstrap": {
+  "median": 2,
+  "ci95": [
+   -1,
+   5
+  ]
+ },
+ "method_note": "Paired by construction: each of the 10,000 replicates draws ONE set of resampled positions per target and applies it to BOTH models' 32-sample arrays for that target (both have exactly 32 samples/target), so within-replicate noise common to both models (e.g. a target where resampling happens to drop its only hit for one model) cancels in the diff rather than inflating the CI."
+}

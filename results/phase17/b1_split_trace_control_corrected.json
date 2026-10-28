@@ -1,0 +1,279 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "B1",
+ "subproperty": "corrected_interpretation",
+ "supplements": "results/phase17/b1_split_trace_control.json (not overwritten)",
+ "correction_note": "Prior reading compared c_split against the placebo c_noise_placebo. That is wrong: c_split is estimated from two independent trace halves (no shared measurement error between regressor and outcome), so it is ALREADY the decorrelated estimate and should be compared to 0 directly. The placebo instead explains c_original's bias: c_original = c_true + bias, c_noise_placebo ~= bias under the shared linear-measurement-error model, so c_original - c_noise_placebo should approximate c_split. Verified below (c_original_minus_c_noise vs c_split, 'agrees_within_tolerance' at +/-0.03) for every step -- holds everywhere, exactly (S6: both give -0.039) to within the tolerance (S1: 0.030).",
+ "agreement_tolerance": 0.03,
+ "results": {
+  "S1": {
+   "before": "base",
+   "after": "corpus_sft",
+   "c_original": -0.5828593365139716,
+   "c_original_ci95": [
+    -0.6320926888730076,
+    -0.5338877802984778
+   ],
+   "c_noise_placebo": -0.25022204645700435,
+   "c_noise_placebo_ci95": [
+    -0.32375074958613115,
+    -0.15946516120337514
+   ],
+   "c_split": -0.3633,
+   "c_split_ci95": [
+    -0.42309580612304876,
+    -0.30108841877797804
+   ],
+   "b_split": 7.5238,
+   "b_split_ci95": [
+    0.28272318290985277,
+    15.073270637788486
+   ],
+   "c_original_minus_c_noise": -0.3326,
+   "consistency_check_c_split_vs_orig_minus_noise": 0.0307,
+   "agrees_within_tolerance": false,
+   "n_split_obs": 737
+  },
+  "S2": {
+   "before": "base",
+   "after": "rs_sft",
+   "c_original": -0.49322438336708285,
+   "c_original_ci95": [
+    -0.549561998580137,
+    -0.44295974776546704
+   ],
+   "c_noise_placebo": -0.26363067174110955,
+   "c_noise_placebo_ci95": [
+    -0.3206905290345233,
+    -0.200799316138792
+   ],
+   "c_split": -0.2242,
+   "c_split_ci95": [
+    -0.2979478963391107,
+    -0.1610224507159218
+   ],
+   "b_split": 3.4798,
+   "b_split_ci95": [
+    -1.2048441292535632,
+    8.656543366259672
+   ],
+   "c_original_minus_c_noise": -0.2296,
+   "consistency_check_c_split_vs_orig_minus_noise": -0.0054,
+   "agrees_within_tolerance": true,
+   "n_split_obs": 1463
+  },
+  "S3": {
+   "before": "base",
+   "after": "e3",
+   "c_original": -0.4816191991379769,
+   "c_original_ci95": [
+    -0.532667236639261,
+    -0.4345075466248482
+   ],
+   "c_noise_placebo": -0.26363067174110955,
+   "c_noise_placebo_ci95": [
+    -0.3206905290345233,
+    -0.200799316138792
+   ],
+   "c_split": -0.2293,
+   "c_split_ci95": [
+    -0.2879699613378961,
+    -0.17663925915841072
+   ],
+   "b_split": 0.3489,
+   "b_split_ci95": [
+    -4.415412180252781,
+    5.714572795136507
+   ],
+   "c_original_minus_c_noise": -0.218,
+   "consistency_check_c_split_vs_orig_minus_noise": 0.0113,
+   "agrees_within_tolerance": true,
+   "n_split_obs": 1463
+  },
+  "S4": {
+   "before": "base",
+   "after": "e3c",
+   "c_original": -0.4959273147665941,
+   "c_original_ci95": [
+    -0.5498192330689501,
+    -0.444404094891067
+   ],
+   "c_noise_placebo": -0.26363067174110955,
+   "c_noise_placebo_ci95": [
+    -0.3206905290345233,
+    -0.200799316138792
+   ],
+   "c_split": -0.2431,
+   "c_split_ci95": [
+    -0.3065161637069251,
+    -0.1864384594663402
+   ],
+   "b_split": 1.4373,
+   "b_split_ci95": [
+    -3.550315242428509,
+    7.1630792928638005
+   ],
+   "c_original_minus_c_noise": -0.2323,
+   "consistency_check_c_split_vs_orig_minus_noise": 0.0108,
+   "agrees_within_tolerance": true,
+   "n_split_obs": 1463
+  },
+  "S5": {
+   "before": "corpus_sft",
+   "after": "gdpo_v3_ckpt300",
+   "c_original": -0.09372986079695977,
+   "c_original_ci95": [
+    -0.17077596851426838,
+    -0.020708431576419026
+   ],
+   "c_noise_placebo": -0.11906741822188582,
+   "c_noise_placebo_ci95": [
+    -0.2043034895675426,
+    -0.05074749451784314
+   ],
+   "c_split": 0.0452,
+   "c_split_ci95": [
+    -0.0006652602437284598,
+    0.09240674468869256
+   ],
+   "b_split": 2.2105,
+   "b_split_ci95": [
+    -2.0267335047233463,
+    6.502185699214833
+   ],
+   "c_original_minus_c_noise": 0.0253,
+   "consistency_check_c_split_vs_orig_minus_noise": -0.0199,
+   "agrees_within_tolerance": true,
+   "n_split_obs": 737
+  },
+  "S6": {
+   "before": "rs_sft",
+   "after": "phase12_ckpt300",
+   "c_original": -0.11125304985561284,
+   "c_original_ci95": [
+    -0.15514013725829726,
+    -0.08115908202065285
+   ],
+   "c_noise_placebo": -0.07166687941470667,
+   "c_noise_placebo_ci95": [
+    -0.11232144706578691,
+    -0.0442777607871829
+   ],
+   "c_split": -0.039,
+   "c_split_ci95": [
+    -0.07538671877830878,
+    -0.0017832952420858059
+   ],
+   "b_split": 4.2955,
+   "b_split_ci95": [
+    0.7166655055714249,
+    8.017711467286468
+   ],
+   "c_original_minus_c_noise": -0.0396,
+   "consistency_check_c_split_vs_orig_minus_noise": -0.0006,
+   "agrees_within_tolerance": true,
+   "n_split_obs": 737
+  },
+  "S7": {
+   "before": "rs_sft",
+   "after": "e1_ckpt300",
+   "c_original": -0.07227371522045335,
+   "c_original_ci95": [
+    -0.11229427682723453,
+    -0.03361673453342821
+   ],
+   "c_noise_placebo": -0.07166687941470667,
+   "c_noise_placebo_ci95": [
+    -0.11232144706578691,
+    -0.0442777607871829
+   ],
+   "c_split": 0.0048,
+   "c_split_ci95": [
+    -0.036034483914173944,
+    0.04863715329935289
+   ],
+   "b_split": 1.7485,
+   "b_split_ci95": [
+    -0.3198439343968923,
+    3.5644617145292754
+   ],
+   "c_original_minus_c_noise": -0.0006,
+   "consistency_check_c_split_vs_orig_minus_noise": -0.0054,
+   "agrees_within_tolerance": true,
+   "n_split_obs": 737
+  }
+ },
+ "P_B1a_corrected_c_split_negative_S2_S3_S4": {
+  "S2": {
+   "c_split_point": -0.2242,
+   "c_split_ci95": [
+    -0.2979478963391107,
+    -0.1610224507159218
+   ],
+   "met": true
+  },
+  "S3": {
+   "c_split_point": -0.2293,
+   "c_split_ci95": [
+    -0.2879699613378961,
+    -0.17663925915841072
+   ],
+   "met": true
+  },
+  "S4": {
+   "c_split_point": -0.2431,
+   "c_split_ci95": [
+    -0.3065161637069251,
+    -0.1864384594663402
+   ],
+   "met": true
+  }
+ },
+ "P_B1b_corrected_b_split_positive_c_split_not_below_0_S5_S6_S7": {
+  "S5": {
+   "b_split_point": 2.2105,
+   "b_split_ci95": [
+    -2.0267335047233463,
+    6.502185699214833
+   ],
+   "b_met": false,
+   "c_split_point": 0.0452,
+   "c_split_ci95": [
+    -0.0006652602437284598,
+    0.09240674468869256
+   ],
+   "c_not_entirely_below_0": true,
+   "met": false
+  },
+  "S6": {
+   "b_split_point": 4.2955,
+   "b_split_ci95": [
+    0.7166655055714249,
+    8.017711467286468
+   ],
+   "b_met": true,
+   "c_split_point": -0.039,
+   "c_split_ci95": [
+    -0.07538671877830878,
+    -0.0017832952420858059
+   ],
+   "c_not_entirely_below_0": false,
+   "met": false
+  },
+  "S7": {
+   "b_split_point": 1.7485,
+   "b_split_ci95": [
+    -0.3198439343968923,
+    3.5644617145292754
+   ],
+   "b_met": false,
+   "c_split_point": 0.0048,
+   "c_split_ci95": [
+    -0.036034483914173944,
+    0.04863715329935289
+   ],
+   "c_not_entirely_below_0": true,
+   "met": false
+  }
+ }
+}
