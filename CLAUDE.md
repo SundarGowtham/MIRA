@@ -20,7 +20,7 @@ level. The scientific question: does RL expand the synthesis-capability
 boundary or merely sharpen SFT's distribution — and can a factored verifier
 show *which* subskills moved?
 
-**Answer as of 2026-10-16 (Phase 16 closed, Phase 17 open).** On-policy
+**Answer as of 2026-10-28 (Phase 16 and 17 both closed).** On-policy
 practice (GDPO) reweights inside the model's existing range of recipes and adds
 none. This held under two very different rewards: the checker (capacity ~14%)
 and ranker v2 (capacity 46.3%). Both reached 14/35 ASTRAL rule-picked hits, and
@@ -31,7 +31,8 @@ same behaviour is already reported on maths, so the paper's distinct
 contributions are (a) the external lab referee and the verifier-validity
 critique (findings 16-29), and (b) **Phase 17: measuring why**: the shape of
 each step's probability change, the gradient terms that cause it, and where in
-the network it is written. Plan and predictions: `docs/phases/PHASE17_PREREG.md`.
+the network it is written — closed, see finding 34. Plan, predictions and the
+closing results: `docs/phases/PHASE17_PREREG.md`, `docs/phases/PHASE17_RESULTS.md`.
 The older interp probes (findings 12-14) are not on the paper's main line.
 
 ## Central diagnosis (read this before proposing anything)
@@ -281,21 +282,42 @@ channel must be something the model fails at a meaningful rate.
     (78.7%, clearing the pre-registered >50% bar); R2 and R4 (init rs_sft) do
     **not** survive the correction (43.6% and 30.6%, both now below the bar).
     B3's overshoot was not given its own correction and is carried as "likely
-    explained by the same tail bias, not independently confirmed." **What
-    survives for the paper, replacing the three-line headline: R1's genuine
-    unreachable majority by a raw count, and S6's small but real residual
-    negative c_split — two narrower findings, not one broad one.** The reward
+    explained by the same tail bias, not independently confirmed." **The main
+    surviving Phase 17 result, replacing the three-line headline: the
+    corrected split-trace regression shows fine-tuning and practice have
+    genuinely different signatures.** Fine-tuning's c_split is negative with
+    every CI excluding 0 — corpus SFT -0.363, RS-SFT -0.224, E3 -0.229, E3c
+    -0.243 (P-B1a met). Practice's c_split sits near 0 with the CI including
+    0 for two of three arms — GDPO-300 +0.045 (CI [-0.001,+0.092]), E1 +0.005
+    (CI [-0.036,+0.049]) — and the third, Phase 12, reads -0.039 (CI
+    [-0.075,-0.002], excludes 0) alongside a positive b_split (CI
+    [0.72,8.02]); because c_split's CI never clears 0 upward at any practice
+    step, P-B1b's full joint criterion (b_split positive AND c_split not
+    entirely below 0) is still not met anywhere. R1's genuine unreachable
+    majority by a raw count and the Phase 12 c_split residual above are kept
+    as narrower, standalone results, not folded into the headline. The reward
     audit's other pre-registered checks returned real, standalone results of
     their own, independent of this correction: the Price-equation sign-check
     passed (6/7 matched at the >=75% bar); Hodge decomposition found the
     learned comparator has zero empirical antisymmetry violations and only
-    5.2% curl on ASTRAL, fully attributable to channel-set-heterogeneous
+    5.2% curl on ASTRAL (4.2% held-out, 5.0% pooled over all 74 targets),
+    fully attributable to channel-set-heterogeneous
     triangles (confirming the pre-registered mechanism exactly); the
     information-bound check found real (not permutation-null) mutual
     information between every one of the three rewards and the real ARROWS3
     yield outcome even conditioned on carbonate status — a predicted null that
     failed, though a follow-up found no reward is significantly anti-signal in
-    any carbonate stratum. Gate G1 (median Spearman between the marginal
+    any carbonate stratum. On the 1,112 YBCO pairs with equal carbonate status
+    (the tie stratum, where a carbonate-free heuristic has no signal left to
+    give), raw agreement with measured yield is 0.584 (95% CI [0.517,0.648])
+    for the 5-channel checker — the only one of four rewards whose CI clears
+    chance — versus 0.532 for the 10-channel checker, 0.523 for ranker v2, and
+    0.462 for the comparator (n=938, fewer pairs gradeable); the two
+    richest-signal rewards by capacity (ranker 46.3%, comparator) sit at
+    chance on this stratum. Mutual information above zero cannot distinguish a
+    reward that is right from one that is confidently wrong; this
+    tie-stratum agreement number can, and it says only the checker beats a
+    coin flip once carbonate status stops doing the work. Gate G1 (median Spearman between the marginal
     estimator's log-probability and held-out sampled frequency) passed for
     all 12 models checked (range 0.59-0.68, bar >=0.5) — this gate certifies
     rank-correlation in the estimator's bulk, which is a different claim from
@@ -316,7 +338,7 @@ channel must be something the model fails at a meaningful rate.
 9. **Phase 13 (learned pairwise comparator) ran two iterations and stopped on its own pre-registered gate** (finding 23): ASTRAL's 35 pairs are structurally incapable of evaluating a precursor-count-sensitive comparator (traditional is always 3 precursors, predicted always 2, baked into ASTRAL's own selection principle) — a hard data-availability ceiling, not underpowered noise. Phase 14 does not launch. ARROWS³ named as the concrete path forward.
 10. **Phase 15 picked up exactly that path, and is now closed** (findings 24–29): validated the bare-oxide/carbonate and ammonium-phosphate shifts against real literature (Lee et al. 2025) and real robot-lab data (ARROWS³), pre-registered and ran the ARROWS³ verifier gate Phase 13 called for, and ran a policy-level teacher-forcing dose-response study. Six of seven planned tasks completed — Task 6 (Precursor Genome check) was cancelled before any data was downloaded, noted as future work only. **No further Phase 15 experiments are planned.** Full result-by-result breakdown, every result tagged [C]/[E] with n/effect size/CI and a "does not support" line: `docs/phases/PHASE15_SUMMARY.md`.
 11. **Phase 16 is closed** (findings 30-33): E1 (ranker reward) sharpened like the checker; E3/E3c self-distillation added recipes, with no benefit from the rarity filter; E2 dropped, E4 not run, both by pre-registered rule. Every number the paper quotes is reproduced by `scripts/build_claims_ledger.py` → `results/ledger/CLAIMS_LEDGER.md`.
-12. **Now: Phase 17** (`docs/phases/PHASE17_PREREG.md`). No training. It measures the shape (information geometry, unbalanced OT), the cause (empirical-kernel learning dynamics, PSR/NSR split) and the location (activation patching, steering dimension, weight dose) of support change, plus a Hodge decomposition of the pairwise comparator and Block R: a back-tested reward audit (symmetry axioms, Fisher's fundamental theorem, Price equation, zero curl, aggregation, information bound, best-of-n Goodhart curves, reachability) whose report card is the paper's reward-design figure. **Rule going forward: any new reward runs through `research/phase17_reward_audit.py` before it trains anything.**
+12. **Phase 17 is closed** (finding 34; `docs/phases/PHASE17_PREREG.md`, `docs/phases/PHASE17_RESULTS.md`). No training ran. It measured the shape (information geometry, unbalanced OT — OT infeasible as specified), the cause (empirical-kernel learning dynamics, PSR/NSR split) and the location (activation patching, steering dimension, weight dose) of support change, plus a Hodge decomposition of the pairwise comparator and Block R: a back-tested reward audit (symmetry axioms, Fisher's fundamental theorem, Price equation, zero curl, aggregation, information bound, best-of-n Goodhart curves, reachability) whose report card is the paper's reward-design figure. **Rule going forward: any new reward runs through `research/phase17_reward_audit.py` before it trains anything.**
 
 ## PHASE 17 (CLOSED, 2026-10-28)
 
@@ -458,6 +480,7 @@ track), unless Gowtham explicitly asks.
 - **GPU memory rule** (32 GB card): full-vocab logits = batch × seq × 152k × bytes dominate. Per-device batch 1 at ~8–10k tokens; tune accum, never effective batch (16) or G (8). Generation ≈65% of RL step time.
 - **git**: never commit/push/reset/rebase without the user explicitly asking. **Gowtham commits his own work.** Deliver files and tell him the paths; if he does ask you to commit, use his git identity and add **no** `Co-Authored-By` or `Claude-Session` trailer. Stale 0-byte `.git/index.lock` reappears (editor plugin) — `rm` it if no git process runs. Committer identity is auto-guessed (fine).
 - **Validator**: user is rewriting it on the side — check before big changes; small fixes + tests OK; bump `VALIDATOR_VERSION` on scoring-behavior changes.
+- **Pin `PYTHONHASHSEED=0` for any checker-scored rerun.** `validator.validate()`'s scoring pipeline is hash-seed-dependent somewhere in its thermodynamic/competing-phase scoring (exact line not pinned down; not `mp_formula_set`'s membership test, which doesn't depend on iteration order). Confirmed this directly: the 5-channel checker's capacity on the same RS-SFT samples read 26.75% (`r2_checker_capacity_rssft.json`, default/seed-0 hash) vs 26.69% (`r1_r3_checker_capacity_2x2.json`, a different unpinned seed) off byte-identical input and literally shared code. Neither value is "more correct" — pin the seed before comparing two runs at reportable precision. Source: `results/ledger/CLAIMS_LEDGER.md` Layer 11 (`L11.capacity_2x2`).
 - **Known traps**: `load_validator(formula_set, pd_index_path, project_root)` signature (old `pd_cache_path` kwarg dead); pd_index paths are repo-root-relative (pass `project_root=Path(".")`); `data/sft/` doesn't exist (`data/sft_old/`); `--model` is the BASE model — always pass `Qwen/Qwen3-8B`, never a checkpoint path (`--checkpoint` carries adapters); data/generation files are GBs — sample with `head -c`, never read fully.
 - **TRL 1.8.0 + continuous batching + eval bug**: generation calls `unwrapped_model.train()` unconditionally (grpo_trainer.py:1685), misrouting later eval batches into the train branch. `EvalModeGuard` (core/observability.py) works around it — do not remove on TRL 1.8.0; re-test on any TRL upgrade.
 - **Statistics rules** (learned from two misread runs):
@@ -475,8 +498,8 @@ track), unless Gowtham explicitly asks.
 
 ## Getting up to speed (token-efficient read order)
 
-1. This file — especially the **Central Diagnosis**, findings 16-18 and 30-33.
-   Then `docs/phases/PHASE16_PREREG.md` + `PHASE16_RESULTS.md` (latest closed phase), `docs/phases/PHASE17_PREREG.md` (current), and `results/ledger/CLAIMS_LEDGER.md` (every quoted number with its source and status).
+1. This file — especially the **Central Diagnosis**, findings 16-18 and 30-34.
+   Then `docs/phases/PHASE16_PREREG.md` + `PHASE16_RESULTS.md`, `docs/phases/PHASE17_PREREG.md` + `PHASE17_RESULTS.md` (latest closed phase), and `results/ledger/CLAIMS_LEDGER.md` (every quoted number with its source and status).
 2. `misc/some_claude_files/KIMI_NEW_CHAT_PRIMER.md` — the deep primer (58 lines): validator contract, probe inventory, run-3 spec detail, doc map.
 3. On demand only: `gdpo_v4_next_steps_claude_recommendation.md` (capacity diagnostics D1–D5), `CLAUDE_CLOSED_BOOK_ANALYSIS.md` (closed-book + gradeability flap), `CLAUDE_RESPONSE_TO_RUN3_JUSTIFICATION.md` + `KIMI_ITEMS_2_3_5_PLAN.md` (the resequencing logic), `ANALYSIS_CHAIN_RESULTS.md` (temp sweep/attention/pass@k-15).
 4. Data/results files (`runs/*/generations.jsonl`, `misc/*.json`) are large — inspect with `head -c`, `jq`-style one-liners, or the existing analyzers (`reward_geometry.py`, `analyze_passk.py`, `run_debug_and_analysis/`).
