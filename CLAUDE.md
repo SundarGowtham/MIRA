@@ -224,7 +224,7 @@ channel must be something the model fails at a meaningful rate.
     | mean reward | 0.972 | 0.982 |
     | mean max-T | 934.2 °C | 976.1 °C (+41.9, vs full-SFT→GDPO's +53.9) |
 
-    **VERDICT: AMPLIFIED** (14/35 clears the pre-registered >12/35 bar) — RL moved the policy further toward ASTRAL-predicted routes than RS-SFT's own init, without regressing toward convention (unlike full-SFT→GDPO's 17→31 pull back). McNemar on the 4 discordant gains (`BaLiBO3`, `KLi(PO3)2`, `Li2TiSiO5`, `NaSrBO3` — all one-directional, 0 losses) is not significant at the conventional bar (one-sided exact p=0.0625): report as "consistent with amplification, not yet statistically decisive," never as confirmed. **A specific alternative explanation was checked and cleared**: Phase 13's ammonium/balance-solver bug plausibly shaped which routes passed RS-SFT's filter (ammonium-precursor prevalence 12.14%→2.03% in RS-SFT's survivors, a proxy comparison), raising the concern that RS-SFT's gain was an "accidental ablation" of ammonium-affected targets' conventional routes. Direct check (`research/ammonium_ablation_check.py`): 3 of the 4 GDPO gains are in the ammonium-**un**affected group (base/RS-SFT/GDPO there: 47.1%→52.9%→70.6%); the ammonium-affected group is flat and low throughout (11.1%→5.6%→11.1%). **The improvement trajectory sits exactly where the bug has no purchase** — the alternative explanation is ruled out, not merely unaddressed. This is also Phase 13's gate answer: it gave Phase 13's comparator reward a genuine positive result to try to build on, so finding 18 (RS-SFT retention) does not stand alone as the project's only positive result. Source: `docs/phases/PHASE12_RESULTS.md`.
+    **VERDICT: AMPLIFIED** (14/35 clears the pre-registered >12/35 bar) — RL moved the policy further toward ASTRAL-predicted routes than RS-SFT's own init, without regressing toward convention (unlike full-SFT→GDPO's 17→31 pull back). McNemar on the 4 discordant gains (`BaLiBO3`, `KLi(PO3)2`, `Li2TiSiO5`, `NaSrBO3` — all one-directional, 0 losses) is not significant at the conventional bar (one-sided exact p=0.0625): report as "consistent with amplification, not yet statistically decisive," never as confirmed. **A specific alternative explanation was checked and cleared**: Phase 13's ammonium/balance-solver bug plausibly shaped which routes passed RS-SFT's filter (ammonium-precursor prevalence 12.14%→2.03% in RS-SFT's survivors, a proxy comparison), raising the concern that RS-SFT's gain was an "accidental ablation" of ammonium-affected targets' conventional routes. Direct check (`research/ammonium_ablation_check.py`): 3 of the 4 GDPO gains are in the ammonium-**un**affected group (base/RS-SFT/GDPO there: 47.1%→52.9%→70.6%); the ammonium-affected group is flat and low throughout (11.1%→5.6%→11.1%). **The improvement trajectory sits exactly where the bug has no purchase** — the alternative explanation is ruled out, not merely unaddressed. This is also Phase 13's gate answer: it gave Phase 13's comparator reward a genuine positive result to try to build on, so finding 18 (RS-SFT retention) does not stand alone as the project's only positive result. **Fragility caveat added 2026-10-28 (Phase 17, Block A)**: a paired bootstrap of Phase12@300's hits minus RS-SFT's hits, using the SAME resampled draw positions for both models per target (so common per-target sampling noise cancels in the diff rather than inflating the CI), gives median diff = **2** hits, 95% CI **[-1, 5]** — includes 0. The 14-vs-10 point estimate is unchanged and the paired check does not overturn the result, but "consistent with amplification, not yet statistically decisive" (already this finding's own framing) should be read with this interval attached, not as a stronger claim than that. Source: `docs/phases/PHASE12_RESULTS.md`.
 
 23. **Phase 13 stopping decision: the comparator's discriminative power on ASTRAL's 35 pairs is structurally zero; Phase 14 does not launch (2026-09-19).** Iteration 1's headline number (N_pref=17/35) was uninformative by construction — a comparator that unconditionally prefers "predicted" scores 35/35 on this metric, so 17 is not evidence of working physics. Traced to `C7_gas_evolution`'s MAD-scale calibration failure: raw diff always ∈{0.5,1.0,1.5}, MAD scale 2.085e-5 (computed from a corpus where most completions release no gas), inflating this one channel ~50,000x and producing 99.99% of every nonzero margin — **finding 20's failure mode in a different file**: a robust-scale estimator silently becoming the entire signal. **The deeper problem survives the scale-calibration fix (iteration 2)**: every one of ASTRAL's 35 pairs has traditional=exactly-3-precursors, predicted=exactly-2 (baked into ASTRAL's own selection principle, not an artifact), so any precursor-count/class-sensitive channel is a **deterministic function of the label**, not an independent signal. Corrected iteration-2 primary endpoint: N_pref=35/35 (sign never varies), so sign agreement collapses to the dataset's own base rate (20/35=57.1%) — **the comparator's demonstrated discriminative power on these 35 pairs is zero.** Confirmed as a hard data-availability ceiling, not a shortcut: only 35 such pairs exist in this repository, and ASTRAL's own supplementary information does not contain a matched per-temperature sweep either (checked directly against the full 75-page arXiv SI — the only temperature data is an untabulated heatmap image). **Per the pre-registration's own rule, the gate was not cleared and Phase 14 does not launch** — a pre-registered stopping decision, not an abandoned effort. ARROWS³ (Nat. Commun. 2023, positive-and-negative robot-lab outcomes) was named as the concrete future-work path this data-availability ceiling requires — **picked up directly as Phase 15 Task 4 (finding 27)**. Source: `docs/phases/PHASE13_RESULTS.md`.
 
@@ -248,6 +248,61 @@ channel must be something the model fails at a meaningful rate.
 
 33. **New-recipe rate does not rise with more practice (2026-10-15).** At checkpoints 100/200/300 of E1 and Phase 12, support growth stays at or below RS-SFT's floor; every interval overlaps the floor's. Phase 12 falls on held-out targets (9.6 → 8.0 → 5.6%). Most behaviour change is already present at step 100 (carbonate 48.2 → 25.3%, hits 10 → 13). Answers "300 steps isn't enough" within the measured range; runs of thousands of steps (ProRL scale) remain untested. Source: `results/support_growth_by_checkpoint.json`.
 
+34. **Phase 17's reward-design audit closes with two real, narrow survivors
+    and one withdrawn headline (2026-10-28).** Phase 17 ran the pre-registered
+    reward audit (symmetry, Price equation, information bound, best-of-n,
+    Hodge decomposition, reachability) and a mechanistic regression of each
+    training step's log-probability shift against the model's own pre-step
+    log-probability ("signature regression", the shape of fine-tuning vs
+    practice). An early read of three results together — B1's confidently
+    negative practice-step coefficient (c_s<0 for S5/S6/S7), R-h's reachability
+    back-test (3 of Phase 12's 4 gained ASTRAL targets sat far below an
+    unreachability threshold under RS-SFT's estimated probability), and B3's
+    leash-ceiling overshoot (6-7x) — would have read as "on-policy practice
+    reaches recipes a pure tilt cannot." **That headline is withdrawn before
+    publication.** A tail-calibration check found the shared K=8-trace
+    marginal probability estimator underlying all three results is biased low
+    by up to ~1.7 million x in its lowest probability decade (pooled
+    observed/expected ratio 7,425x for pi~<1e-4) — exactly the range the
+    headline depended on. An errors-in-variables split-trace control (fitting
+    the same regression from two independent trace halves, so the regressor
+    and outcome no longer share a common noise source) confirmed this directly
+    for B1: the corrected c_split is statistically indistinguishable from 0
+    for S5 and S7 (the "confidently negative for all three practice steps"
+    reading does not survive decorrelation), leaving only a small, real
+    residual at S6 (c_split=-0.039, 95% CI [-0.075,-0.002]) — real, but far
+    narrower than the original claim, and failing the full pre-registered
+    joint criterion (b_split's CI excludes 0 only at S6, [0.72,8.02]; its own
+    c_split CI is then entirely <0, failing that criterion's other half). A
+    literal, non-estimator recount of R-h (counting each reward's top-decile
+    recipes' raw occurrences in the init model's own on-disk samples, no
+    probability estimate at all) found the same split: R1 (init corpus_sft)
+    still shows a genuine majority-unreachable top decile by a raw count
+    (78.7%, clearing the pre-registered >50% bar); R2 and R4 (init rs_sft) do
+    **not** survive the correction (43.6% and 30.6%, both now below the bar).
+    B3's overshoot was not given its own correction and is carried as "likely
+    explained by the same tail bias, not independently confirmed." **What
+    survives for the paper, replacing the three-line headline: R1's genuine
+    unreachable majority by a raw count, and S6's small but real residual
+    negative c_split — two narrower findings, not one broad one.** The reward
+    audit's other pre-registered checks returned real, standalone results of
+    their own, independent of this correction: the Price-equation sign-check
+    passed (6/7 matched at the >=75% bar); Hodge decomposition found the
+    learned comparator has zero empirical antisymmetry violations and only
+    5.2% curl on ASTRAL, fully attributable to channel-set-heterogeneous
+    triangles (confirming the pre-registered mechanism exactly); the
+    information-bound check found real (not permutation-null) mutual
+    information between every one of the three rewards and the real ARROWS3
+    yield outcome even conditioned on carbonate status — a predicted null that
+    failed, though a follow-up found no reward is significantly anti-signal in
+    any carbonate stratum. Gate G1 (median Spearman between the marginal
+    estimator's log-probability and held-out sampled frequency) passed for
+    all 12 models checked (range 0.59-0.68, bar >=0.5) — this gate certifies
+    rank-correlation in the estimator's bulk, which is a different claim from
+    tail calibration, so G1 passing and the tail being badly biased are not in
+    tension. Source: `docs/phases/PHASE17_RESULTS.md`, `results/ledger/CLAIMS_LEDGER.md`
+    Layer 11.
+
 ## Journey (why things are the way they are)
 
 1. Six checkpoints once "scored identically" — root cause: silent parse-failure fallback; then the sentinel-payout bug. Validator now has None-propagation end to end + 43 tests.
@@ -263,7 +318,23 @@ channel must be something the model fails at a meaningful rate.
 11. **Phase 16 is closed** (findings 30-33): E1 (ranker reward) sharpened like the checker; E3/E3c self-distillation added recipes, with no benefit from the rarity filter; E2 dropped, E4 not run, both by pre-registered rule. Every number the paper quotes is reproduced by `scripts/build_claims_ledger.py` → `results/ledger/CLAIMS_LEDGER.md`.
 12. **Now: Phase 17** (`docs/phases/PHASE17_PREREG.md`). No training. It measures the shape (information geometry, unbalanced OT), the cause (empirical-kernel learning dynamics, PSR/NSR split) and the location (activation patching, steering dimension, weight dose) of support change, plus a Hodge decomposition of the pairwise comparator and Block R: a back-tested reward audit (symmetry axioms, Fisher's fundamental theorem, Price equation, zero curl, aggregation, information bound, best-of-n Goodhart curves, reachability) whose report card is the paper's reward-design figure. **Rule going forward: any new reward runs through `research/phase17_reward_audit.py` before it trains anything.**
 
-## CURRENT WORK: PHASE 17 (read `docs/phases/PHASE17_PREREG.md` in full before starting)
+## PHASE 17 (CLOSED, 2026-10-28)
+
+**STATUS: CLOSED.** Blocks 0, A, B, C, G (G1) and R ran. **Blocks D, E and F
+were not run** — nothing in Phase 17's later work depended on them, and no
+later result needed them to interpret what did run. **Block C (unbalanced OT)
+is infeasible as specified**: only 1.6% of target-steps (6/385) converge at
+the pre-registered regularization, because before/after raw mass differs by
+10+ orders of magnitude within a single target — a genuine data property, not
+a solver bug; the pre-registration's own fallback condition (rerun with a
+tail-calibrated renormalization, only if the tail-calibration check shows the
+tails ARE calibrated) was correctly never triggered, since they are not
+(7,425x pooled bias, see finding 34). Headline result and full narrative:
+finding 34 and `docs/phases/PHASE17_RESULTS.md`.
+
+The section below (block order, gate rule, reuse-before-writing list) is kept
+as the original planning record — the work it describes already happened
+(see above); do not treat its forward-looking language as an open task.
 
 - Block order: 0 → A (gate G1) → B, C → D → E → F; G and R (the reward audit, CPU only, existing samples) can run any time. Report after each block as a dated entry in `docs/phases/PHASE17_RESULTS.md`.
 - **Gate G1 is real**: if teacher-forced log-probabilities do not track sampled frequencies (median Spearman ≥ 0.5 per model), stop before B–F.

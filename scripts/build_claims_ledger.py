@@ -650,6 +650,222 @@ add("L10.support_by_checkpoint", 10, "New-recipe rate at steps 100/200/300 of tw
 
 
 # ---------------------------------------------------------------------------
+# Layer 11 — Phase 17: why, where, and the reward-design audit (closed 2026-10-28)
+# ---------------------------------------------------------------------------
+cap2x2 = load("phase17/r1_r3_checker_capacity_2x2.json")["two_by_two_table_E"]
+add("L11.capacity_2x2", 11, "Checker capacity: channel-count vs policy, isolated",
+    cap2x2["capacity_pct"], cap2x2["statement"], "results/phase17/r1_r3_checker_capacity_2x2.json",
+    "FROM_RESULTS",
+    note="r2_checker_capacity_rssft.json's own combined number for the same cell (5-channel RUN3 "
+         "checker on RS-SFT's samples) is 26.75%, not this file's 26.69% -- 0.06pp apart despite "
+         "byte-identical n_scored/n_parse_fail counts (1280/88 heldout, 1120/37 astral, confirmed "
+         "in both scripts' run logs) and literally shared code (r1_r3 imports r2's own "
+         "score_target_set + capacity_metrics by name rather than reimplementing them; neither "
+         "function nor its dependencies changed in git between the two runs). ROOT CAUSE FOUND AND "
+         "CONFIRMED this session, not merely two different pipelines: the gap is PYTHONHASHSEED-"
+         "dependent. A controlled rerun of the identical pipeline with PYTHONHASHSEED pinned to 0 "
+         "reproduces 26.75% (bit-identical per-channel z_var to r2's file); pinned to 1, it "
+         "reproduces 26.69% exactly; this project's run scripts never pin PYTHONHASHSEED, so every "
+         "separate process invocation samples a different (but internally consistent) hash seed. "
+         "The validator's mp_formula_set membership test (line ~660, ~1149) does not depend on set "
+         "iteration order, so it is not the mechanism; the exact hash-order-sensitive step inside "
+         "validator.validate()'s thermodynamic/competing-phase scoring was not pinned down further "
+         "here (out of scope for a housekeeping pass, and validator.py is the user's own file to "
+         "edit) -- the controlled PYTHONHASHSEED=0-vs-1 test is sufficient to confirm the MECHANISM "
+         "(hash-seed-dependent tie-breaking on a small number of borderline cases) without locating "
+         "the specific line. Neither 26.75% nor 26.69% is 'more correct' -- both are the same code "
+         "and data under two "
+         "valid interpreter states. Quote 26.75% for the RS-SFT/5-channel cell (matching the "
+         "separately-tracked r2_checker_capacity_rssft.json, so the two files agree), and pin "
+         "PYTHONHASHSEED=0 in any future rerun of this pipeline for exact reproducibility. The "
+         "table's other three cells are far less likely to be affected at a reportable precision -- "
+         "the 10-channel checker's extra, mostly-dead channels make its covariance less sensitive "
+         "to a handful of flipped ties -- but were not re-verified under both seeds here.")
+
+price = load("phase17/rc_price_equation.json")
+add("L11.price", 11, "Price-equation / Shapley sign-check across rewards",
+    {"n_pairs_checked": price["prediction_check"]["n_pairs_checked"],
+     "n_matched": price["prediction_check"]["n_matched"],
+     "pct_matched": price["prediction_check"]["pct_matched"],
+     "passes": price["prediction_check"]["passes"],
+     "mismatches": [p for p in price["prediction_check"]["pair_detail"] if not p["matched"]]},
+    price["prediction_check"]["statement"], "results/phase17/rc_price_equation.json", "FROM_RESULTS",
+    note="6/7 (85.7%) matched, clearing the pre-registered >=75% bar. The one mismatch (R1, "
+         "bare_alkali_oxide_used, predicted sign +1, observed -1) is the mirror image of the pair "
+         "that DID match (R1, alkali_carbonate_used, S_phi=-1.46, matched) -- since those two "
+         "features sum to ~1 by construction (an alkali is sourced as one or the other), this is "
+         "one discordant case counted on both sides of the ledger, not two independent misses.")
+
+infob = load("phase17/rf_information_bound.json")
+add("L11.info_bound", 11, "I(reward; real yield outcome | carbonate-free), ARROWS3 YBCO",
+    {"prereg_prediction_check": infob["prediction_check"],
+     "permutation_null_corrected_check": infob["prediction_check_corrected"],
+     "directional_signal": infob["directional_signal_summary"]["interpretation"],
+     "symmetrized_decisive_pair_agreement": infob["symmetrized_rule_decided"]},
+    infob["prediction_check"]["statement"], "results/phase17/rf_information_bound.json", "FROM_RESULTS",
+    note="Both pre-registered predictions FAILED to find a null: all three rewards (checker, "
+         "ranker, comparator) carry real information about the YBCO outcome even conditioned on "
+         "carbonate status, and that information is not a plug-in-MI bias artifact (none is "
+         "indistinguishable from a permutation null). But MI is sign-blind -- the directional "
+         "follow-up found no (reward, carbonate-stratum) cell where that information is "
+         "SIGNIFICANTLY below chance (anti-signal); nothing here shows the extra information points "
+         "the wrong way. Consistent with, not contradicting, finding 27's 'thermo channel alone is "
+         "88% redundant with the carbonate-free baseline' -- redundant is not the same as zero.")
+
+hodge = load("phase17/hodge_comparator.json")
+hodge_arrows = load("phase17/hodge_arrows.json")
+add("L11.hodge", 11, "Hodge (gradient/curl/harmonic) decomposition of each reward's pairwise preference graph",
+    {"comparator_frac_curl_ASTRAL": hodge["pooled"]["ASTRAL"]["R5_comparator"]["frac_curl"],
+     "checker_ranker_frac_curl_ASTRAL": {k: hodge["pooled"]["ASTRAL"][k]["frac_curl"]
+                                        for k in ("R1_checker_10ch", "R2_checker_5ch", "R4_ranker")},
+     "c3_cyclic_triad_fraction": hodge["c3_fraction"],
+     "channel_set_curl_prediction": hodge["channel_set_curl_prediction"],
+     "comparator_antisymmetry_violations": hodge_arrows["verdict"]["comparator_any_violation"]},
+    "Checker/ranker are scalar-derived (curl-free by construction, a trivial control); R5 (the "
+    "learned comparator, gate-wrapped as actually used downstream) is the real test for both exact "
+    "antisymmetry (c(a,b)+c(b,a)=0) and curl-freeness (does preference around a 3-cycle sum to 0?).",
+    "results/phase17/hodge_comparator.json, results/phase17/hodge_arrows.json", "FROM_RESULTS",
+    note="R5 shows ZERO antisymmetry violations on every ARROWS3 pool (necessary but not "
+         "sufficient for a global ranking). Its curl is small but real (5.2% of ASTRAL's total "
+         "preference energy) and traced to the pre-registered mechanism exactly: triangles where "
+         "all three pairwise comparisons gate the same reward channels on/off have curl numerically "
+         "zero (<1e-9); the curl signal sits entirely on channel-set-heterogeneous triangles (mean "
+         "|curl| 0.268 vs ~0 when the channel set matches) -- channel-gating inconsistency, not a "
+         "real intransitive preference. 17% of all triangles are the cyclic (C3) kind curl can even "
+         "act on.")
+
+reach_orig = load("phase17/audit_reach.json")
+reach_fix = load("phase17/rh_recount_no_tail.json")
+add("L11.reach", 11, "R-h: share of each reward's top-decile recipes unreachable from its init policy",
+    {"original_estimator_based_pi_tilde_in_denominator":
+        {k: v["mean_unreachable_reward_share_primary_eps"] for k, v in reach_orig["by_reward"].items()},
+     "corrected_literal_on_disk_count_no_estimator":
+        {k: v["share_zero_observed"] for k, v in reach_fix["by_reward"].items()},
+     "bar": ">50% unreachable"},
+    "Originally: share of top-decile recipes whose Block-A K=8-trace marginal pi~ sits below a "
+    "small epsilon under the init policy. Corrected: same top-decile recipes, denominator replaced "
+    "by a literal zero-vs-nonzero count in the init model's own on-disk samples (no estimator).",
+    "results/phase17/audit_reach.json, results/phase17/rh_recount_no_tail.json", "RECOMPUTED*",
+    stated="91.5% / 83.8% / 79.2% (R1/R2/R4), all failing the >50% unreachable bar",
+    note="R1 (init corpus_sft) holds up under either method: 78.7% by raw on-disk count, still "
+         ">50%. R2 and R4 (init rs_sft) do NOT survive: 43.6% and 30.6%, both now BELOW the 50% "
+         "bar -- the original 'all three rewards show a genuine unreachable majority' reading does "
+         "not survive; only R1's does. L6.gains cross-check (b1_tail_calibration.json's "
+         "l6_gains_detail, full 232-sample RS-SFT pool): 3 of Phase 12's 4 gained targets occur at "
+         "a real empirical rate 100-1000x higher than the estimator's pi~ said (BaLiBO3 4.31% vs "
+         "pi~=3.16e-6; Li2TiSiO5 0.43% vs pi~=1e-8); one (KLi(PO3)2) is 0/232 even on the full "
+         "count -- genuinely rare, not just an estimator artifact, for that one target.")
+
+rg_orig = load("phase17/rg_table2_verdict.json")["pooled_over_targets"]["all_temperatures"]
+rg_fixed = load("phase17/rg_all_temp_pooled_fixed.json")
+rg_goodhart = load("phase17/rg_goodhart_curve.json")
+add("L11.bestofn", 11, "Best-of-16 vs best-of-1 by each reward, pooled across ARROWS3 targets/temperatures",
+    {"original_pooling_concatenates_bootstrap_draws_across_temperatures":
+        {k: {"diff_mean": v["diff"]["mean"], "diff_ci95": v["diff"]["ci95"], "verdict": v["verdict"]}
+         for k, v in rg_orig.items()},
+     "fixed_pooling_averages_each_replicates_per_target_diffs_first": rg_fixed,
+     "goodhart_curve_turns_down_anywhere_n1_to_n16": {
+         m: rg_goodhart["exploratory_turn_down_E"][m]["turns_down_anywhere"]
+         for m in ("R2_checker", "R4_ranker", "R5_comparator")}},
+    "Does picking the reward's own best-of-16 candidate yield a higher true/held-out yield-win rate "
+    "than best-of-1? Pooled CI should average each bootstrap replicate's 3 per-target diffs before "
+    "taking percentiles, not concatenate all replicates' draws across targets first.",
+    "results/phase17/rg_table2_verdict.json, results/phase17/rg_all_temp_pooled_fixed.json, "
+    "results/phase17/rg_goodhart_curve.json", "RECOMPUTED*",
+    note="The point estimates barely move (R4_ranker 11.55 -> 11.27pp); only the CI width changes, "
+         "and only R4_ranker's verdict flips: [-13.89,29.40] (includes 0, 'no climb') becomes "
+         "[1.88,20.62] (excludes 0, 'climbs'). R2_checker and R5_comparator stay 'no climb' either "
+         "way. This is the SAME CLASS OF BUG an earlier within-temperature pooling fix caught in "
+         "Block R -- concatenating resample draws across a grouping dimension instead of averaging "
+         "within each replicate first inflates the CI without moving the point estimate. Separately, "
+         "the Goodhart best-of-n curve (n=1..16) turns down for R2_checker (classic overfitting to "
+         "a proxy) but climbs monotonically for R4_ranker and R5_comparator over this range -- no "
+         "turnover observed yet for those two, within n<=16.")
+
+sig = load("phase17/signature.json")
+split_corr = load("phase17/b1_split_trace_control_corrected.json")
+b1_rows = split_corr["results"]
+add("L11.b1_signature", 11, "Block B1: within-target-FE regression of step log-prob shift on log pi_before ('signature' of fine-tuning vs practice)",
+    {"original_c_s_does_not_support_block": sig["does_not_support_checks"],
+     "corrected_c_split_and_b_split": {s: {"c_split": b1_rows[s]["c_split"], "c_split_ci95": b1_rows[s]["c_split_ci95"],
+                                           "b_split": b1_rows[s]["b_split"], "b_split_ci95": b1_rows[s]["b_split_ci95"]}
+                                       for s in b1_rows},
+     "P_B1a_corrected": split_corr["P_B1a_corrected_c_split_negative_S2_S3_S4"],
+     "P_B1b_corrected": split_corr["P_B1b_corrected_b_split_positive_c_split_not_below_0_S5_S6_S7"]},
+    "c (or c_split) is the regression weight on log pi_before (the fine-tuning/practice step's own "
+    "preference for its pre-step self); split-trace reruns the same regression with the regressor "
+    "and outcome drawn from independent trace halves, removing the shared-measurement-error bias "
+    "present in the original (un-split) c.",
+    "results/phase17/signature.json, results/phase17/b1_split_trace_control_corrected.json", "RECOMPUTED*",
+    stated="headline (never written to docs, withdrawn before publication): c_s confidently "
+           "negative for all three practice steps (S5/S6/S7), read as 'practice reaches recipes a "
+           "pure tilt cannot'",
+    note="P-B1a (fine-tuning steps S2-S4, c<0) is MET under the corrected c_split, but its "
+         "magnitude was inflated roughly 2x by the shared-noise artifact (original c~-0.49, true "
+         "c~-0.22 to -0.24). P-B1b (practice steps S5-S7) is NOT MET under the full pre-registered "
+         "joint criterion for any step: c_split is statistically indistinguishable from 0 for S5 "
+         "and S7 (the original 'confidently negative for all three' does not survive decorrelation); "
+         "S6 keeps a small, barely-significant negative c_split (-0.039, CI [-0.075,-0.002]) and is "
+         "the only step where b_split's CI excludes 0 ([0.72,8.02]) -- but its c_split CI is then "
+         "entirely <0, failing the criterion's other half. Net: the clean negative-c signature for "
+         "practice does not survive; what remains is noise-consistent for 2/3 steps and one small, "
+         "real residual (S6).")
+
+tailcal = load("phase17/b1_tail_calibration.json")
+add("L11.tail_calibration", 11, "Calibration of Block A's K=8-trace marginal pi~ estimator against real held-out frequency",
+    {"pooled_pi_lt_1e-4": tailcal["pooled_tail_pi_lt_1e4"],
+     "nasrbo3_note": tailcal["nasrbo3_explanation"]},
+    "For every (model, target, recipe) cell where pi~ < 1e-4, sum the expected count (pi~ x "
+    "n_held_out) and the observed count across all such cells, pooled; ratio = observed/expected.",
+    "results/phase17/b1_tail_calibration.json", "FROM_RESULTS",
+    note="7,425x pooled under-estimate; per-model <1e-6 bin ratios range 100,378x-1,724,611x. This "
+         "single estimator feeds Block B1's c_s/d_s regression terms (signature.json) AND R-h's "
+         "reachability denominator (audit_reach.json) AND, uncorrected, Block B3's leash overshoot "
+         "-- the shared root cause behind most of the withdrawn 'practice reaches the unreachable' "
+         "headline. NaSrBO3 is the one target where the estimator errs in the OPPOSITE direction "
+         "(overstates by ~6.3x) -- a sparse-average variance artifact, not a canonicaliser bug "
+         "(the predicted set does resolve correctly in both sample groups).")
+
+manifest = load("phase17/block_a_manifest.json")
+hitboot = load("phase17/block_a_hit_bootstrap.json")
+pairedboot = load("phase17/block_a_paired_bootstrap_phase12_vs_rssft.json")
+add("L11.block_a_bootstrap", 11, "Block A: are the ASTRAL hit-rate 'replications' real, and is Phase 12's gain over RS-SFT noise?",
+    {"replication_files_were_deterministic_reruns": manifest["note"],
+     "unpaired_sampling_noise_bootstrap": hitboot["models"],
+     "paired_bootstrap_Phase12_minus_RSSFT": {"orig_diff": pairedboot["orig_hits"]["orig_diff"],
+                                              **pairedboot["paired_diff_hits_bootstrap"]}},
+    "hit-rate = targets where >=1 of 32 samples matches the ASTRAL rule-picked precursor set. "
+    "Unpaired: bootstrap each model's own 32 draws/target independently. Paired: draw ONE set of "
+    "resampled positions per target, apply to BOTH Phase12@300 and RS-SFT, so common per-target "
+    "noise cancels in the diff rather than inflating the CI.",
+    "results/phase17/block_a_manifest.json, results/phase17/block_a_hit_bootstrap.json, "
+    "results/phase17/block_a_paired_bootstrap_phase12_vs_rssft.json", "FROM_RESULTS",
+    note="The four *_replication.json ASTRAL legs reused seed=42 (astral_model_generations.py's "
+         "default, never overridden) and are 1,120/1,120 samples byte-identical to the originals -- "
+         "deterministic re-runs, not independent replications. The real sampling-noise read: "
+         "Phase12@300's own interval [9,14] overlaps RS-SFT's [8,10] at 9-10 on an UNPAIRED "
+         "bootstrap. PAIRED (same resampled positions, finding-22's actual comparison): median "
+         "diff=2, 95% CI [-1,5] -- includes 0. Finding 22's '14/35 vs 10/35, consistent with "
+         "amplification, not yet statistically decisive' is the correct framing and should carry "
+         "this interval as its fragility caveat; this check neither proves nor overturns it.")
+
+instr = load("phase17/instrument_check.json")
+g1_per_model = instr["marginal_estimator"]["per_model"]
+add("L11.gate_g1", 11, "Gate G1: median Spearman(log pi_hat_marginal, held-out sampled frequency), per model",
+    {m: v["median_rho"] for m, v in g1_per_model.items()},
+    "Pre-registered pass bar: median rho over targets >= 0.5, for EVERY model (12 checkpoints "
+    "spanning base/corpus_sft/rs_sft/e3/e3c and 3 checkpoints each of gdpo_v3/phase12/e1).",
+    "results/phase17/instrument_check.json (field marginal_estimator.per_model)", "RECOMPUTED*",
+    note="Locates the '0.59 to 0.68 median Spearman across 12 models' figure the audit draft "
+         "quoted without a source file: min 0.5913 (phase12_ckpt200), max 0.6761 (rs_sft), all 12 "
+         "clear the 0.5 bar -- gate PASSES. This is the SAME K=8-trace marginal estimator the "
+         "tail-calibration check later showed is biased low by up to ~1.7Mx in its lowest "
+         "probability decade: G1 only certifies rank-correlation with sampled frequency in the "
+         "estimator's bulk, not calibration in the tail, so the gate passing and the tail being "
+         "badly biased are not in tension with each other.")
+
+
+# ---------------------------------------------------------------------------
 # Write outputs
 # ---------------------------------------------------------------------------
 def flat(v):
@@ -668,7 +884,8 @@ with open(OUT / "claims_ledger.csv", "w", newline="") as f:
 LAYERS = {1: "Are our scores real?", 2: "Does practice teach new recipes?", 3: "Why only sharpening?",
           4: "Does the checker match a real lab?", 5: "Where did the rule-picked recipes go?",
           6: "Practice from RS-SFT", 7: "Better judges", 8: "What practice changed",
-          9: "Contamination", 10: "Phase 16"}
+          9: "Contamination", 10: "Phase 16",
+          11: "Phase 17: why, where, and the reward audit (closed 2026-10-28)"}
 md = ["# Claims ledger", "",
       "Generated by `scripts/build_claims_ledger.py`. Do not edit by hand; rerun the script.", "",
       "Status: **RECOMPUTED** = computed by the script from a tracked results file. **RECOMPUTED\\*** = recomputed, "

@@ -183,3 +183,57 @@ No single clean "practice reaches the unreachable" result survives. What
 remains, worth carrying forward: R1's genuine unreachable majority, and
 S6's small but real residual negative c — both narrower, real findings,
 not the broad three-line headline originally reported.
+
+## 2026-10-30 — Housekeeping: ledger regen, a reproducibility bug found and
+confirmed, Gate G1's source located. Phase 17 closed.
+
+No new experiments. `scripts/build_claims_ledger.py` gained a Layer 11
+("Phase 17: why, where, and the reward audit") with ten entries covering the
+capacity 2×2 table, the Price-equation sign-check, the information bound,
+best-of-n/Goodhart, the Hodge decomposition, R-h's corrected reachability,
+the corrected B1 split-trace table, tail calibration, and Block A's
+bootstraps — see `results/ledger/CLAIMS_LEDGER.md` Layer 11 for the full
+entries; not duplicated here.
+
+**A real reproducibility bug, confirmed, not just noted**: the 5-channel
+checker capacity on RS-SFT's own samples is reported as two different
+numbers in two tracked files — `r2_checker_capacity_rssft.json` says
+26.75%, `r1_r3_checker_capacity_2x2.json` says 26.69% — despite byte-
+identical inputs, byte-identical parse/scored counts, and literally shared
+scoring code (`r1_r3` imports `r2`'s own functions rather than
+reimplementing them). Three controlled reruns this session (default hash
+seed, then `PYTHONHASHSEED=0`, `=1`, `=2` pinned explicitly) reproduced
+26.75% under seed 0 and 26.69% under seeds 1 and 2 — **confirmed: this
+project's validator pipeline is PYTHONHASHSEED-sensitive**, somewhere in
+`validator.validate()`'s thermodynamic/competing-phase scoring (not in
+`mp_formula_set`'s membership test, which doesn't depend on set iteration
+order; the exact line was not pinned down — out of scope for this pass, and
+`validator.py` is Gowtham's file to edit). The effect is small here (±0.06
+percentage points of capacity) but is a correctness concern for ANY future
+rerun of validator-backed scoring intended to be bit-reproducible: pin
+`PYTHONHASHSEED=0` (or any fixed value) before launching such a job.
+Ledger now quotes 26.75% for this cell (matching the separately-tracked
+`r2_checker_capacity_rssft.json`), with the finding and both files' values
+recorded in `L11.capacity_2x2`.
+
+**Gate G1's "0.59 to 0.68 median Spearman across 12 models" located**:
+`results/phase17/instrument_check.json`, field
+`marginal_estimator.per_model` — min 0.5913 (phase12_ckpt200), max 0.6761
+(rs_sft), all 12 checkpoints clear the pre-registered ≥0.5 bar. Recorded
+in `L11.gate_g1`.
+
+**CLAUDE.md**: not edited by this session (standing rule — a separate chat
+session owns that file). The findings write-up, finding-22 fragility
+caveat, and "Phase 17 closed" status change regular Claude asked for are
+drafted in full, ready to paste, in
+`docs/phases/PHASE17_CLAUDE_MD_PATCH.md`.
+
+**Phase 17 is closed.** Blocks 0, A, B, C, G1 and R ran. Blocks D, E, F were
+not run — nothing later in Phase 17 depended on them. Block C stayed
+infeasible (6/385 target-steps converge; raw mass differs by 10+ orders of
+magnitude within a target) and its conditional rerun was correctly never
+triggered (the tail-calibration check shows the tails are NOT calibrated).
+Skipped by explicit instruction, not run: a true fresh-seed Phase 12
+replication (the only item that would have cost GPU/generation time) and a
+split-trace-style control for Block B3 (optional; the pre-registration
+brief already tells the paper's writer not to report B3).
