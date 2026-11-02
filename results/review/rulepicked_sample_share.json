@@ -1,0 +1,368 @@
+{
+ "seed": 20261016,
+ "n_boot": 10000,
+ "full_35_n": 35,
+ "clean_22_n": 22,
+ "clean_22_excludes": [
+  "KBaPO4",
+  "KMgPO4",
+  "KNbWO6",
+  "KTiNbO5",
+  "Li2CuP2O7",
+  "Li3Fe2(PO4)3",
+  "Li3Sc2(PO4)3",
+  "Li3V2(PO4)3",
+  "LiMgPO4",
+  "LiMnPO4",
+  "LiZnBO3",
+  "Na2Al2B2O7",
+  "NaSrBO3"
+ ],
+ "per_model": {
+  "base": {
+   "full_35": {
+    "share": 0.019642857142857142,
+    "pct": 1.964,
+    "n_match": 22,
+    "n_total": 1120,
+    "ci95_pct": [
+     0.714,
+     3.571
+    ]
+   },
+   "clean_22": {
+    "share": 0.028409090909090908,
+    "pct": 2.841,
+    "n_match": 20,
+    "n_total": 704,
+    "ci95_pct": [
+     0.994,
+     5.256
+    ]
+   }
+  },
+  "corpus_sft": {
+   "full_35": {
+    "share": 0.0,
+    "pct": 0.0,
+    "n_match": 0,
+    "n_total": 1120,
+    "ci95_pct": [
+     0.0,
+     0.0
+    ]
+   },
+   "clean_22": {
+    "share": 0.0,
+    "pct": 0.0,
+    "n_match": 0,
+    "n_total": 704,
+    "ci95_pct": [
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "rs_sft": {
+   "full_35": {
+    "share": 0.03660714285714286,
+    "pct": 3.661,
+    "n_match": 41,
+    "n_total": 1120,
+    "ci95_pct": [
+     1.429,
+     6.518
+    ]
+   },
+   "clean_22": {
+    "share": 0.052556818181818184,
+    "pct": 5.256,
+    "n_match": 37,
+    "n_total": 704,
+    "ci95_pct": [
+     1.989,
+     9.375
+    ]
+   }
+  },
+  "gdpo300": {
+   "full_35": {
+    "share": 0.0026785714285714286,
+    "pct": 0.268,
+    "n_match": 3,
+    "n_total": 1120,
+    "ci95_pct": [
+     0.0,
+     0.714
+    ]
+   },
+   "clean_22": {
+    "share": 0.004261363636363636,
+    "pct": 0.426,
+    "n_match": 3,
+    "n_total": 704,
+    "ci95_pct": [
+     0.0,
+     1.136
+    ]
+   }
+  },
+  "phase12_ckpt300": {
+   "full_35": {
+    "share": 0.03214285714285714,
+    "pct": 3.214,
+    "n_match": 36,
+    "n_total": 1120,
+    "ci95_pct": [
+     1.607,
+     5.089
+    ]
+   },
+   "clean_22": {
+    "share": 0.03835227272727273,
+    "pct": 3.835,
+    "n_match": 27,
+    "n_total": 704,
+    "ci95_pct": [
+     1.989,
+     6.108
+    ]
+   }
+  },
+  "e1_ckpt300": {
+   "full_35": {
+    "share": 0.05,
+    "pct": 5.0,
+    "n_match": 56,
+    "n_total": 1120,
+    "ci95_pct": [
+     2.5,
+     8.036
+    ]
+   },
+   "clean_22": {
+    "share": 0.0625,
+    "pct": 6.25,
+    "n_match": 44,
+    "n_total": 704,
+    "ci95_pct": [
+     2.983,
+     10.085
+    ]
+   }
+  },
+  "e3": {
+   "full_35": {
+    "share": 0.05089285714285714,
+    "pct": 5.089,
+    "n_match": 57,
+    "n_total": 1120,
+    "ci95_pct": [
+     2.232,
+     8.393
+    ]
+   },
+   "clean_22": {
+    "share": 0.061079545454545456,
+    "pct": 6.108,
+    "n_match": 43,
+    "n_total": 704,
+    "ci95_pct": [
+     2.131,
+     10.938
+    ]
+   }
+  },
+  "e3c": {
+   "full_35": {
+    "share": 0.039285714285714285,
+    "pct": 3.929,
+    "n_match": 44,
+    "n_total": 1120,
+    "ci95_pct": [
+     1.786,
+     6.339
+    ]
+   },
+   "clean_22": {
+    "share": 0.05113636363636364,
+    "pct": 5.114,
+    "n_match": 36,
+    "n_total": 704,
+    "ci95_pct": [
+     2.131,
+     8.523
+    ]
+   }
+  }
+ },
+ "paired_diff_vs_init": {
+  "corpus_sft": {
+   "full_35": {
+    "model": "corpus_sft",
+    "init": "base",
+    "point_diff_pct": -1.964,
+    "boot_median_diff_pct": -1.875,
+    "ci95_diff_pct": [
+     -3.571,
+     -0.714
+    ]
+   },
+   "clean_22": {
+    "model": "corpus_sft",
+    "init": "base",
+    "point_diff_pct": -2.841,
+    "boot_median_diff_pct": -2.699,
+    "ci95_diff_pct": [
+     -5.256,
+     -0.994
+    ]
+   }
+  },
+  "rs_sft": {
+   "full_35": {
+    "model": "rs_sft",
+    "init": "base",
+    "point_diff_pct": 1.696,
+    "boot_median_diff_pct": 1.696,
+    "ci95_diff_pct": [
+     0.268,
+     3.304
+    ]
+   },
+   "clean_22": {
+    "model": "rs_sft",
+    "init": "base",
+    "point_diff_pct": 2.415,
+    "boot_median_diff_pct": 2.415,
+    "ci95_diff_pct": [
+     0.284,
+     4.688
+    ]
+   }
+  },
+  "gdpo300": {
+   "full_35": {
+    "model": "gdpo300",
+    "init": "corpus_sft",
+    "point_diff_pct": 0.268,
+    "boot_median_diff_pct": 0.268,
+    "ci95_diff_pct": [
+     0.0,
+     0.714
+    ]
+   },
+   "clean_22": {
+    "model": "gdpo300",
+    "init": "corpus_sft",
+    "point_diff_pct": 0.426,
+    "boot_median_diff_pct": 0.426,
+    "ci95_diff_pct": [
+     0.0,
+     1.136
+    ]
+   }
+  },
+  "phase12_ckpt300": {
+   "full_35": {
+    "model": "phase12_ckpt300",
+    "init": "rs_sft",
+    "point_diff_pct": -0.446,
+    "boot_median_diff_pct": -0.357,
+    "ci95_diff_pct": [
+     -2.768,
+     1.518
+    ]
+   },
+   "clean_22": {
+    "model": "phase12_ckpt300",
+    "init": "rs_sft",
+    "point_diff_pct": -1.42,
+    "boot_median_diff_pct": -1.278,
+    "ci95_diff_pct": [
+     -4.688,
+     0.994
+    ]
+   }
+  },
+  "e1_ckpt300": {
+   "full_35": {
+    "model": "e1_ckpt300",
+    "init": "rs_sft",
+    "point_diff_pct": 1.339,
+    "boot_median_diff_pct": 1.25,
+    "ci95_diff_pct": [
+     -0.268,
+     3.482
+    ]
+   },
+   "clean_22": {
+    "model": "e1_ckpt300",
+    "init": "rs_sft",
+    "point_diff_pct": 0.994,
+    "boot_median_diff_pct": 0.994,
+    "ci95_diff_pct": [
+     -0.568,
+     2.557
+    ]
+   }
+  },
+  "e3": {
+   "full_35": {
+    "model": "e3",
+    "init": "base",
+    "point_diff_pct": 3.125,
+    "boot_median_diff_pct": 3.036,
+    "ci95_diff_pct": [
+     1.161,
+     5.446
+    ]
+   },
+   "clean_22": {
+    "model": "e3",
+    "init": "base",
+    "point_diff_pct": 3.267,
+    "boot_median_diff_pct": 3.125,
+    "ci95_diff_pct": [
+     0.71,
+     6.25
+    ]
+   }
+  },
+  "e3c": {
+   "full_35": {
+    "model": "e3c",
+    "init": "base",
+    "point_diff_pct": 1.964,
+    "boot_median_diff_pct": 1.964,
+    "ci95_diff_pct": [
+     0.446,
+     3.75
+    ]
+   },
+   "clean_22": {
+    "model": "e3c",
+    "init": "base",
+    "point_diff_pct": 2.273,
+    "boot_median_diff_pct": 2.273,
+    "ci95_diff_pct": [
+     0.284,
+     4.687
+    ]
+   }
+  }
+ },
+ "rc_price_equation_cross_check": {
+  "rc_implied_pct_valid_samples_only": {
+   "rs_sft_before": 3.821,
+   "phase12_after": 3.312,
+   "e1_after": 5.114
+  },
+  "this_script_pct_all_samples_full_35": {
+   "rs_sft": 3.661,
+   "phase12_ckpt300": 3.214,
+   "e1_ckpt300": 5.0
+  },
+  "explanation": "rc_price_equation.json's shift_from_astral_files() excludes PARSE_FAILURE/no-precursor samples from the denominator; this script uses the literal ALL-samples denominator (parse failures count as non-matches), so a small systematic difference is expected here, not an error."
+ }
+}

@@ -1,0 +1,211 @@
+{
+ "prereg_commit": "790d0852f11d62d442fc299f8c277840b9d8a16d",
+ "block": "review",
+ "subproperty": "B1 c_split, calibrated-pi~ range only",
+ "method": "Same split-trace regression as b1_split_trace_control_corrected.json (traces 1-4 regressor, Delta=logp_after-logp(traces 5-8), within-target FE OLS, cluster bootstrap by target, seed 20261016), restricted to (target,recipe) rows whose FULL (unsplit, all 8 traces) before-model pi~_before >= 1e-2 -- the probability range b1_tail_calibration.json shows is roughly calibrated (observed/expected in [0.594, 2.23] at and above [1e-2,1e-1), vs up to ~1.7e6x below it). The filter uses the FULL estimator's pi~, not the split-half pi~_A the regression's own regressor is built from.",
+ "pi_cutoff": 0.01,
+ "results": {
+  "S1": {
+   "before": "base",
+   "after": "corpus_sft",
+   "n_split_rows_unfiltered": 737,
+   "n_rows_calibrated": 64,
+   "n_targets_calibrated_any": 40,
+   "n_targets_calibrated_with_ge2_obs": 12,
+   "n_obs_in_fe_fit": 36,
+   "c_split_calibrated": 0.6364,
+   "c_split_calibrated_ci95": [
+    0.49845385764610933,
+    1.00691420124035
+   ],
+   "b_split_calibrated": 34.2234,
+   "b_split_calibrated_ci95": [
+    10.472545773901867,
+    54.38022113605807
+   ]
+  },
+  "S2": {
+   "before": "base",
+   "after": "rs_sft",
+   "n_split_rows_unfiltered": 1463,
+   "n_rows_calibrated": 141,
+   "n_targets_calibrated_any": 75,
+   "n_targets_calibrated_with_ge2_obs": 31,
+   "n_obs_in_fe_fit": 97,
+   "c_split_calibrated": 0.8089,
+   "c_split_calibrated_ci95": [
+    0.6905571102314574,
+    0.9452791923616582
+   ],
+   "b_split_calibrated": 21.1578,
+   "b_split_calibrated_ci95": [
+    7.050062585458463,
+    36.558026903577534
+   ]
+  },
+  "S3": {
+   "before": "base",
+   "after": "e3",
+   "n_split_rows_unfiltered": 1463,
+   "n_rows_calibrated": 141,
+   "n_targets_calibrated_any": 75,
+   "n_targets_calibrated_with_ge2_obs": 31,
+   "n_obs_in_fe_fit": 97,
+   "c_split_calibrated": 0.6909,
+   "c_split_calibrated_ci95": [
+    0.5339516230471096,
+    0.8205710335146678
+   ],
+   "b_split_calibrated": 13.4551,
+   "b_split_calibrated_ci95": [
+    -2.2346366979513155,
+    28.999113560976227
+   ]
+  },
+  "S4": {
+   "before": "base",
+   "after": "e3c",
+   "n_split_rows_unfiltered": 1463,
+   "n_rows_calibrated": 141,
+   "n_targets_calibrated_any": 75,
+   "n_targets_calibrated_with_ge2_obs": 31,
+   "n_obs_in_fe_fit": 97,
+   "c_split_calibrated": 0.7208,
+   "c_split_calibrated_ci95": [
+    0.474980906107363,
+    0.906608723792262
+   ],
+   "b_split_calibrated": 17.7328,
+   "b_split_calibrated_ci95": [
+    0.36032468770312676,
+    35.75806172758763
+   ]
+  },
+  "S5": {
+   "before": "corpus_sft",
+   "after": "gdpo_v3_ckpt300",
+   "n_split_rows_unfiltered": 737,
+   "n_rows_calibrated": 60,
+   "n_targets_calibrated_any": 40,
+   "n_targets_calibrated_with_ge2_obs": 12,
+   "n_obs_in_fe_fit": 32,
+   "c_split_calibrated": 0.7837,
+   "c_split_calibrated_ci95": [
+    0.022303956427827176,
+    1.3995458924982487
+   ],
+   "b_split_calibrated": 21.0701,
+   "b_split_calibrated_ci95": [
+    -12.478604117182053,
+    74.93416993134099
+   ]
+  },
+  "S6": {
+   "before": "rs_sft",
+   "after": "phase12_ckpt300",
+   "n_split_rows_unfiltered": 737,
+   "n_rows_calibrated": 93,
+   "n_targets_calibrated_any": 40,
+   "n_targets_calibrated_with_ge2_obs": 26,
+   "n_obs_in_fe_fit": 79,
+   "c_split_calibrated": 0.7516,
+   "c_split_calibrated_ci95": [
+    0.4293410160121405,
+    1.035428220201443
+   ],
+   "b_split_calibrated": 10.4946,
+   "b_split_calibrated_ci95": [
+    -4.240762509030226,
+    28.840559647030027
+   ]
+  },
+  "S7": {
+   "before": "rs_sft",
+   "after": "e1_ckpt300",
+   "n_split_rows_unfiltered": 737,
+   "n_rows_calibrated": 93,
+   "n_targets_calibrated_any": 40,
+   "n_targets_calibrated_with_ge2_obs": 26,
+   "n_obs_in_fe_fit": 79,
+   "c_split_calibrated": 0.9882,
+   "c_split_calibrated_ci95": [
+    0.6787176108468929,
+    1.2250940355134592
+   ],
+   "b_split_calibrated": 4.4937,
+   "b_split_calibrated_ci95": [
+    -9.725398922641297,
+    19.055496188183465
+   ]
+  }
+ },
+ "reading_rule": {
+  "pi_cutoff": 0.01,
+  "per_step": {
+   "S1": {
+    "role": "fine-tuning",
+    "c_ci95": [
+     0.49845385764610933,
+     1.00691420124035
+    ],
+    "rule": "entirely < 0",
+    "met": false
+   },
+   "S2": {
+    "role": "fine-tuning",
+    "c_ci95": [
+     0.6905571102314574,
+     0.9452791923616582
+    ],
+    "rule": "entirely < 0",
+    "met": false
+   },
+   "S3": {
+    "role": "fine-tuning",
+    "c_ci95": [
+     0.5339516230471096,
+     0.8205710335146678
+    ],
+    "rule": "entirely < 0",
+    "met": false
+   },
+   "S4": {
+    "role": "fine-tuning",
+    "c_ci95": [
+     0.474980906107363,
+     0.906608723792262
+    ],
+    "rule": "entirely < 0",
+    "met": false
+   },
+   "S5": {
+    "role": "practice (in rule)",
+    "c_ci95": [
+     0.022303956427827176,
+     1.3995458924982487
+    ],
+    "rule": "includes 0",
+    "met": false
+   },
+   "S7": {
+    "role": "practice (in rule)",
+    "c_ci95": [
+     0.6787176108468929,
+     1.2250940355134592
+    ],
+    "rule": "includes 0",
+    "met": false
+   },
+   "S6": {
+    "role": "practice (reported, NOT part of pass/fail rule)",
+    "c_ci95": [
+     0.4293410160121405,
+     1.035428220201443
+    ],
+    "note": "finding 34: already known to carry a small, real, CI-excludes-0 residual; this rule does not adjudicate S6 either way."
+   }
+  },
+  "contrast_stands": false
+ },
+ "low_power_caveat": "The >=1e-2 filter removes 85-92% of split_rows per step (most recipes live in the miscalibrated tail by sheer diversity, not because the calibrated range is empty), and within_target_fe_ols additionally drops any target with <2 surviving rows (its demeaned contribution is exactly 0). n_obs_in_fe_fit / n_targets_calibrated_with_ge2_obs above are the ACTUAL regression sample per step, smaller than n_rows_calibrated -- as low as 36 obs over 12 targets for S1. Read any sign flip in this calibrated-range fit as suggestive, not as statistically equivalent in power to the full-range result."
+}
