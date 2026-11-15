@@ -1,0 +1,2218 @@
+{
+ "prereg_commit": null,
+ "prereg_blob_sha": "5c0a84ce0161f03f19a6198ac0aa7fffe949f5ac",
+ "prereg_commit_note": "PHASE18_PREREG.md was not yet committed when this ran (Gowtham asked for unattended execution; he commits his own work). prereg_blob_sha is the git content hash of the spec at run time; once committed, `git log --find-object=<blob>` recovers the commit.",
+ "repo_head_at_run": "e41745bf2ef2ddc740b8dc5f899548c0c0766122",
+ "seed": 20261115,
+ "block": "0",
+ "step_table": {
+  "S1": {
+   "before": "base",
+   "after": "corpus_sft"
+  },
+  "S2": {
+   "before": "base",
+   "after": "rs_sft"
+  },
+  "S3": {
+   "before": "base",
+   "after": "e3"
+  },
+  "S4": {
+   "before": "base",
+   "after": "e3c"
+  },
+  "S5": {
+   "before": "corpus_sft",
+   "after": "gdpo_v3_ckpt300"
+  },
+  "S6": {
+   "before": "rs_sft",
+   "after": "phase12_ckpt300"
+  },
+  "S7": {
+   "before": "rs_sft",
+   "after": "e1_ckpt300"
+  }
+ },
+ "target_sets": {
+  "astral_35": {
+   "n": 35,
+   "targets": [
+    "LiZnPO4",
+    "LiMnPO4",
+    "Li2CuP2O7",
+    "LiMgPO4",
+    "BaLiBO3",
+    "SrLiBO3",
+    "Li3Pr2(BO3)3",
+    "LiGeBO4",
+    "K3LiP2O7",
+    "Li3Sc2(PO4)3",
+    "Li3V2(PO4)3",
+    "KLi(PO3)2",
+    "Li2TiSiO5",
+    "LiNbGeO5",
+    "Li2TiGeO5",
+    "Li3Fe2(PO4)3",
+    "KBaPO4",
+    "BaNaBO3",
+    "KMgPO4",
+    "NaSrBO3",
+    "K3Bi2(PO4)3",
+    "K2Zr(PO4)2",
+    "K3Al2(PO4)3",
+    "KTiPO5",
+    "KNiPO4",
+    "K3Fe2(PO4)3",
+    "KNbWO6",
+    "KTa2PO8",
+    "Li3Y2(BO3)3",
+    "Na2Al2B2O7",
+    "NaSiBO4",
+    "KTiNbO5",
+    "LiSi2BO6",
+    "LiNbWO6",
+    "LiZnBO3"
+   ]
+  },
+  "astral_clean_22": {
+   "n": 22,
+   "targets": [
+    "LiZnPO4",
+    "BaLiBO3",
+    "SrLiBO3",
+    "Li3Pr2(BO3)3",
+    "LiGeBO4",
+    "K3LiP2O7",
+    "KLi(PO3)2",
+    "Li2TiSiO5",
+    "LiNbGeO5",
+    "Li2TiGeO5",
+    "BaNaBO3",
+    "K3Bi2(PO4)3",
+    "K2Zr(PO4)2",
+    "K3Al2(PO4)3",
+    "KTiPO5",
+    "KNiPO4",
+    "K3Fe2(PO4)3",
+    "KTa2PO8",
+    "Li3Y2(BO3)3",
+    "NaSiBO4",
+    "LiSi2BO6",
+    "LiNbWO6"
+   ]
+  },
+  "heldout_40": {
+   "n": 40,
+   "targets": [
+    "(Ba0.7Ca0.3)TiO3",
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3",
+    "(Y0.98Er0.01Yb0.01)2O3",
+    "AgCuO",
+    "Ba(Ti0.78Hf0.22)O3",
+    "Ba2Bi0.6667TeO6",
+    "Ba2La3Ti3TaO15",
+    "Ba3In4Cu3O12",
+    "BaBrCl",
+    "BaIn0.5Sn0.5O2.75",
+    "Bi0.2Y2.8Fe5O12",
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3",
+    "BiNiPO5",
+    "CoNb2O6",
+    "Cu2Zn0.75Mg0.25SnS4",
+    "CuSbSe2",
+    "InMn0.9957Fe0.01O3",
+    "K2Ba(WO4)2",
+    "La0.25Sr0.75TiO3",
+    "La0.82Sr0.18MnO3",
+    "La1.85Sr0.15CuO4",
+    "LaNi0.5Rh0.5O3",
+    "Li2TeO4",
+    "Li3BiO4",
+    "Li5P3O10",
+    "Li9V3(P2O7)3(PO4)2",
+    "LiBi3O4Cl2",
+    "LiFe(BO3)0.5(PO4)0.5",
+    "LiPO3",
+    "Mg2FeV3O11",
+    "Na0.65Bi0.45Cu3Ti4O12",
+    "Na2PdCl4",
+    "NaNiO2",
+    "Pb(Zr0.47Ti0.53)O3",
+    "Sr0.5Ca0.5Fe12O19",
+    "Sr2MnNbO6",
+    "Sr3NiIrO6",
+    "SrPuO3",
+    "SrUO4",
+    "TbTaO4"
+   ]
+  }
+ },
+ "models": {
+  "base": {
+   "adapter_path": null,
+   "weights": "Qwen/Qwen3-8B (no adapter)"
+  },
+  "corpus_sft": {
+   "adapter_path": "runs/sft-qlora-sft-v3-2nd-rank16/final",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-117"
+   ],
+   "run_dir_has_final": true
+  },
+  "rs_sft": {
+   "adapter_path": "runs/sft-qlora-rs-sft-from-base/final",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-27"
+   ],
+   "run_dir_has_final": true
+  },
+  "e3": {
+   "adapter_path": "runs/sft-qlora-e3-round1/final",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-48"
+   ],
+   "run_dir_has_final": true
+  },
+  "e3c": {
+   "adapter_path": "runs/sft-qlora-e3c-round1/final",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-48"
+   ],
+   "run_dir_has_final": true
+  },
+  "gdpo_v3_ckpt100": {
+   "adapter_path": "runs/gdpo-qlora-gdpo-v3/checkpoint-100",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ],
+   "run_dir_has_final": false
+  },
+  "gdpo_v3_ckpt200": {
+   "adapter_path": "runs/gdpo-qlora-gdpo-v3/checkpoint-200",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ],
+   "run_dir_has_final": false
+  },
+  "gdpo_v3_ckpt300": {
+   "adapter_path": "runs/gdpo-qlora-gdpo-v3/checkpoint-300",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ],
+   "run_dir_has_final": false
+  },
+  "phase12_ckpt100": {
+   "adapter_path": "runs/gdpo-qlora-gdpo-phase12-rssft-beta0/checkpoint-100",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ],
+   "run_dir_has_final": false
+  },
+  "phase12_ckpt200": {
+   "adapter_path": "runs/gdpo-qlora-gdpo-phase12-rssft-beta0/checkpoint-200",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ],
+   "run_dir_has_final": false
+  },
+  "phase12_ckpt300": {
+   "adapter_path": "runs/gdpo-qlora-gdpo-phase12-rssft-beta0/checkpoint-300",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ],
+   "run_dir_has_final": false
+  },
+  "e1_ckpt100": {
+   "adapter_path": "runs/gdpo-qlora-gdpo-e1-ranker-rssft/checkpoint-100",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ],
+   "run_dir_has_final": true
+  },
+  "e1_ckpt200": {
+   "adapter_path": "runs/gdpo-qlora-gdpo-e1-ranker-rssft/checkpoint-200",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ],
+   "run_dir_has_final": true
+  },
+  "e1_ckpt300": {
+   "adapter_path": "runs/gdpo-qlora-gdpo-e1-ranker-rssft/checkpoint-300",
+   "adapter_weights_exist": true,
+   "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+     "down_proj",
+     "gate_proj",
+     "k_proj",
+     "o_proj",
+     "q_proj",
+     "up_proj",
+     "v_proj"
+    ],
+    "base_model_name_or_path": "Qwen/Qwen3-8B"
+   },
+   "run_dir_checkpoints": [
+    "checkpoint-100",
+    "checkpoint-200",
+    "checkpoint-300"
+   ],
+   "run_dir_has_final": true
+  }
+ },
+ "raw_completions": {
+  "base": {
+   "astral": {
+    "file": "data/novelty/base_reference_astral.jsonl",
+    "kind": "raw",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 232,
+     "median": 232,
+     "max": 232
+    },
+    "parsed_recipes_per_target": {
+     "min": 224,
+     "median": 231,
+     "max": 232
+    },
+    "parsed_per_sample_group_median": {
+     "reference": 199,
+     "resampling_rate": 32
+    },
+    "n_rows_total": 8120,
+    "n_parsed_total": 8062
+   },
+   "heldout": {
+    "file": "data/novelty/base_reference_heldout.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 232,
+     "median": 232.0,
+     "max": 232
+    },
+    "parsed_recipes_per_target": {
+     "min": 187,
+     "median": 232.0,
+     "max": 232
+    },
+    "parsed_per_sample_group_median": {
+     "reference": 200.0,
+     "resampling_rate": 32.0
+    },
+    "n_rows_total": 9280,
+    "n_parsed_total": 9086
+   }
+  },
+  "corpus_sft": {
+   "astral": {
+    "file": "results/astral_gen_n32_sft.json",
+    "kind": "structured",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 30,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32
+    },
+    "n_rows_total": 1120,
+    "n_parsed_total": 1103
+   },
+   "heldout": {
+    "file": "data/novelty/corpus_sft_heldout_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 29,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32.0
+    },
+    "n_rows_total": 1280,
+    "n_parsed_total": 1256
+   }
+  },
+  "rs_sft": {
+   "astral": {
+    "file": "data/novelty/rssft_reference_astral.jsonl",
+    "kind": "raw",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 232,
+     "median": 232,
+     "max": 232
+    },
+    "parsed_recipes_per_target": {
+     "min": 211,
+     "median": 227,
+     "max": 232
+    },
+    "parsed_per_sample_group_median": {
+     "reference": 196,
+     "resampling_rate": 32
+    },
+    "n_rows_total": 8120,
+    "n_parsed_total": 7878
+   },
+   "heldout": {
+    "file": "data/novelty/rssft_reference_heldout.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 232,
+     "median": 232.0,
+     "max": 232
+    },
+    "parsed_recipes_per_target": {
+     "min": 140,
+     "median": 228.5,
+     "max": 232
+    },
+    "parsed_per_sample_group_median": {
+     "reference": 198.0,
+     "resampling_rate": 31.0
+    },
+    "n_rows_total": 9280,
+    "n_parsed_total": 8700
+   }
+  },
+  "e3": {
+   "astral": {
+    "file": "data/novelty/e3_astral_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 30,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32
+    },
+    "n_rows_total": 1120,
+    "n_parsed_total": 1110
+   },
+   "heldout": {
+    "file": "data/novelty/e3_heldout_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 29,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32.0
+    },
+    "n_rows_total": 1280,
+    "n_parsed_total": 1260
+   }
+  },
+  "e3c": {
+   "astral": {
+    "file": "data/novelty/e3c_astral_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 29,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32
+    },
+    "n_rows_total": 1120,
+    "n_parsed_total": 1109
+   },
+   "heldout": {
+    "file": "data/novelty/e3c_heldout_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 25,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32.0
+    },
+    "n_rows_total": 1280,
+    "n_parsed_total": 1256
+   }
+  },
+  "gdpo_v3_ckpt300": {
+   "astral": {
+    "file": "results/astral_gen_n32_gdpo300.json",
+    "kind": "structured",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 30,
+     "median": 31,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 31
+    },
+    "n_rows_total": 1120,
+    "n_parsed_total": 1096
+   },
+   "heldout": {
+    "file": "data/novelty/gdpo300_heldout_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 22,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32.0
+    },
+    "n_rows_total": 1280,
+    "n_parsed_total": 1252
+   }
+  },
+  "phase12_ckpt100": {
+   "astral": {
+    "file": "data/novelty/phase12_ckpt100_astral_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 28,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32
+    },
+    "n_rows_total": 1120,
+    "n_parsed_total": 1095
+   },
+   "heldout": {
+    "file": "data/novelty/phase12_ckpt100_heldout_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 21,
+     "median": 31.5,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 31.5
+    },
+    "n_rows_total": 1280,
+    "n_parsed_total": 1205
+   }
+  },
+  "phase12_ckpt200": {
+   "astral": {
+    "file": "data/novelty/phase12_ckpt200_astral_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 27,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32
+    },
+    "n_rows_total": 1120,
+    "n_parsed_total": 1088
+   },
+   "heldout": {
+    "file": "data/novelty/phase12_ckpt200_heldout_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 17,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32.0
+    },
+    "n_rows_total": 1280,
+    "n_parsed_total": 1200
+   }
+  },
+  "phase12_ckpt300": {
+   "astral": {
+    "file": "results/astral_gen_n32_gdpo_phase12_beta0.json",
+    "kind": "structured",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 28,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32
+    },
+    "n_rows_total": 1120,
+    "n_parsed_total": 1087
+   },
+   "heldout": {
+    "file": "data/novelty/phase12_ckpt300_heldout_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 21,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32.0
+    },
+    "n_rows_total": 1280,
+    "n_parsed_total": 1209
+   }
+  },
+  "e1_ckpt100": {
+   "astral": {
+    "file": "data/novelty/e1_ckpt100_astral_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 27,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32
+    },
+    "n_rows_total": 1120,
+    "n_parsed_total": 1091
+   },
+   "heldout": {
+    "file": "data/novelty/e1_ckpt100_heldout_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 24,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32.0
+    },
+    "n_rows_total": 1280,
+    "n_parsed_total": 1228
+   }
+  },
+  "e1_ckpt200": {
+   "astral": {
+    "file": "data/novelty/e1_ckpt200_astral_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 29,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32
+    },
+    "n_rows_total": 1120,
+    "n_parsed_total": 1100
+   },
+   "heldout": {
+    "file": "data/novelty/e1_ckpt200_heldout_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 20,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32.0
+    },
+    "n_rows_total": 1280,
+    "n_parsed_total": 1218
+   }
+  },
+  "e1_ckpt300": {
+   "astral": {
+    "file": "results/astral_gen_n32_e1.json",
+    "kind": "structured",
+    "n_targets": 35,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 28,
+     "median": 32,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32
+    },
+    "n_rows_total": 1120,
+    "n_parsed_total": 1095
+   },
+   "heldout": {
+    "file": "data/novelty/e1_heldout_n32.jsonl",
+    "kind": "raw",
+    "n_targets": 40,
+    "rows_per_target": {
+     "min": 32,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_recipes_per_target": {
+     "min": 24,
+     "median": 32.0,
+     "max": 32
+    },
+    "parsed_per_sample_group_median": {
+     "all": 32.0
+    },
+    "n_rows_total": 1280,
+    "n_parsed_total": 1223
+   }
+  }
+ },
+ "intermediate_checkpoints_note": "Fine-tuning runs (S1-S4) each have exactly one intermediate checkpoint dir (corpus_sft checkpoint-117, rs_sft checkpoint-27, e3/e3c checkpoint-48); see run_dir_checkpoints. Practice runs have checkpoint-100/200/300.",
+ "phase17_outputs": {
+  "files": [
+   "audit_reach.json",
+   "b1_split_trace_control.json",
+   "b1_split_trace_control_corrected.json",
+   "b1_tail_calibration.json",
+   "block_a_astral_gen_n32_corpus_sft_replication.json",
+   "block_a_astral_gen_n32_e1_replication.json",
+   "block_a_astral_gen_n32_gdpo300_replication.json",
+   "block_a_astral_gen_n32_phase12_beta0_ckpt300_replication.json",
+   "block_a_forward_pass_cost_estimate.json",
+   "block_a_hit_bootstrap.json",
+   "block_a_manifest.json",
+   "block_a_paired_bootstrap_phase12_vs_rssft.json",
+   "block_a_replication_hits.json",
+   "block_r_sample_file_manifest.json",
+   "comparator_scales_v2_snapshot.json",
+   "figdata_ternary.json",
+   "g1_antisymmetry.json",
+   "geodesic.json",
+   "hodge_arrows.json",
+   "hodge_comparator.json",
+   "instrument_check.json",
+   "inventory.json",
+   "inventory_v2.json",
+   "leash.json",
+   "logp_per_trace_before_models.jsonl",
+   "logp_universe.jsonl",
+   "probe_targets.json",
+   "probe_targets_v2.json",
+   "r1_r3_checker_capacity_2x2.json",
+   "r2_checker_capacity_rssft.json",
+   "r4_gate_channel_shapley.json",
+   "r5_comparator_capacity_rssft.json",
+   "r6_novelty_reward_e3.json",
+   "ra_symmetry_axioms.json",
+   "rc_price_equation.json",
+   "rf_information_bound.json",
+   "rg_all_temp_pooled_fixed.json",
+   "rg_goodhart_curve.json",
+   "rg_pool_bootstrap.json",
+   "rg_table2_verdict.json",
+   "rg_table2_verdict_stratified.json",
+   "rh_recount_no_tail.json",
+   "signature.json",
+   "transport.json",
+   "universe.jsonl",
+   "universe_scores.jsonl",
+   "universe_v2.jsonl"
+  ],
+  "blocks_ran": [
+   "0",
+   "A",
+   "B (B1-B4)",
+   "C (infeasible as specified: 6/385 converged)",
+   "G (G1)",
+   "R (R-a..R-h)"
+  ],
+  "blocks_not_run": [
+   "D",
+   "E",
+   "F",
+   "H1 (weight geometry)"
+  ],
+  "source": "CLAUDE.md 'PHASE 17 (CLOSED)' + docs/phases/PHASE17_RESULTS.md"
+ },
+ "base_weights": {
+  "present": true,
+  "snapshot": "/models/huggingface/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "torch_dtype": "bfloat16",
+  "n_shards": 5,
+  "total_bytes": 16381516776,
+  "is_bf16_full_precision": true
+ },
+ "astral_lab": {
+  "success_definition": {
+   "phase16_hit": "exact canonical match to ASTRAL's rule-picked (predicted) set (research/phase16_astral_clean_subset.py::load_hits)",
+   "per_recipe_lab_success": "best measured phase purity > 0.5 (ASTRAL's 'high' band)",
+   "used_by": {
+    "18B_ASTRAL[E]": "per_recipe_lab_success",
+    "18E": "per_recipe_lab_success primary; phase16_hit singleton as sensitivity",
+    "18G": "per_recipe_lab_success"
+   }
+  },
+  "n_targets": 35,
+  "n_targets_with_a_success_set": 23,
+  "n_targets_with_a_failed_set": 23,
+  "per_target": {
+   "LiZnPO4": {
+    "traditional": [
+     "Li2CO3",
+     "PH6NO4",
+     "ZnO"
+    ],
+    "predicted": [
+     "LiPO3",
+     "ZnO"
+    ],
+    "trad_best_purity": 0.76,
+    "pred_best_purity": 0.7,
+    "trad_best_T": 800,
+    "pred_best_T": 800,
+    "phase16_hit_set": [
+     "LiPO3",
+     "ZnO"
+    ],
+    "lab_success_sets": [
+     [
+      "Li2CO3",
+      "PH6NO4",
+      "ZnO"
+     ],
+     [
+      "LiPO3",
+      "ZnO"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "LiMnPO4": {
+    "traditional": [
+     "Li2CO3",
+     "MnO",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "LiPO3",
+     "MnO"
+    ],
+    "trad_best_purity": 0.63,
+    "pred_best_purity": 0.59,
+    "trad_best_T": 700,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "LiPO3",
+     "MnO"
+    ],
+    "lab_success_sets": [
+     [
+      "Li2CO3",
+      "MnO",
+      "PH6NO4"
+     ],
+     [
+      "LiPO3",
+      "MnO"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "Li2CuP2O7": {
+    "traditional": [
+     "CuO",
+     "Li2CO3",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "CuO",
+     "LiPO3"
+    ],
+    "trad_best_purity": 0.72,
+    "pred_best_purity": 0.78,
+    "trad_best_T": 800,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "CuO",
+     "LiPO3"
+    ],
+    "lab_success_sets": [
+     [
+      "CuO",
+      "Li2CO3",
+      "PH6NO4"
+     ],
+     [
+      "CuO",
+      "LiPO3"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "LiMgPO4": {
+    "traditional": [
+     "Li2CO3",
+     "MgO",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "LiPO3",
+     "MgO"
+    ],
+    "trad_best_purity": 0.75,
+    "pred_best_purity": 0.7,
+    "trad_best_T": 900,
+    "pred_best_T": 800,
+    "phase16_hit_set": [
+     "LiPO3",
+     "MgO"
+    ],
+    "lab_success_sets": [
+     [
+      "Li2CO3",
+      "MgO",
+      "PH6NO4"
+     ],
+     [
+      "LiPO3",
+      "MgO"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "BaLiBO3": {
+    "traditional": [
+     "B2O3",
+     "BaO",
+     "Li2CO3"
+    ],
+    "predicted": [
+     "BaO",
+     "LiBO2"
+    ],
+    "trad_best_purity": 0.32,
+    "pred_best_purity": 0.77,
+    "trad_best_T": 700,
+    "pred_best_T": 800,
+    "phase16_hit_set": [
+     "BaO",
+     "LiBO2"
+    ],
+    "lab_success_sets": [
+     [
+      "BaO",
+      "LiBO2"
+     ]
+    ],
+    "lab_fail_sets": [
+     [
+      "B2O3",
+      "BaO",
+      "Li2CO3"
+     ]
+    ]
+   },
+   "SrLiBO3": {
+    "traditional": [
+     "B2O3",
+     "Li2CO3",
+     "SrO"
+    ],
+    "predicted": [
+     "LiBO2",
+     "SrO"
+    ],
+    "trad_best_purity": 0.68,
+    "pred_best_purity": 0.7,
+    "trad_best_T": 700,
+    "pred_best_T": 600,
+    "phase16_hit_set": [
+     "LiBO2",
+     "SrO"
+    ],
+    "lab_success_sets": [
+     [
+      "B2O3",
+      "Li2CO3",
+      "SrO"
+     ],
+     [
+      "LiBO2",
+      "SrO"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "Li3Pr2(BO3)3": {
+    "traditional": [
+     "B2O3",
+     "Li2CO3",
+     "Pr6O11"
+    ],
+    "predicted": [
+     "LiBO2",
+     "Pr6O11"
+    ],
+    "trad_best_purity": 0.13,
+    "pred_best_purity": 0.7,
+    "trad_best_T": 800,
+    "pred_best_T": 600,
+    "phase16_hit_set": [
+     "LiBO2",
+     "Pr6O11"
+    ],
+    "lab_success_sets": [
+     [
+      "LiBO2",
+      "Pr6O11"
+     ]
+    ],
+    "lab_fail_sets": [
+     [
+      "B2O3",
+      "Li2CO3",
+      "Pr6O11"
+     ]
+    ]
+   },
+   "LiGeBO4": {
+    "traditional": [
+     "B2O3",
+     "GeO2",
+     "Li2CO3"
+    ],
+    "predicted": [
+     "GeO2",
+     "LiBO2"
+    ],
+    "trad_best_purity": 0.15,
+    "pred_best_purity": 0.63,
+    "trad_best_T": 800,
+    "pred_best_T": 800,
+    "phase16_hit_set": [
+     "GeO2",
+     "LiBO2"
+    ],
+    "lab_success_sets": [
+     [
+      "GeO2",
+      "LiBO2"
+     ]
+    ],
+    "lab_fail_sets": [
+     [
+      "B2O3",
+      "GeO2",
+      "Li2CO3"
+     ]
+    ]
+   },
+   "K3LiP2O7": {
+    "traditional": [
+     "K2CO3",
+     "Li2CO3",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "K3PO4",
+     "LiPO3"
+    ],
+    "trad_best_purity": 0.62,
+    "pred_best_purity": 0.66,
+    "trad_best_T": 800,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "K3PO4",
+     "LiPO3"
+    ],
+    "lab_success_sets": [
+     [
+      "K2CO3",
+      "Li2CO3",
+      "PH6NO4"
+     ],
+     [
+      "K3PO4",
+      "LiPO3"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "Li3Sc2(PO4)3": {
+    "traditional": [
+     "Li2CO3",
+     "PH6NO4",
+     "Sc2O3"
+    ],
+    "predicted": [
+     "LiPO3",
+     "Sc2O3"
+    ],
+    "trad_best_purity": 0.28,
+    "pred_best_purity": 0.81,
+    "trad_best_T": 800,
+    "pred_best_T": 900,
+    "phase16_hit_set": [
+     "LiPO3",
+     "Sc2O3"
+    ],
+    "lab_success_sets": [
+     [
+      "LiPO3",
+      "Sc2O3"
+     ]
+    ],
+    "lab_fail_sets": [
+     [
+      "Li2CO3",
+      "PH6NO4",
+      "Sc2O3"
+     ]
+    ]
+   },
+   "Li3V2(PO4)3": {
+    "traditional": [
+     "Li2CO3",
+     "PH6NO4",
+     "V2O3"
+    ],
+    "predicted": [
+     "LiPO3",
+     "V2O3"
+    ],
+    "trad_best_purity": 0.0,
+    "pred_best_purity": 0.07,
+    "trad_best_T": 900,
+    "pred_best_T": 900,
+    "phase16_hit_set": [
+     "LiPO3",
+     "V2O3"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "Li2CO3",
+      "PH6NO4",
+      "V2O3"
+     ],
+     [
+      "LiPO3",
+      "V2O3"
+     ]
+    ]
+   },
+   "KLi(PO3)2": {
+    "traditional": [
+     "K2CO3",
+     "Li2CO3",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "KPO3",
+     "LiPO3"
+    ],
+    "trad_best_purity": 0.35,
+    "pred_best_purity": 0.38,
+    "trad_best_T": 800,
+    "pred_best_T": 800,
+    "phase16_hit_set": [
+     "KPO3",
+     "LiPO3"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "K2CO3",
+      "Li2CO3",
+      "PH6NO4"
+     ],
+     [
+      "KPO3",
+      "LiPO3"
+     ]
+    ]
+   },
+   "Li2TiSiO5": {
+    "traditional": [
+     "Li2CO3",
+     "SiO2",
+     "TiO2"
+    ],
+    "predicted": [
+     "Li2TiO3",
+     "SiO2"
+    ],
+    "trad_best_purity": 0.75,
+    "pred_best_purity": 0.51,
+    "trad_best_T": 1000,
+    "pred_best_T": 1000,
+    "phase16_hit_set": [
+     "Li2TiO3",
+     "SiO2"
+    ],
+    "lab_success_sets": [
+     [
+      "Li2CO3",
+      "SiO2",
+      "TiO2"
+     ],
+     [
+      "Li2TiO3",
+      "SiO2"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "LiNbGeO5": {
+    "traditional": [
+     "GeO2",
+     "Li2CO3",
+     "Nb2O5"
+    ],
+    "predicted": [
+     "GeO2",
+     "LiNbO3"
+    ],
+    "trad_best_purity": 0.85,
+    "pred_best_purity": 0.78,
+    "trad_best_T": 1000,
+    "pred_best_T": 1000,
+    "phase16_hit_set": [
+     "GeO2",
+     "LiNbO3"
+    ],
+    "lab_success_sets": [
+     [
+      "GeO2",
+      "Li2CO3",
+      "Nb2O5"
+     ],
+     [
+      "GeO2",
+      "LiNbO3"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "Li2TiGeO5": {
+    "traditional": [
+     "GeO2",
+     "Li2CO3",
+     "TiO2"
+    ],
+    "predicted": [
+     "GeO2",
+     "Li2TiO3"
+    ],
+    "trad_best_purity": 0.75,
+    "pred_best_purity": 0.62,
+    "trad_best_T": 1000,
+    "pred_best_T": 1000,
+    "phase16_hit_set": [
+     "GeO2",
+     "Li2TiO3"
+    ],
+    "lab_success_sets": [
+     [
+      "GeO2",
+      "Li2CO3",
+      "TiO2"
+     ],
+     [
+      "GeO2",
+      "Li2TiO3"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "Li3Fe2(PO4)3": {
+    "traditional": [
+     "Fe2O3",
+     "Li2CO3",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "Fe2O3",
+     "LiPO3"
+    ],
+    "trad_best_purity": 0.43,
+    "pred_best_purity": 0.47,
+    "trad_best_T": 800,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "Fe2O3",
+     "LiPO3"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "Fe2O3",
+      "Li2CO3",
+      "PH6NO4"
+     ],
+     [
+      "Fe2O3",
+      "LiPO3"
+     ]
+    ]
+   },
+   "KBaPO4": {
+    "traditional": [
+     "BaO",
+     "K2CO3",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "BaO",
+     "KPO3"
+    ],
+    "trad_best_purity": 0.59,
+    "pred_best_purity": 0.56,
+    "trad_best_T": 600,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "BaO",
+     "KPO3"
+    ],
+    "lab_success_sets": [
+     [
+      "BaO",
+      "K2CO3",
+      "PH6NO4"
+     ],
+     [
+      "BaO",
+      "KPO3"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "BaNaBO3": {
+    "traditional": [
+     "B2O3",
+     "BaO",
+     "Na2CO3"
+    ],
+    "predicted": [
+     "BaO",
+     "NaBO2"
+    ],
+    "trad_best_purity": 0.33,
+    "pred_best_purity": 0.05,
+    "trad_best_T": 800,
+    "pred_best_T": 600,
+    "phase16_hit_set": [
+     "BaO",
+     "NaBO2"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "B2O3",
+      "BaO",
+      "Na2CO3"
+     ],
+     [
+      "BaO",
+      "NaBO2"
+     ]
+    ]
+   },
+   "KMgPO4": {
+    "traditional": [
+     "K2CO3",
+     "MgO",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "KPO3",
+     "MgO"
+    ],
+    "trad_best_purity": 0.22,
+    "pred_best_purity": 0.49,
+    "trad_best_T": 700,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "KPO3",
+     "MgO"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "K2CO3",
+      "MgO",
+      "PH6NO4"
+     ],
+     [
+      "KPO3",
+      "MgO"
+     ]
+    ]
+   },
+   "NaSrBO3": {
+    "traditional": [
+     "B2O3",
+     "Na2CO3",
+     "SrO"
+    ],
+    "predicted": [
+     "NaBO2",
+     "SrO"
+    ],
+    "trad_best_purity": 0.5,
+    "pred_best_purity": 0.35,
+    "trad_best_T": 800,
+    "pred_best_T": 600,
+    "phase16_hit_set": [
+     "NaBO2",
+     "SrO"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "B2O3",
+      "Na2CO3",
+      "SrO"
+     ],
+     [
+      "NaBO2",
+      "SrO"
+     ]
+    ]
+   },
+   "K3Bi2(PO4)3": {
+    "traditional": [
+     "Bi2O3",
+     "K2CO3",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "Bi2O3",
+     "KPO3"
+    ],
+    "trad_best_purity": 0.48,
+    "pred_best_purity": 0.85,
+    "trad_best_T": 600,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "Bi2O3",
+     "KPO3"
+    ],
+    "lab_success_sets": [
+     [
+      "Bi2O3",
+      "KPO3"
+     ]
+    ],
+    "lab_fail_sets": [
+     [
+      "Bi2O3",
+      "K2CO3",
+      "PH6NO4"
+     ]
+    ]
+   },
+   "K2Zr(PO4)2": {
+    "traditional": [
+     "K2CO3",
+     "PH6NO4",
+     "ZrO2"
+    ],
+    "predicted": [
+     "KPO3",
+     "ZrO2"
+    ],
+    "trad_best_purity": 0.12,
+    "pred_best_purity": 0.75,
+    "trad_best_T": 800,
+    "pred_best_T": 800,
+    "phase16_hit_set": [
+     "KPO3",
+     "ZrO2"
+    ],
+    "lab_success_sets": [
+     [
+      "KPO3",
+      "ZrO2"
+     ]
+    ],
+    "lab_fail_sets": [
+     [
+      "K2CO3",
+      "PH6NO4",
+      "ZrO2"
+     ]
+    ]
+   },
+   "K3Al2(PO4)3": {
+    "traditional": [
+     "Al2O3",
+     "K2CO3",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "Al2O3",
+     "KPO3"
+    ],
+    "trad_best_purity": 0.47,
+    "pred_best_purity": 0.59,
+    "trad_best_T": 700,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "Al2O3",
+     "KPO3"
+    ],
+    "lab_success_sets": [
+     [
+      "Al2O3",
+      "KPO3"
+     ]
+    ],
+    "lab_fail_sets": [
+     [
+      "Al2O3",
+      "K2CO3",
+      "PH6NO4"
+     ]
+    ]
+   },
+   "KTiPO5": {
+    "traditional": [
+     "K2CO3",
+     "PH6NO4",
+     "TiO2"
+    ],
+    "predicted": [
+     "KPO3",
+     "TiO2"
+    ],
+    "trad_best_purity": 0.66,
+    "pred_best_purity": 0.62,
+    "trad_best_T": 800,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "KPO3",
+     "TiO2"
+    ],
+    "lab_success_sets": [
+     [
+      "K2CO3",
+      "PH6NO4",
+      "TiO2"
+     ],
+     [
+      "KPO3",
+      "TiO2"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "KNiPO4": {
+    "traditional": [
+     "K2CO3",
+     "NiO",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "KPO3",
+     "NiO"
+    ],
+    "trad_best_purity": 0.25,
+    "pred_best_purity": 0.69,
+    "trad_best_T": 800,
+    "pred_best_T": 800,
+    "phase16_hit_set": [
+     "KPO3",
+     "NiO"
+    ],
+    "lab_success_sets": [
+     [
+      "KPO3",
+      "NiO"
+     ]
+    ],
+    "lab_fail_sets": [
+     [
+      "K2CO3",
+      "NiO",
+      "PH6NO4"
+     ]
+    ]
+   },
+   "K3Fe2(PO4)3": {
+    "traditional": [
+     "Fe2O3",
+     "K2CO3",
+     "PH6NO4"
+    ],
+    "predicted": [
+     "Fe2O3",
+     "KPO3"
+    ],
+    "trad_best_purity": 0.39,
+    "pred_best_purity": 0.68,
+    "trad_best_T": 800,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "Fe2O3",
+     "KPO3"
+    ],
+    "lab_success_sets": [
+     [
+      "Fe2O3",
+      "KPO3"
+     ]
+    ],
+    "lab_fail_sets": [
+     [
+      "Fe2O3",
+      "K2CO3",
+      "PH6NO4"
+     ]
+    ]
+   },
+   "KNbWO6": {
+    "traditional": [
+     "K2CO3",
+     "Nb2O5",
+     "WO3"
+    ],
+    "predicted": [
+     "KNbO3",
+     "WO3"
+    ],
+    "trad_best_purity": 0.66,
+    "pred_best_purity": 0.61,
+    "trad_best_T": 600,
+    "pred_best_T": 800,
+    "phase16_hit_set": [
+     "KNbO3",
+     "WO3"
+    ],
+    "lab_success_sets": [
+     [
+      "K2CO3",
+      "Nb2O5",
+      "WO3"
+     ],
+     [
+      "KNbO3",
+      "WO3"
+     ]
+    ],
+    "lab_fail_sets": []
+   },
+   "KTa2PO8": {
+    "traditional": [
+     "K2CO3",
+     "PH6NO4",
+     "Ta2O5"
+    ],
+    "predicted": [
+     "KPO3",
+     "Ta2O5"
+    ],
+    "trad_best_purity": 0.21,
+    "pred_best_purity": 0.16,
+    "trad_best_T": 700,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "KPO3",
+     "Ta2O5"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "K2CO3",
+      "PH6NO4",
+      "Ta2O5"
+     ],
+     [
+      "KPO3",
+      "Ta2O5"
+     ]
+    ]
+   },
+   "Li3Y2(BO3)3": {
+    "traditional": [
+     "B2O3",
+     "Li2CO3",
+     "Y2O3"
+    ],
+    "predicted": [
+     "LiBO2",
+     "Y2O3"
+    ],
+    "trad_best_purity": 0.12,
+    "pred_best_purity": 0.17,
+    "trad_best_T": 600,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "LiBO2",
+     "Y2O3"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "B2O3",
+      "Li2CO3",
+      "Y2O3"
+     ],
+     [
+      "LiBO2",
+      "Y2O3"
+     ]
+    ]
+   },
+   "Na2Al2B2O7": {
+    "traditional": [
+     "Al2O3",
+     "B2O3",
+     "Na2CO3"
+    ],
+    "predicted": [
+     "Al2O3",
+     "NaBO2"
+    ],
+    "trad_best_purity": 0.46,
+    "pred_best_purity": 0.6,
+    "trad_best_T": 700,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "Al2O3",
+     "NaBO2"
+    ],
+    "lab_success_sets": [
+     [
+      "Al2O3",
+      "NaBO2"
+     ]
+    ],
+    "lab_fail_sets": [
+     [
+      "Al2O3",
+      "B2O3",
+      "Na2CO3"
+     ]
+    ]
+   },
+   "NaSiBO4": {
+    "traditional": [
+     "B2O3",
+     "Na2CO3",
+     "SiO2"
+    ],
+    "predicted": [
+     "NaBO2",
+     "SiO2"
+    ],
+    "trad_best_purity": 0.18,
+    "pred_best_purity": 0.0,
+    "trad_best_T": 600,
+    "pred_best_T": 600,
+    "phase16_hit_set": [
+     "NaBO2",
+     "SiO2"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "B2O3",
+      "Na2CO3",
+      "SiO2"
+     ],
+     [
+      "NaBO2",
+      "SiO2"
+     ]
+    ]
+   },
+   "KTiNbO5": {
+    "traditional": [
+     "K2CO3",
+     "Nb2O5",
+     "TiO2"
+    ],
+    "predicted": [
+     "KNbO3",
+     "TiO2"
+    ],
+    "trad_best_purity": 0.27,
+    "pred_best_purity": 0.18,
+    "trad_best_T": 700,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "KNbO3",
+     "TiO2"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "K2CO3",
+      "Nb2O5",
+      "TiO2"
+     ],
+     [
+      "KNbO3",
+      "TiO2"
+     ]
+    ]
+   },
+   "LiSi2BO6": {
+    "traditional": [
+     "B2O3",
+     "Li2CO3",
+     "SiO2"
+    ],
+    "predicted": [
+     "LiBO2",
+     "SiO2"
+    ],
+    "trad_best_purity": 0.46,
+    "pred_best_purity": 0.27,
+    "trad_best_T": 700,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "LiBO2",
+     "SiO2"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "B2O3",
+      "Li2CO3",
+      "SiO2"
+     ],
+     [
+      "LiBO2",
+      "SiO2"
+     ]
+    ]
+   },
+   "LiNbWO6": {
+    "traditional": [
+     "Li2CO3",
+     "Nb2O5",
+     "WO3"
+    ],
+    "predicted": [
+     "LiNbO3",
+     "WO3"
+    ],
+    "trad_best_purity": 0.05,
+    "pred_best_purity": 0.17,
+    "trad_best_T": 700,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "LiNbO3",
+     "WO3"
+    ],
+    "lab_success_sets": [],
+    "lab_fail_sets": [
+     [
+      "Li2CO3",
+      "Nb2O5",
+      "WO3"
+     ],
+     [
+      "LiNbO3",
+      "WO3"
+     ]
+    ]
+   },
+   "LiZnBO3": {
+    "traditional": [
+     "B2O3",
+     "Li2CO3",
+     "ZnO"
+    ],
+    "predicted": [
+     "LiBO2",
+     "ZnO"
+    ],
+    "trad_best_purity": 0.15,
+    "pred_best_purity": 0.52,
+    "trad_best_T": 700,
+    "pred_best_T": 700,
+    "phase16_hit_set": [
+     "LiBO2",
+     "ZnO"
+    ],
+    "lab_success_sets": [
+     [
+      "LiBO2",
+      "ZnO"
+     ]
+    ],
+    "lab_fail_sets": [
+     [
+      "B2O3",
+      "Li2CO3",
+      "ZnO"
+     ]
+    ]
+   }
+  }
+ },
+ "arrows_ybco": {
+  "target": "YBa2Cu3O7",
+  "n_entries": 200,
+  "n_recipes": 47,
+  "temperatures_C": [
+   600.0,
+   700.0,
+   800.0,
+   900.0,
+   1000.0
+  ],
+  "wt_pct_range": [
+   0.0,
+   100.0
+  ],
+  "loader": "research/distributional/arrows_gate_scoring.py::load_target_entries('YBCO')"
+ },
+ "judge_versions": {
+  "VALIDATOR_VERSION": "2026-10-03-noneprop+hydrate+gasuptake+atmtokens+nh3nitrogengate",
+  "COMPARATOR_VERSION": "2026-10-03-v3-phase16-c3c6fix",
+  "RANKER_VERSION": "2026-10-03-v3-phase16",
+  "ranker_v2": "core/ranker.py::Ranker(formula_set, thermo, freq, validator_version=2) (the construction Phase 17 R-f/R-b used)",
+  "comparator_scales": "misc/comparator_scales_v2.json (snapshot: results/phase17/comparator_scales_v2_snapshot.json)"
+ },
+ "block_readiness": {
+  "18A": {
+   "needs": "recipes for both models of S1-S7 on ASTRAL+held-out",
+   "ok": true
+  },
+  "18B": {
+   "needs": "ARROWS3 YBCO + comparator",
+   "ok": true
+  },
+  "18C": {
+   "needs": "adapters for S1-S7 incl. practice inits + ckpt100/200/300 for S6/S7 + bf16 base",
+   "ok": true,
+   "missing": []
+  },
+  "18D": {
+   "needs": "R-a 200-route suite source (rssft_reference_astral.jsonl) + judges",
+   "ok": true
+  },
+  "18E": {
+   "needs": "ASTRAL recipes for 8 models + lab outcomes",
+   "ok": true
+  },
+  "18F": {
+   "needs": "ARROWS3 pairs (Phase 17 R-f setup) + validator channels",
+   "ok": true
+  },
+  "18G": {
+   "needs": "existing scored samples (rescored per channel; no new sampling)",
+   "ok": true
+  },
+  "18H": {
+   "needs": "ARROWS3 pairs + R2/R4/R5 margins",
+   "ok": true
+  }
+ }
+}

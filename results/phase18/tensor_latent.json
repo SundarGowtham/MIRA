@@ -1,0 +1,848 @@
+{
+ "prereg_commit": null,
+ "prereg_blob_sha": "5c0a84ce0161f03f19a6198ac0aa7fffe949f5ac",
+ "prereg_commit_note": "PHASE18_PREREG.md was not yet committed when this ran (Gowtham asked for unattended execution; he commits his own work). prereg_blob_sha is the git content hash of the spec at run time; once committed, `git log --find-object=<blob>` recovers the commit.",
+ "repo_head_at_run": "e41745bf2ef2ddc740b8dc5f899548c0c0766122",
+ "seed": 20261115,
+ "block": "18G",
+ "pass_threshold": 0.9,
+ "n_scored_samples": 52626,
+ "models_scored": [
+  "base",
+  "corpus_sft",
+  "e1_ckpt100",
+  "e1_ckpt200",
+  "e1_ckpt300",
+  "e3",
+  "e3c",
+  "gdpo_v3_ckpt300",
+  "phase12_ckpt100",
+  "phase12_ckpt200",
+  "phase12_ckpt300",
+  "rs_sft"
+ ],
+ "excluded_sources": "structured-only ASTRAL files (corpus_sft, gdpo_v3_ckpt300, phase12_ckpt300, e1_ckpt300): no operations/amounts, cannot be scored",
+ "P_18G_1": {
+  "statement": "Odds ratio between the all-channels-pass component and ASTRAL lab success has a CI including 1 (every k in {2,3,4}, MoM assignment).",
+  "by_k_MoM": {
+   "2": {
+    "or": 0.6050872330017936,
+    "ci95": [
+     0.16786665176018,
+     1.607506743190898
+    ],
+    "ci_includes_1": true,
+    "degenerate_all_one_side": true,
+    "n_samples": 4921,
+    "n_in_component": 4921,
+    "n_success": 1855,
+    "n_targets": 35,
+    "success_rate_in": 0.37695590327169276,
+    "success_rate_out": null
+   },
+   "3": null,
+   "4": null
+  },
+  "by_k_EM": {
+   "2": {
+    "or": 1.0889864888472494,
+    "ci95": [
+     0.18271544495818692,
+     9.550780508048543
+    ],
+    "ci_includes_1": true,
+    "degenerate_all_one_side": false,
+    "n_samples": 4921,
+    "n_in_component": 4739,
+    "n_success": 1855,
+    "n_targets": 35,
+    "success_rate_in": 0.37771681789407047,
+    "success_rate_out": 0.35714285714285715
+   },
+   "3": {
+    "or": 0.5315017465444498,
+    "ci95": [
+     0.11424741867100875,
+     4.460282278942761
+    ],
+    "ci_includes_1": true,
+    "degenerate_all_one_side": false,
+    "n_samples": 4921,
+    "n_in_component": 4103,
+    "n_success": 1855,
+    "n_targets": 35,
+    "success_rate_in": 0.3514501584206678,
+    "success_rate_out": 0.5048899755501223
+   },
+   "4": {
+    "or": 0.5315017465444498,
+    "ci95": [
+     0.1167822950597445,
+     4.532963226498558
+    ],
+    "ci_includes_1": true,
+    "degenerate_all_one_side": false,
+    "n_samples": 4921,
+    "n_in_component": 4103,
+    "n_success": 1855,
+    "n_targets": 35,
+    "success_rate_in": 0.3514501584206678,
+    "success_rate_out": 0.5048899755501223
+   }
+  },
+  "passes": false,
+  "evaluation_rule_note": "k values where the MoM fit is not identifiable, or where every lab-outcome sample falls in one component (OR undefined up to the Haldane correction), are reported but cannot count for or against."
+ },
+ "primary": {
+  "label": "pass>=0.9",
+  "pass_rates_all_10": {
+   "stoichiometry": 0.8224831832174211,
+   "amount_accuracy": 0.8802559837353294,
+   "charge_neutrality": 0.9733781780868772,
+   "precursors_exist": 0.9929882567552161,
+   "operation_order": 0.9965986394557823,
+   "temperature_plausible": 0.9999809979857865,
+   "thermodynamic_favorable": 0.8400211072108656,
+   "target_stability": 0.9763215192935769,
+   "chempot_atmosphere": 0.9728956023876233,
+   "target_match": 1.0
+  },
+  "retained_channels": [
+   "stoichiometry",
+   "amount_accuracy",
+   "charge_neutrality",
+   "precursors_exist",
+   "thermodynamic_favorable",
+   "target_stability",
+   "chempot_atmosphere"
+  ],
+  "n_samples": 52626,
+  "n_complete_cases": 25531,
+  "n_lab_outcome_samples": 4921,
+  "n_lab_outcome_targets": 35,
+  "by_k": {
+   "2": {
+    "MoM": {
+     "weights": [
+      0.9610021657302112,
+      0.03899783426978877
+     ],
+     "conditional_pass_rates": {
+      "stoichiometry": [
+       1.0,
+       1.0
+      ],
+      "amount_accuracy": [
+       0.8766063439087564,
+       0.9968356230181032
+      ],
+      "charge_neutrality": [
+       1.0,
+       1.0
+      ],
+      "precursors_exist": [
+       0.9993890899194185,
+       0.999990566793947
+      ],
+      "thermodynamic_favorable": [
+       0.8910843094819663,
+       0.5362554619780837
+      ],
+      "target_stability": [
+       1.0,
+       0.1999740948226502
+      ],
+      "chempot_atmosphere": [
+       1.0,
+       1.0
+      ]
+     },
+     "all_pass_component": 0,
+     "all_pass_component_min_rate": 0.8766063439087564,
+     "assigned_share": [
+      51843,
+      783
+     ],
+     "odds_ratio_all_pass_vs_lab_success": {
+      "or": 0.6050872330017936,
+      "ci95": [
+       0.16786665176018,
+       1.607506743190898
+      ],
+      "ci_includes_1": true,
+      "degenerate_all_one_side": true,
+      "n_samples": 4921,
+      "n_in_component": 4921,
+      "n_success": 1855,
+      "n_targets": 35,
+      "success_rate_in": 0.37695590327169276,
+      "success_rate_out": null
+     },
+     "E_residual_within_component_corr": {
+      "0": {
+       "mean_abs_offdiag_corr": 0.14356474222264,
+       "max_abs_offdiag_corr": 0.9999999999999999
+      },
+      "1": {
+       "mean_abs_offdiag_corr": 0.1453624553257916,
+       "max_abs_offdiag_corr": 0.9999999999999999
+      }
+     },
+     "views": [
+      [
+       0,
+       1,
+       2
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       5,
+       6
+      ]
+     ],
+     "tensor_eigenvalues": [
+      1.0198951959639406,
+      5.062878260348124
+     ]
+    },
+    "EM": {
+     "weights": [
+      0.8082666148177655,
+      0.1917333851818153
+     ],
+     "conditional_pass_rates": {
+      "stoichiometry": [
+       0.9999775814310684,
+       0.07424209699666195
+      ],
+      "amount_accuracy": [
+       0.8956190980925473,
+       0.00793524540407847
+      ],
+      "charge_neutrality": [
+       0.9857293816399947,
+       0.9213107435326884
+      ],
+      "precursors_exist": [
+       0.9959489002536961,
+       0.9805074397293765
+      ],
+      "thermodynamic_favorable": [
+       0.8479507319979973,
+       0.7881302625294773
+      ],
+      "target_stability": [
+       0.9705403358882596,
+       0.9998498671310629
+      ],
+      "chempot_atmosphere": [
+       0.9805429848689784,
+       0.9413242270558113
+      ]
+     },
+     "all_pass_component": 0,
+     "all_pass_component_min_rate": 0.8479507319979973,
+     "assigned_share": [
+      43283,
+      9343
+     ],
+     "odds_ratio_all_pass_vs_lab_success": {
+      "or": 1.0889864888472494,
+      "ci95": [
+       0.18271544495818692,
+       9.550780508048543
+      ],
+      "ci_includes_1": true,
+      "degenerate_all_one_side": false,
+      "n_samples": 4921,
+      "n_in_component": 4739,
+      "n_success": 1855,
+      "n_targets": 35,
+      "success_rate_in": 0.37771681789407047,
+      "success_rate_out": 0.35714285714285715
+     },
+     "E_residual_within_component_corr": {
+      "0": {
+       "mean_abs_offdiag_corr": 0.1564147298076915,
+       "max_abs_offdiag_corr": 1.0000000000000002
+      },
+      "1": {
+       "mean_abs_offdiag_corr": 0.14475605648545442,
+       "max_abs_offdiag_corr": 1.0
+      }
+     },
+     "loglik": -77166.11870756574,
+     "bic": 154495.30189872917
+    }
+   },
+   "3": {
+    "MoM": {
+     "not_identifiable": true,
+     "reason": "NotIdentifiable('cross-moment rank < k (singular values [0.78606973, 0.00203222, 0.0, 0.0])')"
+    },
+    "EM": {
+     "weights": [
+      0.6872812499081898,
+      0.16663562915174326,
+      0.14608312094013348
+     ],
+     "conditional_pass_rates": {
+      "stoichiometry": [
+       0.999979710073867,
+       0.7551825149295815,
+       0.06417965768453991
+      ],
+      "amount_accuracy": [
+       0.8906733567484405,
+       0.8859968158551154,
+       0.03956550312052045
+      ],
+      "charge_neutrality": [
+       0.9830994064735723,
+       0.999999,
+       0.8972752245689682
+      ],
+      "precursors_exist": [
+       0.9964282311664989,
+       0.9907974858249408,
+       0.9793031067674673
+      ],
+      "thermodynamic_favorable": [
+       0.999999,
+       4.8857555787326863e-05,
+       0.999999
+      ],
+      "target_stability": [
+       0.982217135845326,
+       0.9262207349230112,
+       0.999999
+      ],
+      "chempot_atmosphere": [
+       0.9790594266851782,
+       0.9917406722386976,
+       0.9234484933899582
+      ]
+     },
+     "all_pass_component": 0,
+     "all_pass_component_min_rate": 0.8906733567484405,
+     "assigned_share": [
+      37424,
+      6974,
+      8228
+     ],
+     "odds_ratio_all_pass_vs_lab_success": {
+      "or": 0.5315017465444498,
+      "ci95": [
+       0.11424741867100875,
+       4.460282278942761
+      ],
+      "ci_includes_1": true,
+      "degenerate_all_one_side": false,
+      "n_samples": 4921,
+      "n_in_component": 4103,
+      "n_success": 1855,
+      "n_targets": 35,
+      "success_rate_in": 0.3514501584206678,
+      "success_rate_out": 0.5048899755501223
+     },
+     "E_residual_within_component_corr": {
+      "0": {
+       "mean_abs_offdiag_corr": 0.14543873743374752,
+       "max_abs_offdiag_corr": 0.9999999999999999
+      },
+      "1": {
+       "mean_abs_offdiag_corr": 0.1505814562708149,
+       "max_abs_offdiag_corr": 1.0000000000000002
+      },
+      "2": {
+       "mean_abs_offdiag_corr": 0.1430253891509496,
+       "max_abs_offdiag_corr": 1.0
+      }
+     },
+     "loglik": -76598.17300172552,
+     "bic": 153446.37821163418
+    }
+   },
+   "4": {
+    "MoM": {
+     "not_identifiable": true,
+     "reason": "NotIdentifiable('cross-moment rank < k (singular values [0.78606973, 0.00203222, 0.0, 0.0])')"
+    },
+    "EM": {
+     "weights": [
+      0.5991552132422614,
+      0.20574928695478498,
+      0.1358099582048937,
+      0.059285541598084524
+     ],
+     "conditional_pass_rates": {
+      "stoichiometry": [
+       0.9981871254737509,
+       0.999999,
+       0.018772734868132572,
+       0.27182939312669757
+      ],
+      "amount_accuracy": [
+       0.8618207785714544,
+       0.9993194997229886,
+       0.5287729592100311,
+       0.0999184956140404
+      ],
+      "charge_neutrality": [
+       0.9793198501944378,
+       0.999999,
+       0.8952130810694268,
+       0.999999
+      ],
+      "precursors_exist": [
+       0.9945770723433449,
+       0.999999,
+       0.98251968828198,
+       0.9765811724292903
+      ],
+      "thermodynamic_favorable": [
+       0.999994983961886,
+       0.4695994880176481,
+       0.999999,
+       0.0019160518793438026
+      ],
+      "target_stability": [
+       0.999999,
+       0.8749822430792582,
+       0.999999,
+       0.9992854806747331
+      ],
+      "chempot_atmosphere": [
+       0.9780319282336164,
+       0.9870856851328518,
+       0.9188424760032646,
+       0.9983040840596374
+      ]
+     },
+     "all_pass_component": 0,
+     "all_pass_component_min_rate": 0.8618207785714544,
+     "assigned_share": [
+      37010,
+      5647,
+      8227,
+      1742
+     ],
+     "odds_ratio_all_pass_vs_lab_success": {
+      "or": 0.5315017465444498,
+      "ci95": [
+       0.1167822950597445,
+       4.532963226498558
+      ],
+      "ci_includes_1": true,
+      "degenerate_all_one_side": false,
+      "n_samples": 4921,
+      "n_in_component": 4103,
+      "n_success": 1855,
+      "n_targets": 35,
+      "success_rate_in": 0.3514501584206678,
+      "success_rate_out": 0.5048899755501223
+     },
+     "E_residual_within_component_corr": {
+      "0": {
+       "mean_abs_offdiag_corr": 0.1430938011398583,
+       "max_abs_offdiag_corr": 1.0
+      },
+      "1": {
+       "mean_abs_offdiag_corr": 0.14324041594220352,
+       "max_abs_offdiag_corr": 1.0
+      },
+      "2": {
+       "mean_abs_offdiag_corr": 0.14340874356208996,
+       "max_abs_offdiag_corr": 1.0
+      },
+      "3": {
+       "mean_abs_offdiag_corr": 0.14658427806459462,
+       "max_abs_offdiag_corr": 1.0
+      }
+     },
+     "loglik": -76312.62815351221,
+     "bic": 152962.25623979297
+    }
+   }
+  }
+ },
+ "E_sensitivity_pass_eq_1": {
+  "label": "[E] pass==1.0",
+  "pass_rates_all_10": {
+   "stoichiometry": 0.8224831832174211,
+   "amount_accuracy": 0.8775066999353109,
+   "charge_neutrality": 0.9733781780868772,
+   "precursors_exist": 0.9929882567552161,
+   "operation_order": 0.9965986394557823,
+   "temperature_plausible": 0.9999809979857865,
+   "thermodynamic_favorable": 0.7741299011173056,
+   "target_stability": 0.9330470545542519,
+   "chempot_atmosphere": 0.9728956023876233,
+   "target_match": 1.0
+  },
+  "retained_channels": [
+   "stoichiometry",
+   "amount_accuracy",
+   "charge_neutrality",
+   "precursors_exist",
+   "thermodynamic_favorable",
+   "target_stability",
+   "chempot_atmosphere"
+  ],
+  "n_samples": 52626,
+  "n_complete_cases": 25531,
+  "n_lab_outcome_samples": 4921,
+  "n_lab_outcome_targets": 35,
+  "by_k": {
+   "2": {
+    "MoM": {
+     "weights": [
+      0.7212919593974019,
+      0.2787080406025982
+     ],
+     "conditional_pass_rates": {
+      "stoichiometry": [
+       1.0,
+       1.0
+      ],
+      "amount_accuracy": [
+       0.8464642226071813,
+       0.9694829993202319
+      ],
+      "charge_neutrality": [
+       1.0,
+       1.0
+      ],
+      "precursors_exist": [
+       0.9998383787868689,
+       0.9983094846937552
+      ],
+      "thermodynamic_favorable": [
+       0.8809315187067218,
+       0.5406575696523553
+      ],
+      "target_stability": [
+       0.9741028899713808,
+       0.756892681507508
+      ],
+      "chempot_atmosphere": [
+       1.0,
+       1.0
+      ]
+     },
+     "all_pass_component": 0,
+     "all_pass_component_min_rate": 0.8464642226071813,
+     "assigned_share": [
+      41994,
+      10632
+     ],
+     "odds_ratio_all_pass_vs_lab_success": {
+      "or": 0.5535112127401736,
+      "ci95": [
+       0.01828311301689102,
+       8.598072483712578
+      ],
+      "ci_includes_1": true,
+      "degenerate_all_one_side": false,
+      "n_samples": 4921,
+      "n_in_component": 3675,
+      "n_success": 1855,
+      "n_targets": 35,
+      "success_rate_in": 0.34095238095238095,
+      "success_rate_out": 0.48314606741573035
+     },
+     "E_residual_within_component_corr": {
+      "0": {
+       "mean_abs_offdiag_corr": 0.14378710444071124,
+       "max_abs_offdiag_corr": 1.0000000000000002
+      },
+      "1": {
+       "mean_abs_offdiag_corr": 0.14528873459888406,
+       "max_abs_offdiag_corr": 0.9999999999999999
+      }
+     },
+     "views": [
+      [
+       0,
+       1,
+       2
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       5,
+       6
+      ]
+     ],
+     "tensor_eigenvalues": [
+      1.1767749050483909,
+      1.8931027868585821
+     ]
+    },
+    "EM": {
+     "weights": [
+      0.6197985273503628,
+      0.38020147264973886
+     ],
+     "conditional_pass_rates": {
+      "stoichiometry": [
+       0.9964932611358002,
+       0.5388146606146917
+      ],
+      "amount_accuracy": [
+       0.9203247089782357,
+       0.7484150424452664
+      ],
+      "charge_neutrality": [
+       0.999999,
+       0.9299811289745351
+      ],
+      "precursors_exist": [
+       0.9992855544516238,
+       0.9827224999938875
+      ],
+      "thermodynamic_favorable": [
+       0.7463574016279114,
+       0.8295608350105723
+      ],
+      "target_stability": [
+       0.8936294814998736,
+       0.999999
+      ],
+      "chempot_atmosphere": [
+       0.9911137815568497,
+       0.9435740836091285
+      ]
+     },
+     "all_pass_component": 0,
+     "all_pass_component_min_rate": 0.7463574016279114,
+     "assigned_share": [
+      38023,
+      14603
+     ],
+     "odds_ratio_all_pass_vs_lab_success": {
+      "or": 1.537708380826511,
+      "ci95": [
+       0.3355815828722633,
+       6.060651603532754
+      ],
+      "ci_includes_1": true,
+      "degenerate_all_one_side": false,
+      "n_samples": 4921,
+      "n_in_component": 4604,
+      "n_success": 1855,
+      "n_targets": 35,
+      "success_rate_in": 0.3831450912250217,
+      "success_rate_out": 0.2870662460567823
+     },
+     "E_residual_within_component_corr": {
+      "0": {
+       "mean_abs_offdiag_corr": 0.1539350860447452,
+       "max_abs_offdiag_corr": 1.0000000000000002
+      },
+      "1": {
+       "mean_abs_offdiag_corr": 0.14606340915634172,
+       "max_abs_offdiag_corr": 1.0
+      }
+     },
+     "loglik": -85647.73737276654,
+     "bic": 171458.53922913078
+    }
+   },
+   "3": {
+    "MoM": {
+     "not_identifiable": true,
+     "reason": "NotIdentifiable('cross-moment rank < k (singular values [0.71864092, 0.01170795, 0.0, 0.0])')"
+    },
+    "EM": {
+     "weights": [
+      0.6509198737102944,
+      0.3035779510266047,
+      0.04550217526305271
+     ],
+     "conditional_pass_rates": {
+      "stoichiometry": [
+       0.999999,
+       0.5586869485057456,
+       0.04305065441191397
+      ],
+      "amount_accuracy": [
+       0.9086879365624516,
+       0.7679725057213266,
+       1.5700783166890547e-05
+      ],
+      "charge_neutrality": [
+       0.999999,
+       0.9123760350515431,
+       0.9995454896373772
+      ],
+      "precursors_exist": [
+       0.9987930882777152,
+       0.982914967904158,
+       0.9771549079566587
+      ],
+      "thermodynamic_favorable": [
+       0.7175824643373563,
+       0.999999,
+       1e-06
+      ],
+      "target_stability": [
+       0.8987135923707438,
+       0.999999,
+       0.9954768771448512
+      ],
+      "chempot_atmosphere": [
+       0.9914655298204148,
+       0.9296171942503862,
+       0.999535003065309
+      ]
+     },
+     "all_pass_component": 0,
+     "all_pass_component_min_rate": 0.7175824643373563,
+     "assigned_share": [
+      41724,
+      9748,
+      1154
+     ],
+     "odds_ratio_all_pass_vs_lab_success": {
+      "or": 1.0889864888472494,
+      "ci95": [
+       0.18668630875532471,
+       9.76876401738674
+      ],
+      "ci_includes_1": true,
+      "degenerate_all_one_side": false,
+      "n_samples": 4921,
+      "n_in_component": 4739,
+      "n_success": 1855,
+      "n_targets": 35,
+      "success_rate_in": 0.37771681789407047,
+      "success_rate_out": 0.35714285714285715
+     },
+     "E_residual_within_component_corr": {
+      "0": {
+       "mean_abs_offdiag_corr": 0.15270139489752796,
+       "max_abs_offdiag_corr": 1.0
+      },
+      "1": {
+       "mean_abs_offdiag_corr": 0.14306268562871485,
+       "max_abs_offdiag_corr": 1.0
+      },
+      "2": {
+       "mean_abs_offdiag_corr": 0.14556021272772204,
+       "max_abs_offdiag_corr": 0.9999999999999999
+      }
+     },
+     "loglik": -85083.84489008127,
+     "bic": 170417.72198834567
+    }
+   },
+   "4": {
+    "MoM": {
+     "not_identifiable": true,
+     "reason": "NotIdentifiable('cross-moment rank < k (singular values [0.71864092, 0.01170795, 0.0, 0.0])')"
+    },
+    "EM": {
+     "weights": [
+      0.4862813419713291,
+      0.28283414717313055,
+      0.08797293460560643,
+      0.14291157625027176
+     ],
+     "conditional_pass_rates": {
+      "stoichiometry": [
+       0.9999969673169451,
+       0.9999318231792879,
+       0.4882947514622923,
+       0.07299429184395619
+      ],
+      "amount_accuracy": [
+       0.8580893570302432,
+       0.9594866103229556,
+       0.7005038473390005,
+       0.28897417963799665
+      ],
+      "charge_neutrality": [
+       0.9762031898883891,
+       0.999999,
+       0.999999,
+       0.8946924112000386
+      ],
+      "precursors_exist": [
+       0.9944141642034237,
+       0.999999,
+       0.98116650855642,
+       0.9815384340782888
+      ],
+      "thermodynamic_favorable": [
+       0.9999954876941024,
+       0.4919596429480673,
+       0.017957697311751005,
+       0.9988875228710118
+      ],
+      "target_stability": [
+       0.9727953276297129,
+       0.8095599007767422,
+       0.9957197321933421,
+       0.999999
+      ],
+      "chempot_atmosphere": [
+       0.974644458969965,
+       0.9895120204264991,
+       0.9994924447118193,
+       0.9188033923082826
+      ]
+     },
+     "all_pass_component": 0,
+     "all_pass_component_min_rate": 0.8580893570302432,
+     "assigned_share": [
+      33327,
+      9187,
+      1922,
+      8190
+     ],
+     "odds_ratio_all_pass_vs_lab_success": {
+      "or": 0.6361129381958147,
+      "ci95": [
+       0.10902636881535645,
+       5.690672701173059
+      ],
+      "ci_includes_1": true,
+      "degenerate_all_one_side": false,
+      "n_samples": 4921,
+      "n_in_component": 3483,
+      "n_success": 1855,
+      "n_targets": 35,
+      "success_rate_in": 0.3453919035314384,
+      "success_rate_out": 0.4534075104311544
+     },
+     "E_residual_within_component_corr": {
+      "0": {
+       "mean_abs_offdiag_corr": 0.14482592346839399,
+       "max_abs_offdiag_corr": 1.0000000000000002
+      },
+      "1": {
+       "mean_abs_offdiag_corr": 0.14415702745155243,
+       "max_abs_offdiag_corr": 1.0
+      },
+      "2": {
+       "mean_abs_offdiag_corr": 0.14670471748208908,
+       "max_abs_offdiag_corr": 1.0
+      },
+      "3": {
+       "mean_abs_offdiag_corr": 0.1435734101104576,
+       "max_abs_offdiag_corr": 0.9999999999999999
+      }
+     },
+     "loglik": -84913.76203419101,
+     "bic": 170164.52400115057
+    }
+   }
+  }
+ }
+}

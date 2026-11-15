@@ -1,0 +1,6616 @@
+{
+ "prereg_commit": null,
+ "prereg_blob_sha": "5c0a84ce0161f03f19a6198ac0aa7fffe949f5ac",
+ "prereg_commit_note": "PHASE18_PREREG.md was not yet committed when this ran (Gowtham asked for unattended execution; he commits his own work). prereg_blob_sha is the git content hash of the spec at run time; once committed, `git log --find-object=<blob>` recovers the commit.",
+ "repo_head_at_run": "e41745bf2ef2ddc740b8dc5f899548c0c0766122",
+ "seed": 20261115,
+ "block": "18E",
+ "P_18E_1": {
+  "statement": "E3's MMD lower than Phase 12 @300's; cluster-bootstrap CI on the difference excludes 0 (primary: purity-defined V, clean 22).",
+  "diff": -0.09228928604487573,
+  "ci95": [
+   -0.16849931210725128,
+   -0.02025981969431641
+  ],
+  "n_targets": 15,
+  "passes": true
+ },
+ "sample_size_note": "base and rs_sft use their 32-sample resampling_rate draw; every model n<=32/target",
+ "results": {
+  "purity__astral_clean_22": {
+   "targets_used": [
+    "BaLiBO3",
+    "K2Zr(PO4)2",
+    "K3Al2(PO4)3",
+    "K3Bi2(PO4)3",
+    "K3Fe2(PO4)3",
+    "K3LiP2O7",
+    "KNiPO4",
+    "KTiPO5",
+    "Li2TiGeO5",
+    "Li2TiSiO5",
+    "Li3Pr2(BO3)3",
+    "LiGeBO4",
+    "LiNbGeO5",
+    "LiZnPO4",
+    "SrLiBO3"
+   ],
+   "n_targets": 15,
+   "summary_by_model": {
+    "base": {
+     "lab_valid_mass": 0.20651881720430107,
+     "coverage": 0.3,
+     "mmd": 0.8815522526031373,
+     "near_miss": 0.5679054659498208,
+     "share_within_one_swap_not_valid": 0.31256720430107526
+    },
+    "corpus_sft": {
+     "lab_valid_mass": 0.2610887096774193,
+     "coverage": 0.2,
+     "mmd": 0.9303110351103998,
+     "near_miss": 0.5351915322580645,
+     "share_within_one_swap_not_valid": 0.19059139784946233
+    },
+    "rs_sft": {
+     "lab_valid_mass": 0.1396505376344086,
+     "coverage": 0.23333333333333334,
+     "mmd": 0.8666619218463915,
+     "near_miss": 0.6274855252274608,
+     "share_within_one_swap_not_valid": 0.29043527708850286
+    },
+    "e3": {
+     "lab_valid_mass": 0.17291666666666666,
+     "coverage": 0.4,
+     "mmd": 0.8392469563696602,
+     "near_miss": 0.5905070191158901,
+     "share_within_one_swap_not_valid": 0.37383512544802866
+    },
+    "e3c": {
+     "lab_valid_mass": 0.175,
+     "coverage": 0.36666666666666664,
+     "mmd": 0.8356255227705282,
+     "near_miss": 0.6031129109504387,
+     "share_within_one_swap_not_valid": 0.30525120504264
+    },
+    "gdpo_v3_ckpt300": {
+     "lab_valid_mass": 0.2770116487455197,
+     "coverage": 0.3,
+     "mmd": 0.9253649228655794,
+     "near_miss": 0.5200874402628435,
+     "share_within_one_swap_not_valid": 0.18327508960573477
+    },
+    "phase12_ckpt300": {
+     "lab_valid_mass": 0.06458333333333334,
+     "coverage": 0.4,
+     "mmd": 0.9315362424145358,
+     "near_miss": 0.6701087370741152,
+     "share_within_one_swap_not_valid": 0.3361242429860338
+    },
+    "e1_ckpt300": {
+     "lab_valid_mass": 0.07096774193548387,
+     "coverage": 0.3333333333333333,
+     "mmd": 0.9228830129214365,
+     "near_miss": 0.6701545698924732,
+     "share_within_one_swap_not_valid": 0.32399193548387095
+    }
+   },
+   "P_18E_1_E3_minus_Phase12_mmd": {
+    "diff": -0.09228928604487573,
+    "ci95": [
+     -0.16849931210725128,
+     -0.02025981969431641
+    ],
+    "n_targets": 15,
+    "passes": true
+   },
+   "E_rank_agreement": {
+    "spearman_neg_mmd_vs_hits": 0.1077863635721933,
+    "p": 0.7994604266184203,
+    "hits_by_model_on_these_targets": {
+     "base": 2,
+     "corpus_sft": 0,
+     "rs_sft": 3,
+     "e3": 5,
+     "e3c": 4,
+     "gdpo_v3_ckpt300": 1,
+     "phase12_ckpt300": 6,
+     "e1_ckpt300": 5
+    }
+   },
+   "E_practice_share_within_one_swap_not_valid": 0.2811304226918798,
+   "per_target": {
+    "base": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.12903225806451613,
+      "coverage": 0.5,
+      "mmd": 0.704914368125078,
+      "near_miss": 0.49032258064516127,
+      "share_within_one_swap_not_valid": 0.7096774193548387,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0931843775563814,
+      "near_miss": 0.8541666666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 0.5,
+      "mmd": 0.9379165741152036,
+      "near_miss": 0.521875,
+      "share_within_one_swap_not_valid": 0.84375,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1452886963192586,
+      "near_miss": 0.9192708333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.1357988653366404,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 0.5,
+      "mmd": 0.7196552270589948,
+      "near_miss": 0.5729166666666666,
+      "share_within_one_swap_not_valid": 0.75,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.9375,
+      "coverage": 0.5,
+      "mmd": 0.5896238207535377,
+      "near_miss": 0.03125,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.75,
+      "coverage": 0.5,
+      "mmd": 0.5528689379048166,
+      "near_miss": 0.125,
+      "share_within_one_swap_not_valid": 0.25,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.96875,
+      "coverage": 0.5,
+      "mmd": 0.6002928972593295,
+      "near_miss": 0.015625,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9815325639652391,
+      "near_miss": 0.728494623655914,
+      "share_within_one_swap_not_valid": 0.25806451612903225,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0346692053904638,
+      "near_miss": 0.7369791666666667,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9917137156205917,
+      "near_miss": 0.7421875,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 0.5,
+      "mmd": 0.7167090588237321,
+      "near_miss": 0.421875,
+      "share_within_one_swap_not_valid": 0.84375,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0149250419567166,
+      "near_miss": 0.8091397849462365,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0041904388610758,
+      "near_miss": 0.8463541666666667,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     }
+    },
+    "corpus_sft": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.46875,
+      "coverage": 0.5,
+      "mmd": 0.5724808948777244,
+      "near_miss": 0.2734375,
+      "share_within_one_swap_not_valid": 0.5,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3143588028008182,
+      "near_miss": 0.9921875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0133987898058794,
+      "near_miss": 0.5580645161290323,
+      "share_within_one_swap_not_valid": 0.8064516129032258,
+      "n": 31
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1689265066460108,
+      "near_miss": 0.8951612903225806,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1895541444171425,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 0.5,
+      "mmd": 0.7724504433942672,
+      "near_miss": 0.40625,
+      "share_within_one_swap_not_valid": 0.8125,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.9375,
+      "coverage": 0.5,
+      "mmd": 0.5896238207535377,
+      "near_miss": 0.03125,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.084609963126092,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1057378758096332,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.109264959331178,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.3225806451612903,
+      "coverage": 0.5,
+      "mmd": 0.6195522198925426,
+      "near_miss": 0.33870967741935487,
+      "share_within_one_swap_not_valid": 0.6774193548387096,
+      "n": 31
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0976715412635967,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0922906931459837,
+      "near_miss": 0.775,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "rs_sft": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.78743712895059,
+      "near_miss": 0.5967741935483871,
+      "share_within_one_swap_not_valid": 0.6129032258064516,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0687598695164717,
+      "near_miss": 0.8306451612903226,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.3125,
+      "coverage": 1.0,
+      "mmd": 0.5665651716704796,
+      "near_miss": 0.39114583333333336,
+      "share_within_one_swap_not_valid": 0.5625,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1091538316312226,
+      "near_miss": 0.9305555555555556,
+      "share_within_one_swap_not_valid": 0.13333333333333333,
+      "n": 30
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1297642176578262,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 0.5,
+      "mmd": 0.8360690440448022,
+      "near_miss": 0.814516129032258,
+      "share_within_one_swap_not_valid": 0.2903225806451613,
+      "n": 31
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.78125,
+      "coverage": 0.5,
+      "mmd": 0.5598897770990287,
+      "near_miss": 0.109375,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.28125,
+      "coverage": 1.0,
+      "mmd": 0.65625,
+      "near_miss": 0.359375,
+      "share_within_one_swap_not_valid": 0.71875,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.6875,
+      "coverage": 0.5,
+      "mmd": 0.5625,
+      "near_miss": 0.15625,
+      "share_within_one_swap_not_valid": 0.3125,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0433320021290762,
+      "near_miss": 0.7395833333333334,
+      "share_within_one_swap_not_valid": 0.125,
+      "n": 32
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0148314207295712,
+      "near_miss": 0.734375,
+      "share_within_one_swap_not_valid": 0.1875,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.955413426122333,
+      "near_miss": 0.7777777777777778,
+      "share_within_one_swap_not_valid": 0.16666666666666666,
+      "n": 30
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.7418831612861961,
+      "near_miss": 0.6432291666666666,
+      "share_within_one_swap_not_valid": 0.46875,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9530788781110888,
+      "near_miss": 0.7741935483870968,
+      "share_within_one_swap_not_valid": 0.2903225806451613,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0150008987471852,
+      "near_miss": 0.8044871794871795,
+      "share_within_one_swap_not_valid": 0.2692307692307692,
+      "n": 26
+     }
+    },
+    "e3": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.7115749314779672,
+      "near_miss": 0.5967741935483871,
+      "share_within_one_swap_not_valid": 0.7096774193548387,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 0.9995115994824673,
+      "near_miss": 0.796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.6730005107724659,
+      "near_miss": 0.4484375,
+      "share_within_one_swap_not_valid": 0.75,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0990792784948076,
+      "near_miss": 0.8880208333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.28125,
+      "coverage": 1.0,
+      "mmd": 0.8097911574906211,
+      "near_miss": 0.5390625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 0.5,
+      "mmd": 0.6931585316505886,
+      "near_miss": 0.625,
+      "share_within_one_swap_not_valid": 0.65625,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.9375,
+      "coverage": 0.5,
+      "mmd": 0.5896238207535377,
+      "near_miss": 0.03125,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.375,
+      "coverage": 1.0,
+      "mmd": 0.6253905030059219,
+      "near_miss": 0.3125,
+      "share_within_one_swap_not_valid": 0.625,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.6875,
+      "coverage": 0.5,
+      "mmd": 0.5625,
+      "near_miss": 0.15625,
+      "share_within_one_swap_not_valid": 0.3125,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9838374855211945,
+      "near_miss": 0.7057291666666667,
+      "share_within_one_swap_not_valid": 0.53125,
+      "n": 32
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9919117344244339,
+      "near_miss": 0.7277777777777777,
+      "share_within_one_swap_not_valid": 0.26666666666666666,
+      "n": 30
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0340709886527912,
+      "near_miss": 0.7688172043010753,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 0.5,
+      "mmd": 0.6884226763043183,
+      "near_miss": 0.609375,
+      "share_within_one_swap_not_valid": 0.625,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0464162552094967,
+      "near_miss": 0.8489583333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0804148723042906,
+      "near_miss": 0.8027777777777778,
+      "share_within_one_swap_not_valid": 0.5666666666666667,
+      "n": 30
+     }
+    },
+    "e3c": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 0.5,
+      "mmd": 0.7392678317655473,
+      "near_miss": 0.5364583333333334,
+      "share_within_one_swap_not_valid": 0.78125,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.0183856710500203,
+      "near_miss": 0.8125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 0.5,
+      "mmd": 0.6003471218109292,
+      "near_miss": 0.49635416666666665,
+      "share_within_one_swap_not_valid": 0.53125,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0730177945868373,
+      "near_miss": 0.875,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.9403602202081923,
+      "near_miss": 0.6328125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 0.5,
+      "mmd": 0.7889206761983953,
+      "near_miss": 0.7734375,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.875,
+      "coverage": 0.5,
+      "mmd": 0.57282196186948,
+      "near_miss": 0.0625,
+      "share_within_one_swap_not_valid": 0.125,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.5,
+      "coverage": 1.0,
+      "mmd": 0.49013709816744133,
+      "near_miss": 0.25,
+      "share_within_one_swap_not_valid": 0.5,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.75,
+      "coverage": 0.5,
+      "mmd": 0.5533103503008054,
+      "near_miss": 0.1328125,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0124785083128196,
+      "near_miss": 0.739247311827957,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0314078162072138,
+      "near_miss": 0.7291666666666667,
+      "share_within_one_swap_not_valid": 0.25,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9686659909810674,
+      "near_miss": 0.7682291666666666,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.696439333142748,
+      "near_miss": 0.6005747126436781,
+      "share_within_one_swap_not_valid": 0.6896551724137931,
+      "n": 29
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0216525077967942,
+      "near_miss": 0.8198924731182796,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.027169959159632,
+      "near_miss": 0.8177083333333334,
+      "share_within_one_swap_not_valid": 0.3125,
+      "n": 32
+     }
+    },
+    "gdpo_v3_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.43333333333333335,
+      "coverage": 0.5,
+      "mmd": 0.6233422459255876,
+      "near_miss": 0.2866666666666667,
+      "share_within_one_swap_not_valid": 0.5333333333333333,
+      "n": 30
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3500298682478438,
+      "near_miss": 0.9919354838709676,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 0.5,
+      "mmd": 0.9713507978730528,
+      "near_miss": 0.5596774193548387,
+      "share_within_one_swap_not_valid": 0.7096774193548387,
+      "n": 31
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.03333333333333333,
+      "coverage": 1.0,
+      "mmd": 1.0822644299321198,
+      "near_miss": 0.7888888888888889,
+      "share_within_one_swap_not_valid": 0.03333333333333333,
+      "n": 30
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2123227963294265,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.3125,
+      "coverage": 0.5,
+      "mmd": 0.7159137881640033,
+      "near_miss": 0.3489583333333333,
+      "share_within_one_swap_not_valid": 0.6875,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0906692838096501,
+      "near_miss": 0.7473118279569892,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0846099631260921,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0641902401132384,
+      "near_miss": 0.7419354838709677,
+      "share_within_one_swap_not_valid": 0.0967741935483871,
+      "n": 31
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.34375,
+      "coverage": 0.5,
+      "mmd": 0.6389077593831523,
+      "near_miss": 0.328125,
+      "share_within_one_swap_not_valid": 0.65625,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0916050396091068,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1181503233830332,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     }
+    },
+    "phase12_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.7318683534994335,
+      "near_miss": 0.6424731182795699,
+      "share_within_one_swap_not_valid": 0.45161290322580644,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0410519019242028,
+      "near_miss": 0.7135416666666666,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.21875,
+      "coverage": 1.0,
+      "mmd": 0.6661456297237115,
+      "near_miss": 0.415625,
+      "share_within_one_swap_not_valid": 0.71875,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.331333534315063,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 28
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.142870221744359,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 0.5,
+      "mmd": 0.9613629647536877,
+      "near_miss": 0.875,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.375,
+      "coverage": 1.0,
+      "mmd": 0.6536406457297466,
+      "near_miss": 0.3125,
+      "share_within_one_swap_not_valid": 0.625,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.7689659249602676,
+      "near_miss": 0.421875,
+      "share_within_one_swap_not_valid": 0.84375,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 0.5,
+      "mmd": 0.9105501427708416,
+      "near_miss": 0.484375,
+      "share_within_one_swap_not_valid": 0.96875,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9492433434952642,
+      "near_miss": 0.7291666666666666,
+      "share_within_one_swap_not_valid": 0.25,
+      "n": 28
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9679936563583461,
+      "near_miss": 0.7369791666666666,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9727395449051212,
+      "near_miss": 0.7305555555555556,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 30
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9227018869127682,
+      "near_miss": 0.739247311827957,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9600952375004818,
+      "near_miss": 0.739247311827957,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9924806476247441,
+      "near_miss": 0.7844827586206897,
+      "share_within_one_swap_not_valid": 0.3103448275862069,
+      "n": 29
+     }
+    },
+    "e1_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8388942064309024,
+      "near_miss": 0.6614583333333334,
+      "share_within_one_swap_not_valid": 0.375,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9990718348797547,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.125,
+      "coverage": 1.0,
+      "mmd": 0.7244340463423845,
+      "near_miss": 0.4703125,
+      "share_within_one_swap_not_valid": 0.75,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1222042808315547,
+      "near_miss": 0.9192708333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9615153242408568,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.06451612903225806,
+      "coverage": 0.5,
+      "mmd": 0.9920338267536633,
+      "near_miss": 0.8951612903225806,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.40625,
+      "coverage": 0.5,
+      "mmd": 0.65625,
+      "near_miss": 0.296875,
+      "share_within_one_swap_not_valid": 0.59375,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 0.5,
+      "mmd": 0.7434610783356449,
+      "near_miss": 0.40625,
+      "share_within_one_swap_not_valid": 0.8125,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 0.5,
+      "mmd": 0.8463501602469276,
+      "near_miss": 0.4609375,
+      "share_within_one_swap_not_valid": 0.875,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9829274516990067,
+      "near_miss": 0.7204301075268817,
+      "share_within_one_swap_not_valid": 0.3548387096774194,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.055944637445535,
+      "near_miss": 0.7419354838709677,
+      "share_within_one_swap_not_valid": 0.0967741935483871,
+      "n": 31
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9570530397179319,
+      "near_miss": 0.7552083333333334,
+      "share_within_one_swap_not_valid": 0.125,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9209122797983168,
+      "near_miss": 0.7317708333333334,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9750403600383442,
+      "near_miss": 0.8027777777777778,
+      "share_within_one_swap_not_valid": 0.16666666666666666,
+      "n": 30
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0671526670607232,
+      "near_miss": 0.8305555555555556,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 30
+     }
+    }
+   }
+  },
+  "purity__astral_35": {
+   "targets_used": [
+    "BaLiBO3",
+    "K2Zr(PO4)2",
+    "K3Al2(PO4)3",
+    "K3Bi2(PO4)3",
+    "K3Fe2(PO4)3",
+    "K3LiP2O7",
+    "KBaPO4",
+    "KNbWO6",
+    "KNiPO4",
+    "KTiPO5",
+    "Li2CuP2O7",
+    "Li2TiGeO5",
+    "Li2TiSiO5",
+    "Li3Pr2(BO3)3",
+    "Li3Sc2(PO4)3",
+    "LiGeBO4",
+    "LiMgPO4",
+    "LiMnPO4",
+    "LiNbGeO5",
+    "LiZnBO3",
+    "LiZnPO4",
+    "Na2Al2B2O7",
+    "SrLiBO3"
+   ],
+   "n_targets": 23,
+   "summary_by_model": {
+    "base": {
+     "lab_valid_mass": 0.16874415614773258,
+     "coverage": 0.2608695652173913,
+     "mmd": 0.8893442346734316,
+     "near_miss": 0.5810992773102697,
+     "share_within_one_swap_not_valid": 0.33509817671809256
+    },
+    "corpus_sft": {
+     "lab_valid_mass": 0.24145336605890605,
+     "coverage": 0.21739130434782608,
+     "mmd": 0.9110177602912072,
+     "near_miss": 0.5359148550724638,
+     "share_within_one_swap_not_valid": 0.2161202664796634
+    },
+    "rs_sft": {
+     "lab_valid_mass": 0.10602208976157082,
+     "coverage": 0.2391304347826087,
+     "mmd": 0.8656700957577321,
+     "near_miss": 0.6330993667506611,
+     "share_within_one_swap_not_valid": 0.32465566224332004
+    },
+    "e3": {
+     "lab_valid_mass": 0.13858695652173914,
+     "coverage": 0.3695652173913043,
+     "mmd": 0.8418698641436223,
+     "near_miss": 0.6026674750662304,
+     "share_within_one_swap_not_valid": 0.37362669471715754
+    },
+    "e3c": {
+     "lab_valid_mass": 0.1454242636746143,
+     "coverage": 0.32608695652173914,
+     "mmd": 0.8385782774762057,
+     "near_miss": 0.612619219624059,
+     "share_within_one_swap_not_valid": 0.30983248295207233
+    },
+    "gdpo_v3_ckpt300": {
+     "lab_valid_mass": 0.2492081580177653,
+     "coverage": 0.2826086956521739,
+     "mmd": 0.9165217259116492,
+     "near_miss": 0.5277364325229857,
+     "share_within_one_swap_not_valid": 0.21454827021972883
+    },
+    "phase12_ckpt300": {
+     "lab_valid_mass": 0.04755434782608696,
+     "coverage": 0.32608695652173914,
+     "mmd": 0.9272058717358648,
+     "near_miss": 0.6744819962330663,
+     "share_within_one_swap_not_valid": 0.3187680353371701
+    },
+    "e1_ckpt300": {
+     "lab_valid_mass": 0.053120617110799434,
+     "coverage": 0.30434782608695654,
+     "mmd": 0.9149220333172956,
+     "near_miss": 0.6729597650771391,
+     "share_within_one_swap_not_valid": 0.3166725105189341
+    }
+   },
+   "P_18E_1_E3_minus_Phase12_mmd": {
+    "diff": -0.08533600759224258,
+    "ci95": [
+     -0.14295190246021594,
+     -0.030304221902556723
+    ],
+    "n_targets": 23,
+    "passes": true
+   },
+   "E_rank_agreement": {
+    "spearman_neg_mmd_vs_hits": 0.048795003647426664,
+    "p": 0.908654487655341,
+    "hits_by_model_on_these_targets": {
+     "base": 2,
+     "corpus_sft": 0,
+     "rs_sft": 4,
+     "e3": 7,
+     "e3c": 5,
+     "gdpo_v3_ckpt300": 1,
+     "phase12_ckpt300": 7,
+     "e1_ckpt300": 7
+    }
+   },
+   "E_practice_share_within_one_swap_not_valid": 0.283329605358611,
+   "per_target": {
+    "base": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.12903225806451613,
+      "coverage": 0.5,
+      "mmd": 0.704914368125078,
+      "near_miss": 0.49032258064516127,
+      "share_within_one_swap_not_valid": 0.7096774193548387,
+      "n": 31
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.03333333333333333,
+      "coverage": 0.5,
+      "mmd": 0.8117197107923946,
+      "near_miss": 0.5388888888888889,
+      "share_within_one_swap_not_valid": 0.8,
+      "n": 30
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 0.5,
+      "mmd": 0.7973344263858171,
+      "near_miss": 0.484375,
+      "share_within_one_swap_not_valid": 0.96875,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.7930566197210218,
+      "near_miss": 0.6755208333333333,
+      "share_within_one_swap_not_valid": 0.46875,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0931843775563814,
+      "near_miss": 0.8541666666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 0.5,
+      "mmd": 0.9379165741152036,
+      "near_miss": 0.521875,
+      "share_within_one_swap_not_valid": 0.84375,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1452886963192586,
+      "near_miss": 0.9192708333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.1357988653366404,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 0.5,
+      "mmd": 0.7196552270589948,
+      "near_miss": 0.5729166666666666,
+      "share_within_one_swap_not_valid": 0.75,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9868602885751695,
+      "near_miss": 0.7135416666666667,
+      "share_within_one_swap_not_valid": 0.4375,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.9375,
+      "coverage": 0.5,
+      "mmd": 0.5896238207535377,
+      "near_miss": 0.03125,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.75,
+      "coverage": 0.5,
+      "mmd": 0.5528689379048166,
+      "near_miss": 0.125,
+      "share_within_one_swap_not_valid": 0.25,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.96875,
+      "coverage": 0.5,
+      "mmd": 0.6002928972593295,
+      "near_miss": 0.015625,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9977024387311079,
+      "near_miss": 0.7937500000000001,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9815325639652391,
+      "near_miss": 0.728494623655914,
+      "share_within_one_swap_not_valid": 0.25806451612903225,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0346692053904638,
+      "near_miss": 0.7369791666666667,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9917137156205917,
+      "near_miss": 0.7421875,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 0.5,
+      "mmd": 0.7167090588237321,
+      "near_miss": 0.421875,
+      "share_within_one_swap_not_valid": 0.84375,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0149250419567166,
+      "near_miss": 0.8091397849462365,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0041904388610758,
+      "near_miss": 0.8463541666666667,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.71875,
+      "coverage": 0.5,
+      "mmd": 0.5528689379048166,
+      "near_miss": 0.140625,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.158443864630479,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1336473217010659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "corpus_sft": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.46875,
+      "coverage": 0.5,
+      "mmd": 0.5724808948777244,
+      "near_miss": 0.2734375,
+      "share_within_one_swap_not_valid": 0.5,
+      "n": 32
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.16129032258064516,
+      "coverage": 0.5,
+      "mmd": 0.7061066079543084,
+      "near_miss": 0.5467741935483871,
+      "share_within_one_swap_not_valid": 0.3870967741935484,
+      "n": 31
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.22580645161290322,
+      "coverage": 0.5,
+      "mmd": 0.6645278733694407,
+      "near_miss": 0.3870967741935484,
+      "share_within_one_swap_not_valid": 0.7741935483870968,
+      "n": 31
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.25,
+      "coverage": 0.5,
+      "mmd": 0.6859357203849351,
+      "near_miss": 0.46875,
+      "share_within_one_swap_not_valid": 0.4375,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3143588028008182,
+      "near_miss": 0.9921875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0133987898058794,
+      "near_miss": 0.5580645161290323,
+      "share_within_one_swap_not_valid": 0.8064516129032258,
+      "n": 31
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1689265066460108,
+      "near_miss": 0.8951612903225806,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1895541444171425,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 0.5,
+      "mmd": 0.7724504433942672,
+      "near_miss": 0.40625,
+      "share_within_one_swap_not_valid": 0.8125,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0853096956245563,
+      "near_miss": 0.7473958333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.9375,
+      "coverage": 0.5,
+      "mmd": 0.5896238207535377,
+      "near_miss": 0.03125,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9940117269003423,
+      "near_miss": 0.6741935483870968,
+      "share_within_one_swap_not_valid": 0.41935483870967744,
+      "n": 31
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.084609963126092,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1057378758096332,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.109264959331178,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.3225806451612903,
+      "coverage": 0.5,
+      "mmd": 0.6195522198925426,
+      "near_miss": 0.33870967741935487,
+      "share_within_one_swap_not_valid": 0.6774193548387096,
+      "n": 31
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0976715412635967,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0922906931459837,
+      "near_miss": 0.775,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1528666716060447,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0976122285063459,
+      "near_miss": 0.7239583333333334,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     }
+    },
+    "rs_sft": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.78743712895059,
+      "near_miss": 0.5967741935483871,
+      "share_within_one_swap_not_valid": 0.6129032258064516,
+      "n": 31
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 0.5,
+      "mmd": 0.787165107363125,
+      "near_miss": 0.615625,
+      "share_within_one_swap_not_valid": 0.5625,
+      "n": 32
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8321549073353406,
+      "near_miss": 0.532258064516129,
+      "share_within_one_swap_not_valid": 0.8709677419354839,
+      "n": 31
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.728511610522898,
+      "near_miss": 0.6369791666666667,
+      "share_within_one_swap_not_valid": 0.59375,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0687598695164717,
+      "near_miss": 0.8306451612903226,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.3125,
+      "coverage": 1.0,
+      "mmd": 0.5665651716704796,
+      "near_miss": 0.39114583333333336,
+      "share_within_one_swap_not_valid": 0.5625,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1091538316312226,
+      "near_miss": 0.9305555555555556,
+      "share_within_one_swap_not_valid": 0.13333333333333333,
+      "n": 30
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1297642176578262,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 0.5,
+      "mmd": 0.8360690440448022,
+      "near_miss": 0.814516129032258,
+      "share_within_one_swap_not_valid": 0.2903225806451613,
+      "n": 31
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9670497325294006,
+      "near_miss": 0.7222222222222222,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 24
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.78125,
+      "coverage": 0.5,
+      "mmd": 0.5598897770990287,
+      "near_miss": 0.109375,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.28125,
+      "coverage": 1.0,
+      "mmd": 0.65625,
+      "near_miss": 0.359375,
+      "share_within_one_swap_not_valid": 0.71875,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.6875,
+      "coverage": 0.5,
+      "mmd": 0.5625,
+      "near_miss": 0.15625,
+      "share_within_one_swap_not_valid": 0.3125,
+      "n": 32
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8079997861260279,
+      "near_miss": 0.8137931034482759,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 29
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0433320021290762,
+      "near_miss": 0.7395833333333334,
+      "share_within_one_swap_not_valid": 0.125,
+      "n": 32
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0148314207295712,
+      "near_miss": 0.734375,
+      "share_within_one_swap_not_valid": 0.1875,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.955413426122333,
+      "near_miss": 0.7777777777777778,
+      "share_within_one_swap_not_valid": 0.16666666666666666,
+      "n": 30
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.7418831612861961,
+      "near_miss": 0.6432291666666666,
+      "share_within_one_swap_not_valid": 0.46875,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9530788781110888,
+      "near_miss": 0.7741935483870968,
+      "share_within_one_swap_not_valid": 0.2903225806451613,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0150008987471852,
+      "near_miss": 0.8044871794871795,
+      "share_within_one_swap_not_valid": 0.2692307692307692,
+      "n": 26
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.25,
+      "coverage": 0.5,
+      "mmd": 0.75,
+      "near_miss": 0.375,
+      "share_within_one_swap_not_valid": 0.75,
+      "n": 32
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0665364503850772,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 0.9710657804700976,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "e3": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.7115749314779672,
+      "near_miss": 0.5967741935483871,
+      "share_within_one_swap_not_valid": 0.7096774193548387,
+      "n": 31
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8303527425638656,
+      "near_miss": 0.6723958333333333,
+      "share_within_one_swap_not_valid": 0.46875,
+      "n": 32
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.7797694303980719,
+      "near_miss": 0.5520833333333334,
+      "share_within_one_swap_not_valid": 0.8125,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.7355557878440429,
+      "near_miss": 0.6279569892473118,
+      "share_within_one_swap_not_valid": 0.5483870967741935,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 0.9995115994824673,
+      "near_miss": 0.796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.6730005107724659,
+      "near_miss": 0.4484375,
+      "share_within_one_swap_not_valid": 0.75,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0990792784948076,
+      "near_miss": 0.8880208333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.28125,
+      "coverage": 1.0,
+      "mmd": 0.8097911574906211,
+      "near_miss": 0.5390625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 0.5,
+      "mmd": 0.6931585316505886,
+      "near_miss": 0.625,
+      "share_within_one_swap_not_valid": 0.65625,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9883105850389341,
+      "near_miss": 0.7057291666666667,
+      "share_within_one_swap_not_valid": 0.53125,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.9375,
+      "coverage": 0.5,
+      "mmd": 0.5896238207535377,
+      "near_miss": 0.03125,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.375,
+      "coverage": 1.0,
+      "mmd": 0.6253905030059219,
+      "near_miss": 0.3125,
+      "share_within_one_swap_not_valid": 0.625,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.6875,
+      "coverage": 0.5,
+      "mmd": 0.5625,
+      "near_miss": 0.15625,
+      "share_within_one_swap_not_valid": 0.3125,
+      "n": 32
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8859376591499561,
+      "near_miss": 0.7919354838709678,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9838374855211945,
+      "near_miss": 0.7057291666666667,
+      "share_within_one_swap_not_valid": 0.53125,
+      "n": 32
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9919117344244339,
+      "near_miss": 0.7277777777777777,
+      "share_within_one_swap_not_valid": 0.26666666666666666,
+      "n": 30
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0340709886527912,
+      "near_miss": 0.7688172043010753,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 0.5,
+      "mmd": 0.6884226763043183,
+      "near_miss": 0.609375,
+      "share_within_one_swap_not_valid": 0.625,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0464162552094967,
+      "near_miss": 0.8489583333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0804148723042906,
+      "near_miss": 0.8027777777777778,
+      "share_within_one_swap_not_valid": 0.5666666666666667,
+      "n": 30
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.375,
+      "coverage": 0.5,
+      "mmd": 0.6214744312922295,
+      "near_miss": 0.3203125,
+      "share_within_one_swap_not_valid": 0.59375,
+      "n": 32
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.125,
+      "coverage": 1.0,
+      "mmd": 0.9328530665383483,
+      "near_miss": 0.6536458333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.0000488269329655,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "e3c": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 0.5,
+      "mmd": 0.7392678317655473,
+      "near_miss": 0.5364583333333334,
+      "share_within_one_swap_not_valid": 0.78125,
+      "n": 32
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 0.5,
+      "mmd": 0.7622112618106216,
+      "near_miss": 0.6268817204301075,
+      "share_within_one_swap_not_valid": 0.5161290322580645,
+      "n": 31
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8324474457886216,
+      "near_miss": 0.5546875,
+      "share_within_one_swap_not_valid": 0.78125,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.7140243197305444,
+      "near_miss": 0.7098958333333334,
+      "share_within_one_swap_not_valid": 0.375,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.0183856710500203,
+      "near_miss": 0.8125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 0.5,
+      "mmd": 0.6003471218109292,
+      "near_miss": 0.49635416666666665,
+      "share_within_one_swap_not_valid": 0.53125,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0730177945868373,
+      "near_miss": 0.875,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.9403602202081923,
+      "near_miss": 0.6328125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 0.5,
+      "mmd": 0.7889206761983953,
+      "near_miss": 0.7734375,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9754639654629312,
+      "near_miss": 0.7161458333333334,
+      "share_within_one_swap_not_valid": 0.40625,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.875,
+      "coverage": 0.5,
+      "mmd": 0.57282196186948,
+      "near_miss": 0.0625,
+      "share_within_one_swap_not_valid": 0.125,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.5,
+      "coverage": 1.0,
+      "mmd": 0.49013709816744133,
+      "near_miss": 0.25,
+      "share_within_one_swap_not_valid": 0.5,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.75,
+      "coverage": 0.5,
+      "mmd": 0.5533103503008054,
+      "near_miss": 0.1328125,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8407547142795772,
+      "near_miss": 0.8109375,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0124785083128196,
+      "near_miss": 0.739247311827957,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0314078162072138,
+      "near_miss": 0.7291666666666667,
+      "share_within_one_swap_not_valid": 0.25,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9686659909810674,
+      "near_miss": 0.7682291666666666,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.696439333142748,
+      "near_miss": 0.6005747126436781,
+      "share_within_one_swap_not_valid": 0.6896551724137931,
+      "n": 29
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0216525077967942,
+      "near_miss": 0.8198924731182796,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.027169959159632,
+      "near_miss": 0.8177083333333334,
+      "share_within_one_swap_not_valid": 0.3125,
+      "n": 32
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.53125,
+      "coverage": 0.5,
+      "mmd": 0.5783361101038046,
+      "near_miss": 0.2421875,
+      "share_within_one_swap_not_valid": 0.4375,
+      "n": 32
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1134827120346322,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.9361970111840776,
+      "near_miss": 0.6328125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "gdpo_v3_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.43333333333333335,
+      "coverage": 0.5,
+      "mmd": 0.6233422459255876,
+      "near_miss": 0.2866666666666667,
+      "share_within_one_swap_not_valid": 0.5333333333333333,
+      "n": 30
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.22580645161290322,
+      "coverage": 0.5,
+      "mmd": 0.740806761809046,
+      "near_miss": 0.513978494623656,
+      "share_within_one_swap_not_valid": 0.3548387096774194,
+      "n": 31
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.125,
+      "coverage": 0.5,
+      "mmd": 0.7146622891268295,
+      "near_miss": 0.4375,
+      "share_within_one_swap_not_valid": 0.875,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.22580645161290322,
+      "coverage": 0.5,
+      "mmd": 0.7083014520176285,
+      "near_miss": 0.45483870967741935,
+      "share_within_one_swap_not_valid": 0.5483870967741935,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3500298682478438,
+      "near_miss": 0.9919354838709676,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 0.5,
+      "mmd": 0.9713507978730528,
+      "near_miss": 0.5596774193548387,
+      "share_within_one_swap_not_valid": 0.7096774193548387,
+      "n": 31
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.03333333333333333,
+      "coverage": 1.0,
+      "mmd": 1.0822644299321198,
+      "near_miss": 0.7888888888888889,
+      "share_within_one_swap_not_valid": 0.03333333333333333,
+      "n": 30
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2123227963294265,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.3125,
+      "coverage": 0.5,
+      "mmd": 0.7159137881640033,
+      "near_miss": 0.3489583333333333,
+      "share_within_one_swap_not_valid": 0.6875,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1140516644712268,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 30
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9744790274808381,
+      "near_miss": 0.6937500000000001,
+      "share_within_one_swap_not_valid": 0.375,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0906692838096501,
+      "near_miss": 0.7473118279569892,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0846099631260921,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0641902401132384,
+      "near_miss": 0.7419354838709677,
+      "share_within_one_swap_not_valid": 0.0967741935483871,
+      "n": 31
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.34375,
+      "coverage": 0.5,
+      "mmd": 0.6389077593831523,
+      "near_miss": 0.328125,
+      "share_within_one_swap_not_valid": 0.65625,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0916050396091068,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1181503233830332,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 1.0,
+      "coverage": 0.5,
+      "mmd": 0.6123724356957945,
+      "near_miss": 0.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1696854545133064,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1651667678695714,
+      "near_miss": 0.7365591397849462,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     }
+    },
+    "phase12_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.7318683534994335,
+      "near_miss": 0.6424731182795699,
+      "share_within_one_swap_not_valid": 0.45161290322580644,
+      "n": 31
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8324747856408055,
+      "near_miss": 0.6827586206896552,
+      "share_within_one_swap_not_valid": 0.41379310344827586,
+      "n": 29
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9089399732655615,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 0.5,
+      "mmd": 0.7581158112935868,
+      "near_miss": 0.6770833333333334,
+      "share_within_one_swap_not_valid": 0.25,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0410519019242028,
+      "near_miss": 0.7135416666666666,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.21875,
+      "coverage": 1.0,
+      "mmd": 0.6661456297237115,
+      "near_miss": 0.415625,
+      "share_within_one_swap_not_valid": 0.71875,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.331333534315063,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 28
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.142870221744359,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 0.5,
+      "mmd": 0.9613629647536877,
+      "near_miss": 0.875,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9454868124410832,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.375,
+      "coverage": 1.0,
+      "mmd": 0.6536406457297466,
+      "near_miss": 0.3125,
+      "share_within_one_swap_not_valid": 0.625,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.7689659249602676,
+      "near_miss": 0.421875,
+      "share_within_one_swap_not_valid": 0.84375,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 0.5,
+      "mmd": 0.9105501427708416,
+      "near_miss": 0.484375,
+      "share_within_one_swap_not_valid": 0.96875,
+      "n": 32
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8987745540038008,
+      "near_miss": 0.7682795698924731,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9492433434952642,
+      "near_miss": 0.7291666666666666,
+      "share_within_one_swap_not_valid": 0.25,
+      "n": 28
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9679936563583461,
+      "near_miss": 0.7369791666666666,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9727395449051212,
+      "near_miss": 0.7305555555555556,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 30
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9227018869127682,
+      "near_miss": 0.739247311827957,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9600952375004818,
+      "near_miss": 0.739247311827957,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9924806476247441,
+      "near_miss": 0.7844827586206897,
+      "share_within_one_swap_not_valid": 0.3103448275862069,
+      "n": 29
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9354143466934853,
+      "near_miss": 0.5,
+      "share_within_one_swap_not_valid": 1.0,
+      "n": 32
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0968705484240153,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9766145819445186,
+      "near_miss": 0.6770833333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     }
+    },
+    "e1_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8388942064309024,
+      "near_miss": 0.6614583333333334,
+      "share_within_one_swap_not_valid": 0.375,
+      "n": 32
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8493570553114911,
+      "near_miss": 0.7194444444444444,
+      "share_within_one_swap_not_valid": 0.26666666666666666,
+      "n": 30
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.8157387372805094,
+      "near_miss": 0.625,
+      "share_within_one_swap_not_valid": 0.5,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.7370985388557968,
+      "near_miss": 0.6790322580645161,
+      "share_within_one_swap_not_valid": 0.3548387096774194,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9990718348797547,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.125,
+      "coverage": 1.0,
+      "mmd": 0.7244340463423845,
+      "near_miss": 0.4703125,
+      "share_within_one_swap_not_valid": 0.75,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1222042808315547,
+      "near_miss": 0.9192708333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9615153242408568,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.06451612903225806,
+      "coverage": 0.5,
+      "mmd": 0.9920338267536633,
+      "near_miss": 0.8951612903225806,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9660151060853993,
+      "near_miss": 0.7222222222222223,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 30
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.40625,
+      "coverage": 0.5,
+      "mmd": 0.65625,
+      "near_miss": 0.296875,
+      "share_within_one_swap_not_valid": 0.59375,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 0.5,
+      "mmd": 0.7434610783356449,
+      "near_miss": 0.40625,
+      "share_within_one_swap_not_valid": 0.8125,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 0.5,
+      "mmd": 0.8463501602469276,
+      "near_miss": 0.4609375,
+      "share_within_one_swap_not_valid": 0.875,
+      "n": 32
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 0.5,
+      "mmd": 0.9296676814425866,
+      "near_miss": 0.7451612903225806,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9829274516990067,
+      "near_miss": 0.7204301075268817,
+      "share_within_one_swap_not_valid": 0.3548387096774194,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.055944637445535,
+      "near_miss": 0.7419354838709677,
+      "share_within_one_swap_not_valid": 0.0967741935483871,
+      "n": 31
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9570530397179319,
+      "near_miss": 0.7552083333333334,
+      "share_within_one_swap_not_valid": 0.125,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9209122797983168,
+      "near_miss": 0.7317708333333334,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9750403600383442,
+      "near_miss": 0.8027777777777778,
+      "share_within_one_swap_not_valid": 0.16666666666666666,
+      "n": 30
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0671526670607232,
+      "near_miss": 0.8305555555555556,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 30
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 0.5,
+      "mmd": 0.8699631816921909,
+      "near_miss": 0.46875,
+      "share_within_one_swap_not_valid": 0.9375,
+      "n": 32
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.030950082650303,
+      "near_miss": 0.7630208333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0011711891579782,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    }
+   }
+  },
+  "phase16_singleton__astral_clean_22": {
+   "targets_used": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K2Zr(PO4)2",
+    "K3Al2(PO4)3",
+    "K3Bi2(PO4)3",
+    "K3Fe2(PO4)3",
+    "K3LiP2O7",
+    "KLi(PO3)2",
+    "KNiPO4",
+    "KTa2PO8",
+    "KTiPO5",
+    "Li2TiGeO5",
+    "Li2TiSiO5",
+    "Li3Pr2(BO3)3",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnPO4",
+    "NaSiBO4",
+    "SrLiBO3"
+   ],
+   "n_targets": 22,
+   "summary_by_model": {
+    "base": {
+     "lab_valid_mass": 0.028787878787878786,
+     "coverage": 0.2727272727272727,
+     "mmd": 1.0815153336841274,
+     "near_miss": 0.7843787920922238,
+     "share_within_one_swap_not_valid": 0.06623015471736272
+    },
+    "corpus_sft": {
+     "lab_valid_mass": 0.0,
+     "coverage": 0.0,
+     "mmd": 1.1833949640329866,
+     "near_miss": 0.8142595307917889,
+     "share_within_one_swap_not_valid": 0.0
+    },
+    "rs_sft": {
+     "lab_valid_mass": 0.03844391495601173,
+     "coverage": 0.36363636363636365,
+     "mmd": 1.0288945265800307,
+     "near_miss": 0.766885455397865,
+     "share_within_one_swap_not_valid": 0.05895697044890593
+    },
+    "e3": {
+     "lab_valid_mass": 0.061079545454545456,
+     "coverage": 0.45454545454545453,
+     "mmd": 1.0120799976898638,
+     "near_miss": 0.7511788754480286,
+     "share_within_one_swap_not_valid": 0.11197152981427175
+    },
+    "e3c": {
+     "lab_valid_mass": 0.05164039589442815,
+     "coverage": 0.4090909090909091,
+     "mmd": 1.012768037587399,
+     "near_miss": 0.7567401805878586,
+     "share_within_one_swap_not_valid": 0.09800346344423097
+    },
+    "gdpo_v3_ckpt300": {
+     "lab_valid_mass": 0.004447702834799608,
+     "coverage": 0.09090909090909091,
+     "mmd": 1.176579690557232,
+     "near_miss": 0.8047668214402086,
+     "share_within_one_swap_not_valid": 0.008800708699902248
+    },
+    "phase12_ckpt300": {
+     "lab_valid_mass": 0.038627199413489736,
+     "coverage": 0.5454545454545454,
+     "mmd": 1.0661349456091147,
+     "near_miss": 0.7561217623257043,
+     "share_within_one_swap_not_valid": 0.06380721845821956
+    },
+    "e1_ckpt300": {
+     "lab_valid_mass": 0.06363120217750362,
+     "coverage": 0.5,
+     "mmd": 1.0296138645074462,
+     "near_miss": 0.7369908273502546,
+     "share_within_one_swap_not_valid": 0.06318731671554252
+    }
+   },
+   "P_18E_1_E3_minus_Phase12_mmd": {
+    "diff": -0.05405494791925113,
+    "ci95": [
+     -0.11018673133712464,
+     -0.004833433035411362
+    ],
+    "n_targets": 22,
+    "passes": true
+   },
+   "E_rank_agreement": {
+    "spearman_neg_mmd_vs_hits": 0.6190476190476191,
+    "p": 0.10173303745426478,
+    "hits_by_model_on_these_targets": {
+     "base": 6,
+     "corpus_sft": 0,
+     "rs_sft": 8,
+     "e3": 10,
+     "e3c": 9,
+     "gdpo_v3_ckpt300": 2,
+     "phase12_ckpt300": 12,
+     "e1_ckpt300": 11
+    }
+   },
+   "E_practice_share_within_one_swap_not_valid": 0.04526508129122145,
+   "per_target": {
+    "base": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0825452722122886,
+      "near_miss": 0.7903225806451613,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0931843775563814,
+      "near_miss": 0.8541666666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3074306864992882,
+      "near_miss": 0.9765625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1452886963192586,
+      "near_miss": 0.9192708333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.1357988653366404,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.1306282821953464,
+      "near_miss": 0.9166666666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2182691359055273,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.200585794518659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.142656581173889,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2123227963294265,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.13333333333333333,
+      "coverage": 1.0,
+      "mmd": 0.9061518146045457,
+      "near_miss": 0.775,
+      "share_within_one_swap_not_valid": 0.1,
+      "n": 30
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9815325639652391,
+      "near_miss": 0.728494623655914,
+      "share_within_one_swap_not_valid": 0.25806451612903225,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0346692053904638,
+      "near_miss": 0.7369791666666667,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9917137156205917,
+      "near_miss": 0.7421875,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1030851621701745,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0149250419567166,
+      "near_miss": 0.8091397849462365,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0041904388610758,
+      "near_miss": 0.8463541666666667,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0447194663530168,
+      "near_miss": 0.7471264367816092,
+      "share_within_one_swap_not_valid": 0.034482758620689655,
+      "n": 29
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9942706969180979,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.21875,
+      "coverage": 1.0,
+      "mmd": 0.7990269147010423,
+      "near_miss": 0.578125,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.089455856150216,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1608859763129193,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "corpus_sft": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0852347096365835,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3143588028008182,
+      "near_miss": 0.9921875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3579074309580121,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1689265066460108,
+      "near_miss": 0.8951612903225806,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1895541444171425,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.30016525391967,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2666785329053323,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.200585794518659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3096933099306123,
+      "near_miss": 0.9838709677419354,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.084609963126092,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1057378758096332,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.109264959331178,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0817279120714334,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0976715412635967,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0922906931459837,
+      "near_miss": 0.775,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0846099631260921,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1237202224742164,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1818520184644046,
+      "near_miss": 0.7516129032258064,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2058649600054685,
+      "near_miss": 0.7580645161290321,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 30
+     }
+    },
+    "rs_sft": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0625103292636189,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0687598695164717,
+      "near_miss": 0.8306451612903226,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.042660983773409,
+      "near_miss": 0.8177083333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1091538316312226,
+      "near_miss": 0.9305555555555556,
+      "share_within_one_swap_not_valid": 0.13333333333333333,
+      "n": 30
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1297642176578262,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 1.0,
+      "mmd": 1.1418625819630877,
+      "near_miss": 0.9596774193548387,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1853247643942855,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1528666716060447,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.050018601025715,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1336473217010659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.25,
+      "coverage": 1.0,
+      "mmd": 0.764060902350068,
+      "near_miss": 0.6145833333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0433320021290762,
+      "near_miss": 0.7395833333333334,
+      "share_within_one_swap_not_valid": 0.125,
+      "n": 32
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0148314207295712,
+      "near_miss": 0.734375,
+      "share_within_one_swap_not_valid": 0.1875,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.955413426122333,
+      "near_miss": 0.7777777777777778,
+      "share_within_one_swap_not_valid": 0.16666666666666666,
+      "n": 30
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9975882375342378,
+      "near_miss": 0.7447916666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9530788781110888,
+      "near_miss": 0.7741935483870968,
+      "share_within_one_swap_not_valid": 0.2903225806451613,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0150008987471852,
+      "near_miss": 0.8044871794871795,
+      "share_within_one_swap_not_valid": 0.2692307692307692,
+      "n": 26
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9902817512650753,
+      "near_miss": 0.7844827586206896,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 29
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 1.0,
+      "mmd": 1.0088061787814122,
+      "near_miss": 0.7258064516129032,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 1.0,
+      "mmd": 0.852729990970178,
+      "near_miss": 0.6171875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 1.0,
+      "mmd": 0.9084026158592896,
+      "near_miss": 0.609375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0555841096284084,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "e3": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0067755199765251,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0967741935483871,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 0.9995115994824673,
+      "near_miss": 0.796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.1017564102377622,
+      "near_miss": 0.859375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0990792784948076,
+      "near_miss": 0.8880208333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.28125,
+      "coverage": 1.0,
+      "mmd": 0.8097911574906211,
+      "near_miss": 0.5390625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.084334473306092,
+      "near_miss": 0.90625,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1865950499222555,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.200585794518659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.0755176805845639,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1336473217010659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.21875,
+      "coverage": 1.0,
+      "mmd": 0.8119589544736852,
+      "near_miss": 0.6640625,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9838374855211945,
+      "near_miss": 0.7057291666666667,
+      "share_within_one_swap_not_valid": 0.53125,
+      "n": 32
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9919117344244339,
+      "near_miss": 0.7277777777777777,
+      "share_within_one_swap_not_valid": 0.26666666666666666,
+      "n": 30
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0340709886527912,
+      "near_miss": 0.7688172043010753,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9749298852994508,
+      "near_miss": 0.7421875,
+      "share_within_one_swap_not_valid": 0.1875,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0464162552094967,
+      "near_miss": 0.8489583333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0804148723042906,
+      "near_miss": 0.8027777777777778,
+      "share_within_one_swap_not_valid": 0.5666666666666667,
+      "n": 30
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0082827552742004,
+      "near_miss": 0.8125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.9440914117552388,
+      "near_miss": 0.6328125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.40625,
+      "coverage": 1.0,
+      "mmd": 0.5724808948777244,
+      "near_miss": 0.4270833333333333,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0465251281025219,
+      "near_miss": 0.7005208333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.0732452975671498,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "e3c": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0585250400518011,
+      "near_miss": 0.7473958333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.0183856710500203,
+      "near_miss": 0.8125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0257111354242643,
+      "near_miss": 0.8385416666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0730177945868373,
+      "near_miss": 0.875,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.9403602202081923,
+      "near_miss": 0.6328125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.0408329997330665,
+      "near_miss": 0.8671875,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1875822339947664,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1792476415070754,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 1.0,
+      "mmd": 0.9132274497626536,
+      "near_miss": 0.609375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.142870221744359,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.125,
+      "coverage": 1.0,
+      "mmd": 0.9305646247485091,
+      "near_miss": 0.7760416666666666,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0124785083128196,
+      "near_miss": 0.739247311827957,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0314078162072138,
+      "near_miss": 0.7291666666666667,
+      "share_within_one_swap_not_valid": 0.25,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9686659909810674,
+      "near_miss": 0.7682291666666666,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9853665739095276,
+      "near_miss": 0.7385057471264368,
+      "share_within_one_swap_not_valid": 0.13793103448275862,
+      "n": 29
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0216525077967942,
+      "near_miss": 0.8198924731182796,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.027169959159632,
+      "near_miss": 0.8177083333333334,
+      "share_within_one_swap_not_valid": 0.3125,
+      "n": 32
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9836885834280414,
+      "near_miss": 0.7890625,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.06451612903225806,
+      "coverage": 1.0,
+      "mmd": 1.0257354408369488,
+      "near_miss": 0.7016129032258065,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.2903225806451613,
+      "coverage": 1.0,
+      "mmd": 0.685006158652319,
+      "near_miss": 0.5188172043010753,
+      "share_within_one_swap_not_valid": 0.12903225806451613,
+      "n": 31
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.0276927282753343,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.0017075265515378,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "gdpo_v3_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1084022534962457,
+      "near_miss": 0.7516666666666667,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 30
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3500298682478438,
+      "near_miss": 0.9919354838709676,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.319508627364712,
+      "near_miss": 0.9838709677419355,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.03333333333333333,
+      "coverage": 1.0,
+      "mmd": 1.0822644299321198,
+      "near_miss": 0.7888888888888889,
+      "share_within_one_swap_not_valid": 0.03333333333333333,
+      "n": 30
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2123227963294265,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2847386447899303,
+      "near_miss": 0.9895833333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2693810007243689,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3043646681430772,
+      "near_miss": 0.984375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0906692838096501,
+      "near_miss": 0.7473118279569892,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0846099631260921,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0641902401132384,
+      "near_miss": 0.7419354838709677,
+      "share_within_one_swap_not_valid": 0.0967741935483871,
+      "n": 31
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0977605043906435,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0916050396091068,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1181503233830332,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0744889645126754,
+      "near_miss": 0.7580645161290323,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1288994917617776,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.06451612903225806,
+      "coverage": 1.0,
+      "mmd": 1.097959511297904,
+      "near_miss": 0.7016129032258064,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.206428095660906,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     }
+    },
+    "phase12_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.992654254838849,
+      "near_miss": 0.7473118279569892,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0410519019242028,
+      "near_miss": 0.7135416666666666,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.0701927396501998,
+      "near_miss": 0.765625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.331333534315063,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 28
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.142870221744359,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.166927054275459,
+      "near_miss": 0.90625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.2110332623425337,
+      "near_miss": 0.96875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.092186382331331,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.0741548276435757,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2123227963294265,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.21875,
+      "coverage": 1.0,
+      "mmd": 0.8818371271102164,
+      "near_miss": 0.6015625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9492433434952642,
+      "near_miss": 0.7291666666666666,
+      "share_within_one_swap_not_valid": 0.25,
+      "n": 28
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9679936563583461,
+      "near_miss": 0.7369791666666666,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9727395449051212,
+      "near_miss": 0.7305555555555556,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 30
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0885682903015397,
+      "near_miss": 0.7473118279569892,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9600952375004818,
+      "near_miss": 0.739247311827957,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9924806476247441,
+      "near_miss": 0.7844827586206897,
+      "share_within_one_swap_not_valid": 0.3103448275862069,
+      "n": 29
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0533793462818053,
+      "near_miss": 0.771505376344086,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 1.0,
+      "mmd": 1.0150788223624512,
+      "near_miss": 0.7258064516129032,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.0967741935483871,
+      "coverage": 1.0,
+      "mmd": 0.9821861124484738,
+      "near_miss": 0.6790322580645161,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.06451612903225806,
+      "coverage": 1.0,
+      "mmd": 1.1329425373442543,
+      "near_miss": 0.7016129032258064,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.1236971622728251,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "e1_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.06340341494499,
+      "near_miss": 0.7473958333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9990718348797547,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0434879910665,
+      "near_miss": 0.7109375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1222042808315547,
+      "near_miss": 0.9192708333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9615153242408568,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.06451612903225806,
+      "coverage": 1.0,
+      "mmd": 1.2015858407863984,
+      "near_miss": 0.9274193548387097,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2456957142496718,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.121957691938515,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 1.0,
+      "mmd": 0.9951052080056662,
+      "near_miss": 0.609375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1782120325943035,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 1.0,
+      "mmd": 0.890049155945895,
+      "near_miss": 0.609375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9829274516990067,
+      "near_miss": 0.7204301075268817,
+      "share_within_one_swap_not_valid": 0.3548387096774194,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.055944637445535,
+      "near_miss": 0.7419354838709677,
+      "share_within_one_swap_not_valid": 0.0967741935483871,
+      "n": 31
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9570530397179319,
+      "near_miss": 0.7552083333333334,
+      "share_within_one_swap_not_valid": 0.125,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.091232221122831,
+      "near_miss": 0.7473958333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9750403600383442,
+      "near_miss": 0.8027777777777778,
+      "share_within_one_swap_not_valid": 0.16666666666666666,
+      "n": 30
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0671526670607232,
+      "near_miss": 0.8305555555555556,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 30
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.03333333333333333,
+      "coverage": 1.0,
+      "mmd": 0.981929317815282,
+      "near_miss": 0.7350000000000001,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 30
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.10344827586206896,
+      "coverage": 1.0,
+      "mmd": 0.9154506761955927,
+      "near_miss": 0.6724137931034483,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 29
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.3548387096774194,
+      "coverage": 1.0,
+      "mmd": 0.6691248471305783,
+      "near_miss": 0.48118279569892475,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 1.0210193282940339,
+      "near_miss": 0.6328125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.1123419831598553,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    }
+   }
+  },
+  "phase16_singleton__astral_35": {
+   "targets_used": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K2Zr(PO4)2",
+    "K3Al2(PO4)3",
+    "K3Bi2(PO4)3",
+    "K3Fe2(PO4)3",
+    "K3LiP2O7",
+    "KBaPO4",
+    "KLi(PO3)2",
+    "KMgPO4",
+    "KNbWO6",
+    "KNiPO4",
+    "KTa2PO8",
+    "KTiNbO5",
+    "KTiPO5",
+    "Li2CuP2O7",
+    "Li2TiGeO5",
+    "Li2TiSiO5",
+    "Li3Fe2(PO4)3",
+    "Li3Pr2(BO3)3",
+    "Li3Sc2(PO4)3",
+    "Li3V2(PO4)3",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiMgPO4",
+    "LiMnPO4",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "LiZnPO4",
+    "Na2Al2B2O7",
+    "NaSiBO4",
+    "NaSrBO3",
+    "SrLiBO3"
+   ],
+   "n_targets": 35,
+   "summary_by_model": {
+    "base": {
+     "lab_valid_mass": 0.018988095238095238,
+     "coverage": 0.2,
+     "mmd": 1.0898790139571872,
+     "near_miss": 0.7907265899500326,
+     "share_within_one_swap_not_valid": 0.08365419248900895
+    },
+    "corpus_sft": {
+     "lab_valid_mass": 0.0,
+     "coverage": 0.0,
+     "mmd": 1.175431286055212,
+     "near_miss": 0.8203686635944699,
+     "share_within_one_swap_not_valid": 0.0035714285714285713
+    },
+    "rs_sft": {
+     "lab_valid_mass": 0.027793778801843316,
+     "coverage": 0.2857142857142857,
+     "mmd": 1.0379756945494731,
+     "near_miss": 0.7701420487728191,
+     "share_within_one_swap_not_valid": 0.07457786836819094
+    },
+    "e3": {
+     "lab_valid_mass": 0.05089285714285714,
+     "coverage": 0.37142857142857144,
+     "mmd": 1.0216973361222197,
+     "near_miss": 0.7543282770097286,
+     "share_within_one_swap_not_valid": 0.12637288786482334
+    },
+    "e3c": {
+     "lab_valid_mass": 0.03960253456221198,
+     "coverage": 0.3142857142857143,
+     "mmd": 1.0263340864299089,
+     "near_miss": 0.7663574606705865,
+     "share_within_one_swap_not_valid": 0.11255263785158112
+    },
+    "gdpo_v3_ckpt300": {
+     "lab_valid_mass": 0.0027956989247311824,
+     "coverage": 0.05714285714285714,
+     "mmd": 1.176311185573733,
+     "near_miss": 0.8148084037378394,
+     "share_within_one_swap_not_valid": 0.007375192012288786
+    },
+    "phase12_ckpt300": {
+     "lab_valid_mass": 0.032488479262672815,
+     "coverage": 0.4,
+     "mmd": 1.057245457750045,
+     "near_miss": 0.7551047207908006,
+     "share_within_one_swap_not_valid": 0.0667721410032311
+    },
+    "e1_ckpt300": {
+     "lab_valid_mass": 0.050739843212034536,
+     "coverage": 0.4,
+     "mmd": 1.0288013043838524,
+     "near_miss": 0.7407348275609836,
+     "share_within_one_swap_not_valid": 0.08000685758174238
+    }
+   },
+   "P_18E_1_E3_minus_Phase12_mmd": {
+    "diff": -0.035548121627825106,
+    "ci95": [
+     -0.07544072610324179,
+     -0.0007268822769191242
+    ],
+    "n_targets": 35,
+    "passes": true
+   },
+   "E_rank_agreement": {
+    "spearman_neg_mmd_vs_hits": 0.6946232319096901,
+    "p": 0.055884725588007056,
+    "hits_by_model_on_these_targets": {
+     "base": 7,
+     "corpus_sft": 0,
+     "rs_sft": 10,
+     "e3": 13,
+     "e3c": 11,
+     "gdpo_v3_ckpt300": 2,
+     "phase12_ckpt300": 14,
+     "e1_ckpt300": 14
+    }
+   },
+   "E_practice_share_within_one_swap_not_valid": 0.051384730199087424,
+   "per_target": {
+    "base": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0825452722122886,
+      "near_miss": 0.7903225806451613,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.131861789756643,
+      "near_miss": 0.7888888888888889,
+      "share_within_one_swap_not_valid": 0.03333333333333333,
+      "n": 30
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1297642176578262,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0939136782290761,
+      "near_miss": 0.8723958333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0931843775563814,
+      "near_miss": 0.8541666666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3074306864992882,
+      "near_miss": 0.9765625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1452886963192586,
+      "near_miss": 0.9192708333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.1357988653366404,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.1306282821953464,
+      "near_miss": 0.9166666666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9868602885751695,
+      "near_miss": 0.7135416666666667,
+      "share_within_one_swap_not_valid": 0.4375,
+      "n": 32
+     },
+     "Li3V2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.00545387760951,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.5625,
+      "n": 32
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2182691359055273,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.200585794518659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.142656581173889,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2123227963294265,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0485915653071665,
+      "near_miss": 0.859375,
+      "share_within_one_swap_not_valid": 0.1875,
+      "n": 32
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2556512876790276,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.13333333333333333,
+      "coverage": 1.0,
+      "mmd": 0.9061518146045457,
+      "near_miss": 0.775,
+      "share_within_one_swap_not_valid": 0.1,
+      "n": 30
+     },
+     "KMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.016738172007261,
+      "near_miss": 0.8177083333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "NaSrBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.1324406717351687,
+      "near_miss": 0.890625,
+      "share_within_one_swap_not_valid": 0.1875,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9815325639652391,
+      "near_miss": 0.728494623655914,
+      "share_within_one_swap_not_valid": 0.25806451612903225,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0346692053904638,
+      "near_miss": 0.7369791666666667,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9917137156205917,
+      "near_miss": 0.7421875,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1030851621701745,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0149250419567166,
+      "near_miss": 0.8091397849462365,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0041904388610758,
+      "near_miss": 0.8463541666666667,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1357988653366404,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0447194663530168,
+      "near_miss": 0.7471264367816092,
+      "share_within_one_swap_not_valid": 0.034482758620689655,
+      "n": 29
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9942706969180979,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.158443864630479,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.21875,
+      "coverage": 1.0,
+      "mmd": 0.7990269147010423,
+      "near_miss": 0.578125,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "KTiNbO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1232625472257143,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.089455856150216,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1608859763129193,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1336473217010659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "corpus_sft": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0852347096365835,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1177624941863287,
+      "near_miss": 0.9225806451612903,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0860481206149952,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1153229633160073,
+      "near_miss": 0.8671875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3143588028008182,
+      "near_miss": 0.9921875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3579074309580121,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1689265066460108,
+      "near_miss": 0.8951612903225806,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1895541444171425,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.30016525391967,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0853096956245563,
+      "near_miss": 0.7473958333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "Li3V2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2273733386789856,
+      "near_miss": 0.9609375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2666785329053323,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.200585794518659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1003373062384096,
+      "near_miss": 0.765625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2995636824828185,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3096933099306123,
+      "near_miss": 0.9838709677419354,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.111727259717958,
+      "near_miss": 0.8359375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "NaSrBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2670580878226012,
+      "near_miss": 0.9739583333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.084609963126092,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1057378758096332,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.109264959331178,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0817279120714334,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0976715412635967,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0922906931459837,
+      "near_miss": 0.775,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0846099631260921,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1237202224742164,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1528666716060447,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1818520184644046,
+      "near_miss": 0.7516129032258064,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KTiNbO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2196790830200834,
+      "near_miss": 0.7516129032258064,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2058649600054685,
+      "near_miss": 0.7580645161290321,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 30
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0976122285063459,
+      "near_miss": 0.7239583333333334,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     }
+    },
+    "rs_sft": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0625103292636189,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0836588052749814,
+      "near_miss": 0.8046875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1308280649077183,
+      "near_miss": 0.7499999999999999,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0126800251477923,
+      "near_miss": 0.7760416666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0687598695164717,
+      "near_miss": 0.8306451612903226,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.042660983773409,
+      "near_miss": 0.8177083333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1091538316312226,
+      "near_miss": 0.9305555555555556,
+      "share_within_one_swap_not_valid": 0.13333333333333333,
+      "n": 30
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1297642176578262,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 1.0,
+      "mmd": 1.1418625819630877,
+      "near_miss": 0.9596774193548387,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9670497325294006,
+      "near_miss": 0.7222222222222222,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 24
+     },
+     "Li3V2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9986811030445262,
+      "near_miss": 0.7083333333333334,
+      "share_within_one_swap_not_valid": 0.5,
+      "n": 28
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1853247643942855,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1528666716060447,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.050018601025715,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1336473217010659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.058798591405692,
+      "near_miss": 0.8360215053763441,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0439983811754443,
+      "near_miss": 0.896551724137931,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 29
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.25,
+      "coverage": 1.0,
+      "mmd": 0.764060902350068,
+      "near_miss": 0.6145833333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "KMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9920254953040942,
+      "near_miss": 0.7682291666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "NaSrBO3": {
+      "lab_valid_mass": 0.06451612903225806,
+      "coverage": 1.0,
+      "mmd": 1.0101805747576813,
+      "near_miss": 0.8682795698924731,
+      "share_within_one_swap_not_valid": 0.12903225806451613,
+      "n": 31
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0433320021290762,
+      "near_miss": 0.7395833333333334,
+      "share_within_one_swap_not_valid": 0.125,
+      "n": 32
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0148314207295712,
+      "near_miss": 0.734375,
+      "share_within_one_swap_not_valid": 0.1875,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.955413426122333,
+      "near_miss": 0.7777777777777778,
+      "share_within_one_swap_not_valid": 0.16666666666666666,
+      "n": 30
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9975882375342378,
+      "near_miss": 0.7447916666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9530788781110888,
+      "near_miss": 0.7741935483870968,
+      "share_within_one_swap_not_valid": 0.2903225806451613,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0150008987471852,
+      "near_miss": 0.8044871794871795,
+      "share_within_one_swap_not_valid": 0.2692307692307692,
+      "n": 26
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.14564392373896,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9902817512650753,
+      "near_miss": 0.7844827586206896,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 29
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 1.0,
+      "mmd": 1.0088061787814122,
+      "near_miss": 0.7258064516129032,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0665364503850772,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 1.0,
+      "mmd": 0.852729990970178,
+      "near_miss": 0.6171875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTiNbO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2123227963294265,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 1.0,
+      "mmd": 0.9084026158592896,
+      "near_miss": 0.609375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0555841096284084,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 0.9710657804700976,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "e3": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0067755199765251,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0967741935483871,
+      "n": 31
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0973007839314919,
+      "near_miss": 0.8255208333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0799878230409206,
+      "near_miss": 0.7473958333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.014634504265415,
+      "near_miss": 0.7634408602150538,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 0.9995115994824673,
+      "near_miss": 0.796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.1017564102377622,
+      "near_miss": 0.859375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0990792784948076,
+      "near_miss": 0.8880208333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.28125,
+      "coverage": 1.0,
+      "mmd": 0.8097911574906211,
+      "near_miss": 0.5390625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.084334473306092,
+      "near_miss": 0.90625,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9883105850389341,
+      "near_miss": 0.7057291666666667,
+      "share_within_one_swap_not_valid": 0.53125,
+      "n": 32
+     },
+     "Li3V2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.032090040088465,
+      "near_miss": 0.6935483870967742,
+      "share_within_one_swap_not_valid": 0.6774193548387096,
+      "n": 31
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1865950499222555,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.200585794518659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.0755176805845639,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1336473217010659,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1793166497665786,
+      "near_miss": 0.9036458333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1317478861635164,
+      "near_miss": 0.9274193548387096,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.21875,
+      "coverage": 1.0,
+      "mmd": 0.8119589544736852,
+      "near_miss": 0.6640625,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "KMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9628347632122554,
+      "near_miss": 0.7984375,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "NaSrBO3": {
+      "lab_valid_mass": 0.21875,
+      "coverage": 1.0,
+      "mmd": 0.8357452076340811,
+      "near_miss": 0.6692708333333334,
+      "share_within_one_swap_not_valid": 0.3125,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9838374855211945,
+      "near_miss": 0.7057291666666667,
+      "share_within_one_swap_not_valid": 0.53125,
+      "n": 32
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9919117344244339,
+      "near_miss": 0.7277777777777777,
+      "share_within_one_swap_not_valid": 0.26666666666666666,
+      "n": 30
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0340709886527912,
+      "near_miss": 0.7688172043010753,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9749298852994508,
+      "near_miss": 0.7421875,
+      "share_within_one_swap_not_valid": 0.1875,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0464162552094967,
+      "near_miss": 0.8489583333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0804148723042906,
+      "near_miss": 0.8027777777777778,
+      "share_within_one_swap_not_valid": 0.5666666666666667,
+      "n": 30
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0948655025846783,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0082827552742004,
+      "near_miss": 0.8125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.9440914117552388,
+      "near_miss": 0.6328125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.125,
+      "coverage": 1.0,
+      "mmd": 0.9328530665383483,
+      "near_miss": 0.6536458333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.40625,
+      "coverage": 1.0,
+      "mmd": 0.5724808948777244,
+      "near_miss": 0.4270833333333333,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "KTiNbO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1439111759030416,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0465251281025219,
+      "near_miss": 0.7005208333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.0732452975671498,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.0000488269329655,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "e3c": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0585250400518011,
+      "near_miss": 0.7473958333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0597972960459037,
+      "near_miss": 0.8091397849462365,
+      "share_within_one_swap_not_valid": 0.06451612903225806,
+      "n": 31
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1190816547508944,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9957919273121268,
+      "near_miss": 0.8333333333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.0183856710500203,
+      "near_miss": 0.8125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0257111354242643,
+      "near_miss": 0.8385416666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0730177945868373,
+      "near_miss": 0.875,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.9403602202081923,
+      "near_miss": 0.6328125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.0408329997330665,
+      "near_miss": 0.8671875,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9754639654629312,
+      "near_miss": 0.7161458333333334,
+      "share_within_one_swap_not_valid": 0.40625,
+      "n": 32
+     },
+     "Li3V2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9983857939435973,
+      "near_miss": 0.7338709677419355,
+      "share_within_one_swap_not_valid": 0.5806451612903226,
+      "n": 31
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1875822339947664,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1792476415070754,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 1.0,
+      "mmd": 0.9132274497626536,
+      "near_miss": 0.609375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.142870221744359,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1221912561594054,
+      "near_miss": 0.8897849462365591,
+      "share_within_one_swap_not_valid": 0.25806451612903225,
+      "n": 31
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0943004567226193,
+      "near_miss": 0.9375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.125,
+      "coverage": 1.0,
+      "mmd": 0.9305646247485091,
+      "near_miss": 0.7760416666666666,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "KMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9836506010924221,
+      "near_miss": 0.8091397849462366,
+      "share_within_one_swap_not_valid": 0.16129032258064516,
+      "n": 31
+     },
+     "NaSrBO3": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9768312130301734,
+      "near_miss": 0.8046875,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0124785083128196,
+      "near_miss": 0.739247311827957,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0314078162072138,
+      "near_miss": 0.7291666666666667,
+      "share_within_one_swap_not_valid": 0.25,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9686659909810674,
+      "near_miss": 0.7682291666666666,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9853665739095276,
+      "near_miss": 0.7385057471264368,
+      "share_within_one_swap_not_valid": 0.13793103448275862,
+      "n": 29
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0216525077967942,
+      "near_miss": 0.8198924731182796,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.027169959159632,
+      "near_miss": 0.8177083333333334,
+      "share_within_one_swap_not_valid": 0.3125,
+      "n": 32
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1068412967765524,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9836885834280414,
+      "near_miss": 0.7890625,
+      "share_within_one_swap_not_valid": 0.09375,
+      "n": 32
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.06451612903225806,
+      "coverage": 1.0,
+      "mmd": 1.0257354408369488,
+      "near_miss": 0.7016129032258065,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1134827120346322,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.2903225806451613,
+      "coverage": 1.0,
+      "mmd": 0.685006158652319,
+      "near_miss": 0.5188172043010753,
+      "share_within_one_swap_not_valid": 0.12903225806451613,
+      "n": 31
+     },
+     "KTiNbO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1587810136086973,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.0276927282753343,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.0017075265515378,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 0.9361970111840776,
+      "near_miss": 0.6328125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    },
+    "gdpo_v3_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1084022534962457,
+      "near_miss": 0.7516666666666667,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 30
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.159870697399538,
+      "near_miss": 0.9354838709677419,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.094642493008562,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1370224180676234,
+      "near_miss": 0.8709677419354839,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3500298682478438,
+      "near_miss": 0.9919354838709676,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.319508627364712,
+      "near_miss": 0.9838709677419355,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.03333333333333333,
+      "coverage": 1.0,
+      "mmd": 1.0822644299321198,
+      "near_miss": 0.7888888888888889,
+      "share_within_one_swap_not_valid": 0.03333333333333333,
+      "n": 30
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2123227963294265,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2847386447899303,
+      "near_miss": 0.9895833333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1140516644712268,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 30
+     },
+     "Li3V2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1944315244779278,
+      "near_miss": 0.9333333333333333,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 30
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2693810007243689,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.103586718764472,
+      "near_miss": 0.7671875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2770510463564093,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3043646681430772,
+      "near_miss": 0.984375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0867186094423067,
+      "near_miss": 0.8306451612903226,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "NaSrBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.3344211656674214,
+      "near_miss": 0.989247311827957,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0906692838096501,
+      "near_miss": 0.7473118279569892,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0846099631260921,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0641902401132384,
+      "near_miss": 0.7419354838709677,
+      "share_within_one_swap_not_valid": 0.0967741935483871,
+      "n": 31
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0977605043906435,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0916050396091068,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1181503233830332,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0744889645126754,
+      "near_miss": 0.7580645161290323,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1288994917617776,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1696854545133064,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.06451612903225806,
+      "coverage": 1.0,
+      "mmd": 1.097959511297904,
+      "near_miss": 0.7016129032258064,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KTiNbO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.206428095660906,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1651667678695714,
+      "near_miss": 0.7365591397849462,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     }
+    },
+    "phase12_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.992654254838849,
+      "near_miss": 0.7473118279569892,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0950108453738372,
+      "near_miss": 0.8275862068965517,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 29
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1115515620069092,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9954322762833576,
+      "near_miss": 0.7552083333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0410519019242028,
+      "near_miss": 0.7135416666666666,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.0701927396501998,
+      "near_miss": 0.765625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.331333534315063,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 28
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.142870221744359,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.166927054275459,
+      "near_miss": 0.90625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9454868124410832,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.28125,
+      "n": 32
+     },
+     "Li3V2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9719586944431866,
+      "near_miss": 0.7333333333333334,
+      "share_within_one_swap_not_valid": 0.4,
+      "n": 30
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.2110332623425337,
+      "near_miss": 0.96875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.03125,
+      "coverage": 1.0,
+      "mmd": 1.092186382331331,
+      "near_miss": 0.7265625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 1.0741548276435757,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2123227963294265,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0436885140144614,
+      "near_miss": 0.8571428571428571,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 28
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0766335425511488,
+      "near_miss": 0.7876344086021505,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.21875,
+      "coverage": 1.0,
+      "mmd": 0.8818371271102164,
+      "near_miss": 0.6015625,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9530310746070492,
+      "near_miss": 0.7708333333333334,
+      "share_within_one_swap_not_valid": 0.125,
+      "n": 32
+     },
+     "NaSrBO3": {
+      "lab_valid_mass": 0.1935483870967742,
+      "coverage": 1.0,
+      "mmd": 0.8460801046774732,
+      "near_miss": 0.6586021505376344,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9492433434952642,
+      "near_miss": 0.7291666666666666,
+      "share_within_one_swap_not_valid": 0.25,
+      "n": 28
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9679936563583461,
+      "near_miss": 0.7369791666666666,
+      "share_within_one_swap_not_valid": 0.15625,
+      "n": 32
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9727395449051212,
+      "near_miss": 0.7305555555555556,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 30
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0885682903015397,
+      "near_miss": 0.7473118279569892,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9600952375004818,
+      "near_miss": 0.739247311827957,
+      "share_within_one_swap_not_valid": 0.22580645161290322,
+      "n": 31
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9924806476247441,
+      "near_miss": 0.7844827586206897,
+      "share_within_one_swap_not_valid": 0.3103448275862069,
+      "n": 29
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0533793462818053,
+      "near_miss": 0.771505376344086,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 1.0,
+      "mmd": 1.0150788223624512,
+      "near_miss": 0.7258064516129032,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0968705484240153,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.0967741935483871,
+      "coverage": 1.0,
+      "mmd": 0.9821861124484738,
+      "near_miss": 0.6790322580645161,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "KTiNbO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2115187896924164,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 30
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.06451612903225806,
+      "coverage": 1.0,
+      "mmd": 1.1329425373442543,
+      "near_miss": 0.7016129032258064,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.1236971622728251,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9766145819445186,
+      "near_miss": 0.6770833333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     }
+    },
+    "e1_ckpt300": {
+     "LiZnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.06340341494499,
+      "near_miss": 0.7473958333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "LiMnPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.072000552791455,
+      "near_miss": 0.8027777777777778,
+      "share_within_one_swap_not_valid": 0.06666666666666667,
+      "n": 30
+     },
+     "Li2CuP2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0679090258537944,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9930036210745766,
+      "near_miss": 0.7741935483870968,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "BaLiBO3": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9990718348797547,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "SrLiBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0434879910665,
+      "near_miss": 0.7109375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Pr2(BO3)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1222042808315547,
+      "near_miss": 0.9192708333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "LiGeBO4": {
+      "lab_valid_mass": 0.09375,
+      "coverage": 1.0,
+      "mmd": 0.9615153242408568,
+      "near_miss": 0.6796875,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "K3LiP2O7": {
+      "lab_valid_mass": 0.06451612903225806,
+      "coverage": 1.0,
+      "mmd": 1.2015858407863984,
+      "near_miss": 0.9274193548387097,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "Li3Sc2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9660151060853993,
+      "near_miss": 0.7222222222222223,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 30
+     },
+     "Li3V2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9930669528229784,
+      "near_miss": 0.7470238095238095,
+      "share_within_one_swap_not_valid": 0.4642857142857143,
+      "n": 28
+     },
+     "KLi(PO3)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.2456957142496718,
+      "near_miss": 1.0,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiSiO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.121957691938515,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbGeO5": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 1.0,
+      "mmd": 0.9951052080056662,
+      "near_miss": 0.609375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li2TiGeO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1782120325943035,
+      "near_miss": 0.7578125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "Li3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.063223609803904,
+      "near_miss": 0.8555555555555556,
+      "share_within_one_swap_not_valid": 0.23333333333333334,
+      "n": 30
+     },
+     "KBaPO4": {
+      "lab_valid_mass": 0.03225806451612903,
+      "coverage": 1.0,
+      "mmd": 1.0890620696118387,
+      "near_miss": 0.7580645161290321,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 31
+     },
+     "BaNaBO3": {
+      "lab_valid_mass": 0.1875,
+      "coverage": 1.0,
+      "mmd": 0.890049155945895,
+      "near_miss": 0.609375,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KMgPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9404986764566268,
+      "near_miss": 0.7473958333333334,
+      "share_within_one_swap_not_valid": 0.21875,
+      "n": 32
+     },
+     "NaSrBO3": {
+      "lab_valid_mass": 0.28125,
+      "coverage": 1.0,
+      "mmd": 0.7261619639699304,
+      "near_miss": 0.5885416666666666,
+      "share_within_one_swap_not_valid": 0.0625,
+      "n": 32
+     },
+     "K3Bi2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9829274516990067,
+      "near_miss": 0.7204301075268817,
+      "share_within_one_swap_not_valid": 0.3548387096774194,
+      "n": 31
+     },
+     "K2Zr(PO4)2": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.055944637445535,
+      "near_miss": 0.7419354838709677,
+      "share_within_one_swap_not_valid": 0.0967741935483871,
+      "n": 31
+     },
+     "K3Al2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9570530397179319,
+      "near_miss": 0.7552083333333334,
+      "share_within_one_swap_not_valid": 0.125,
+      "n": 32
+     },
+     "KTiPO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.091232221122831,
+      "near_miss": 0.7473958333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "KNiPO4": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 0.9750403600383442,
+      "near_miss": 0.8027777777777778,
+      "share_within_one_swap_not_valid": 0.16666666666666666,
+      "n": 30
+     },
+     "K3Fe2(PO4)3": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.0671526670607232,
+      "near_miss": 0.8305555555555556,
+      "share_within_one_swap_not_valid": 0.3333333333333333,
+      "n": 30
+     },
+     "KNbWO6": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.1887329126006396,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "KTa2PO8": {
+      "lab_valid_mass": 0.03333333333333333,
+      "coverage": 1.0,
+      "mmd": 0.981929317815282,
+      "near_miss": 0.7350000000000001,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 30
+     },
+     "Li3Y2(BO3)3": {
+      "lab_valid_mass": 0.10344827586206896,
+      "coverage": 1.0,
+      "mmd": 0.9154506761955927,
+      "near_miss": 0.6724137931034483,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 29
+     },
+     "Na2Al2B2O7": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.030950082650303,
+      "near_miss": 0.7630208333333334,
+      "share_within_one_swap_not_valid": 0.03125,
+      "n": 32
+     },
+     "NaSiBO4": {
+      "lab_valid_mass": 0.3548387096774194,
+      "coverage": 1.0,
+      "mmd": 0.6691248471305783,
+      "near_miss": 0.48118279569892475,
+      "share_within_one_swap_not_valid": 0.03225806451612903,
+      "n": 31
+     },
+     "KTiNbO5": {
+      "lab_valid_mass": 0.0,
+      "coverage": 0.0,
+      "mmd": 1.224744871391589,
+      "near_miss": 0.75,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiSi2BO6": {
+      "lab_valid_mass": 0.15625,
+      "coverage": 1.0,
+      "mmd": 1.0210193282940339,
+      "near_miss": 0.6328125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiNbWO6": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.1123419831598553,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     },
+     "LiZnBO3": {
+      "lab_valid_mass": 0.0625,
+      "coverage": 1.0,
+      "mmd": 1.0011711891579782,
+      "near_miss": 0.703125,
+      "share_within_one_swap_not_valid": 0.0,
+      "n": 32
+     }
+    }
+   }
+  }
+ }
+}

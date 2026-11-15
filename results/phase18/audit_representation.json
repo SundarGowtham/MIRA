@@ -1,0 +1,943 @@
+{
+ "prereg_commit": null,
+ "prereg_blob_sha": "5c0a84ce0161f03f19a6198ac0aa7fffe949f5ac",
+ "prereg_commit_note": "PHASE18_PREREG.md was not yet committed when this ran (Gowtham asked for unattended execution; he commits his own work). prereg_blob_sha is the git content hash of the spec at run time; once committed, `git log --find-object=<blob>` recovers the commit.",
+ "repo_head_at_run": "e41745bf2ef2ddc740b8dc5f899548c0c0766122",
+ "seed": 20261115,
+ "block": "18D",
+ "tolerance": 0.001,
+ "n_routes": 200,
+ "n_ref_parse_failures": 0,
+ "T5": {
+  "applied": false,
+  "reason": "route schema has no ramp-rate field; parse_completion drops unknown keys, so the schema does not allow stating a ramp rate."
+ },
+ "transformations": {
+  "T1": "temperature value -> '<K> K' string, same key",
+  "T2": "time value -> '<min> min' string, same key",
+  "T3": "first isothermal hold (T>100C, t>0) split into two consecutive t/2 holds",
+  "T4": "zero-duration op inserted after that hold",
+  "T6": "precursor order permuted",
+  "T1b [E]": "key renamed temperature_k, numeric kelvin",
+  "T2b [E]": "key renamed time_min, numeric minutes"
+ },
+ "violation_table": {
+  "T1": {
+   "n_routes_applicable": 200,
+   "n_parse_failures": 0,
+   "validator_agg5": {
+    "n_violations": 10,
+    "n": 200,
+    "rate": 0.05
+   },
+   "validator_channels": {
+    "stoichiometry": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "amount_accuracy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "charge_neutrality": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursors_exist": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "operation_order": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "temperature_plausible": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "thermodynamic_favorable": {
+     "n_violations": 10,
+     "n": 200,
+     "rate": 0.05
+    },
+    "target_stability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "chempot_atmosphere": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "ranker": {
+    "n_violations": 190,
+    "n": 200,
+    "rate": 0.95
+   },
+   "ranker_channels": {
+    "temperature_economy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "driving_force_margin": {
+     "n_violations": 106,
+     "n": 200,
+     "rate": 0.53
+    },
+    "volatility_risk": {
+     "n_violations": 185,
+     "n": 200,
+     "rate": 0.925
+    },
+    "precursor_instability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "n_precursors": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "slice_competing_phases": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_decomposition_match": {
+     "n_violations": 160,
+     "n": 200,
+     "rate": 0.8
+    }
+   },
+   "comparator": {
+    "n_violations": 190,
+    "n": 190,
+    "rate": 1.0
+   },
+   "comparator_gate_flips": 0,
+   "comparator_both_gate_fail": 10,
+   "validator_agg5_mean_delta_when_violated": 0.12145809206713536,
+   "ranker_mean_delta_when_violated": -0.053775789473684214
+  },
+  "T2": {
+   "n_routes_applicable": 200,
+   "n_parse_failures": 0,
+   "validator_agg5": {
+    "n_violations": 0,
+    "n": 200,
+    "rate": 0.0
+   },
+   "validator_channels": {
+    "stoichiometry": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "amount_accuracy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "charge_neutrality": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursors_exist": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "operation_order": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "temperature_plausible": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "thermodynamic_favorable": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_stability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "chempot_atmosphere": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "ranker": {
+    "n_violations": 0,
+    "n": 200,
+    "rate": 0.0
+   },
+   "ranker_channels": {
+    "temperature_economy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "driving_force_margin": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "volatility_risk": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_instability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "n_precursors": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "slice_competing_phases": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_decomposition_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "comparator": {
+    "n_violations": 0,
+    "n": 190,
+    "rate": 0.0
+   },
+   "comparator_gate_flips": 0,
+   "comparator_both_gate_fail": 10,
+   "validator_agg5_mean_delta_when_violated": null,
+   "ranker_mean_delta_when_violated": null
+  },
+  "T3": {
+   "n_routes_applicable": 200,
+   "n_parse_failures": 0,
+   "validator_agg5": {
+    "n_violations": 0,
+    "n": 200,
+    "rate": 0.0
+   },
+   "validator_channels": {
+    "stoichiometry": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "amount_accuracy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "charge_neutrality": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursors_exist": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "operation_order": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "temperature_plausible": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "thermodynamic_favorable": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_stability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "chempot_atmosphere": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "ranker": {
+    "n_violations": 0,
+    "n": 200,
+    "rate": 0.0
+   },
+   "ranker_channels": {
+    "temperature_economy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "driving_force_margin": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "volatility_risk": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_instability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "n_precursors": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "slice_competing_phases": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_decomposition_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "comparator": {
+    "n_violations": 0,
+    "n": 190,
+    "rate": 0.0
+   },
+   "comparator_gate_flips": 0,
+   "comparator_both_gate_fail": 10,
+   "validator_agg5_mean_delta_when_violated": null,
+   "ranker_mean_delta_when_violated": null
+  },
+  "T4": {
+   "n_routes_applicable": 200,
+   "n_parse_failures": 0,
+   "validator_agg5": {
+    "n_violations": 0,
+    "n": 200,
+    "rate": 0.0
+   },
+   "validator_channels": {
+    "stoichiometry": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "amount_accuracy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "charge_neutrality": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursors_exist": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "operation_order": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "temperature_plausible": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "thermodynamic_favorable": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_stability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "chempot_atmosphere": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "ranker": {
+    "n_violations": 0,
+    "n": 200,
+    "rate": 0.0
+   },
+   "ranker_channels": {
+    "temperature_economy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "driving_force_margin": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "volatility_risk": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_instability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "n_precursors": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "slice_competing_phases": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_decomposition_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "comparator": {
+    "n_violations": 0,
+    "n": 190,
+    "rate": 0.0
+   },
+   "comparator_gate_flips": 0,
+   "comparator_both_gate_fail": 10,
+   "validator_agg5_mean_delta_when_violated": null,
+   "ranker_mean_delta_when_violated": null
+  },
+  "T6": {
+   "n_routes_applicable": 200,
+   "n_parse_failures": 0,
+   "validator_agg5": {
+    "n_violations": 0,
+    "n": 200,
+    "rate": 0.0
+   },
+   "validator_channels": {
+    "stoichiometry": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "amount_accuracy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "charge_neutrality": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursors_exist": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "operation_order": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "temperature_plausible": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "thermodynamic_favorable": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_stability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "chempot_atmosphere": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "ranker": {
+    "n_violations": 0,
+    "n": 200,
+    "rate": 0.0
+   },
+   "ranker_channels": {
+    "temperature_economy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "driving_force_margin": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "volatility_risk": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_instability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "n_precursors": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "slice_competing_phases": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_decomposition_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "comparator": {
+    "n_violations": 154,
+    "n": 190,
+    "rate": 0.8105263157894737
+   },
+   "comparator_gate_flips": 0,
+   "comparator_both_gate_fail": 10,
+   "validator_agg5_mean_delta_when_violated": null,
+   "ranker_mean_delta_when_violated": null
+  },
+  "T1b": {
+   "n_routes_applicable": 200,
+   "n_parse_failures": 0,
+   "validator_agg5": {
+    "n_violations": 172,
+    "n": 200,
+    "rate": 0.86
+   },
+   "validator_channels": {
+    "stoichiometry": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "amount_accuracy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "charge_neutrality": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursors_exist": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "operation_order": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "temperature_plausible": {
+     "n_violations": 200,
+     "n": 200,
+     "rate": 1.0
+    },
+    "thermodynamic_favorable": {
+     "n_violations": 172,
+     "n": 200,
+     "rate": 0.86
+    },
+    "target_stability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "chempot_atmosphere": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "ranker": {
+    "n_violations": 190,
+    "n": 200,
+    "rate": 0.95
+   },
+   "ranker_channels": {
+    "temperature_economy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "driving_force_margin": {
+     "n_violations": 171,
+     "n": 200,
+     "rate": 0.855
+    },
+    "volatility_risk": {
+     "n_violations": 190,
+     "n": 200,
+     "rate": 0.95
+    },
+    "precursor_instability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "n_precursors": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "slice_competing_phases": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_decomposition_match": {
+     "n_violations": 185,
+     "n": 200,
+     "rate": 0.925
+    }
+   },
+   "comparator": {
+    "n_violations": 0,
+    "n": 190,
+    "rate": 0.0
+   },
+   "comparator_gate_flips": 0,
+   "comparator_both_gate_fail": 10,
+   "validator_agg5_mean_delta_when_violated": -0.11660262301720763,
+   "ranker_mean_delta_when_violated": -0.421711052631579
+  },
+  "T2b": {
+   "n_routes_applicable": 200,
+   "n_parse_failures": 0,
+   "validator_agg5": {
+    "n_violations": 0,
+    "n": 200,
+    "rate": 0.0
+   },
+   "validator_channels": {
+    "stoichiometry": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "amount_accuracy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "charge_neutrality": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursors_exist": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "operation_order": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "temperature_plausible": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "thermodynamic_favorable": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_stability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "chempot_atmosphere": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "target_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "ranker": {
+    "n_violations": 0,
+    "n": 200,
+    "rate": 0.0
+   },
+   "ranker_channels": {
+    "temperature_economy": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "driving_force_margin": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "volatility_risk": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_instability": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "n_precursors": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "slice_competing_phases": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    },
+    "precursor_decomposition_match": {
+     "n_violations": 0,
+     "n": 200,
+     "rate": 0.0
+    }
+   },
+   "comparator": {
+    "n_violations": 0,
+    "n": 190,
+    "rate": 0.0
+   },
+   "comparator_gate_flips": 0,
+   "comparator_both_gate_fail": 10,
+   "validator_agg5_mean_delta_when_violated": null,
+   "ranker_mean_delta_when_violated": null
+  }
+ },
+ "report_card_R_a_prime": {
+  "validator_5ch": {
+   "total_violations_T1_T6": 10,
+   "R_a_prime_passes": false,
+   "by_T": {
+    "T1": 10,
+    "T2": 0,
+    "T3": 0,
+    "T4": 0,
+    "T6": 0
+   }
+  },
+  "ranker_v2": {
+   "total_violations_T1_T6": 190,
+   "R_a_prime_passes": false,
+   "by_T": {
+    "T1": 190,
+    "T2": 0,
+    "T3": 0,
+    "T4": 0,
+    "T6": 0
+   }
+  },
+  "comparator": {
+   "total_violations_T1_T6": 344,
+   "R_a_prime_passes": false,
+   "by_T": {
+    "T1": 190,
+    "T2": 0,
+    "T3": 0,
+    "T4": 0,
+    "T6": 154
+   }
+  }
+ },
+ "parse_examples": [
+  {
+   "i": 0,
+   "target": "LiZnPO4",
+   "T1_parsed_temps": [
+    [
+     298.15
+    ],
+    [
+     1073.15
+    ],
+    [
+     1273.15
+    ],
+    [
+     773.15
+    ]
+   ],
+   "T2_parsed_times": [
+    [
+     60.0
+    ],
+    [
+     720.0
+    ],
+    [
+     960.0
+    ],
+    [
+     600.0
+    ]
+   ]
+  },
+  {
+   "i": 1,
+   "target": "LiZnPO4",
+   "T1_parsed_temps": [
+    [
+     298.15
+    ],
+    [
+     373.15
+    ],
+    [
+     873.15
+    ],
+    [
+     1173.15
+    ]
+   ],
+   "T2_parsed_times": [
+    [
+     120.0
+    ],
+    [
+     720.0
+    ],
+    [
+     360.0
+    ],
+    [
+     720.0
+    ]
+   ]
+  },
+  {
+   "i": 2,
+   "target": "LiZnPO4",
+   "T1_parsed_temps": [
+    [
+     298.15
+    ],
+    [
+     373.15
+    ],
+    [
+     973.15
+    ],
+    [
+     1173.15
+    ]
+   ],
+   "T2_parsed_times": [
+    [
+     120.0
+    ],
+    [
+     240.0
+    ],
+    [
+     720.0
+    ],
+    [
+     960.0
+    ]
+   ]
+  }
+ ]
+}

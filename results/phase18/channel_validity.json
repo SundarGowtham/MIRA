@@ -1,0 +1,574 @@
+{
+ "prereg_commit": null,
+ "prereg_blob_sha": "5c0a84ce0161f03f19a6198ac0aa7fffe949f5ac",
+ "prereg_commit_note": "PHASE18_PREREG.md was not yet committed when this ran (Gowtham asked for unattended execution; he commits his own work). prereg_blob_sha is the git content hash of the spec at run time; once committed, `git log --find-object=<blob>` recovers the commit.",
+ "repo_head_at_run": "e41745bf2ef2ddc740b8dc5f899548c0c0766122",
+ "seed": 20261115,
+ "block": "18F",
+ "n_boot": 10000,
+ "n_perm": 2000,
+ "C_measure": {
+  "n_validator_channels_surviving_holm_YBCO": 3,
+  "best_minus_aggregate_YBCO": {
+   "best_channel": "precursors_exist",
+   "best_point_bits": 0.024791163187759584,
+   "vs": {
+    "R2_checker_vote": {
+     "diff_bits_same_pairs": -0.000519837583060262,
+     "ci95": [
+      -0.05523816809821416,
+      0.056538364476472106
+     ],
+     "n_pairs": 1915,
+     "ci_excludes_0": false
+    },
+    "R4_ranker": {
+     "diff_bits_same_pairs": 0.017067235908139036,
+     "ci95": [
+      -0.013485800836713429,
+      0.05724837009533158
+     ],
+     "n_pairs": 1915,
+     "ci_excludes_0": false
+    },
+    "R5_comparator": {
+     "diff_bits_same_pairs": 0.0029987902869574815,
+     "ci95": [
+      -0.016567742555607484,
+      0.04302908092004524
+     ],
+     "n_pairs": 1647,
+     "ci_excludes_0": false
+    }
+   },
+   "selection_note": "best channel chosen on the full data by point CMI; the CI does not account for selection"
+  },
+  "interpretation": "no channel beats the aggregates => no channel knows the lab better (pre-registered reading)"
+ },
+ "ybco_primary": {
+  "label": "YBCO_primary",
+  "n_pairs": 1915,
+  "aggregates": {
+   "R2_checker_vote": {
+    "point_bits": 0.025311000770819846,
+    "ci95_bits": [
+     0.006271189330426585,
+     0.08556674392396237
+    ],
+    "perm_p": 0.0004997501249375312,
+    "null_mean_bits": 0.002356377688205356,
+    "n_pairs": 1915
+   },
+   "R4_ranker": {
+    "point_bits": 0.0077239272796205466,
+    "ci95_bits": [
+     0.003213539690854598,
+     0.05468422949217673
+    ],
+    "perm_p": 0.001999000499750125,
+    "null_mean_bits": 0.0023316221574701504,
+    "n_pairs": 1915
+   },
+   "R5_comparator": {
+    "point_bits": 0.012652067025114172,
+    "ci95_bits": [
+     0.0011349780300373227,
+     0.06347158243604709
+    ],
+    "perm_p": 0.0004997501249375312,
+    "null_mean_bits": 0.0013087273761008555,
+    "n_pairs": 1647
+   }
+  },
+  "channels": {
+   "stoichiometry": {
+    "point_bits": 0.003078132001600982,
+    "ci95_bits": [
+     0.0012166716445550668,
+     0.043846255805361556
+    ],
+    "perm_p": 0.2543728135932034,
+    "null_mean_bits": 0.002363377675432292,
+    "n_pairs": 1915,
+    "holm_alpha": 0.0071428571428571435,
+    "holm_survives": false,
+    "holm_level_ci_null_centred_bits": [
+     -0.002363377675432292,
+     0.06349471905688733
+    ]
+   },
+   "amount_accuracy": {
+    "point_bits": 0.019659484602592047,
+    "ci95_bits": [
+     0.00485730399999419,
+     0.09790637766050561
+    ],
+    "perm_p": 0.0004997501249375312,
+    "null_mean_bits": 0.0029363322767208323,
+    "n_pairs": 1524,
+    "holm_alpha": 0.005,
+    "holm_survives": true,
+    "holm_level_ci_null_centred_bits": [
+     -0.0008352698513740668,
+     0.14628778159661907
+    ]
+   },
+   "charge_neutrality": {
+    "point_bits": 0.0,
+    "n_pairs": 1915,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.008333333333333333,
+    "holm_survives": false
+   },
+   "precursors_exist": {
+    "point_bits": 0.024791163187759584,
+    "ci95_bits": [
+     0.004769360632710276,
+     0.09242071983286632
+    ],
+    "perm_p": 0.0004997501249375312,
+    "null_mean_bits": 0.002315911477868043,
+    "n_pairs": 1915,
+    "holm_alpha": 0.005555555555555556,
+    "holm_survives": true,
+    "holm_level_ci_null_centred_bits": [
+     -0.0005958472147418251,
+     0.12413285471270376
+    ]
+   },
+   "operation_order": {
+    "point_bits": 0.0,
+    "n_pairs": 1915,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.01,
+    "holm_survives": false
+   },
+   "temperature_plausible": {
+    "point_bits": 0.0,
+    "n_pairs": 1915,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.0125,
+    "holm_survives": false
+   },
+   "thermodynamic_favorable": {
+    "point_bits": 0.01755858878313825,
+    "ci95_bits": [
+     0.0033378832045378934,
+     0.1128351159794963
+    ],
+    "perm_p": 0.0014992503748125937,
+    "null_mean_bits": 0.004605364341429388,
+    "n_pairs": 802,
+    "holm_alpha": 0.00625,
+    "holm_survives": true,
+    "holm_level_ci_null_centred_bits": [
+     -0.0035683449578145037,
+     0.15807107621997515
+    ]
+   },
+   "target_stability": {
+    "point_bits": 0.0,
+    "n_pairs": 1915,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.016666666666666666,
+    "holm_survives": false
+   },
+   "chempot_atmosphere": {
+    "point_bits": 0.0,
+    "n_pairs": 1915,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.025,
+    "holm_survives": false
+   },
+   "target_match": {
+    "point_bits": 0.0,
+    "n_pairs": 1915,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.05,
+    "holm_survives": false
+   }
+  },
+  "E_ranker_channels": {
+   "temperature_economy": {
+    "point_bits": 0.0,
+    "n_pairs": 0,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.0125,
+    "holm_survives": false
+   },
+   "driving_force_margin": {
+    "point_bits": 0.0192858093205271,
+    "ci95_bits": [
+     0.007038809081815551,
+     0.08490960642438357
+    ],
+    "perm_p": 0.004497751124437781,
+    "null_mean_bits": 0.006199930805058367,
+    "n_pairs": 704,
+    "holm_alpha": 0.0071428571428571435,
+    "holm_survives": true,
+    "holm_level_ci_null_centred_bits": [
+     -0.0029063975470617768,
+     0.11623169278515809
+    ]
+   },
+   "volatility_risk": {
+    "point_bits": 0.0,
+    "n_pairs": 0,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.016666666666666666,
+    "holm_survives": false
+   },
+   "precursor_instability": {
+    "point_bits": 0.004044996593889086,
+    "ci95_bits": [
+     0.003263431527803143,
+     0.07883881720868766
+    ],
+    "perm_p": 0.6911544227886057,
+    "null_mean_bits": 0.006286951262818379,
+    "n_pairs": 704,
+    "holm_alpha": 0.01,
+    "holm_survives": false,
+    "holm_level_ci_null_centred_bits": [
+     -0.004632827940811953,
+     0.10928899193109941
+    ]
+   },
+   "n_precursors": {
+    "point_bits": 0.00947928311273773,
+    "ci95_bits": [
+     0.004283534089497781,
+     0.07077407026549272
+    ],
+    "perm_p": 0.17791104447776113,
+    "null_mean_bits": 0.006431820431072286,
+    "n_pairs": 704,
+    "holm_alpha": 0.008333333333333333,
+    "holm_survives": false,
+    "holm_level_ci_null_centred_bits": [
+     -0.004291780738280789,
+     0.09591876882703011
+    ]
+   },
+   "slice_competing_phases": {
+    "point_bits": 0.0,
+    "n_pairs": 2,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.025,
+    "holm_survives": false
+   },
+   "precursor_decomposition_match": {
+    "point_bits": 0.0,
+    "n_pairs": 60,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.05,
+    "holm_survives": false
+   }
+  },
+  "n_channels_surviving_holm": 3,
+  "best_minus_aggregate": {
+   "best_channel": "precursors_exist",
+   "best_point_bits": 0.024791163187759584,
+   "vs": {
+    "R2_checker_vote": {
+     "diff_bits_same_pairs": -0.000519837583060262,
+     "ci95": [
+      -0.05523816809821416,
+      0.056538364476472106
+     ],
+     "n_pairs": 1915,
+     "ci_excludes_0": false
+    },
+    "R4_ranker": {
+     "diff_bits_same_pairs": 0.017067235908139036,
+     "ci95": [
+      -0.013485800836713429,
+      0.05724837009533158
+     ],
+     "n_pairs": 1915,
+     "ci_excludes_0": false
+    },
+    "R5_comparator": {
+     "diff_bits_same_pairs": 0.0029987902869574815,
+     "ci95": [
+      -0.016567742555607484,
+      0.04302908092004524
+     ],
+     "n_pairs": 1647,
+     "ci_excludes_0": false
+    }
+   },
+   "selection_note": "best channel chosen on the full data by point CMI; the CI does not account for selection"
+  }
+ },
+ "astral_35_small": {
+  "label": "ASTRAL_35_SMALL",
+  "n_pairs": 35,
+  "aggregates": {
+   "R2_checker_vote": {
+    "point_bits": 0.048363895693368505,
+    "ci95_bits": [
+     0.0,
+     0.2938152624082995
+    ],
+    "perm_p": 0.7481259370314842,
+    "null_mean_bits": 0.05731078649638524,
+    "n_pairs": 35
+   },
+   "R4_ranker": {
+    "point_bits": 0.045861262932034796,
+    "ci95_bits": [
+     0.00011826340098853661,
+     0.3942085222734418
+    ],
+    "perm_p": 0.24387806096951525,
+    "null_mean_bits": 0.021284130994680864,
+    "n_pairs": 35
+   },
+   "R5_comparator": {
+    "point_bits": 0.0,
+    "ci95_bits": [
+     0.0,
+     0.0
+    ],
+    "perm_p": 1.0,
+    "null_mean_bits": 0.0,
+    "n_pairs": 35
+   }
+  },
+  "channels": {
+   "stoichiometry": {
+    "point_bits": 0.02846047028408677,
+    "ci95_bits": [
+     9.691933518995305e-05,
+     0.40832646544597895
+    ],
+    "perm_p": 0.31284357821089454,
+    "null_mean_bits": 0.021049259549250268,
+    "n_pairs": 35,
+    "holm_alpha": 0.005555555555555556,
+    "holm_survives": false,
+    "holm_level_ci_null_centred_bits": [
+     -0.021049259549250268,
+     0.6233581380401083
+    ]
+   },
+   "amount_accuracy": {
+    "point_bits": 0.30583048285065445,
+    "ci95_bits": [
+     0.0,
+     0.9182958340544893
+    ],
+    "perm_p": 0.05697151424287856,
+    "null_mean_bits": 0.1150673193881139,
+    "n_pairs": 17,
+    "holm_alpha": 0.005,
+    "holm_survives": false,
+    "holm_level_ci_null_centred_bits": [
+     -0.1150673193881139,
+     0.8849326806118861
+    ]
+   },
+   "charge_neutrality": {
+    "point_bits": 0.0,
+    "n_pairs": 35,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.00625,
+    "holm_survives": false
+   },
+   "precursors_exist": {
+    "point_bits": 0.0,
+    "n_pairs": 35,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.0071428571428571435,
+    "holm_survives": false
+   },
+   "operation_order": {
+    "point_bits": 0.0,
+    "n_pairs": 35,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.008333333333333333,
+    "holm_survives": false
+   },
+   "temperature_plausible": {
+    "point_bits": 0.0,
+    "n_pairs": 35,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.01,
+    "holm_survives": false
+   },
+   "thermodynamic_favorable": {
+    "point_bits": 0.0,
+    "ci95_bits": [
+     2.170557959353366e-05,
+     0.3753050197867057
+    ],
+    "perm_p": 1.0,
+    "null_mean_bits": 0.02937047239540377,
+    "n_pairs": 27,
+    "holm_alpha": 0.0125,
+    "holm_survives": false,
+    "holm_level_ci_null_centred_bits": [
+     -0.02937047239540377,
+     0.5257616418298974
+    ]
+   },
+   "target_stability": {
+    "point_bits": 0.0,
+    "n_pairs": 31,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.016666666666666666,
+    "holm_survives": false
+   },
+   "chempot_atmosphere": {
+    "point_bits": 0.0,
+    "n_pairs": 31,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.025,
+    "holm_survives": false
+   },
+   "target_match": {
+    "point_bits": 0.0,
+    "n_pairs": 35,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.05,
+    "holm_survives": false
+   }
+  },
+  "E_ranker_channels": {
+   "temperature_economy": {
+    "point_bits": 0.0,
+    "n_pairs": 0,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.01,
+    "holm_survives": false
+   },
+   "driving_force_margin": {
+    "point_bits": 0.03661486426111539,
+    "ci95_bits": [
+     9.651521769558132e-05,
+     0.49863350108749305
+    ],
+    "perm_p": 0.41179410294852575,
+    "null_mean_bits": 0.02843724183582918,
+    "n_pairs": 27,
+    "holm_alpha": 0.0071428571428571435,
+    "holm_survives": false,
+    "holm_level_ci_null_centred_bits": [
+     -0.02843724183582918,
+     0.7266477099839506
+    ]
+   },
+   "volatility_risk": {
+    "point_bits": 0.058044871045840565,
+    "ci95_bits": [
+     0.0,
+     0.24940962128572508
+    ],
+    "perm_p": 0.6846576711644178,
+    "null_mean_bits": 0.05746838705156941,
+    "n_pairs": 35,
+    "holm_alpha": 0.008333333333333333,
+    "holm_survives": false,
+    "holm_level_ci_null_centred_bits": [
+     -0.05746838705156941,
+     0.2980830112434733
+    ]
+   },
+   "precursor_instability": {
+    "point_bits": 0.03222740227496048,
+    "ci95_bits": [
+     0.0,
+     0.20909644351439205
+    ],
+    "perm_p": 1.0,
+    "null_mean_bits": 0.03818182628666949,
+    "n_pairs": 27,
+    "holm_alpha": 0.0125,
+    "holm_survives": false,
+    "holm_level_ci_null_centred_bits": [
+     -0.03818182628666949,
+     0.28284200240138185
+    ]
+   },
+   "n_precursors": {
+    "point_bits": 0.0,
+    "n_pairs": 35,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.016666666666666666,
+    "holm_survives": false
+   },
+   "slice_competing_phases": {
+    "point_bits": 0.0,
+    "n_pairs": 0,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.025,
+    "holm_survives": false
+   },
+   "precursor_decomposition_match": {
+    "point_bits": 0.0,
+    "n_pairs": 0,
+    "perm_p": 1.0,
+    "note": "fewer than 10 gradeable pairs or no variation in sign(c_a - c_b)",
+    "holm_alpha": 0.05,
+    "holm_survives": false
+   }
+  },
+  "n_channels_surviving_holm": 0,
+  "best_minus_aggregate": {
+   "best_channel": "amount_accuracy",
+   "best_point_bits": 0.30583048285065445,
+   "vs": {
+    "R2_checker_vote": {
+     "diff_bits_same_pairs": 0.16103828126962072,
+     "ci95": [
+      -4.163336342344337e-17,
+      0.46101656295935506
+     ],
+     "n_pairs": 17,
+     "ci_excludes_0": false
+    },
+    "R4_ranker": {
+     "diff_bits_same_pairs": 0.24950440706977448,
+     "ci95": [
+      0.0,
+      0.8264662506490404
+     ],
+     "n_pairs": 17,
+     "ci_excludes_0": false
+    },
+    "R5_comparator": {
+     "diff_bits_same_pairs": 0.30583048285065445,
+     "ci95": [
+      0.0,
+      0.9182958340544893
+     ],
+     "n_pairs": 17,
+     "ci_excludes_0": false
+    }
+   },
+   "selection_note": "best channel chosen on the full data by point CMI; the CI does not account for selection"
+  }
+ }
+}
