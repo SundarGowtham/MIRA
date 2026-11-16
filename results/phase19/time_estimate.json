@@ -1,0 +1,33 @@
+{
+ "prereg_commit": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "prereg_blob_sha": "4df94b3aa65330ebe14be3025b9c3ca62c8c4d19",
+ "repo_head_at_run": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "seed": 20261116,
+ "block": "0-time",
+ "load_seconds": 5.370424270629883,
+ "probe_target_for_timing": "K3Al2(PO4)3",
+ "n_probe_strings": 671,
+ "seconds_one_config_one_target": 0.32232141494750977,
+ "kv_cache_vs_full_max_abs_diff_nats": 1.035308837890625,
+ "hybrid_smoke_first3": [
+  -21.86057472229004,
+  -44.02032470703125,
+  -24.197404861450195
+ ],
+ "sketch_vs_autograd_rel_err": 0.002886904403567314,
+ "seconds_probe_backward_batch8": 3.018604278564453,
+ "seconds_sft_1024": 0.3770265579223633,
+ "rl_longest_tokens": 9044,
+ "rl_mean_tokens": 6213.7275,
+ "seconds_rl_longest": 4.145374298095703,
+ "rl_longest_fits": true,
+ "rl_oom": null,
+ "peak_gib_rl_longest": 21.05398654937744,
+ "estimate_gpu_hours": {
+  "G": 0.016020568105909558,
+  "E": 0.9131723820368448,
+  "D": 1.3555183456115023,
+  "F1": 0.6007713039716085
+ },
+ "estimate_notes": "G: 8 models x all probe strings. E: 6 steps x (19 bottom-up + 19 top-down + 36 single-layer + before/after) configs. D: probe sketches at 3 before-models + 6 after-models (lazy check), SFT as-trained sequences (E3, E3c, RS-SFT), 800 RL completions. F1: 4 primary steps x (collection + 7 k x 21 subspaces + global vector) on half the targets."
+}

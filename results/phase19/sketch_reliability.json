@@ -1,0 +1,17 @@
+{
+ "prereg_commit": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "prereg_blob_sha": "4df94b3aa65330ebe14be3025b9c3ca62c8c4d19",
+ "repo_head_at_run": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "seed": 20261116,
+ "block": "D [E] sketch reliability",
+ "seed_A": 20261116,
+ "seed_B": 20261117,
+ "pearson_kernel_seedA_vs_seedB_within_target_pairs": 0.8814352759943187,
+ "pearson_kernel_seedA_vs_seedB_random_pairs": 0.6124454723417423,
+ "approx_r_true_within": 0.938847844964411,
+ "approx_r_true_random": 0.7825889549065603,
+ "pearson_gradient_norm_seedA_vs_seedB": 0.9610651567646021,
+ "pearson_cosine_kernel_within_target": 0.8741422049066462,
+ "S3_dhat_seedA_vs_seedB_spearman_pooled": 0.35202677796878923,
+ "S3_dhat_seedA_vs_seedB_spearman_per_target_median": 0.3259803921568628
+}

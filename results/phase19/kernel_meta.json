@@ -1,0 +1,92 @@
+{
+ "prereg_commit": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "prereg_blob_sha": "4df94b3aa65330ebe14be3025b9c3ca62c8c4d19",
+ "repo_head_at_run": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "seed": 20261116,
+ "block": "D",
+ "sketch_check": {
+  "modules": {
+   "layer5.q_proj": {
+    "pearson": 0.7332573427975413,
+    "exact_ip_range": [
+     -605.8493041992188,
+     1610.806396484375
+    ]
+   },
+   "layer17.v_proj": {
+    "pearson": 0.7055453223359403,
+    "exact_ip_range": [
+     7943.90380859375,
+     32770.02734375
+    ]
+   },
+   "layer26.down_proj": {
+    "pearson": 0.669498803217208,
+    "exact_ip_range": [
+     -188.57826232910156,
+     15132.802734375
+    ]
+   },
+   "layer33.o_proj": {
+    "pearson": 0.770234914935567,
+    "exact_ip_range": [
+     771.3667602539062,
+     3786.488037109375
+    ]
+   }
+  },
+  "n_pairs": 50,
+  "n_strings": 20,
+  "min_pearson": 0.669498803217208,
+  "passes_0.95_every_module": false
+ },
+ "lazy_check": {
+  "S3": {
+   "cka_pooled": 0.4300947345245771,
+   "cka_per_target_median_E": 0.8643860690461379,
+   "below_0.8_note": "CKA < 0.8: D-1 describes only the start of training."
+  },
+  "S4": {
+   "cka_pooled": 0.5271386919373201,
+   "cka_per_target_median_E": 0.8681666588524319,
+   "below_0.8_note": "CKA < 0.8: D-1 describes only the start of training."
+  },
+  "S6": {
+   "cka_pooled": 0.8711047639533208,
+   "cka_per_target_median_E": 0.9808369365805353,
+   "below_0.8_note": null
+  },
+  "S7": {
+   "cka_pooled": 0.6168760372973113,
+   "cka_per_target_median_E": 0.9839901639689983,
+   "below_0.8_note": "CKA < 0.8: D-1 describes only the start of training."
+  },
+  "S2": {
+   "cka_pooled": 0.4224124776123892,
+   "cka_per_target_median_E": 0.8722485694874014,
+   "below_0.8_note": "CKA < 0.8: D-1 describes only the start of training."
+  }
+ },
+ "update_directions": {
+  "S3": {
+   "n": 505,
+   "mean_tokens": 1024.0
+  },
+  "S4": {
+   "n": 505,
+   "mean_tokens": 1024.0
+  },
+  "S6": {
+   "n": 400,
+   "mean_tokens": 5373.6725
+  },
+  "S7": {
+   "n": 400,
+   "mean_tokens": 5328.0025
+  },
+  "S2": {
+   "n": 283,
+   "mean_tokens": 1024.0
+  }
+ }
+}

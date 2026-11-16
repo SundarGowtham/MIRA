@@ -1,0 +1,194 @@
+{
+ "prereg_commit": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "prereg_blob_sha": "4df94b3aa65330ebe14be3025b9c3ca62c8c4d19",
+ "repo_head_at_run": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "seed": 20261116,
+ "block": "D",
+ "P_19D_2": {
+  "statement": "S6, S7: median reach ratio < 1 with CI excluding 1.",
+  "per_step": {
+   "S6": {
+    "status": "tested",
+    "median_ratio": 1.037678344949583,
+    "ci95": [
+     0.8302895503962796,
+     1.3030997918623075
+    ],
+    "passes": false,
+    "n_usable_targets": 29
+   },
+   "S7": {
+    "status": "tested",
+    "median_ratio": 1.1954407168749053,
+    "ci95": [
+     1.0644933050652252,
+     1.2931432833851977
+    ],
+    "passes": false,
+    "n_usable_targets": 29
+   }
+  }
+ },
+ "by_step": {
+  "S6": {
+   "n_usable_targets": 29,
+   "usable_targets": [
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3",
+    "Ba2Bi0.6667TeO6",
+    "Ba2La3Ti3TaO15",
+    "Ba3In4Cu3O12",
+    "BaBrCl",
+    "BaNaBO3",
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3",
+    "InMn0.9957Fe0.01O3",
+    "K2Zr(PO4)2",
+    "K3Al2(PO4)3",
+    "K3Bi2(PO4)3",
+    "K3LiP2O7",
+    "KLi(PO3)2",
+    "KNiPO4",
+    "KTa2PO8",
+    "KTiPO5",
+    "La1.85Sr0.15CuO4",
+    "LaNi0.5Rh0.5O3",
+    "Li2TeO4",
+    "Li3Pr2(BO3)3",
+    "LiBi3O4Cl2",
+    "LiFe(BO3)0.5(PO4)0.5",
+    "LiPO3",
+    "LiZnPO4",
+    "NaNiO2",
+    "NaSiBO4",
+    "Pb(Zr0.47Ti0.53)O3",
+    "Sr2MnNbO6",
+    "SrUO4"
+   ],
+   "per_target_ratio": {
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": 1.081554043655085,
+    "Ba2Bi0.6667TeO6": 1.3310547033352302,
+    "Ba2La3Ti3TaO15": 0.8302895503962796,
+    "Ba3In4Cu3O12": 0.44409610505902564,
+    "BaBrCl": 1.045405267585025,
+    "BaNaBO3": 0.2593584908440538,
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3": 0.46407590148335587,
+    "InMn0.9957Fe0.01O3": 2.2555668762345777,
+    "K2Zr(PO4)2": 1.3338355909993684,
+    "K3Al2(PO4)3": 0.9700892330959795,
+    "K3Bi2(PO4)3": 0.8942799217762338,
+    "K3LiP2O7": 1.3431727901497106,
+    "KLi(PO3)2": 1.4098356075358316,
+    "KNiPO4": 0.7478659928421997,
+    "KTa2PO8": 0.8354254629283091,
+    "KTiPO5": 0.8137537661269364,
+    "La1.85Sr0.15CuO4": 0.8243352816818587,
+    "LaNi0.5Rh0.5O3": 1.355520066416098,
+    "Li2TeO4": 1.859058049897029,
+    "Li3Pr2(BO3)3": 1.1552396915087504,
+    "LiBi3O4Cl2": 1.0321121752874411,
+    "LiFe(BO3)0.5(PO4)0.5": 1.037678344949583,
+    "LiPO3": 0.8003342269796468,
+    "LiZnPO4": 1.160059299203409,
+    "NaNiO2": 0.762009545517369,
+    "NaSiBO4": 1.4561410015346552,
+    "Pb(Zr0.47Ti0.53)O3": 2.5262302925914035,
+    "Sr2MnNbO6": 0.6167098942116568,
+    "SrUO4": 1.3030997918623075
+   },
+   "status": "tested",
+   "median_ratio": 1.037678344949583,
+   "ci95": [
+    0.8302895503962796,
+    1.3030997918623075
+   ],
+   "passes": false,
+   "E_length_normalized": {
+    "median_ratio": 0.9916817416188863,
+    "ci95": [
+     0.8844341804581664,
+     1.1497472261574806
+    ]
+   },
+   "E_partial_spearman_absdhat_unsampled_given_len_gradnorm_target": 0.007197084742436602
+  },
+  "S7": {
+   "n_usable_targets": 29,
+   "usable_targets": [
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3",
+    "Ba2Bi0.6667TeO6",
+    "Ba2La3Ti3TaO15",
+    "Ba3In4Cu3O12",
+    "BaBrCl",
+    "BaNaBO3",
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3",
+    "InMn0.9957Fe0.01O3",
+    "K2Zr(PO4)2",
+    "K3Al2(PO4)3",
+    "K3Bi2(PO4)3",
+    "K3LiP2O7",
+    "KLi(PO3)2",
+    "KNiPO4",
+    "KTa2PO8",
+    "KTiPO5",
+    "La1.85Sr0.15CuO4",
+    "LaNi0.5Rh0.5O3",
+    "Li2TeO4",
+    "Li3Pr2(BO3)3",
+    "LiBi3O4Cl2",
+    "LiFe(BO3)0.5(PO4)0.5",
+    "LiPO3",
+    "LiZnPO4",
+    "NaNiO2",
+    "NaSiBO4",
+    "Pb(Zr0.47Ti0.53)O3",
+    "Sr2MnNbO6",
+    "SrUO4"
+   ],
+   "per_target_ratio": {
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": 3.2405348739902284,
+    "Ba2Bi0.6667TeO6": 0.9657887994224721,
+    "Ba2La3Ti3TaO15": 1.2895329812616887,
+    "Ba3In4Cu3O12": 1.2931432833851977,
+    "BaBrCl": 1.2373555498436124,
+    "BaNaBO3": 1.0237265706337058,
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3": 0.29106091668649753,
+    "InMn0.9957Fe0.01O3": 0.7607956106326053,
+    "K2Zr(PO4)2": 1.1954407168749053,
+    "K3Al2(PO4)3": 0.6408048450449376,
+    "K3Bi2(PO4)3": 3.1042979684832175,
+    "K3LiP2O7": 1.1599959115525673,
+    "KLi(PO3)2": 1.270819712305449,
+    "KNiPO4": 1.5083424597690342,
+    "KTa2PO8": 0.977891036884727,
+    "KTiPO5": 1.0644933050652252,
+    "La1.85Sr0.15CuO4": 1.317416355442571,
+    "LaNi0.5Rh0.5O3": 1.2224695875297276,
+    "Li2TeO4": 0.9258119237224628,
+    "Li3Pr2(BO3)3": 1.1628163378338623,
+    "LiBi3O4Cl2": 1.0927503145824988,
+    "LiFe(BO3)0.5(PO4)0.5": 1.897425717820234,
+    "LiPO3": 1.885786690805742,
+    "LiZnPO4": 1.313545168978709,
+    "NaNiO2": 1.5575526837860916,
+    "NaSiBO4": 1.1058272682893533,
+    "Pb(Zr0.47Ti0.53)O3": 1.563333274307368,
+    "Sr2MnNbO6": 0.6970393423032422,
+    "SrUO4": 0.7996432266538335
+   },
+   "status": "tested",
+   "median_ratio": 1.1954407168749053,
+   "ci95": [
+    1.0644933050652252,
+    1.2931432833851977
+   ],
+   "passes": false,
+   "E_length_normalized": {
+    "median_ratio": 1.1845809770104223,
+    "ci95": [
+     1.0042343594885739,
+     1.2559847723841788
+    ]
+   },
+   "E_partial_spearman_absdhat_unsampled_given_len_gradnorm_target": 0.06031658208977271
+  }
+ }
+}

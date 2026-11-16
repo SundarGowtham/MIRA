@@ -1,0 +1,1274 @@
+{
+ "prereg_commit": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "prereg_blob_sha": "4df94b3aa65330ebe14be3025b9c3ca62c8c4d19",
+ "repo_head_at_run": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "seed": 20261116,
+ "block": "0",
+ "probe_strings": {
+  "file": "results/phase19/probe_strings.jsonl",
+  "n_rows": 671,
+  "per_target": {
+   "BaLiBO3": {
+    "n_distinct_recipes_pooled": 17,
+    "n_chosen": 15,
+    "n_skipped_no_string": 2,
+    "n_samples_parsed": {
+     "base": 231,
+     "corpus_sft": 32,
+     "rs_sft": 227,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "BaNaBO3": {
+    "n_distinct_recipes_pooled": 29,
+    "n_chosen": 28,
+    "n_skipped_no_string": 1,
+    "n_samples_parsed": {
+     "base": 226,
+     "corpus_sft": 31,
+     "rs_sft": 228,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "K2Zr(PO4)2": {
+    "n_distinct_recipes_pooled": 17,
+    "n_chosen": 17,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 230,
+     "corpus_sft": 32,
+     "rs_sft": 230,
+     "e3": 30,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 31
+    }
+   },
+   "K3Al2(PO4)3": {
+    "n_distinct_recipes_pooled": 32,
+    "n_chosen": 30,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 229,
+     "corpus_sft": 32,
+     "rs_sft": 219,
+     "e3": 31,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 30,
+     "e1_ckpt300": 32
+    }
+   },
+   "K3Bi2(PO4)3": {
+    "n_distinct_recipes_pooled": 19,
+    "n_chosen": 17,
+    "n_skipped_no_string": 2,
+    "n_samples_parsed": {
+     "base": 229,
+     "corpus_sft": 31,
+     "rs_sft": 224,
+     "e3": 32,
+     "e3c": 31,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 28,
+     "e1_ckpt300": 31
+    }
+   },
+   "K3LiP2O7": {
+    "n_distinct_recipes_pooled": 26,
+    "n_chosen": 24,
+    "n_skipped_no_string": 2,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 32,
+     "rs_sft": 225,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 31
+    }
+   },
+   "KLi(PO3)2": {
+    "n_distinct_recipes_pooled": 31,
+    "n_chosen": 24,
+    "n_skipped_no_string": 7,
+    "n_samples_parsed": {
+     "base": 231,
+     "corpus_sft": 31,
+     "rs_sft": 220,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "KNiPO4": {
+    "n_distinct_recipes_pooled": 45,
+    "n_chosen": 30,
+    "n_skipped_no_string": 1,
+    "n_samples_parsed": {
+     "base": 230,
+     "corpus_sft": 32,
+     "rs_sft": 219,
+     "e3": 32,
+     "e3c": 31,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 31,
+     "e1_ckpt300": 30
+    }
+   },
+   "KTa2PO8": {
+    "n_distinct_recipes_pooled": 27,
+    "n_chosen": 24,
+    "n_skipped_no_string": 3,
+    "n_samples_parsed": {
+     "base": 224,
+     "corpus_sft": 31,
+     "rs_sft": 217,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 31,
+     "e1_ckpt300": 30
+    }
+   },
+   "KTiPO5": {
+    "n_distinct_recipes_pooled": 23,
+    "n_chosen": 21,
+    "n_skipped_no_string": 2,
+    "n_samples_parsed": {
+     "base": 229,
+     "corpus_sft": 31,
+     "rs_sft": 225,
+     "e3": 32,
+     "e3c": 29,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 31,
+     "e1_ckpt300": 32
+    }
+   },
+   "Li2TiGeO5": {
+    "n_distinct_recipes_pooled": 4,
+    "n_chosen": 4,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 31,
+     "rs_sft": 232,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "Li3Pr2(BO3)3": {
+    "n_distinct_recipes_pooled": 30,
+    "n_chosen": 27,
+    "n_skipped_no_string": 3,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 31,
+     "rs_sft": 225,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 30,
+     "phase12_ckpt300": 28,
+     "e1_ckpt300": 32
+    }
+   },
+   "Li3Y2(BO3)3": {
+    "n_distinct_recipes_pooled": 11,
+    "n_chosen": 11,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 230,
+     "corpus_sft": 31,
+     "rs_sft": 227,
+     "e3": 32,
+     "e3c": 31,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 31,
+     "e1_ckpt300": 29
+    }
+   },
+   "LiGeBO4": {
+    "n_distinct_recipes_pooled": 8,
+    "n_chosen": 8,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 32,
+     "rs_sft": 229,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "LiNbGeO5": {
+    "n_distinct_recipes_pooled": 5,
+    "n_chosen": 5,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 32,
+     "rs_sft": 230,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "LiNbWO6": {
+    "n_distinct_recipes_pooled": 4,
+    "n_chosen": 4,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 30,
+     "rs_sft": 231,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "LiSi2BO6": {
+    "n_distinct_recipes_pooled": 9,
+    "n_chosen": 8,
+    "n_skipped_no_string": 1,
+    "n_samples_parsed": {
+     "base": 231,
+     "corpus_sft": 31,
+     "rs_sft": 230,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 31,
+     "e1_ckpt300": 32
+    }
+   },
+   "LiZnPO4": {
+    "n_distinct_recipes_pooled": 26,
+    "n_chosen": 25,
+    "n_skipped_no_string": 1,
+    "n_samples_parsed": {
+     "base": 231,
+     "corpus_sft": 32,
+     "rs_sft": 224,
+     "e3": 31,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 30,
+     "phase12_ckpt300": 31,
+     "e1_ckpt300": 32
+    }
+   },
+   "NaSiBO4": {
+    "n_distinct_recipes_pooled": 22,
+    "n_chosen": 19,
+    "n_skipped_no_string": 3,
+    "n_samples_parsed": {
+     "base": 231,
+     "corpus_sft": 31,
+     "rs_sft": 231,
+     "e3": 32,
+     "e3c": 31,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 31,
+     "e1_ckpt300": 31
+    }
+   },
+   "SrLiBO3": {
+    "n_distinct_recipes_pooled": 17,
+    "n_chosen": 16,
+    "n_skipped_no_string": 1,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 31,
+     "rs_sft": 229,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+    "n_distinct_recipes_pooled": 11,
+    "n_chosen": 11,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 221,
+     "corpus_sft": 32,
+     "rs_sft": 224,
+     "e3": 32,
+     "e3c": 31,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 30,
+     "e1_ckpt300": 32
+    }
+   },
+   "Ba2Bi0.6667TeO6": {
+    "n_distinct_recipes_pooled": 20,
+    "n_chosen": 20,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 227,
+     "corpus_sft": 32,
+     "rs_sft": 199,
+     "e3": 29,
+     "e3c": 31,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 21,
+     "e1_ckpt300": 24
+    }
+   },
+   "Ba2La3Ti3TaO15": {
+    "n_distinct_recipes_pooled": 6,
+    "n_chosen": 6,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 231,
+     "corpus_sft": 31,
+     "rs_sft": 232,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "Ba3In4Cu3O12": {
+    "n_distinct_recipes_pooled": 7,
+    "n_chosen": 7,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 32,
+     "rs_sft": 232,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "BaBrCl": {
+    "n_distinct_recipes_pooled": 26,
+    "n_chosen": 26,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 32,
+     "rs_sft": 232,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "Bi0.8Ba0.2Fe0.95Cr0.05O3": {
+    "n_distinct_recipes_pooled": 17,
+    "n_chosen": 17,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 216,
+     "corpus_sft": 30,
+     "rs_sft": 156,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 24,
+     "e1_ckpt300": 25
+    }
+   },
+   "InMn0.9957Fe0.01O3": {
+    "n_distinct_recipes_pooled": 27,
+    "n_chosen": 27,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 219,
+     "corpus_sft": 30,
+     "rs_sft": 184,
+     "e3": 29,
+     "e3c": 29,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 27,
+     "e1_ckpt300": 24
+    }
+   },
+   "La0.25Sr0.75TiO3": {
+    "n_distinct_recipes_pooled": 6,
+    "n_chosen": 6,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 187,
+     "corpus_sft": 32,
+     "rs_sft": 180,
+     "e3": 30,
+     "e3c": 30,
+     "gdpo_v3_ckpt300": 30,
+     "phase12_ckpt300": 25,
+     "e1_ckpt300": 27
+    }
+   },
+   "La1.85Sr0.15CuO4": {
+    "n_distinct_recipes_pooled": 9,
+    "n_chosen": 9,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 222,
+     "corpus_sft": 32,
+     "rs_sft": 215,
+     "e3": 32,
+     "e3c": 31,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 29,
+     "e1_ckpt300": 32
+    }
+   },
+   "LaNi0.5Rh0.5O3": {
+    "n_distinct_recipes_pooled": 15,
+    "n_chosen": 15,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 219,
+     "corpus_sft": 32,
+     "rs_sft": 184,
+     "e3": 32,
+     "e3c": 31,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 24,
+     "e1_ckpt300": 28
+    }
+   },
+   "Li2TeO4": {
+    "n_distinct_recipes_pooled": 18,
+    "n_chosen": 18,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 32,
+     "rs_sft": 229,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "LiBi3O4Cl2": {
+    "n_distinct_recipes_pooled": 34,
+    "n_chosen": 30,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 230,
+     "corpus_sft": 32,
+     "rs_sft": 219,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 29,
+     "e1_ckpt300": 31
+    }
+   },
+   "LiFe(BO3)0.5(PO4)0.5": {
+    "n_distinct_recipes_pooled": 99,
+    "n_chosen": 30,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 223,
+     "corpus_sft": 30,
+     "rs_sft": 173,
+     "e3": 31,
+     "e3c": 30,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 22,
+     "e1_ckpt300": 26
+    }
+   },
+   "LiPO3": {
+    "n_distinct_recipes_pooled": 13,
+    "n_chosen": 13,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 31,
+     "rs_sft": 232,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 30,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "NaNiO2": {
+    "n_distinct_recipes_pooled": 27,
+    "n_chosen": 27,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 31,
+     "rs_sft": 219,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 30,
+     "e1_ckpt300": 32
+    }
+   },
+   "Pb(Zr0.47Ti0.53)O3": {
+    "n_distinct_recipes_pooled": 6,
+    "n_chosen": 6,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 31,
+     "rs_sft": 232,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "Sr0.5Ca0.5Fe12O19": {
+    "n_distinct_recipes_pooled": 4,
+    "n_chosen": 4,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 221,
+     "corpus_sft": 29,
+     "rs_sft": 220,
+     "e3": 31,
+     "e3c": 30,
+     "gdpo_v3_ckpt300": 22,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "Sr2MnNbO6": {
+    "n_distinct_recipes_pooled": 25,
+    "n_chosen": 25,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 229,
+     "corpus_sft": 32,
+     "rs_sft": 216,
+     "e3": 32,
+     "e3c": 31,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 29
+    }
+   },
+   "SrUO4": {
+    "n_distinct_recipes_pooled": 14,
+    "n_chosen": 14,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 32,
+     "rs_sft": 232,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 31,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   },
+   "TbTaO4": {
+    "n_distinct_recipes_pooled": 3,
+    "n_chosen": 3,
+    "n_skipped_no_string": 0,
+    "n_samples_parsed": {
+     "base": 232,
+     "corpus_sft": 32,
+     "rs_sft": 232,
+     "e3": 32,
+     "e3c": 32,
+     "gdpo_v3_ckpt300": 32,
+     "phase12_ckpt300": 32,
+     "e1_ckpt300": 32
+    }
+   }
+  },
+  "skipped_no_literal_string": {
+   "BaLiBO3": [
+    {
+     "recipe": [
+      "B2O3",
+      "BaCO3",
+      "Li2O"
+     ],
+     "pooled_count": 1
+    },
+    {
+     "recipe": [
+      "BaCO3",
+      "Li2CO3",
+      "LiBO2"
+     ],
+     "pooled_count": 1
+    }
+   ],
+   "BaNaBO3": [
+    {
+     "recipe": [
+      "BH6NO3",
+      "BaCO3",
+      "Na2CO3"
+     ],
+     "pooled_count": 3
+    }
+   ],
+   "K2Zr(PO4)2": [],
+   "K3Al2(PO4)3": [],
+   "K3Bi2(PO4)3": [
+    {
+     "recipe": [
+      "Bi2O3",
+      "K2CO3",
+      "KP(HO2)2"
+     ],
+     "pooled_count": 2
+    },
+    {
+     "recipe": [
+      "Bi2O3",
+      "K2CO3",
+      "PH5NO4"
+     ],
+     "pooled_count": 1
+    }
+   ],
+   "K3LiP2O7": [
+    {
+     "recipe": [
+      "H2O",
+      "K3PO4",
+      "Li3PO4"
+     ],
+     "pooled_count": 1
+    },
+    {
+     "recipe": [
+      "K2CO3",
+      "Li2CO3",
+      "P2H10N2O7"
+     ],
+     "pooled_count": 1
+    }
+   ],
+   "KLi(PO3)2": [
+    {
+     "recipe": [
+      "K2CO3",
+      "Li2CO3",
+      "PH9(NO2)2"
+     ],
+     "pooled_count": 15
+    },
+    {
+     "recipe": [
+      "K2CO3",
+      "Li2CO3",
+      "PH9N2O3"
+     ],
+     "pooled_count": 2
+    },
+    {
+     "recipe": [
+      "C",
+      "K2CO3",
+      "Li2CO3",
+      "P2O5"
+     ],
+     "pooled_count": 1
+    },
+    {
+     "recipe": [
+      "K2CO3",
+      "Li2CO3",
+      "P2H16N4O7"
+     ],
+     "pooled_count": 1
+    },
+    {
+     "recipe": [
+      "K2CO3",
+      "Li2CO3",
+      "PH6NO3"
+     ],
+     "pooled_count": 1
+    },
+    {
+     "recipe": [
+      "K2CO3",
+      "LiHO",
+      "P2O5"
+     ],
+     "pooled_count": 1
+    },
+    {
+     "recipe": [
+      "KPH2O3",
+      "LiPH2O3"
+     ],
+     "pooled_count": 1
+    }
+   ],
+   "KNiPO4": [
+    {
+     "recipe": [
+      "K2CO3",
+      "K2PHO4",
+      "NiO"
+     ],
+     "pooled_count": 1
+    }
+   ],
+   "KTa2PO8": [
+    {
+     "recipe": [
+      "H2O",
+      "KTaO3",
+      "P2O5"
+     ],
+     "pooled_count": 2
+    },
+    {
+     "recipe": [
+      "K2CO3",
+      "P2H16N4O7",
+      "Ta2O5"
+     ],
+     "pooled_count": 1
+    },
+    {
+     "recipe": [
+      "K3PO4",
+      "O2",
+      "PH3O4",
+      "Ta2O5"
+     ],
+     "pooled_count": 1
+    }
+   ],
+   "KTiPO5": [
+    {
+     "recipe": [
+      "K2CO3",
+      "PH5NO4",
+      "TiO2"
+     ],
+     "pooled_count": 1
+    },
+    {
+     "recipe": [
+      "KNO3",
+      "PH6NO4",
+      "TiO2"
+     ],
+     "pooled_count": 1
+    }
+   ],
+   "Li2TiGeO5": [],
+   "Li3Pr2(BO3)3": [
+    {
+     "recipe": [
+      "B2O3",
+      "Li2O",
+      "Pr6O11"
+     ],
+     "pooled_count": 2
+    },
+    {
+     "recipe": [
+      "B(HO)3",
+      "LiHO",
+      "Pr1O1.5"
+     ],
+     "pooled_count": 1
+    },
+    {
+     "recipe": [
+      "B2O3",
+      "Li2CO3",
+      "PrO2"
+     ],
+     "pooled_count": 1
+    }
+   ],
+   "Li3Y2(BO3)3": [],
+   "LiGeBO4": [],
+   "LiNbGeO5": [],
+   "LiNbWO6": [],
+   "LiSi2BO6": [
+    {
+     "recipe": [
+      "B2O3",
+      "Li2CO3",
+      "Si"
+     ],
+     "pooled_count": 2
+    }
+   ],
+   "LiZnPO4": [
+    {
+     "recipe": [
+      "C",
+      "Li2CO3",
+      "PH9(NO2)2",
+      "ZnO"
+     ],
+     "pooled_count": 1
+    }
+   ],
+   "NaSiBO4": [
+    {
+     "recipe": [
+      "B2O3",
+      "H2O",
+      "Na2CO3",
+      "SiO2"
+     ],
+     "pooled_count": 1
+    },
+    {
+     "recipe": [
+      "B2O3",
+      "H2O",
+      "Na2O",
+      "SiO2"
+     ],
+     "pooled_count": 1
+    },
+    {
+     "recipe": [
+      "B2O3",
+      "NaNO3",
+      "SiO2"
+     ],
+     "pooled_count": 1
+    }
+   ],
+   "SrLiBO3": [
+    {
+     "recipe": [
+      "Li2CO3",
+      "LiBO2",
+      "SrCO3"
+     ],
+     "pooled_count": 1
+    }
+   ],
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": [],
+   "Ba2Bi0.6667TeO6": [],
+   "Ba2La3Ti3TaO15": [],
+   "Ba3In4Cu3O12": [],
+   "BaBrCl": [],
+   "Bi0.8Ba0.2Fe0.95Cr0.05O3": [],
+   "InMn0.9957Fe0.01O3": [],
+   "La0.25Sr0.75TiO3": [],
+   "La1.85Sr0.15CuO4": [],
+   "LaNi0.5Rh0.5O3": [],
+   "Li2TeO4": [],
+   "LiBi3O4Cl2": [],
+   "LiFe(BO3)0.5(PO4)0.5": [],
+   "LiPO3": [],
+   "NaNiO2": [],
+   "Pb(Zr0.47Ti0.53)O3": [],
+   "Sr0.5Ca0.5Fe12O19": [],
+   "Sr2MnNbO6": [],
+   "SrUO4": [],
+   "TbTaO4": []
+  },
+  "raw_files_scanned_rows": {
+   "base_reference_astral.jsonl": 4606,
+   "base_reference_heldout.jsonl": 4500,
+   "corpus_sft_heldout_n32.jsonl": 627,
+   "e1_ckpt100_astral_n32.jsonl": 625,
+   "e1_ckpt200_astral_n32.jsonl": 629,
+   "e1_heldout_n32.jsonl": 598,
+   "e3_astral_n32.jsonl": 636,
+   "e3_heldout_n32.jsonl": 630,
+   "e3c_astral_n32.jsonl": 633,
+   "e3c_heldout_n32.jsonl": 626,
+   "gdpo300_heldout_n32.jsonl": 619,
+   "phase12_ckpt100_astral_n32.jsonl": 632,
+   "phase12_ckpt200_astral_n32.jsonl": 622,
+   "phase12_ckpt300_heldout_n32.jsonl": 580,
+   "rssft_reference_astral.jsonl": 4522,
+   "rssft_reference_heldout.jsonl": 4242
+  },
+  "context": "chat-template prompt (add_generation_prompt=True) + '<think>\\n\\n</think>\\n\\n{\\n  \"precursors\": '",
+  "string_definition": "most frequent literal precursor-array text '[...]' among raw completions parsing to the recipe"
+ },
+ "adapters": {
+  "corpus_sft": {
+   "path": "runs/sft-qlora-sft-v3-2nd-rank16/final",
+   "r": 16,
+   "lora_alpha": 32,
+   "target_modules": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "modules_in_weights": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "n_lora_tensors": 504,
+   "layers_covered": 36,
+   "covers_all_36": true
+  },
+  "e1_ckpt300": {
+   "path": "runs/gdpo-qlora-gdpo-e1-ranker-rssft/checkpoint-300",
+   "r": 16,
+   "lora_alpha": 32,
+   "target_modules": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "modules_in_weights": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "n_lora_tensors": 504,
+   "layers_covered": 36,
+   "covers_all_36": true
+  },
+  "e3": {
+   "path": "runs/sft-qlora-e3-round1/final",
+   "r": 16,
+   "lora_alpha": 32,
+   "target_modules": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "modules_in_weights": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "n_lora_tensors": 504,
+   "layers_covered": 36,
+   "covers_all_36": true
+  },
+  "e3c": {
+   "path": "runs/sft-qlora-e3c-round1/final",
+   "r": 16,
+   "lora_alpha": 32,
+   "target_modules": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "modules_in_weights": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "n_lora_tensors": 504,
+   "layers_covered": 36,
+   "covers_all_36": true
+  },
+  "gdpo_v3_ckpt300": {
+   "path": "runs/gdpo-qlora-gdpo-v3/checkpoint-300",
+   "r": 16,
+   "lora_alpha": 32,
+   "target_modules": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "modules_in_weights": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "n_lora_tensors": 504,
+   "layers_covered": 36,
+   "covers_all_36": true
+  },
+  "phase12_ckpt300": {
+   "path": "runs/gdpo-qlora-gdpo-phase12-rssft-beta0/checkpoint-300",
+   "r": 16,
+   "lora_alpha": 32,
+   "target_modules": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "modules_in_weights": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "n_lora_tensors": 504,
+   "layers_covered": 36,
+   "covers_all_36": true
+  },
+  "rs_sft": {
+   "path": "runs/sft-qlora-rs-sft-from-base/final",
+   "r": 16,
+   "lora_alpha": 32,
+   "target_modules": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "modules_in_weights": [
+    "down_proj",
+    "gate_proj",
+    "k_proj",
+    "o_proj",
+    "q_proj",
+    "up_proj",
+    "v_proj"
+   ],
+   "n_lora_tensors": 504,
+   "layers_covered": 36,
+   "covers_all_36": true
+  }
+ },
+ "sft_training_truncation": {
+  "S2": {
+   "file": "data/rs_sft/rs_sft_train.jsonl",
+   "n_examples": 283,
+   "prompt_tokens_median": 840,
+   "think_end_token_median": 5069,
+   "full_tokens_median": 5468,
+   "full_tokens_max": 8886,
+   "n_full_le_1024": 0,
+   "n_answer_start_within_1024": 0,
+   "trained_tokens_per_example_from_trainer_state": 1025.0233786629547,
+   "trainer_state": "runs/sft-qlora-rs-sft-from-base/checkpoint-27"
+  },
+  "S3": {
+   "file": "data/e3/e3_train.jsonl",
+   "n_examples": 505,
+   "prompt_tokens_median": 841,
+   "think_end_token_median": 5486,
+   "full_tokens_median": 5843,
+   "full_tokens_max": 9043,
+   "n_full_le_1024": 0,
+   "n_answer_start_within_1024": 2,
+   "trained_tokens_per_example_from_trainer_state": 1026.2009453206629,
+   "trainer_state": "runs/sft-qlora-e3-round1/checkpoint-48"
+  },
+  "S4": {
+   "file": "data/e3c/e3c_train.jsonl",
+   "n_examples": 505,
+   "prompt_tokens_median": 841,
+   "think_end_token_median": 5439,
+   "full_tokens_median": 5843,
+   "full_tokens_max": 9037,
+   "n_full_le_1024": 0,
+   "n_answer_start_within_1024": 2,
+   "trained_tokens_per_example_from_trainer_state": 1026.2009453206629,
+   "trainer_state": "runs/sft-qlora-e3c-round1/checkpoint-48"
+  },
+  "S5_init_corpus_sft": {
+   "file": "data/sft_v3/sft_train.jsonl",
+   "n_examples": 1217,
+   "prompt_tokens_median": 477,
+   "think_end_token_median": 4267,
+   "full_tokens_median": 4825,
+   "full_tokens_max": 14648,
+   "n_full_le_1024": 0,
+   "n_answer_start_within_1024": 0,
+   "trained_tokens_per_example_from_trainer_state": 1026.5242399342646,
+   "trainer_state": "runs/sft-qlora-sft-v3-2nd-rank16/checkpoint-117"
+  }
+ },
+ "sft_truncation_note": "experiments/sft.py passes max_length=h['max_seq_len']=1024 to TRL SFTConfig (truncation_mode keep_start); trained tokens per example from trainer_state ~1025 for every SFT run, so training saw the prompt + the opening of <think>, never the answer JSON. Block D's SFT update direction uses the sequences AS TRAINED (first 1024 tokens, loss on every token, as TRL's text-field SFT does).",
+ "d3_overlap": {
+  "S3": {
+   "probe_heldout_in_train": [],
+   "probe_heldout_in_val": [],
+   "probe_astral_in_train": [],
+   "probe_any_in_train_or_val": []
+  },
+  "S4": {
+   "probe_heldout_in_train": [],
+   "probe_heldout_in_val": [],
+   "probe_astral_in_train": [],
+   "probe_any_in_train_or_val": []
+  }
+ },
+ "d3_heldout_targets_after_drop": [
+  "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3",
+  "Ba2Bi0.6667TeO6",
+  "Ba2La3Ti3TaO15",
+  "Ba3In4Cu3O12",
+  "BaBrCl",
+  "Bi0.8Ba0.2Fe0.95Cr0.05O3",
+  "InMn0.9957Fe0.01O3",
+  "La0.25Sr0.75TiO3",
+  "La1.85Sr0.15CuO4",
+  "LaNi0.5Rh0.5O3",
+  "Li2TeO4",
+  "LiBi3O4Cl2",
+  "LiFe(BO3)0.5(PO4)0.5",
+  "LiPO3",
+  "NaNiO2",
+  "Pb(Zr0.47Ti0.53)O3",
+  "Sr0.5Ca0.5Fe12O19",
+  "Sr2MnNbO6",
+  "SrUO4",
+  "TbTaO4"
+ ],
+ "rl_update_groups": {
+  "S6": {
+   "run_dir": "runs/gdpo-qlora-gdpo-phase12-rssft-beta0",
+   "scorer": "checker",
+   "reward_funcs": [
+    "format_ok",
+    "amount_accuracy",
+    "thermodynamic_favorable",
+    "stoichiometry",
+    "chempot_atmosphere",
+    "operation_order"
+   ],
+   "reward_weights": [
+    0.20000000298023224,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "n_groups": 50,
+   "n_completions": 400,
+   "steps": [
+    0,
+    24
+   ],
+   "file": "results/phase19/rl_update_groups_S6.jsonl",
+   "n_pos_adv": 200,
+   "n_neg_adv": 176,
+   "n_zero_adv": 24,
+   "n_groups_all_zero_adv": 3,
+   "breakdown_has_ranker_objectives": null
+  },
+  "S7": {
+   "run_dir": "runs/gdpo-qlora-gdpo-e1-ranker-rssft",
+   "scorer": "ranker",
+   "reward_funcs": [
+    "format_ok",
+    "temperature_economy",
+    "driving_force_margin",
+    "volatility_risk",
+    "precursor_instability",
+    "n_precursors",
+    "slice_competing_phases",
+    "precursor_decomposition_match"
+   ],
+   "reward_weights": [
+    0.20000000298023224,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "n_groups": 50,
+   "n_completions": 400,
+   "steps": [
+    0,
+    24
+   ],
+   "file": "results/phase19/rl_update_groups_S7.jsonl",
+   "n_pos_adv": 221,
+   "n_neg_adv": 173,
+   "n_zero_adv": 6,
+   "n_groups_all_zero_adv": 0,
+   "breakdown_has_ranker_objectives": [
+    "driving_force_margin",
+    "n_precursors",
+    "precursor_decomposition_match",
+    "precursor_instability",
+    "slice_competing_phases",
+    "temperature_economy",
+    "volatility_risk"
+   ]
+  }
+ },
+ "D_sampled_definition": "P-19D-3 positives: recipe with E3 count >= 1 and Base count == 0 among the probe strings of the retained held-out targets (fixed in Block 0, before D)."
+}

@@ -1,0 +1,21 @@
+{
+ "prereg_commit": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "prereg_blob_sha": "4df94b3aa65330ebe14be3025b9c3ca62c8c4d19",
+ "repo_head_at_run": "7412c23db0a833d0fa3d0e7e8d00d7273f462ccf",
+ "seed": 20261116,
+ "block": "D",
+ "P_19D_3": {
+  "statement": "S3 spillover AUC > 0.5 with CI excluding 0.5.",
+  "n_targets": 20,
+  "n_positives": 11,
+  "n_negatives": 303,
+  "status": "tested",
+  "auc": 0.6576657665766577,
+  "ci95": [
+   0.438088376560999,
+   0.8326678560721115
+  ],
+  "passes": false,
+  "n_boot_valid": 9996
+ }
+}
