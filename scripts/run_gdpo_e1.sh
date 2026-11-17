@@ -21,7 +21,8 @@ SEED="${2:-42}"
 EXP="gdpo"
 RUN_DIR="runs/${EXP}-qlora-${TAG}"
 LOG="run_logs/gdpo_${TAG}.log"
-RS_SFT_INIT="runs/sft-qlora-rs-sft-from-base/final"
+RS_SFT_INIT="${RS_SFT_INIT:-runs/sft-qlora-rs-sft-from-base/final}"   # Phase 20 overrides via env
+SAVE_TOTAL_LIMIT="${SAVE_TOTAL_LIMIT:-3}"   # 3 = every prior run; Phase 20 keeps all checkpoints
 NTFY_TOPIC="mira-g5x7k2-status"
 
 export PYTHONPATH=.
@@ -48,6 +49,7 @@ for attempt in $(seq 1 50); do
         --scorer ranker --validator-version 2 \
         --use-vllm off \
         --max-steps 300 \
+        --save-total-limit "${SAVE_TOTAL_LIMIT}" \
         --seed "${SEED}" --tag "${TAG}" \
         --init-from "${INIT_FROM}" ${FRESH} 2>&1 | tee -a "${LOG}"
     rc=${PIPESTATUS[0]}

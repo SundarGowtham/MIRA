@@ -1,0 +1,87 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "seed": 20261116,
+ "measurement": "ASTRAL rule-picked hits (finding 18/22 metric)",
+ "definition": "hit = any of the model's 32 samples has exactly the ASTRAL rule-picked precursor set (canonical); superset-inclusive variant reported. All rows are vLLM T 0.9 draws (Base, old RS-SFT: their 32-sample resampling group).",
+ "by_model": {
+  "rs_sft": {
+   "exact_full": "10/35",
+   "exact_clean": "8/22",
+   "superset_incl_full": "10/35",
+   "superset_incl_clean": "8/22",
+   "group": "resampling_rate",
+   "hit_targets_exact": [
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "NaSiBO4",
+    "NaSrBO3",
+    "SrLiBO3"
+   ]
+  },
+  "base": {
+   "exact_full": "7/35",
+   "exact_clean": "6/22",
+   "superset_incl_full": "7/35",
+   "superset_incl_clean": "6/22",
+   "group": "resampling_rate",
+   "hit_targets_exact": [
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiSi2BO6",
+    "NaSiBO4",
+    "NaSrBO3"
+   ]
+  },
+  "e3": {
+   "exact_full": "13/35",
+   "exact_clean": "10/22",
+   "superset_incl_full": "13/35",
+   "superset_incl_clean": "10/22",
+   "group": "all (32/target)",
+   "hit_targets_exact": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "Na2Al2B2O7",
+    "NaSiBO4",
+    "NaSrBO3",
+    "SrLiBO3"
+   ]
+  },
+  "e3c": {
+   "exact_full": "11/35",
+   "exact_clean": "9/22",
+   "superset_incl_full": "11/35",
+   "superset_incl_clean": "9/22",
+   "group": "all (32/target)",
+   "hit_targets_exact": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "NaSiBO4",
+    "NaSrBO3"
+   ]
+  }
+ }
+}

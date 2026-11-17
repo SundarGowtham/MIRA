@@ -237,7 +237,7 @@ class GRPOExperiment(Experiment):
             # save_strategy="epoch",
             save_strategy="steps",
             save_steps=save_steps,
-            save_total_limit=3,
+            save_total_limit=getattr(self.args, "save_total_limit", None) or 3,
             # save_total_limit=2,
             bf16=not self.cfg.smoke,
             gradient_checkpointing=not self.cfg.smoke,

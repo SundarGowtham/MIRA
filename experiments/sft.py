@@ -4,7 +4,7 @@ from pathlib import Path
 from trl import SFTConfig, SFTTrainer
 
 from experiments.base import Experiment
-from core.data import build_sft_dataset, load_jsonl
+from core.data import build_sft_dataset, build_sft_full_dataset, load_jsonl
 from core.model import load_with_adapter
 from core.observability import GradientStatsCallback, SampleCompletionCallback
 
@@ -20,7 +20,25 @@ class SFTExperiment(Experiment):
         prefix = getattr(self.args, "data_prefix", None)
         return prefix if prefix else "sft"
 
+    @property
+    def full_sequence(self) -> bool:
+        """Phase 20 (--sft-full): loss on assistant-turn tokens only
+        (core.data.build_sft_full_dataset, completion_only_loss=True) and no
+        truncation (max_length=None). Per-device batch 1 x accumulation 32
+        keeps the effective batch at 32 and the optimizer-step count equal
+        to the old runs. Everything else is unchanged. Without the flag the
+        old path (flat text, loss on all tokens, max_length=1024) runs
+        exactly as before."""
+        return bool(getattr(self.args, "sft_full", False))
+
     def hyperparams(self) -> dict:
+        if self.full_sequence and not self.cfg.smoke:
+            return dict(
+                epochs=3, batch_size=1, lr=2e-4, accum=32,
+                max_seq_len=None, limit=None,
+                weight_decay=0.01, warmup_ratio=0.1, max_grad_norm=1.0,
+                logging_steps=25, eval_steps=100, save_steps=200,
+            )
         if self.cfg.smoke:
             return dict(
                 epochs=1, batch_size=1, lr=5e-5, accum=1,
@@ -61,9 +79,13 @@ class SFTExperiment(Experiment):
                 f"(e.g. --data-prefix sft_v2 looks for sft_v2_train.jsonl)."
             )
 
-        train_ds = build_sft_dataset(train_path, tok, h["limit"])
         val_limit = h["limit"] * 2 if h["limit"] else None
-        val_ds   = build_sft_dataset(val_path, tok, val_limit)
+        if self.full_sequence:
+            train_ds = build_sft_full_dataset(train_path, tok, h["limit"])
+            val_ds   = build_sft_full_dataset(val_path, tok, val_limit)
+        else:
+            train_ds = build_sft_dataset(train_path, tok, h["limit"])
+            val_ds   = build_sft_dataset(val_path, tok, val_limit)
         print(f"[{self.run_name}] data_prefix={self.data_prefix}  "
               f"train={len(train_ds)} val={len(val_ds)}")
 
@@ -89,9 +111,10 @@ class SFTExperiment(Experiment):
             bf16=not self.cfg.smoke,
             gradient_checkpointing=not self.cfg.smoke,
             gradient_checkpointing_kwargs={"use_reentrant": False},
-            max_length=h["max_seq_len"],
+            max_length=None if self.full_sequence else h["max_seq_len"],
             packing=False,
             dataset_text_field="text",
+            completion_only_loss=True if self.full_sequence else None,
             report_to=["wandb"] if os.environ.get("WANDB_API_KEY") else "none",
             run_name=self.run_name,
             seed=self.cfg.seed,

@@ -95,6 +95,15 @@ def parse_args():
                    help="SFT only: hard step cap, overrides epochs (e.g. the "
                         "equal-compute continuation arm matched to GDPO-300's "
                         "~75 GPU-hours: ~24000 steps at ~11 s/step).")
+    p.add_argument("--sft-full", action="store_true",
+                   help="SFT only (Phase 20): loss on assistant-turn tokens only "
+                        "(prompt-completion dataset, completion_only_loss=True), "
+                        "max_length=None (no truncation), batch 1 x accum 32. "
+                        "Off by default: the old path is unchanged.")
+    p.add_argument("--save-total-limit", type=int, default=None,
+                   help="GRPO/GDPO only: checkpoints kept on disk. Default 3 "
+                        "(every prior run). Phase 20 E1-full sets it high so "
+                        "no checkpoint is ever deleted (changes no training math).")
     p.add_argument("--scorer", choices=["validator", "ranker"], default="validator",
                    help="GRPO/GDPO only: validator = Arm A (core/reward.py's "
                         "SynthesisValidator, validity checks). ranker = Arm B "

@@ -1,0 +1,182 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "seed": 20261116,
+ "label": "[E]",
+ "decided": "2026-11-17 by Gowtham, after the prereg commit",
+ "finding_31_hits": {
+  "E3 (vLLM 0.9, unchanged)": {
+   "exact_full": "13/35",
+   "exact_clean": "10/22",
+   "hit_targets": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "Na2Al2B2O7",
+    "NaSiBO4",
+    "NaSrBO3",
+    "SrLiBO3"
+   ]
+  },
+  "E3c (vLLM 0.9, unchanged)": {
+   "exact_full": "11/35",
+   "exact_clean": "9/22",
+   "hit_targets": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "NaSiBO4",
+    "NaSrBO3"
+   ]
+  },
+  "Base old: astral_gen_n32_base.json (HF 1.0)": {
+   "exact_full": "10/35",
+   "exact_clean": "8/22",
+   "hit_targets": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K3LiP2O7",
+    "KTa2PO8",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "Na2Al2B2O7",
+    "NaSiBO4"
+   ]
+  },
+  "Base new: base_reference_astral resampling_rate (vLLM 0.9)": {
+   "exact_full": "7/35",
+   "exact_clean": "6/22",
+   "hit_targets": [
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiSi2BO6",
+    "NaSiBO4",
+    "NaSrBO3"
+   ]
+  },
+  "Base new: base_reference_astral reference 200 (vLLM 0.9), any of 200": {
+   "exact_full": "11/35",
+   "exact_clean": "8/22",
+   "hit_targets": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K3LiP2O7",
+    "KLi(PO3)2",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "Na2Al2B2O7",
+    "NaSiBO4",
+    "NaSrBO3"
+   ]
+  },
+  "RS-SFT old: astral_gen_n32_rs_sft.json (HF 1.0)": {
+   "exact_full": "10/35",
+   "exact_clean": "9/22",
+   "hit_targets": [
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "NaSiBO4",
+    "SrLiBO3"
+   ]
+  },
+  "RS-SFT new: rssft_reference_astral resampling_rate (vLLM 0.9)": {
+   "exact_full": "10/35",
+   "exact_clean": "8/22",
+   "hit_targets": [
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "NaSiBO4",
+    "NaSrBO3",
+    "SrLiBO3"
+   ]
+  }
+ },
+ "finding_33_rssft_row": {
+  "as_reported (computed 2026-10-15 from the vLLM rebuild)": {
+   "predicted_hits_clean": "8/22",
+   "predicted_hits_full": "10/35",
+   "carbonate_share_full_35": 0.4821,
+   "bare_oxide_share_full_35": 0.2419,
+   "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_rs_sft.json"
+  },
+  "alkali_per_choice_hf_vs_vllm": {
+   "old_hf_t1.0 (astral_gen_n32_rs_sft.json)": {
+    "counts": {
+     "bare_oxide": 293,
+     "carbonate": 521,
+     "other": 320,
+     "missing": 0
+    },
+    "n_triples": 1134,
+    "shares": {
+     "bare_oxide": 0.2583774250440917,
+     "carbonate": 0.45943562610229277,
+     "other": 0.2821869488536155,
+     "missing": 0.0
+    }
+   },
+   "new_vllm_t0.9 (rssft_reference_astral resampling_rate)": {
+    "counts": {
+     "bare_oxide": 277,
+     "carbonate": 552,
+     "other": 316,
+     "missing": 0
+    },
+    "n_triples": 1145,
+    "shares": {
+     "bare_oxide": 0.24192139737991267,
+     "carbonate": 0.4820960698689956,
+     "other": 0.2759825327510917,
+     "missing": 0.0
+    }
+   }
+  },
+  "rssft_vllm_hits": {
+   "exact_full": "10/35",
+   "exact_clean": "8/22",
+   "hit_targets": [
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "NaSiBO4",
+    "NaSrBO3",
+    "SrLiBO3"
+   ]
+  }
+ },
+ "a18_e18_note": "18A/18E already read Base and RS-SFT from their vLLM reference files; their mixing is via the four HF models, recomputed in tempfix_* with the Stage 5 resamples."
+}

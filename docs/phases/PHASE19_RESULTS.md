@@ -1,6 +1,6 @@
 # Phase 19 results
 
-Pre-registration: `docs/phases/PHASE19_PREREG.md`, committed in `7412c23` before any Phase 19 computation (blob `4df94b3a`). Every script asserts that blob at startup, and every results JSON records `prereg_commit = 7412c23db0a833d0fa3d0e7e8d00d7273f462ccf`. Anything decided after that commit is labeled **[E]**. RL = on-policy GDPO practice; SFT = supervised training on a fixed set.
+Pre-registration: `docs/phases/PHASE19_PREREG.md`, committed in `7412c23` before any Phase 19 computation (blob `4df94b3a`). Every script asserts that blob at startup, and every results JSON records `prereg_commit = 7412c23db0a833d0fa3d0e7e8d00d7273f462ccf`. Anything decided after that commit is labeled **[E]**. RL = on-policy GDPO; SFT = supervised training on a fixed set.
 
 ---
 

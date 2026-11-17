@@ -1,0 +1,120 @@
+{
+ "gate": "T",
+ "pass": true,
+ "datasets": {
+  "rs_sft/train": {
+   "file": "data/rs_sft/rs_sft_train.jsonl",
+   "n_examples": 283,
+   "n_prepared": 283,
+   "max_full_len": 8886,
+   "median_full_len": 5468,
+   "mean_full_len": 5582.3074204947,
+   "median_loss_tokens": 4621,
+   "n_failures": 0,
+   "failures": [],
+   "capped_rows_rendered_as_sampled": [],
+   "pass": true
+  },
+  "rs_sft/val": {
+   "file": "data/rs_sft/rs_sft_val.jsonl",
+   "n_examples": 12,
+   "n_prepared": 12,
+   "max_full_len": 6952,
+   "median_full_len": 5451.0,
+   "mean_full_len": 5205.333333333333,
+   "median_loss_tokens": 4616.5,
+   "n_failures": 0,
+   "failures": [],
+   "capped_rows_rendered_as_sampled": [],
+   "pass": true
+  },
+  "e3/train": {
+   "file": "data/e3/e3_train.jsonl",
+   "n_examples": 505,
+   "n_prepared": 505,
+   "max_full_len": 9043,
+   "median_full_len": 5843,
+   "mean_full_len": 5888.192079207921,
+   "median_loss_tokens": 5002,
+   "n_failures": 0,
+   "failures": [],
+   "capped_rows_rendered_as_sampled": [
+    "CaFe3O(PO4)3",
+    "CsLuP2O7"
+   ],
+   "pass": true
+  },
+  "e3/val": {
+   "file": "data/e3/e3_val.jsonl",
+   "n_examples": 22,
+   "n_prepared": 22,
+   "max_full_len": 8764,
+   "median_full_len": 5606.5,
+   "mean_full_len": 5720.454545454545,
+   "median_loss_tokens": 4758.5,
+   "n_failures": 0,
+   "failures": [],
+   "capped_rows_rendered_as_sampled": [],
+   "pass": true
+  },
+  "e3c/train": {
+   "file": "data/e3c/e3c_train.jsonl",
+   "n_examples": 505,
+   "n_prepared": 505,
+   "max_full_len": 9031,
+   "median_full_len": 5843,
+   "mean_full_len": 5841.49900990099,
+   "median_loss_tokens": 5002,
+   "n_failures": 0,
+   "failures": [],
+   "capped_rows_rendered_as_sampled": [
+    "CsLuP2O7",
+    "CaFe3O(PO4)3"
+   ],
+   "pass": true
+  },
+  "e3c/val": {
+   "file": "data/e3c/e3c_val.jsonl",
+   "n_examples": 22,
+   "n_prepared": 22,
+   "max_full_len": 9043,
+   "median_full_len": 5784.5,
+   "mean_full_len": 5826.318181818182,
+   "median_loss_tokens": 4938.5,
+   "n_failures": 0,
+   "failures": [],
+   "capped_rows_rendered_as_sampled": [],
+   "pass": true
+  },
+  "sft_v3/train": {
+   "file": "data/sft_v3/sft_train.jsonl",
+   "n_examples": 1217,
+   "n_prepared": 1217,
+   "max_full_len": 14648,
+   "median_full_len": 4825,
+   "mean_full_len": 5226.330320460148,
+   "median_loss_tokens": 4328,
+   "n_failures": 0,
+   "failures": [],
+   "capped_rows_rendered_as_sampled": [],
+   "pass": true
+  },
+  "sft_v3/val": {
+   "file": "data/sft_v3/sft_val.jsonl",
+   "n_examples": 157,
+   "n_prepared": 157,
+   "max_full_len": 13404,
+   "median_full_len": 5163,
+   "mean_full_len": 5348.222929936306,
+   "median_loss_tokens": 4475,
+   "n_failures": 0,
+   "failures": [],
+   "capped_rows_rendered_as_sampled": [],
+   "pass": true
+  }
+ },
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "seed": 20261116
+}
