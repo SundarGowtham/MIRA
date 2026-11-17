@@ -4,5 +4,5 @@ set -u
 TAG="$1"
 cd /users/gsundar/projects/MIRA
 export PYTHONPATH=.
-"$HOME/envs/mira-vllm/bin/python" -u research/phase20_gate_r.py --tag "$TAG" --sample || exit 1
+PATH="$HOME/envs/mira-vllm/bin:$PATH" "$HOME/envs/mira-vllm/bin/python" -u research/phase20_gate_r.py --tag "$TAG" --sample || exit 1
 uv run python research/phase20_gate_r.py --tag "$TAG" --check

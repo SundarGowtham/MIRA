@@ -25,6 +25,7 @@ PY="${VLLM_PY:-$HOME/envs/mira-vllm/bin/python}"
 [ -x "$PY" ] || PY="$(command -v python)"
 LOG="run_logs/phase20_sample_${STAGE}.log"
 export PYTHONPATH=.
+export PATH="$(dirname "$PY"):$PATH"   # vLLM needs the env's ninja on PATH
 
 "$PY" -c "import vllm,sys; assert vllm.__version__=='0.23.0', vllm.__version__" \
     || { echo "need vllm==0.23.0 in $PY (see scripts/phase20_vllm_requirements.txt)"; exit 2; }

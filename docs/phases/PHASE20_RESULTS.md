@@ -38,6 +38,11 @@ Implementation: `core/data.py::build_sft_full_dataset` (`is_capped_completion`).
 
 Gate R results are added after each Stage 1 run.
 
+| model | R1: trained tokens per example (incl. prompt) | dataset mean full length | rel. diff | R2: parse rate (64) | median completion tokens | clipped | |
+|---|---|---|---|---|---|---|---|
+| `sft-rssft-full` | 5,587.8 (logged step 25, 790 examples seen) | 5,582.3 | +0.10% | 100% | 4,815 | 0% | PASS |
+| `sft-e3-full` | 5,862.2 (logged step 25, 793 examples seen) | 5,888.2 | −0.44% | 98.4% | 4,039 | 0% | PASS |
+
 ### Temperature mixing [E] (Gowtham, 2026-11-17, after the commit): Base and old RS-SFT on their T 0.9 vLLM files
 
 `results/phase20/temp_vllm_E.json`. Base and old RS-SFT already have T 0.9 vLLM ASTRAL draws (`base_reference_astral`, `rssft_reference_astral`). Their 32-sample `resampling_rate` group gives n = 32, like every other row. No new sampling.
