@@ -42,6 +42,7 @@ Gate R results are added after each Stage 1 run.
 |---|---|---|---|---|---|---|---|
 | `sft-rssft-full` | 5,587.8 (logged step 25, 790 examples seen) | 5,582.3 | +0.10% | 100% | 4,815 | 0% | PASS |
 | `sft-e3-full` | 5,862.2 (logged step 25, 793 examples seen) | 5,888.2 | −0.44% | 98.4% | 4,039 | 0% | PASS |
+| `sft-e3c-full` | 5,843.8 (logged step 25, 793 examples seen) | 5,841.5 | +0.04% | 100% | 3,773 | 0% | PASS |
 
 ### Temperature mixing [E] (Gowtham, 2026-11-17, after the commit): Base and old RS-SFT on their T 0.9 vLLM files
 
