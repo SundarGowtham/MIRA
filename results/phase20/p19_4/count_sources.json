@@ -1,0 +1,6 @@
+{
+ "sft_rssft_full": "data/novelty/phase20/sft_rssft_full_reference_heldout.jsonl",
+ "sft_e3_full": "data/novelty/phase20/sft_e3_full_heldout_n32.jsonl",
+ "sft_e3c_full": "data/novelty/phase20/sft_e3c_full_heldout_n32.jsonl",
+ "e1full_ckpt300": "data/novelty/phase20/e1full_ckpt300_heldout_n32.jsonl"
+}
