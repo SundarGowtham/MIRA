@@ -1,0 +1,70 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "5b4f5989ed3960c700d2bb9063bb4dcc853543c0",
+ "seed": 20261116,
+ "measurement": "uniform shift on answer strings",
+ "definition": "Block E before/after: mean and rms of l_after - l_before over the 671 probe strings; old SFT: mean +7.2 to +7.6, mean ~ rms",
+ "by_step": {
+  "S3": {
+   "new": {
+    "before": "base",
+    "after": "sft_e3_full",
+    "delta_mean": 1.2044169998737455,
+    "delta_rms": 2.4514127244734225,
+    "mean_over_rms": 0.4913154720335643
+   },
+   "old_phase19": {
+    "before": "base",
+    "after": "e3",
+    "delta_mean": 7.218084699173088,
+    "delta_rms": 8.61223448640112
+   }
+  },
+  "S4": {
+   "new": {
+    "before": "base",
+    "after": "sft_e3c_full",
+    "delta_mean": 0.6375623097540547,
+    "delta_rms": 2.242962190803217,
+    "mean_over_rms": 0.28425013688070244
+   },
+   "old_phase19": {
+    "before": "base",
+    "after": "e3c",
+    "delta_mean": 7.573767120543251,
+    "delta_rms": 8.9148815332715
+   }
+  },
+  "S6": {
+   "new": {
+    "before": "rs_sft",
+    "after": "phase12_ckpt300",
+    "delta_mean": 0.7154204571833376,
+    "delta_rms": 2.0885541116711637,
+    "mean_over_rms": 0.34254341469318766
+   },
+   "old_phase19": {
+    "before": "rs_sft",
+    "after": "phase12_ckpt300",
+    "delta_mean": 0.7154204571833376,
+    "delta_rms": 2.0885541116711637
+   }
+  },
+  "S7": {
+   "new": {
+    "before": "rs_sft",
+    "after": "e1_ckpt300",
+    "delta_mean": 0.48329122802006685,
+    "delta_rms": 1.7216851535707798,
+    "mean_over_rms": 0.28070825087718243
+   },
+   "old_phase19": {
+    "before": "rs_sft",
+    "after": "e1_ckpt300",
+    "delta_mean": 0.48329122802006685,
+    "delta_rms": 1.7216851535707798
+   }
+  }
+ }
+}

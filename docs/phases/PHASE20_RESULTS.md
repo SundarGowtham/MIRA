@@ -60,3 +60,87 @@ ASTRAL rule-picked hits (exact match, finding 18/22 metric):
 - **Finding 31:** at matched temperature and backend, E3 13/35 and E3c 11/35 compare with Base 7/35, not 10/35. One 32-sample draw is noisy: Base's 200-sample draw reaches 11/35.
 - **Finding 33's RS-SFT row:** the reported 48.2% carbonate share and 10/35 hits equal the vLLM `resampling_rate` group exactly: carbonate 48.2% per alkali choice, against 45.9% in the HF file. So that row was already computed on vLLM data, and RS-SFT's ckpt100 and ckpt200 comparisons in it are like for like. Only the step-300 points (HF files) are mixed; Stage 5 resamples those.
 - **18A / 18E:** these already read Base and RS-SFT from their vLLM reference files. Their mixing comes only from the four HF models, which Stage 5 resamples. The rerun is in `tempfix_*`.
+
+---
+
+## 2026-11-22: Stage 3 done; all remaining sampling moved to this machine
+
+RL `gdpo-e1-ranker-rssft-full` finished at 04:06 UTC (checkpoints 100, 200 and 300 kept). The RunPod reservations for Stages 2 and 5 were cancelled (Gowtham): every sample set is now drawn locally with the same script and settings (vLLM 0.23.0, T 0.9, top-p 0.95, 8,192 tokens, seed 42), so the sampling hardware is the same for every Phase 20 set.
+
+---
+
+## 2026-11-23: Stage 2b (SFT side) — Report 2
+
+Stage 2 sampled the three new SFT models locally (accepted by `research/phase20_verify_samples.py`). Stage 2b ran Blocks G, E and F1 on the 2b step table (`results/phase20/p19_2b/`) and the SFT-side CPU analyses.
+
+**Two code bugs, fixed before this report.**
+- (1) `load_recipes20` recursed into itself once Phase 18's `load_recipes` was patched, so transport and posterior failed. 
+- (2) `coverage.json` and `astral_hits.json` were Stage 0 smoke outputs committed in `534b117`, so the write-guard refused them. These outputs are now stage-suffixed (`*_2b.json`, `*_final.json`); the committed smoke files are untouched.
+
+**Data-handling error, affects every `sft-rssft-full` row in this section.** The 2b analyses ran while Stage 4 was still writing `sft_rssft_full_reference_astral.jsonl`, and the recipe loader took the half-written file (16 of 35 ASTRAL targets) as the RS-SFT reference. Every `sft-rssft-full` number below that comes from that loader is therefore **not valid**: P-20-1's S2 row, its Block G gate value and its coverage share. The loader now ignores the reference until `STAGE_S4_sample_ref.done` exists. Those rows are recomputed at the final analysis on the complete 232-sample reference. Rows for E3, E3c and Base never read that file and are unaffected. Hits and alkali shares use the complete 32-sample `sft_rssft_full_*_n32` files and are unaffected.
+
+**Block G (gate, median Spearman ≥ 0.4): passes** — Base 0.462, `sft-e3-full` 0.415, `sft-e3c-full` 0.482 (`sft-rssft-full` 0.414, invalid as above).
+
+**P-20-1 (SFT adds support), E3 and E3c rows: FAILS.** P-18A-2 measure, same code, λ, floor and targets (62).
+
+| step | new-support mass − Base floor, full-sequence SFT | 95% CI | old (Phase 18, 1,024-token SFT) |
+|---|---|---|---|
+| Base → `sft-e3-full` | −0.0036 | [−0.0106, +0.0040] | +0.0111 [+0.0011, +0.0224] |
+| Base → `sft-e3c-full` | +0.0030 | [−0.0052, +0.0118] | +0.0204 [+0.0073, +0.0344] |
+
+Both CIs include 0. With full-sequence training, E3 and E3c no longer add new-support mass above Base's resampling floor on this measure; the old truncated runs did.
+
+**P-20-3 (exact reach), SFT steps: FAILS for both** (CI must lie entirely above 0): Base → `sft-e3-full` median +0.685, CI [−0.0002, +1.015], 31 usable targets; Base → `sft-e3c-full` +0.535, CI [−0.091, +0.678], 31 usable. Both point estimates are positive; both CIs touch or cross 0.
+
+**Block E and F1 on the SFT steps (inputs to P-20-4/5, which need Stage 4):**
+
+| step | L50 [CI] | old L50 | R(4) | old R(4) | R(4) random-subspace null max |
+|---|---|---|---|---|---|
+| Base → `sft-e3-full` | 10 [6, 14] | 6 | 0.284 | 0.733 | 0.041 |
+| Base → `sft-e3c-full` | 14 [10, 24] | 6 | 0.011 | 0.764 | 0.041 |
+| RS-SFT → Phase 12 @300 (old, reused) | 26 [26, 28] | 26 | 0.385 | 0.385 | 0.039 |
+| RS-SFT → E1 @300 (old, reused) | 16 [14, 16] | 16 | 0.552 | 0.552 | 0.039 |
+
+Full-sequence SFT is written deeper (L50 10–14 vs 6) and is less concentrated in 4 directions (R(4) 0.28 and 0.01 vs 0.73–0.76) than the truncated runs. `sft-e3c-full`'s R(4) is at the random-subspace null.
+
+**Measurements.**
+
+- **ASTRAL rule-picked hits (n = 32, T 0.9 vLLM):**
+
+  | | new (full sequence) | old |
+  |---|---|---|
+  | RS-SFT | 6/35 (5/22 clean) | 10/35 (8/22) |
+  | E3 | 10/35 (7/22) | 13/35 (10/22) |
+  | E3c | 9/35 (7/22) | 11/35 (9/22) |
+  | Base | — | 7/35 (6/22) |
+  | E1-full @100 / @200 / @300 | 10/35 (8/22), 10/35 (9/22), 9/35 (7/22) | E1 @300: 14/35 |
+
+  Every full-sequence SFT model is below its truncated predecessor; `sft-rssft-full` (6/35) is below Base (7/35).
+
+- **Alkali-source share (per alkali choice), carbonate / bare oxide:**
+
+  | | carbonate | bare oxide |
+  |---|---|---|
+  | `sft-e3-full` | 78.6% | 9.6% |
+  | `sft-e3c-full` | 81.8% | 8.5% |
+  | `sft-rssft-full` (n32) | 79.2% | 10.2% |
+  | E1-full @300 | 69.8% | 17.5% |
+  | old RS-SFT (vLLM `resampling_rate`) | 48.2% | 24.2% |
+  | old E1 @300 (finding 30) | 18.3% | — |
+  | Base (ledger `L8.alkali_share`) | 72.9% | 9.1% |
+
+  Source: `results/phase20/alkali_source_share.json`; the run started before the suffix fix, so it is the 2b file.
+
+  The full-sequence SFT models sit at or slightly above Base's carbonate share, not below it as old RS-SFT did. RL from the new RS-SFT still moves toward bare oxides (79.2 → 69.8% carbonate), but from a much higher starting point than the old E1 (45.9 → 18.3%).
+
+- **Probe-set coverage:**
+
+  | new model | share in probe set | old model it replaces | share |
+  |---|---|---|---|
+  | `sft-e3-full` | 99.0% | E3 | 99.5% |
+  | `sft-e3c-full` | 98.7% | E3c | 99.8% |
+  | E1-full @300 | 98.7% | E1 @300 | 99.5% |
+
+  The 671 Phase 19 probe strings cover the new models nearly as well as the old ones.
+
+**Old findings touched so far (provisional until the final analysis):** finding 31 ("self-distillation adds recipes") — **changed**: on the P-18A-2 measure the full-sequence E3/E3c do not clear Base's floor, and their hits fall (13→10, 11→9). Finding 18 (RS-SFT retains 10/35) — **changed, provisional**: full-sequence RS-SFT reads 6/35 at n = 32.

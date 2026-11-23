@@ -1,0 +1,353 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "5b4f5989ed3960c700d2bb9063bb4dcc853543c0",
+ "seed": 20261116,
+ "prediction": "P-20-3",
+ "stage": "2b",
+ "definition": "Delta = l_after - l_before (Phase 19 G/E exact string scores), centred within target; 'sampled' = before-model's 232-sample reference contains the recipe; usable target: >=3 unsampled and >=1 sampled strings; per target mean centred Delta(unsampled) - mean(sampled); statistic = median over usable targets; 10,000-draw cluster bootstrap over targets, seed 20261116.",
+ "by_step": {
+  "base->sft_e3_full": {
+   "median": 0.6846183443826342,
+   "ci95": [
+    -0.00016917604388608652,
+    1.014870834350586
+   ],
+   "n_usable_targets": 31,
+   "predicted": "CI entirely above 0",
+   "holds": false,
+   "per_target": {
+    "BaLiBO3": {
+     "diff": -0.5407811914171492,
+     "n_unsampled": 7,
+     "n_sampled": 8
+    },
+    "BaNaBO3": {
+     "diff": 0.7550757408142089,
+     "n_unsampled": 8,
+     "n_sampled": 20
+    },
+    "K2Zr(PO4)2": {
+     "diff": -0.00016917604388608652,
+     "n_unsampled": 6,
+     "n_sampled": 11
+    },
+    "K3Al2(PO4)3": {
+     "diff": 0.11377401351928708,
+     "n_unsampled": 10,
+     "n_sampled": 20
+    },
+    "K3Bi2(PO4)3": {
+     "diff": -0.7600640614827474,
+     "n_unsampled": 5,
+     "n_sampled": 12
+    },
+    "K3LiP2O7": {
+     "diff": 0.7299879058068539,
+     "n_unsampled": 7,
+     "n_sampled": 17
+    },
+    "KLi(PO3)2": {
+     "diff": 1.2037300622763754,
+     "n_unsampled": 7,
+     "n_sampled": 17
+    },
+    "KNiPO4": {
+     "diff": -0.33671760559082026,
+     "n_unsampled": 5,
+     "n_sampled": 25
+    },
+    "KTa2PO8": {
+     "diff": -1.249462170071072,
+     "n_unsampled": 9,
+     "n_sampled": 15
+    },
+    "KTiPO5": {
+     "diff": 0.21990882025824654,
+     "n_unsampled": 9,
+     "n_sampled": 12
+    },
+    "Li3Pr2(BO3)3": {
+     "diff": 0.5371321572197808,
+     "n_unsampled": 9,
+     "n_sampled": 18
+    },
+    "Li3Y2(BO3)3": {
+     "diff": 2.545931975046794,
+     "n_unsampled": 3,
+     "n_sampled": 8
+    },
+    "LiGeBO4": {
+     "diff": 1.849023691813151,
+     "n_unsampled": 3,
+     "n_sampled": 5
+    },
+    "LiSi2BO6": {
+     "diff": 0.7483680725097657,
+     "n_unsampled": 3,
+     "n_sampled": 5
+    },
+    "LiZnPO4": {
+     "diff": 0.6846183443826342,
+     "n_unsampled": 7,
+     "n_sampled": 18
+    },
+    "NaSiBO4": {
+     "diff": 0.05970121565319243,
+     "n_unsampled": 7,
+     "n_sampled": 12
+    },
+    "SrLiBO3": {
+     "diff": -0.5461506236683238,
+     "n_unsampled": 5,
+     "n_sampled": 11
+    },
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+     "diff": -2.143472671508789,
+     "n_unsampled": 3,
+     "n_sampled": 8
+    },
+    "Ba2Bi0.6667TeO6": {
+     "diff": -0.44185791015625,
+     "n_unsampled": 10,
+     "n_sampled": 10
+    },
+    "BaBrCl": {
+     "diff": 1.9157114937191917,
+     "n_unsampled": 12,
+     "n_sampled": 14
+    },
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3": {
+     "diff": -0.405808448791504,
+     "n_unsampled": 8,
+     "n_sampled": 9
+    },
+    "InMn0.9957Fe0.01O3": {
+     "diff": 1.7700404223273782,
+     "n_unsampled": 10,
+     "n_sampled": 17
+    },
+    "La1.85Sr0.15CuO4": {
+     "diff": 1.014870834350586,
+     "n_unsampled": 5,
+     "n_sampled": 4
+    },
+    "LaNi0.5Rh0.5O3": {
+     "diff": 1.7125965118408204,
+     "n_unsampled": 5,
+     "n_sampled": 10
+    },
+    "Li2TeO4": {
+     "diff": -1.7519867389233084,
+     "n_unsampled": 7,
+     "n_sampled": 11
+    },
+    "LiBi3O4Cl2": {
+     "diff": -1.4245869298899398,
+     "n_unsampled": 7,
+     "n_sampled": 23
+    },
+    "LiFe(BO3)0.5(PO4)0.5": {
+     "diff": 1.1743034449490635,
+     "n_unsampled": 8,
+     "n_sampled": 22
+    },
+    "LiPO3": {
+     "diff": 1.960924572414822,
+     "n_unsampled": 4,
+     "n_sampled": 9
+    },
+    "NaNiO2": {
+     "diff": 0.8591979026794434,
+     "n_unsampled": 7,
+     "n_sampled": 20
+    },
+    "Sr2MnNbO6": {
+     "diff": 1.8793356153700087,
+     "n_unsampled": 9,
+     "n_sampled": 16
+    },
+    "SrUO4": {
+     "diff": 1.6542036873953683,
+     "n_unsampled": 7,
+     "n_sampled": 7
+    }
+   }
+  },
+  "base->sft_e3c_full": {
+   "median": 0.5353258132934571,
+   "ci95": [
+    -0.09098533630371097,
+    0.6775259017944335
+   ],
+   "n_usable_targets": 31,
+   "predicted": "CI entirely above 0",
+   "holds": false,
+   "per_target": {
+    "BaLiBO3": {
+     "diff": -1.540240866797311,
+     "n_unsampled": 7,
+     "n_sampled": 8
+    },
+    "BaNaBO3": {
+     "diff": 0.6775259017944335,
+     "n_unsampled": 8,
+     "n_sampled": 20
+    },
+    "K2Zr(PO4)2": {
+     "diff": -0.6477633967544093,
+     "n_unsampled": 6,
+     "n_sampled": 11
+    },
+    "K3Al2(PO4)3": {
+     "diff": -0.005139827728271517,
+     "n_unsampled": 10,
+     "n_sampled": 20
+    },
+    "K3Bi2(PO4)3": {
+     "diff": -0.45138543446858725,
+     "n_unsampled": 5,
+     "n_sampled": 12
+    },
+    "K3LiP2O7": {
+     "diff": 1.2412256353041704,
+     "n_unsampled": 7,
+     "n_sampled": 17
+    },
+    "KLi(PO3)2": {
+     "diff": 0.6735271165350907,
+     "n_unsampled": 7,
+     "n_sampled": 17
+    },
+    "KNiPO4": {
+     "diff": -0.09098533630371097,
+     "n_unsampled": 5,
+     "n_sampled": 25
+    },
+    "KTa2PO8": {
+     "diff": -1.1353147718641492,
+     "n_unsampled": 9,
+     "n_sampled": 15
+    },
+    "KTiPO5": {
+     "diff": 0.041716787550184445,
+     "n_unsampled": 9,
+     "n_sampled": 12
+    },
+    "Li3Pr2(BO3)3": {
+     "diff": 0.2841661241319444,
+     "n_unsampled": 9,
+     "n_sampled": 18
+    },
+    "Li3Y2(BO3)3": {
+     "diff": 2.1664677460988364,
+     "n_unsampled": 3,
+     "n_sampled": 8
+    },
+    "LiGeBO4": {
+     "diff": 0.9189929962158203,
+     "n_unsampled": 3,
+     "n_sampled": 5
+    },
+    "LiSi2BO6": {
+     "diff": 0.466900889078776,
+     "n_unsampled": 3,
+     "n_sampled": 5
+    },
+    "LiZnPO4": {
+     "diff": 0.8791804540724982,
+     "n_unsampled": 7,
+     "n_sampled": 18
+    },
+    "NaSiBO4": {
+     "diff": 0.6481789180210658,
+     "n_unsampled": 7,
+     "n_sampled": 12
+    },
+    "SrLiBO3": {
+     "diff": -1.4983348499644888,
+     "n_unsampled": 5,
+     "n_sampled": 11
+    },
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+     "diff": -1.9443764686584473,
+     "n_unsampled": 3,
+     "n_sampled": 8
+    },
+    "Ba2Bi0.6667TeO6": {
+     "diff": -0.35898075103759763,
+     "n_unsampled": 10,
+     "n_sampled": 10
+    },
+    "BaBrCl": {
+     "diff": 1.578576269603911,
+     "n_unsampled": 12,
+     "n_sampled": 14
+    },
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3": {
+     "diff": -0.09834310743543842,
+     "n_unsampled": 8,
+     "n_sampled": 9
+    },
+    "InMn0.9957Fe0.01O3": {
+     "diff": 1.5507356755873736,
+     "n_unsampled": 10,
+     "n_sampled": 17
+    },
+    "La1.85Sr0.15CuO4": {
+     "diff": 0.5353258132934571,
+     "n_unsampled": 5,
+     "n_sampled": 4
+    },
+    "LaNi0.5Rh0.5O3": {
+     "diff": 1.3867164611816407,
+     "n_unsampled": 5,
+     "n_sampled": 10
+    },
+    "Li2TeO4": {
+     "diff": -1.8605132164893212,
+     "n_unsampled": 7,
+     "n_sampled": 11
+    },
+    "LiBi3O4Cl2": {
+     "diff": -1.040963392079987,
+     "n_unsampled": 7,
+     "n_sampled": 23
+    },
+    "LiFe(BO3)0.5(PO4)0.5": {
+     "diff": 0.6943404024297541,
+     "n_unsampled": 8,
+     "n_sampled": 22
+    },
+    "LiPO3": {
+     "diff": 1.4424042171902127,
+     "n_unsampled": 4,
+     "n_sampled": 9
+    },
+    "NaNiO2": {
+     "diff": 0.5807509558541435,
+     "n_unsampled": 7,
+     "n_sampled": 20
+    },
+    "Sr2MnNbO6": {
+     "diff": 2.2402813831965127,
+     "n_unsampled": 9,
+     "n_sampled": 16
+    },
+    "SrUO4": {
+     "diff": 0.6561832427978516,
+     "n_unsampled": 7,
+     "n_sampled": 7
+    }
+   }
+  }
+ },
+ "passes": null,
+ "gate_G_failed_models_label_exploratory": [],
+ "count_sources": {
+  "sft_rssft_full": "data/novelty/phase20/sft_rssft_full_heldout_n32.jsonl",
+  "sft_e3_full": "data/novelty/phase20/sft_e3_full_heldout_n32.jsonl",
+  "sft_e3c_full": "data/novelty/phase20/sft_e3c_full_heldout_n32.jsonl",
+  "e1full_ckpt300": "data/novelty/phase20/e1full_ckpt300_heldout_n32.jsonl"
+ }
+}

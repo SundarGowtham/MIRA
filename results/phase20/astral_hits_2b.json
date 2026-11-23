@@ -1,0 +1,195 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "5b4f5989ed3960c700d2bb9063bb4dcc853543c0",
+ "seed": 20261116,
+ "measurement": "ASTRAL rule-picked hits (finding 18/22 metric)",
+ "definition": "hit = any of the model's 32 samples has exactly the ASTRAL rule-picked precursor set (canonical); superset-inclusive variant reported. All rows are vLLM T 0.9 draws (Base, old RS-SFT: their 32-sample resampling group).",
+ "by_model": {
+  "sft_rssft_full_n32": {
+   "exact_full": "6/35",
+   "exact_clean": "5/22",
+   "superset_incl_full": "6/35",
+   "superset_incl_clean": "5/22",
+   "group": "all (32/target)",
+   "hit_targets_exact": [
+    "BaNaBO3",
+    "KTiPO5",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiZnBO3",
+    "NaSiBO4"
+   ]
+  },
+  "sft_e3_full": {
+   "exact_full": "10/35",
+   "exact_clean": "7/22",
+   "superset_incl_full": "10/35",
+   "superset_incl_clean": "7/22",
+   "group": "all (32/target)",
+   "hit_targets_exact": [
+    "BaNaBO3",
+    "K3LiP2O7",
+    "KLi(PO3)2",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "Na2Al2B2O7",
+    "NaSiBO4",
+    "NaSrBO3"
+   ]
+  },
+  "sft_e3c_full": {
+   "exact_full": "9/35",
+   "exact_clean": "7/22",
+   "superset_incl_full": "9/35",
+   "superset_incl_clean": "7/22",
+   "group": "all (32/target)",
+   "hit_targets_exact": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "Li3Pr2(BO3)3",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "NaSiBO4",
+    "NaSrBO3"
+   ]
+  },
+  "e1full_ckpt100": {
+   "exact_full": "10/35",
+   "exact_clean": "8/22",
+   "superset_incl_full": "10/35",
+   "superset_incl_clean": "8/22",
+   "group": "all (32/target)",
+   "hit_targets_exact": [
+    "BaNaBO3",
+    "K3LiP2O7",
+    "KLi(PO3)2",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "NaSiBO4",
+    "NaSrBO3"
+   ]
+  },
+  "e1full_ckpt200": {
+   "exact_full": "10/35",
+   "exact_clean": "9/22",
+   "superset_incl_full": "10/35",
+   "superset_incl_clean": "9/22",
+   "group": "all (32/target)",
+   "hit_targets_exact": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K3LiP2O7",
+    "KLi(PO3)2",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiNbGeO5",
+    "NaSiBO4",
+    "NaSrBO3",
+    "SrLiBO3"
+   ]
+  },
+  "e1full_ckpt300": {
+   "exact_full": "9/35",
+   "exact_clean": "7/22",
+   "superset_incl_full": "9/35",
+   "superset_incl_clean": "7/22",
+   "group": "all (32/target)",
+   "hit_targets_exact": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiZnBO3",
+    "NaSiBO4",
+    "NaSrBO3",
+    "SrLiBO3"
+   ]
+  },
+  "rs_sft": {
+   "exact_full": "10/35",
+   "exact_clean": "8/22",
+   "superset_incl_full": "10/35",
+   "superset_incl_clean": "8/22",
+   "group": "resampling_rate",
+   "hit_targets_exact": [
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "NaSiBO4",
+    "NaSrBO3",
+    "SrLiBO3"
+   ]
+  },
+  "base": {
+   "exact_full": "7/35",
+   "exact_clean": "6/22",
+   "superset_incl_full": "7/35",
+   "superset_incl_clean": "6/22",
+   "group": "resampling_rate",
+   "hit_targets_exact": [
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiSi2BO6",
+    "NaSiBO4",
+    "NaSrBO3"
+   ]
+  },
+  "e3": {
+   "exact_full": "13/35",
+   "exact_clean": "10/22",
+   "superset_incl_full": "13/35",
+   "superset_incl_clean": "10/22",
+   "group": "all (32/target)",
+   "hit_targets_exact": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "Na2Al2B2O7",
+    "NaSiBO4",
+    "NaSrBO3",
+    "SrLiBO3"
+   ]
+  },
+  "e3c": {
+   "exact_full": "11/35",
+   "exact_clean": "9/22",
+   "superset_incl_full": "11/35",
+   "superset_incl_clean": "9/22",
+   "group": "all (32/target)",
+   "hit_targets_exact": [
+    "BaLiBO3",
+    "BaNaBO3",
+    "K3LiP2O7",
+    "Li3Y2(BO3)3",
+    "LiGeBO4",
+    "LiNbGeO5",
+    "LiNbWO6",
+    "LiSi2BO6",
+    "LiZnBO3",
+    "NaSiBO4",
+    "NaSrBO3"
+   ]
+  }
+ }
+}

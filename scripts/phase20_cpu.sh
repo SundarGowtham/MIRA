@@ -22,9 +22,9 @@ case "$1" in
     run reach_2b reach --stage 2b
     run uniform_2b uniform --stage 2b
     run posterior_2b posterior --stage 2b
-    run coverage_2b coverage
-    run hits_2b hits
-    run alkali_2b alkali
+    run coverage_2b coverage --stage 2b
+    run hits_2b hits --stage 2b
+    run alkali_2b alkali --stage 2b
     notify "MIRA phase20: SFT-side CPU analyses finished (failed=$FAILED) -- report 2 due"
     ;;
   final)

@@ -316,7 +316,7 @@ def cmd_coverage():
                     cov += tuple(y) in ys
             row[m] = {"share_in_probe_set": cov / tot if tot else None, "n_samples": tot}
         out[f"{new}_vs_{old}"] = row
-    write_json("coverage.json", {**provenance(), "measurement": "probe-set coverage",
+    write_json(f"coverage_{STAGE}.json", {**provenance(), "measurement": "probe-set coverage",
                                  "definition": "share of the model's parsed samples on the 40 probe targets whose "
                                                "canonical recipe is one of Phase 19's 671 probe recipes",
                                  "by_pair": out})
@@ -391,7 +391,7 @@ def cmd_hits():
                   "superset_incl_full": f"{sum(sup.values())}/35",
                   "superset_incl_clean": f"{sum(sup[t] for t in clean)}/22",
                   "group": grp or "all (32/target)", "hit_targets_exact": sorted(t for t, v in ex.items() if v)}
-    write_json("astral_hits.json", {**provenance(), "measurement": "ASTRAL rule-picked hits (finding 18/22 metric)",
+    write_json(f"astral_hits_{STAGE}.json", {**provenance(), "measurement": "ASTRAL rule-picked hits (finding 18/22 metric)",
                                     "definition": "hit = any of the model's 32 samples has exactly the ASTRAL rule-picked "
                                                   "precursor set (canonical); superset-inclusive variant reported. All "
                                                   "rows are vLLM T 0.9 draws (Base, old RS-SFT: their 32-sample "
@@ -417,7 +417,7 @@ def cmd_alkali():
         if m not in cache or "astral" not in cache[m]:
             continue
         out[m] = tally_astral_dump(_astral_dump(cache, m, grp))
-    write_json("alkali_source_share.json", {**provenance(), "measurement": "alkali-source shares, ASTRAL 35",
+    write_json(f"alkali_source_share_{STAGE}.json", {**provenance(), "measurement": "alkali-source shares, ASTRAL 35",
                                             "wording_rule": "finding 24: per-alkali-choice shares (each alkali element "
                                                             "a sample must source counts once); not whole-sample shares",
                                             "by_model": out})
@@ -569,10 +569,10 @@ def cmd_report():
         "P-20-3": ("p20_3_final.json", ("by_step", "passes", "gate_G_failed_models_label_exploratory")),
         "P-20-4/5": ("p20_4_5.json", ("P_20_4", "P_20_5", "gate_G_failed_models_label_exploratory")),
         "gate_G_stage4": ("p19_4/gate.json", ("gate_passes", "by_model")),
-        "coverage": ("coverage.json", ("by_pair",)),
+        "coverage": ("coverage_final.json", ("by_pair",)),
         "mmd_rssft": ("mmd_rssft_old_vs_new.json", ("by_set",)),
-        "hits": ("astral_hits.json", ("by_model",)),
-        "alkali": ("alkali_source_share.json", ("by_model",)),
+        "hits": ("astral_hits_final.json", ("by_model",)),
+        "alkali": ("alkali_source_share_final.json", ("by_model",)),
         "uniform": ("uniform_shift_final.json", ("by_step",)),
         "tempfix": ("tempfix_hits_alkali.json", ("hits", "alkali")),
         "temp_vllm_E": ("temp_vllm_E.json", ("finding_31_hits", "finding_33_rssft_row")),
@@ -594,11 +594,16 @@ def cmd_report():
     print(json.dumps({k: (v.get("passes") if isinstance(v, dict) else None) for k, v in out.items()}, indent=1))
 
 
+STAGE = "final"
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd")
     ap.add_argument("--stage", default="final", choices=["2b", "final"])
     a = ap.parse_args()
+    global STAGE
+    STAGE = a.stage  # suffix for outputs of commands without a --stage of their own
     provenance(require_commit=True)
     fn = globals()[f"cmd_{a.cmd}"]
     import inspect

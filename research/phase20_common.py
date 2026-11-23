@@ -143,15 +143,23 @@ def load_recipes20(rebuild: bool = False) -> dict:
     plus the Phase 20 models and the Stage 5 resamples (as '<model>_t09'),
     parsed by the same code (phase18_common._load_raw: parse_completion +
     precset_of). New-model entries are cached keyed by source file size/mtime."""
-    from research.phase18_common import load_recipes, _load_raw
+    import research.phase18_common as c18
+    from research.phase18_common import _load_raw
+    # patch_phase18 replaces c18.load_recipes with this function; use the original
+    load_recipes = getattr(c18, "_orig_load_recipes", c18.load_recipes)
     cache = json.loads(json.dumps(load_recipes()))
     new = json.loads(NEW_RECIPE_CACHE.read_text()) if NEW_RECIPE_CACHE.exists() and not rebuild else {}
     srcs = dict(NEW_SOURCES)
     srcs.update({(f"{m}_t09", "astral"): p for m, p in T09_SOURCES.items()})
     changed = False
+    ref_done = (STAGE_DIR / "STAGE_S4_sample_ref.done").exists()
     for (m, ts), path in srcs.items():
         sig = _src_sig(path)
         if sig is None:
+            continue
+        # the 232-sample reference is written over ~a day; never read it half-written
+        if m == "sft_rssft_full" and not ref_done:
+            new.get(m, {}).pop(ts, None)
             continue
         ent = new.get(m, {}).get(ts)
         if ent and ent.get("sig") == sig:
@@ -202,6 +210,8 @@ def patch_phase18(steps: dict, own_ft=("S2", "S3", "S4"), practice=("S5", "S6", 
     c.OWN_SAMPLE_FT_STEPS = tuple(own_ft)
     c.PRACTICE_STEPS = tuple(practice)
     c.ADAPTERS = all_adapters()
+    if not hasattr(c, "_orig_load_recipes"):
+        c._orig_load_recipes = c.load_recipes
     c.load_recipes = load_recipes20
     prov = provenance(require_commit=require_commit)
     c.provenance = lambda: dict(prov)
