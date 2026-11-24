@@ -1,0 +1,38 @@
+{
+ "gate": "R",
+ "tag": "sft-corpus-full",
+ "dataset": "sft_v3",
+ "pass": true,
+ "R1": {
+  "pass": true,
+  "logged_step": 100,
+  "num_tokens_at_step": 16495998.0,
+  "examples_seen": 3138,
+  "tokens_per_example": 5256.85086042065,
+  "dataset_mean_full_len_incl_prompt": 5226.330320460148,
+  "relative_diff": 0.005839764823325266,
+  "global_step_final": 117,
+  "checkpoint": "checkpoint-117"
+ },
+ "R2": {
+  "pass": true,
+  "n": 64,
+  "parse_rate": 1.0,
+  "median_completion_tokens": 4072.5,
+  "clipped_share": 0.0,
+  "targets": [
+   "(Ba0.7Ca0.3)TiO3",
+   "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3",
+   "(Y0.98Er0.01Yb0.01)2O3",
+   "AgCuO",
+   "Ba(Ti0.78Hf0.22)O3",
+   "Ba2Bi0.6667TeO6",
+   "Ba2La3Ti3TaO15",
+   "Ba3In4Cu3O12"
+  ]
+ },
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "e05111d83f8d7cc6d572f8feda3f433494309b8f",
+ "seed": 20261116
+}

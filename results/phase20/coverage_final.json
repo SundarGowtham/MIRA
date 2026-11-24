@@ -1,0 +1,60 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "e05111d83f8d7cc6d572f8feda3f433494309b8f",
+ "seed": 20261116,
+ "measurement": "probe-set coverage",
+ "definition": "share of the model's parsed samples on the 40 probe targets whose canonical recipe is one of Phase 19's 671 probe recipes",
+ "by_pair": {
+  "sft_rssft_full_vs_rs_sft": {
+   "sft_rssft_full": {
+    "share_in_probe_set": 0.9856755290287574,
+    "n_samples": 9215
+   },
+   "rs_sft": {
+    "share_in_probe_set": 0.9960063897763578,
+    "n_samples": 8764
+   }
+  },
+  "sft_e3_full_vs_e3": {
+   "sft_e3_full": {
+    "share_in_probe_set": 0.9897879025923016,
+    "n_samples": 1273
+   },
+   "e3": {
+    "share_in_probe_set": 0.995260663507109,
+    "n_samples": 1266
+   }
+  },
+  "sft_e3c_full_vs_e3c": {
+   "sft_e3c_full": {
+    "share_in_probe_set": 0.9866562009419152,
+    "n_samples": 1274
+   },
+   "e3c": {
+    "share_in_probe_set": 0.9976171564733916,
+    "n_samples": 1259
+   }
+  },
+  "e1full_ckpt300_vs_e1_ckpt300": {
+   "e1full_ckpt300": {
+    "share_in_probe_set": 0.9865079365079366,
+    "n_samples": 1260
+   },
+   "e1_ckpt300": {
+    "share_in_probe_set": 0.9951100244498777,
+    "n_samples": 1227
+   }
+  },
+  "sft_corpus_full_vs_corpus_sft": {
+   "sft_corpus_full": {
+    "share_in_probe_set": 0.951179820992677,
+    "n_samples": 1229
+   },
+   "corpus_sft": {
+    "share_in_probe_set": 0.9728867623604466,
+    "n_samples": 1254
+   }
+  }
+ }
+}

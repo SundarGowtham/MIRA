@@ -1,0 +1,100 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "e05111d83f8d7cc6d572f8feda3f433494309b8f",
+ "seed": 20261116,
+ "measurement": "alkali-source shares, ASTRAL 35",
+ "wording_rule": "finding 24: per-alkali-choice shares (each alkali element a sample must source counts once); not whole-sample shares",
+ "by_model": {
+  "sft_rssft_full_n32": {
+   "counts": {
+    "bare_oxide": 121,
+    "carbonate": 935,
+    "other": 125,
+    "missing": 0
+   },
+   "n_triples": 1181,
+   "shares": {
+    "bare_oxide": 0.10245554614733277,
+    "carbonate": 0.7917019475021169,
+    "other": 0.10584250635055038,
+    "missing": 0.0
+   }
+  },
+  "e1full_ckpt300": {
+   "counts": {
+    "bare_oxide": 206,
+    "carbonate": 822,
+    "other": 149,
+    "missing": 0
+   },
+   "n_triples": 1177,
+   "shares": {
+    "bare_oxide": 0.1750212404418012,
+    "carbonate": 0.6983857264231096,
+    "other": 0.1265930331350892,
+    "missing": 0.0
+   }
+  },
+  "rs_sft": {
+   "counts": {
+    "bare_oxide": 277,
+    "carbonate": 552,
+    "other": 316,
+    "missing": 0
+   },
+   "n_triples": 1145,
+   "shares": {
+    "bare_oxide": 0.24192139737991267,
+    "carbonate": 0.4820960698689956,
+    "other": 0.2759825327510917,
+    "missing": 0.0
+   }
+  },
+  "e1_ckpt300_t09": {
+   "counts": {
+    "bare_oxide": 585,
+    "carbonate": 233,
+    "other": 340,
+    "missing": 0
+   },
+   "n_triples": 1158,
+   "shares": {
+    "bare_oxide": 0.5051813471502591,
+    "carbonate": 0.20120898100172713,
+    "other": 0.29360967184801384,
+    "missing": 0.0
+   }
+  },
+  "sft_e3_full": {
+   "counts": {
+    "bare_oxide": 114,
+    "carbonate": 930,
+    "other": 139,
+    "missing": 0
+   },
+   "n_triples": 1183,
+   "shares": {
+    "bare_oxide": 0.09636517328825021,
+    "carbonate": 0.7861369399830939,
+    "other": 0.11749788672865596,
+    "missing": 0.0
+   }
+  },
+  "sft_e3c_full": {
+   "counts": {
+    "bare_oxide": 100,
+    "carbonate": 967,
+    "other": 115,
+    "missing": 0
+   },
+   "n_triples": 1182,
+   "shares": {
+    "bare_oxide": 0.08460236886632826,
+    "carbonate": 0.8181049069373942,
+    "other": 0.09729272419627749,
+    "missing": 0.0
+   }
+  }
+ }
+}

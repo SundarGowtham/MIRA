@@ -144,3 +144,123 @@ Full-sequence SFT is written deeper (L50 10–14 vs 6) and is less concentrated 
   The 671 Phase 19 probe strings cover the new models nearly as well as the old ones.
 
 **Old findings touched so far (provisional until the final analysis):** finding 31 ("self-distillation adds recipes") — **changed**: on the P-18A-2 measure the full-sequence E3/E3c do not clear Base's floor, and their hits fall (13→10, 11→9). Finding 18 (RS-SFT retains 10/35) — **changed, provisional**: full-sequence RS-SFT reads 6/35 at n = 32.
+
+---
+
+## 2026-11-24: Stages 4–7 — final analysis (Report 3)
+
+The chain finished at 21:30 UTC. One final step (`weights`, the 18C rerun) first crashed: the Phase 20 wrapper dropped step S6, which the Phase 18 code's P-18C-2 test hard-codes. The fix keeps S6 (old RS-SFT → Phase 12 @300) as an unchanged reference step on its own old init. It needed one additive line in `research/phase18_c_weight_geometry.py` (load any trajectory init); Phase 18's own behavior is unchanged. Check: S5 and S6 reproduce Phase 18's P-18C-2 values exactly.
+
+`sft-rssft-full` rows below use the complete 232-sample reference, replacing the invalid 2b rows. Every new model passes Block G (≥ 0.4): Base 0.462, `sft-rssft-full` 0.526, `sft-e3-full` 0.415, `sft-e3c-full` 0.482, E1-full @300 0.439. No P-20 result is labeled exploratory.
+
+Stage 6 ran: `sft-corpus-full` passed Gate R. R1 +0.58% against the 5% bar; R2 parse 100%, median 4,073 completion tokens, 0% clipped.
+
+### Predictions
+
+| | prediction | result |
+|---|---|---|
+| P-20-1 | each full-sequence SFT clears Base's floor (P-18A-2) | **FAILS** for all three |
+| P-20-2 | E1-full @100/200/300 does not exceed `sft-rssft-full`'s floor | **HOLDS** |
+| P-20-3 | reach: RL CI < 0, SFT CIs > 0 | **FAILS** for all three steps |
+| P-20-4 | L50(RL) > L50 of both SFT steps | **HOLDS** |
+| P-20-5 | R(4) of both SFT steps > R(4)(RL) | **FAILS** (E3 holds, E3c does not) |
+
+**P-20-1 (P-18A-2 measure, 62 targets; new-support mass − Base floor):**
+
+| step | full-sequence | 95% CI | old (1,024-token SFT) |
+|---|---|---|---|
+| Base → `sft-rssft-full` | −0.0012 | [−0.0066, +0.0045] | +0.0315 [+0.0180, +0.0447] |
+| Base → `sft-e3-full` | −0.0036 | [−0.0107, +0.0039] | +0.0111 [+0.0011, +0.0224] |
+| Base → `sft-e3c-full` | +0.0030 | [−0.0051, +0.0120] | +0.0204 [+0.0073, +0.0344] |
+| Base → `sft-corpus-full` (S1, not predicted) | **+0.0676** | [+0.0400, +0.0992] | +0.0579 [+0.0303, +0.0903] |
+| `sft-rssft-full` → E1-full @300 (S7, not predicted) | +0.0029 | [−0.0025, +0.0089] | −0.0040 [−0.0096, +0.0021] |
+
+Training on the model's own samples, with the full sequence, no longer adds support above Base's resampling floor. Training on the external corpus still does, by about the same amount as before.
+
+**P-20-2 (finding 33's procedure; new-recipe rate vs `sft-rssft-full`'s floor):**
+
+| | ckpt 100 | ckpt 200 | ckpt 300 | floor |
+|---|---|---|---|---|
+| ASTRAL | 9.8% [5.3, 14.0] | 9.9% [5.7, 14.1] | 10.8% [6.8, 14.8] | 8.6% [4.3, 13.1] |
+| held-out | 6.0% [2.4, 9.6] | 9.3% [4.3, 13.9] | 14.7% [7.6, 20.5] | 16.1% [9.8, 22.1] |
+
+No checkpoint's interval lies above the floor's interval. Held-out rises 6.0 → 14.7% across checkpoints, still under the floor.
+
+**P-20-3 (exact reach, median centered Δ unsampled − sampled):**
+
+| step | median | 95% CI | usable targets |
+|---|---|---|---|
+| Base → `sft-e3-full` | +0.685 | [−0.0002, +1.015] | 31 |
+| Base → `sft-e3c-full` | +0.535 | [−0.091, +0.678] | 31 |
+| `sft-rssft-full` → E1-full @300 | −0.084 | [−0.236, +0.268] | 34 |
+
+SFT points are positive and the RL point is negative, as predicted, but no CI clears 0.
+
+**P-20-4 / P-20-5 (Block E, F1):**
+
+| step | L50 [CI] | R(4) | L* |
+|---|---|---|---|
+| Base → `sft-e3-full` | 10 [6, 14] | 0.284 | 26 |
+| Base → `sft-e3c-full` | 14 [10, 24] | 0.011 | 28 |
+| `sft-rssft-full` → E1-full @300 | 24 [22, 26] | 0.134 | 30 |
+
+### Measurements
+
+**ASTRAL rule-picked hits, n = 32, T 0.9 vLLM unless noted:**
+
+| model | new (full sequence) | old |
+|---|---|---|
+| Base | — | 7/35 (6/22) |
+| Corpus SFT | 2/35 (2/22) | 0/35 (0/22) |
+| RS-SFT | 6/35 (5/22) | 10/35 (8/22) |
+| E3 | 10/35 (7/22) | 13/35 (10/22) |
+| E3c | 9/35 (7/22) | 11/35 (9/22) |
+| E1 @100 / @200 / @300 | 10 (8), 10 (9), 9 (7) | @300: 13/35 (10/22), Stage 5 |
+
+- **Temperature fix (Stage 5, old models at T 0.9 vLLM vs their HF T 1.0 files):**
+
+  | model | HF T 1.0 | vLLM T 0.9 |
+  |---|---|---|
+  | Corpus SFT | 0/35 | 0/35 |
+  | GDPO-v3 @300 | 2/35 | 0/35 |
+  | Phase 12 @300 | 14/35 (12/22) | **12/35 (10/22)** |
+  | E1 @300 | 14/35 (11/22) | **13/35 (10/22)** |
+
+  The 18A rerun at matched temperature (`tempfix_transport_exact.json`) moves no step's verdict: S5 −0.0047, S6 −0.0106, S7 −0.0042, each within 0.0015 of before.
+
+**Alkali source, per alkali choice (carbonate / bare oxide):**
+
+| model | carbonate | bare oxide |
+|---|---|---|
+| `sft-rssft-full` | 79.2% | 10.2% |
+| E1-full @300 | 69.8% | 17.5% |
+| `sft-e3-full` | 78.6% | 9.6% |
+| `sft-e3c-full` | 81.8% | 8.5% |
+| old RS-SFT (vLLM) | 48.2% | 24.2% |
+| old E1 @300, T 0.9 | 20.1% | 50.5% |
+| Phase 12 @300, T 0.9 | 16.3% | 57.6% |
+
+**Old vs new RS-SFT (18E kernel MMD):** ASTRAL 0.334 [0.290, 0.380] against a resampling floor of 0.128; held-out 0.178 [0.137, 0.220] against a floor of 0.084. The two RS-SFTs are different distributions.
+
+**Probe coverage (share of samples in the 671 probe strings):** `sft-rssft-full` 98.6% (old 99.6%), `sft-e3-full` 99.0% (99.5%), `sft-e3c-full` 98.7% (99.8%), E1-full @300 98.7% (99.5%), `sft-corpus-full` 95.1% (97.3%).
+
+**Uniform shift, RL step (Δ mean / Δ RMS on answer strings):** 0.27 / 0.93 for the new step, against 0.48 / 1.72 for the old one.
+
+**18C weights, P-18C-2 (share of modules with non-decreasing effective rank over 100 → 200 → 300):** E1-full 0.52, against old E1 0.968. S5 0.302 and S6 0.452 are unchanged.
+
+### Old findings touched
+
+| finding | verdict | why |
+|---|---|---|
+| 16 (Corpus SFT destroys Base's hits) | **confirmed** | full-sequence Corpus SFT 2/35 against Base 7/35 |
+| 18 (RS-SFT retains Base's 10/35) | **changed** | full-sequence RS-SFT 6/35 against Base 7/35 at matched temperature; the retention was a property of 1,024-token training |
+| 22 (Phase 12 amplified 10 → 14/35) | **changed (weaker)** | at matched temperature Phase 12 @300 reads 12/35 against old RS-SFT 10/35 |
+| 24 / 26 (RL shifts alkali sourcing to bare oxide) | **confirmed, smaller** | E1-full moves carbonate 79.2 → 69.8%, against 48.2 → 20.1% for the old pair |
+| 30 (E1 reaches 14/35) | **changed** | 13/35 at matched temperature; from full-sequence RS-SFT E1 reaches 9–10/35 |
+| 31 (self-distillation adds recipes) | **reversed** | full-sequence E3/E3c no longer clear Base's floor on P-18A-2; the rarity filter still adds nothing |
+| 33 (RL's new-recipe rate stays under the floor) | **confirmed** | P-20-2 holds from the new init |
+| Phase 18 P-18A-2 (SFT S2–S4 positive) | **reversed** | only Corpus SFT (S1) remains positive |
+| Phase 19 E/F1 (SFT written shallow, low-dimensional) | **changed** | full-sequence SFT L50 10–14 (was 6), R(4) 0.01–0.28 (was 0.73–0.76); RL is still written deeper (P-20-4) |
+| Phase 18 P-18C-2 for E1 | **changed** | 0.968 → 0.52 non-decreasing |
+
+**Net:** the one robust SFT-vs-RL contrast that survives is *where* the change is written (P-20-4). The "SFT on own samples adds recipes, RL does not" contrast does not survive full-sequence training: neither adds support above floor. External-corpus SFT still does.

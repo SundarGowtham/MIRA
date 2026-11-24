@@ -136,7 +136,8 @@ def main():
         return handles[shard].get_tensor(name)
 
     assert base_tensor("model.layers.0.self_attn.q_proj.weight").dtype == torch.bfloat16
-    ad = {m: Adapter(ADAPTERS[m]) for m in ("corpus_sft", "rs_sft", "e3", "e3c")}
+    # also load any trajectory init outside the four (Phase 20 adds "rs_sft_old"); Phase 18 unchanged
+    ad = {m: Adapter(ADAPTERS[m]) for m in ("corpus_sft", "rs_sft", "e3", "e3c", *(i for i, _ in TRAJ.values()))}
     traj_ad = {s: [Adapter(r) for r in rels] for s, (_, rels) in TRAJ.items()}
     inter_ad = {m: Adapter(r) for m, r in FT_INTERMEDIATE.items()}
 

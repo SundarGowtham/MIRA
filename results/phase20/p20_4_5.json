@@ -1,0 +1,61 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "e05111d83f8d7cc6d572f8feda3f433494309b8f",
+ "seed": 20261116,
+ "steps": {
+  "S3": "Base -> sft-e3-full",
+  "S4": "Base -> sft-e3c-full",
+  "S7": "sft-rssft-full -> E1-full @300"
+ },
+ "P_20_4": {
+  "statement": "L50(sft-rssft-full -> E1-full@300) > L50(Base -> sft-e3-full) and > L50(Base -> sft-e3c-full); Block E code unchanged.",
+  "L50": {
+   "S3": 10,
+   "S4": 14,
+   "S7": 24
+  },
+  "L50_ci95": {
+   "S3": [
+    6.0,
+    14.0
+   ],
+   "S4": [
+    10.0,
+    24.0
+   ],
+   "S7": [
+    22.0,
+    26.0
+   ]
+  },
+  "orderings": {
+   "S7>S3": true,
+   "S7>S4": true
+  },
+  "passes": true
+ },
+ "P_20_5": {
+  "statement": "R(4) for each SFT step (S3, S4) > R(4) for sft-rssft-full -> E1-full@300; F1 code unchanged, L* from this phase's Block E.",
+  "R4": {
+   "S3": 0.2835380568505572,
+   "S4": 0.011479764054361796,
+   "S7": 0.13425766034268738
+  },
+  "L_star": {
+   "S3": 26,
+   "S4": 28,
+   "S7": 30
+  },
+  "orderings": {
+   "S3>S7": true,
+   "S4>S7": false
+  },
+  "passes": false
+ },
+ "gate_G_failed_models_label_exploratory": [],
+ "sources": [
+  "results/phase20/p19_4/location.json",
+  "results/phase20/p19_4/dimension.json"
+ ]
+}

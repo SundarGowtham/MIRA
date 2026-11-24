@@ -1,0 +1,483 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "e05111d83f8d7cc6d572f8feda3f433494309b8f",
+ "seed": 20261116,
+ "measurement": "old vs new RS-SFT, 18E kernel MMD",
+ "kernel": "k(y,y') = 1 - Jaccard distance (18E)",
+ "samples": "each model's 200-sample 'reference' group (vLLM T 0.9); floor = old RS-SFT's 200 vs its own 32 resampling draw [E]",
+ "by_set": {
+  "astral_35": {
+   "mean_mmd_old_vs_new": 0.3342616234909096,
+   "ci95": [
+    0.2899095401232671,
+    0.3801827512545196
+   ],
+   "mean_floor_old_200_vs_old_32": 0.12827904572466184,
+   "n_targets": 35,
+   "per_target": {
+    "LiZnPO4": {
+     "mmd_old_vs_new": 0.4031894262027491,
+     "mmd_old_ref_vs_old_resample_floor": 0.07772656910551422,
+     "n_old": 193,
+     "n_new": 200
+    },
+    "LiMnPO4": {
+     "mmd_old_vs_new": 0.33933829289088596,
+     "mmd_old_ref_vs_old_resample_floor": 0.11009716884503586,
+     "n_old": 179,
+     "n_new": 199
+    },
+    "Li2CuP2O7": {
+     "mmd_old_vs_new": 0.14680202087619001,
+     "mmd_old_ref_vs_old_resample_floor": 0.09229242630263285,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "LiMgPO4": {
+     "mmd_old_vs_new": 0.4352628952173229,
+     "mmd_old_ref_vs_old_resample_floor": 0.13484584907288727,
+     "n_old": 197,
+     "n_new": 200
+    },
+    "BaLiBO3": {
+     "mmd_old_vs_new": 0.16107880915000744,
+     "mmd_old_ref_vs_old_resample_floor": 0.1674251832422013,
+     "n_old": 196,
+     "n_new": 200
+    },
+    "SrLiBO3": {
+     "mmd_old_vs_new": 0.22542002418133691,
+     "mmd_old_ref_vs_old_resample_floor": 0.10983554543845182,
+     "n_old": 197,
+     "n_new": 200
+    },
+    "Li3Pr2(BO3)3": {
+     "mmd_old_vs_new": 0.08959789761277553,
+     "mmd_old_ref_vs_old_resample_floor": 0.16713674667331013,
+     "n_old": 195,
+     "n_new": 200
+    },
+    "LiGeBO4": {
+     "mmd_old_vs_new": 0.2057810673958075,
+     "mmd_old_ref_vs_old_resample_floor": 0.18273779817118563,
+     "n_old": 197,
+     "n_new": 200
+    },
+    "K3LiP2O7": {
+     "mmd_old_vs_new": 0.5596489793101607,
+     "mmd_old_ref_vs_old_resample_floor": 0.1690064147388962,
+     "n_old": 194,
+     "n_new": 199
+    },
+    "Li3Sc2(PO4)3": {
+     "mmd_old_vs_new": 0.34099069428397294,
+     "mmd_old_ref_vs_old_resample_floor": 0.20606410911556544,
+     "n_old": 189,
+     "n_new": 198
+    },
+    "Li3V2(PO4)3": {
+     "mmd_old_vs_new": 0.4005777714753839,
+     "mmd_old_ref_vs_old_resample_floor": 0.14405557620643653,
+     "n_old": 183,
+     "n_new": 199
+    },
+    "KLi(PO3)2": {
+     "mmd_old_vs_new": 0.5697804346388432,
+     "mmd_old_ref_vs_old_resample_floor": 0.1782151941546536,
+     "n_old": 189,
+     "n_new": 199
+    },
+    "Li2TiSiO5": {
+     "mmd_old_vs_new": 0.1126388032606881,
+     "mmd_old_ref_vs_old_resample_floor": 0.05155397656825318,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "LiNbGeO5": {
+     "mmd_old_vs_new": 0.46379816805343843,
+     "mmd_old_ref_vs_old_resample_floor": 0.06611705382038095,
+     "n_old": 198,
+     "n_new": 200
+    },
+    "Li2TiGeO5": {
+     "mmd_old_vs_new": 0.26253571185650154,
+     "mmd_old_ref_vs_old_resample_floor": 0.050187149749711814,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "Li3Fe2(PO4)3": {
+     "mmd_old_vs_new": 0.4182590816988559,
+     "mmd_old_ref_vs_old_resample_floor": 0.15357361679782336,
+     "n_old": 188,
+     "n_new": 200
+    },
+    "KBaPO4": {
+     "mmd_old_vs_new": 0.437817392490645,
+     "mmd_old_ref_vs_old_resample_floor": 0.11757642447458717,
+     "n_old": 196,
+     "n_new": 199
+    },
+    "BaNaBO3": {
+     "mmd_old_vs_new": 0.182184871009553,
+     "mmd_old_ref_vs_old_resample_floor": 0.1438595140850777,
+     "n_old": 196,
+     "n_new": 200
+    },
+    "KMgPO4": {
+     "mmd_old_vs_new": 0.3859322787630528,
+     "mmd_old_ref_vs_old_resample_floor": 0.09883184131948686,
+     "n_old": 193,
+     "n_new": 200
+    },
+    "NaSrBO3": {
+     "mmd_old_vs_new": 0.2402435091867841,
+     "mmd_old_ref_vs_old_resample_floor": 0.1277258134743165,
+     "n_old": 194,
+     "n_new": 200
+    },
+    "K3Bi2(PO4)3": {
+     "mmd_old_vs_new": 0.45827997479807686,
+     "mmd_old_ref_vs_old_resample_floor": 0.2023846908209801,
+     "n_old": 192,
+     "n_new": 200
+    },
+    "K2Zr(PO4)2": {
+     "mmd_old_vs_new": 0.2705826787801552,
+     "mmd_old_ref_vs_old_resample_floor": 0.1555581475731289,
+     "n_old": 198,
+     "n_new": 200
+    },
+    "K3Al2(PO4)3": {
+     "mmd_old_vs_new": 0.41217756561344787,
+     "mmd_old_ref_vs_old_resample_floor": 0.13327852236977,
+     "n_old": 189,
+     "n_new": 200
+    },
+    "KTiPO5": {
+     "mmd_old_vs_new": 0.42783955594617756,
+     "mmd_old_ref_vs_old_resample_floor": 0.16049909090460285,
+     "n_old": 193,
+     "n_new": 199
+    },
+    "KNiPO4": {
+     "mmd_old_vs_new": 0.3527613735719583,
+     "mmd_old_ref_vs_old_resample_floor": 0.1350815319647279,
+     "n_old": 188,
+     "n_new": 198
+    },
+    "K3Fe2(PO4)3": {
+     "mmd_old_vs_new": 0.3494834063368989,
+     "mmd_old_ref_vs_old_resample_floor": 0.11604976644889943,
+     "n_old": 187,
+     "n_new": 199
+    },
+    "KNbWO6": {
+     "mmd_old_vs_new": 0.48365212307417477,
+     "mmd_old_ref_vs_old_resample_floor": 0.09679949279616562,
+     "n_old": 197,
+     "n_new": 200
+    },
+    "KTa2PO8": {
+     "mmd_old_vs_new": 0.40014675090610763,
+     "mmd_old_ref_vs_old_resample_floor": 0.08818557526797932,
+     "n_old": 188,
+     "n_new": 197
+    },
+    "Li3Y2(BO3)3": {
+     "mmd_old_vs_new": 0.14544517967792947,
+     "mmd_old_ref_vs_old_resample_floor": 0.08874750183242418,
+     "n_old": 196,
+     "n_new": 200
+    },
+    "Na2Al2B2O7": {
+     "mmd_old_vs_new": 0.21196425871216468,
+     "mmd_old_ref_vs_old_resample_floor": 0.1919481249234625,
+     "n_old": 198,
+     "n_new": 200
+    },
+    "NaSiBO4": {
+     "mmd_old_vs_new": 0.3483898086694139,
+     "mmd_old_ref_vs_old_resample_floor": 0.16247804171688773,
+     "n_old": 199,
+     "n_new": 200
+    },
+    "KTiNbO5": {
+     "mmd_old_vs_new": 0.6882132663644316,
+     "mmd_old_ref_vs_old_resample_floor": 0.09628246205825856,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "LiSi2BO6": {
+     "mmd_old_vs_new": 0.24329288819440426,
+     "mmd_old_ref_vs_old_resample_floor": 0.10003723815001078,
+     "n_old": 198,
+     "n_new": 200
+    },
+    "LiNbWO6": {
+     "mmd_old_vs_new": 0.2685834632199728,
+     "mmd_old_ref_vs_old_resample_floor": 0.12888111373099237,
+     "n_old": 199,
+     "n_new": 200
+    },
+    "LiZnBO3": {
+     "mmd_old_vs_new": 0.25746639876156696,
+     "mmd_old_ref_vs_old_resample_floor": 0.08469132844846512,
+     "n_old": 199,
+     "n_new": 200
+    }
+   }
+  },
+  "heldout_40": {
+   "mean_mmd_old_vs_new": 0.17827805464333482,
+   "ci95": [
+    0.13672576502434156,
+    0.22028785748912472
+   ],
+   "mean_floor_old_200_vs_old_32": 0.08353077691834117,
+   "n_targets": 40,
+   "per_target": {
+    "(Ba0.7Ca0.3)TiO3": {
+     "mmd_old_vs_new": 0.07177118466821286,
+     "mmd_old_ref_vs_old_resample_floor": 0.1186270750479978,
+     "n_old": 200,
+     "n_new": 198
+    },
+    "(Bi0.90Li0.10)(Sc0.90Ta0.10)O3": {
+     "mmd_old_vs_new": 0.09572442190088504,
+     "mmd_old_ref_vs_old_resample_floor": 0.040587669453669144,
+     "n_old": 194,
+     "n_new": 182
+    },
+    "(Y0.98Er0.01Yb0.01)2O3": {
+     "mmd_old_vs_new": 0.06075003833245716,
+     "mmd_old_ref_vs_old_resample_floor": 0.012247448713915898,
+     "n_old": 200,
+     "n_new": 199
+    },
+    "AgCuO": {
+     "mmd_old_vs_new": 0.23559921643174753,
+     "mmd_old_ref_vs_old_resample_floor": 0.1593082324181522,
+     "n_old": 198,
+     "n_new": 200
+    },
+    "Ba(Ti0.78Hf0.22)O3": {
+     "mmd_old_vs_new": 0.05899134717001565,
+     "mmd_old_ref_vs_old_resample_floor": 0.12711338442508716,
+     "n_old": 200,
+     "n_new": 199
+    },
+    "Ba2Bi0.6667TeO6": {
+     "mmd_old_vs_new": 0.14180367213235046,
+     "mmd_old_ref_vs_old_resample_floor": 0.06464691113748479,
+     "n_old": 170,
+     "n_new": 200
+    },
+    "Ba2La3Ti3TaO15": {
+     "mmd_old_vs_new": 0.13337558854246012,
+     "mmd_old_ref_vs_old_resample_floor": 0.022276669409945472,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "Ba3In4Cu3O12": {
+     "mmd_old_vs_new": 0.006708203932499365,
+     "mmd_old_ref_vs_old_resample_floor": 0.07257969757445946,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "BaBrCl": {
+     "mmd_old_vs_new": 0.32815138782783376,
+     "mmd_old_ref_vs_old_resample_floor": 0.09105973314259164,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "BaIn0.5Sn0.5O2.75": {
+     "mmd_old_vs_new": 0.09211842478972664,
+     "mmd_old_ref_vs_old_resample_floor": 0.04119591988152921,
+     "n_old": 191,
+     "n_new": 200
+    },
+    "Bi0.2Y2.8Fe5O12": {
+     "mmd_old_vs_new": 0.02915475947422652,
+     "mmd_old_ref_vs_old_resample_floor": 0.0,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "Bi0.8Ba0.2Fe0.95Cr0.05O3": {
+     "mmd_old_vs_new": 0.05481891661220635,
+     "mmd_old_ref_vs_old_resample_floor": 0.10755563918968974,
+     "n_old": 136,
+     "n_new": 199
+    },
+    "BiNiPO5": {
+     "mmd_old_vs_new": 0.29684928396745264,
+     "mmd_old_ref_vs_old_resample_floor": 0.04333707855034259,
+     "n_old": 197,
+     "n_new": 200
+    },
+    "CoNb2O6": {
+     "mmd_old_vs_new": 0.0387298334620742,
+     "mmd_old_ref_vs_old_resample_floor": 0.0,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "Cu2Zn0.75Mg0.25SnS4": {
+     "mmd_old_vs_new": 0.22430696244480433,
+     "mmd_old_ref_vs_old_resample_floor": 0.1774368384101124,
+     "n_old": 185,
+     "n_new": 196
+    },
+    "CuSbSe2": {
+     "mmd_old_vs_new": 0.4613682404610541,
+     "mmd_old_ref_vs_old_resample_floor": 0.1353388298698227,
+     "n_old": 193,
+     "n_new": 200
+    },
+    "InMn0.9957Fe0.01O3": {
+     "mmd_old_vs_new": 0.17419268757440828,
+     "mmd_old_ref_vs_old_resample_floor": 0.13585772159647236,
+     "n_old": 159,
+     "n_new": 192
+    },
+    "K2Ba(WO4)2": {
+     "mmd_old_vs_new": 0.2392331498768513,
+     "mmd_old_ref_vs_old_resample_floor": 0.07007287872874453,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "La0.25Sr0.75TiO3": {
+     "mmd_old_vs_new": 0.026589232379316097,
+     "mmd_old_ref_vs_old_resample_floor": 0.08239548441661551,
+     "n_old": 158,
+     "n_new": 188
+    },
+    "La0.82Sr0.18MnO3": {
+     "mmd_old_vs_new": 0.3907893650220036,
+     "mmd_old_ref_vs_old_resample_floor": 0.08130873945100311,
+     "n_old": 120,
+     "n_new": 185
+    },
+    "La1.85Sr0.15CuO4": {
+     "mmd_old_vs_new": 0.1431795625915258,
+     "mmd_old_ref_vs_old_resample_floor": 0.04511975785956813,
+     "n_old": 185,
+     "n_new": 200
+    },
+    "LaNi0.5Rh0.5O3": {
+     "mmd_old_vs_new": 0.2103416456218292,
+     "mmd_old_ref_vs_old_resample_floor": 0.09069075968286704,
+     "n_old": 159,
+     "n_new": 195
+    },
+    "Li2TeO4": {
+     "mmd_old_vs_new": 0.3257865781989358,
+     "mmd_old_ref_vs_old_resample_floor": 0.07657535078876634,
+     "n_old": 198,
+     "n_new": 200
+    },
+    "Li3BiO4": {
+     "mmd_old_vs_new": 0.26696369130720854,
+     "mmd_old_ref_vs_old_resample_floor": 0.07614855410188441,
+     "n_old": 184,
+     "n_new": 200
+    },
+    "Li5P3O10": {
+     "mmd_old_vs_new": 0.4124722212868806,
+     "mmd_old_ref_vs_old_resample_floor": 0.14028987846598198,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "Li9V3(P2O7)3(PO4)2": {
+     "mmd_old_vs_new": 0.3266483205179446,
+     "mmd_old_ref_vs_old_resample_floor": 0.09374285365984385,
+     "n_old": 182,
+     "n_new": 198
+    },
+    "LiBi3O4Cl2": {
+     "mmd_old_vs_new": 0.31841149138841823,
+     "mmd_old_ref_vs_old_resample_floor": 0.1576565605329998,
+     "n_old": 188,
+     "n_new": 200
+    },
+    "LiFe(BO3)0.5(PO4)0.5": {
+     "mmd_old_vs_new": 0.375754768617939,
+     "mmd_old_ref_vs_old_resample_floor": 0.26445312578336067,
+     "n_old": 150,
+     "n_new": 198
+    },
+    "LiPO3": {
+     "mmd_old_vs_new": 0.2546893532652409,
+     "mmd_old_ref_vs_old_resample_floor": 0.13701429365824086,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "Mg2FeV3O11": {
+     "mmd_old_vs_new": 0.019414419951963975,
+     "mmd_old_ref_vs_old_resample_floor": 0.022586545227270643,
+     "n_old": 198,
+     "n_new": 200
+    },
+    "Na0.65Bi0.45Cu3Ti4O12": {
+     "mmd_old_vs_new": 0.4033237829650491,
+     "mmd_old_ref_vs_old_resample_floor": 0.036717766760228455,
+     "n_old": 198,
+     "n_new": 200
+    },
+    "Na2PdCl4": {
+     "mmd_old_vs_new": 0.018257418583505547,
+     "mmd_old_ref_vs_old_resample_floor": 0.019578900207451233,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "NaNiO2": {
+     "mmd_old_vs_new": 0.2604822408763816,
+     "mmd_old_ref_vs_old_resample_floor": 0.21862149166413478,
+     "n_old": 188,
+     "n_new": 200
+    },
+    "Pb(Zr0.47Ti0.53)O3": {
+     "mmd_old_vs_new": 0.011832159566199235,
+     "mmd_old_ref_vs_old_resample_floor": 0.005000000000000003,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "Sr0.5Ca0.5Fe12O19": {
+     "mmd_old_vs_new": 0.12195089080325712,
+     "mmd_old_ref_vs_old_resample_floor": 0.07242873616251427,
+     "n_old": 190,
+     "n_new": 198
+    },
+    "Sr2MnNbO6": {
+     "mmd_old_vs_new": 0.18898308521873325,
+     "mmd_old_ref_vs_old_resample_floor": 0.09541154136108945,
+     "n_old": 187,
+     "n_new": 197
+    },
+    "Sr3NiIrO6": {
+     "mmd_old_vs_new": 0.03577708763999663,
+     "mmd_old_ref_vs_old_resample_floor": 0.03700084458495509,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "SrPuO3": {
+     "mmd_old_vs_new": 0.01527525231651948,
+     "mmd_old_ref_vs_old_resample_floor": 0.05651327277728659,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "SrUO4": {
+     "mmd_old_vs_new": 0.26055229801327795,
+     "mmd_old_ref_vs_old_resample_floor": 0.10566382422570178,
+     "n_old": 200,
+     "n_new": 200
+    },
+    "TbTaO4": {
+     "mmd_old_vs_new": 0.0,
+     "mmd_old_ref_vs_old_resample_floor": 0.007071067811865478,
+     "n_old": 200,
+     "n_new": 200
+    }
+   }
+  }
+ }
+}

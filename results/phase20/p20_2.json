@@ -1,0 +1,133 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "e05111d83f8d7cc6d572f8feda3f433494309b8f",
+ "seed": 20261116,
+ "prediction": "P-20-2",
+ "statement": "E1-full at steps 100, 200 and 300 does not exceed sft-rssft-full's resampling floor for new recipes (finding 33's procedure).",
+ "operationalisation": "finding 33's procedure (support_growth_by_checkpoint.py): pooled share of distinct recipes absent from the init's 200-sample reference, cluster-bootstrap CI. A checkpoint 'exceeds the floor' only if its CI lies entirely above the floor's CI (finding 33: 'every interval overlaps the floor's'); the point comparison is reported alongside.",
+ "by_checkpoint": {
+  "astral_ckpt100": {
+   "point": 0.09844559585492228,
+   "ci95": [
+    0.053475935828877004,
+    0.13983050847457626
+   ],
+   "floor_point": 0.0861244019138756,
+   "floor_ci95": [
+    0.043478260869565216,
+    0.13063063063063063
+   ],
+   "point_above_floor": true,
+   "intervals_overlap": true,
+   "exceeds_floor": false
+  },
+  "astral_ckpt200": {
+   "point": 0.09900990099009901,
+   "ci95": [
+    0.05687203791469194,
+    0.1407035175879397
+   ],
+   "floor_point": 0.0861244019138756,
+   "floor_ci95": [
+    0.043478260869565216,
+    0.13063063063063063
+   ],
+   "point_above_floor": true,
+   "intervals_overlap": true,
+   "exceeds_floor": false
+  },
+  "astral_ckpt300": {
+   "point": 0.1076923076923077,
+   "ci95": [
+    0.06770833333333333,
+    0.14761904761904762
+   ],
+   "floor_point": 0.0861244019138756,
+   "floor_ci95": [
+    0.043478260869565216,
+    0.13063063063063063
+   ],
+   "point_above_floor": true,
+   "intervals_overlap": true,
+   "exceeds_floor": false
+  },
+  "heldout_ckpt100": {
+   "point": 0.06040268456375839,
+   "ci95": [
+    0.023622047244094488,
+    0.09554140127388536
+   ],
+   "floor_point": 0.16091954022988506,
+   "floor_ci95": [
+    0.09815950920245399,
+    0.22099447513812154
+   ],
+   "point_above_floor": false,
+   "intervals_overlap": true,
+   "exceeds_floor": false
+  },
+  "heldout_ckpt200": {
+   "point": 0.09259259259259259,
+   "ci95": [
+    0.043478260869565216,
+    0.13861386138613863
+   ],
+   "floor_point": 0.16091954022988506,
+   "floor_ci95": [
+    0.09815950920245399,
+    0.22099447513812154
+   ],
+   "point_above_floor": false,
+   "intervals_overlap": true,
+   "exceeds_floor": false
+  },
+  "heldout_ckpt300": {
+   "point": 0.14666666666666667,
+   "ci95": [
+    0.07633587786259542,
+    0.20540540540540542
+   ],
+   "floor_point": 0.16091954022988506,
+   "floor_ci95": [
+    0.09815950920245399,
+    0.22099447513812154
+   ],
+   "point_above_floor": false,
+   "intervals_overlap": true,
+   "exceeds_floor": false
+  }
+ },
+ "passes": true,
+ "hits_and_carbonate": {
+  "sft_rssft_full": {
+   "predicted_hits_clean": "8/22",
+   "predicted_hits_full": "10/35",
+   "carbonate_share_full_35": 0.7812,
+   "bare_oxide_share_full_35": 0.1115,
+   "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_sft_rssft_full_trajectory.json"
+  },
+  "e1full_ckpt100": {
+   "predicted_hits_clean": "8/22",
+   "predicted_hits_full": "10/35",
+   "carbonate_share_full_35": 0.7377,
+   "bare_oxide_share_full_35": 0.1506,
+   "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_e1full_ckpt100_trajectory.json"
+  },
+  "e1full_ckpt200": {
+   "predicted_hits_clean": "9/22",
+   "predicted_hits_full": "10/35",
+   "carbonate_share_full_35": 0.685,
+   "bare_oxide_share_full_35": 0.1795,
+   "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_e1full_ckpt200_trajectory.json"
+  },
+  "e1full_ckpt300": {
+   "predicted_hits_clean": "7/22",
+   "predicted_hits_full": "9/35",
+   "carbonate_share_full_35": 0.6984,
+   "bare_oxide_share_full_35": 0.175,
+   "enriched_file": "/users/gsundar/projects/MIRA/results/astral_gen_n32_e1full_ckpt300_trajectory.json"
+  }
+ },
+ "raw": "results/phase20/support_growth_by_checkpoint_e1full.json"
+}

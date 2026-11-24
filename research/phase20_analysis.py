@@ -457,13 +457,16 @@ def cmd_weights():
                          "rs_sft": last_ckpt("runs/sft-qlora-sft-rssft-full"),
                          "e3": last_ckpt("runs/sft-qlora-sft-e3-full"),
                          "e3c": last_ckpt("runs/sft-qlora-sft-e3c-full")}
-    w.TRAJ = {"S5": w.TRAJ["S5"],
+    # S6 (old RS-SFT -> Phase 12) stays as an unchanged reference step on its own
+    # (old) init, so the 18C code and its P-18C-2 test run as written.
+    w.ADAPTERS["rs_sft_old"] = c18.ADAPTERS["rs_sft"]
+    w.TRAJ = {"S5": w.TRAJ["S5"], "S6": ("rs_sft_old", w.TRAJ["S6"][1]),
               "S7": ("rs_sft", [c20.NEW_ADAPTERS[f"e1full_ckpt{k}"] for k in (100, 200, 300)])}
-    w.STEPS = {s: v for s, v in step_table("final").items() if s != "S6"}
-    w.PRACTICE_STEPS = ("S5", "S7")
+    w.STEPS = {**step_table("final"), "S6": ("rs_sft_old", "phase12_ckpt300")}
+    w.PRACTICE_STEPS = ("S5", "S6", "S7")
     w.provenance = lambda: {**prov, "phase20_note": "18C rerun: rs_sft/e3/e3c = sft-*-full adapters; S7 = "
-                                                     "sft-rssft-full -> E1-full; S6 (old Phase 12) dropped because "
-                                                     "its init is the old RS-SFT"}
+                                                     "sft-rssft-full -> E1-full; S6 = old RS-SFT -> Phase 12 "
+                                                     "(old init, unchanged reference)"}
     w.write_json = lambda name, obj: write_json("c18_" + name, obj)
     w.main()
 

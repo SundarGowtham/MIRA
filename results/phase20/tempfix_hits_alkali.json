@@ -1,0 +1,181 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "e05111d83f8d7cc6d572f8feda3f433494309b8f",
+ "seed": 20261116,
+ "measurement": "temperature sensitivity (hits, alkali)",
+ "hits": {
+  "corpus_sft": {
+   "old_hf_t1.0": {
+    "exact_full": "0/35",
+    "exact_clean": "0/22"
+   },
+   "new_vllm_t0.9": {
+    "exact_full": "0/35",
+    "exact_clean": "0/22"
+   }
+  },
+  "gdpo_v3_ckpt300": {
+   "old_hf_t1.0": {
+    "exact_full": "2/35",
+    "exact_clean": "2/22"
+   },
+   "new_vllm_t0.9": {
+    "exact_full": "0/35",
+    "exact_clean": "0/22"
+   }
+  },
+  "phase12_ckpt300": {
+   "old_hf_t1.0": {
+    "exact_full": "14/35",
+    "exact_clean": "12/22"
+   },
+   "new_vllm_t0.9": {
+    "exact_full": "12/35",
+    "exact_clean": "10/22"
+   }
+  },
+  "e1_ckpt300": {
+   "old_hf_t1.0": {
+    "exact_full": "14/35",
+    "exact_clean": "11/22"
+   },
+   "new_vllm_t0.9": {
+    "exact_full": "13/35",
+    "exact_clean": "10/22"
+   }
+  }
+ },
+ "alkali": {
+  "corpus_sft": {
+   "old_hf_t1.0": {
+    "counts": {
+     "bare_oxide": 6,
+     "carbonate": 1145,
+     "other": 15,
+     "missing": 0
+    },
+    "n_triples": 1166,
+    "shares": {
+     "bare_oxide": 0.005145797598627788,
+     "carbonate": 0.9819897084048027,
+     "other": 0.012864493996569469,
+     "missing": 0.0
+    }
+   },
+   "new_vllm_t0.9": {
+    "counts": {
+     "bare_oxide": 6,
+     "carbonate": 1147,
+     "other": 6,
+     "missing": 0
+    },
+    "n_triples": 1159,
+    "shares": {
+     "bare_oxide": 0.005176876617773943,
+     "carbonate": 0.9896462467644521,
+     "other": 0.005176876617773943,
+     "missing": 0.0
+    }
+   }
+  },
+  "gdpo_v3_ckpt300": {
+   "old_hf_t1.0": {
+    "counts": {
+     "bare_oxide": 1,
+     "carbonate": 1146,
+     "other": 13,
+     "missing": 0
+    },
+    "n_triples": 1160,
+    "shares": {
+     "bare_oxide": 0.0008620689655172414,
+     "carbonate": 0.9879310344827587,
+     "other": 0.011206896551724138,
+     "missing": 0.0
+    }
+   },
+   "new_vllm_t0.9": {
+    "counts": {
+     "bare_oxide": 1,
+     "carbonate": 1169,
+     "other": 4,
+     "missing": 0
+    },
+    "n_triples": 1174,
+    "shares": {
+     "bare_oxide": 0.0008517887563884157,
+     "carbonate": 0.995741056218058,
+     "other": 0.0034071550255536627,
+     "missing": 0.0
+    }
+   }
+  },
+  "phase12_ckpt300": {
+   "old_hf_t1.0": {
+    "counts": {
+     "bare_oxide": 655,
+     "carbonate": 208,
+     "other": 288,
+     "missing": 0
+    },
+    "n_triples": 1151,
+    "shares": {
+     "bare_oxide": 0.5690703735881842,
+     "carbonate": 0.18071242397914858,
+     "other": 0.25021720243266726,
+     "missing": 0.0
+    }
+   },
+   "new_vllm_t0.9": {
+    "counts": {
+     "bare_oxide": 666,
+     "carbonate": 188,
+     "other": 302,
+     "missing": 0
+    },
+    "n_triples": 1156,
+    "shares": {
+     "bare_oxide": 0.5761245674740484,
+     "carbonate": 0.16262975778546712,
+     "other": 0.26124567474048443,
+     "missing": 0.0
+    }
+   }
+  },
+  "e1_ckpt300": {
+   "old_hf_t1.0": {
+    "counts": {
+     "bare_oxide": 560,
+     "carbonate": 212,
+     "other": 386,
+     "missing": 0
+    },
+    "n_triples": 1158,
+    "shares": {
+     "bare_oxide": 0.4835924006908463,
+     "carbonate": 0.18307426597582038,
+     "other": 0.3333333333333333,
+     "missing": 0.0
+    }
+   },
+   "new_vllm_t0.9": {
+    "counts": {
+     "bare_oxide": 585,
+     "carbonate": 233,
+     "other": 340,
+     "missing": 0
+    },
+    "n_triples": 1158,
+    "shares": {
+     "bare_oxide": 0.5051813471502591,
+     "carbonate": 0.20120898100172713,
+     "other": 0.29360967184801384,
+     "missing": 0.0
+    }
+   }
+  }
+ },
+ "a18_rerun": "results/phase20/a18_tempfix_*.json (old: results/phase18/)",
+ "e18_rerun": "results/phase20/e18_tempfix_*.json (old: results/phase18/)"
+}

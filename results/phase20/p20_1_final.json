@@ -1,0 +1,168 @@
+{
+ "prereg_commit": "2ac94de8bd945744d3ec93b5002616bb5d59764b",
+ "prereg_blob_sha": "15d89d8a177920db0b4ae4d9a65972d9ebeb8ccf",
+ "repo_head_at_run": "e05111d83f8d7cc6d572f8feda3f433494309b8f",
+ "seed": 20261116,
+ "prediction": "P-20-1",
+ "statement": "New-support mass minus Base's resampling floor (P-18A-2 measure, same code, lambda, floor and targets) is positive with CI lower bound above 0 for each of sft-rssft-full, sft-e3-full, sft-e3c-full.",
+ "stage": "final",
+ "step_table": {
+  "S1": [
+   "base",
+   "sft_corpus_full"
+  ],
+  "S2": [
+   "base",
+   "sft_rssft_full"
+  ],
+  "S3": [
+   "base",
+   "sft_e3_full"
+  ],
+  "S4": [
+   "base",
+   "sft_e3c_full"
+  ],
+  "S5": [
+   "corpus_sft",
+   "gdpo_v3_ckpt300"
+  ],
+  "S6": [
+   "rs_sft",
+   "phase12_ckpt300"
+  ],
+  "S7": [
+   "sft_rssft_full",
+   "e1full_ckpt300"
+  ]
+ },
+ "by_model": {
+  "sft_rssft_full": {
+   "step": "S2",
+   "new_support_mass": 0.029778129386883047,
+   "noise_floor": 0.031009356793549308,
+   "diff": -0.0012312274066662633,
+   "ci95": [
+    -0.00658305772801874,
+    0.004474302242178478
+   ],
+   "positive_with_ci_above_0": false
+  },
+  "sft_e3_full": {
+   "step": "S3",
+   "new_support_mass": 0.01825745564067602,
+   "noise_floor": 0.02189319094842537,
+   "diff": -0.0036357353077493505,
+   "ci95": [
+    -0.010675099722511272,
+    0.00389791898405636
+   ],
+   "positive_with_ci_above_0": false
+  },
+  "sft_e3c_full": {
+   "step": "S4",
+   "new_support_mass": 0.02551786411104504,
+   "noise_floor": 0.022523365882513253,
+   "diff": 0.0029944982285317876,
+   "ci95": [
+    -0.005075384179426191,
+    0.011993171175858481
+   ],
+   "positive_with_ci_above_0": false
+  }
+ },
+ "sft_rssft_full_samples": "data/novelty/phase20/sft_rssft_full_reference_astral.jsonl",
+ "passes": false,
+ "source": "results/phase20/a18_final_transport_exact.json (pool: primary, ASTRAL clean 22 + held-out 40)",
+ "raw_P_18A_2_primary": {
+  "statement": "New-support mass minus noise floor: CI includes 0 for each of S5-S7, excludes 0 for S3 and S4.",
+  "by_step": {
+   "S1": {
+    "new_support_mass": 0.08940325616805363,
+    "noise_floor": 0.021797418239809987,
+    "diff": 0.06760583792824364,
+    "ci95": [
+     0.03997533232115732,
+     0.09921627049685497
+    ],
+    "ci_includes_0": false,
+    "ci_above_0": true,
+    "n_targets": 62
+   },
+   "S2": {
+    "new_support_mass": 0.029778129386883047,
+    "noise_floor": 0.031009356793549308,
+    "diff": -0.0012312274066662633,
+    "ci95": [
+     -0.00658305772801874,
+     0.004474302242178478
+    ],
+    "ci_includes_0": true,
+    "ci_above_0": false,
+    "n_targets": 62
+   },
+   "S3": {
+    "new_support_mass": 0.01825745564067602,
+    "noise_floor": 0.02189319094842537,
+    "diff": -0.0036357353077493505,
+    "ci95": [
+     -0.010675099722511272,
+     0.00389791898405636
+    ],
+    "ci_includes_0": true,
+    "ci_above_0": false,
+    "n_targets": 62
+   },
+   "S4": {
+    "new_support_mass": 0.02551786411104504,
+    "noise_floor": 0.022523365882513253,
+    "diff": 0.0029944982285317876,
+    "ci95": [
+     -0.005075384179426191,
+     0.011993171175858481
+    ],
+    "ci_includes_0": true,
+    "ci_above_0": false,
+    "n_targets": 62
+   },
+   "S5": {
+    "new_support_mass": 0.060139210270970134,
+    "noise_floor": 0.066346438172043,
+    "diff": -0.0062072279010728796,
+    "ci95": [
+     -0.018655665232875242,
+     0.006010670831987749
+    ],
+    "ci_includes_0": true,
+    "ci_above_0": false,
+    "n_targets": 62
+   },
+   "S6": {
+    "new_support_mass": 0.009830472327901145,
+    "noise_floor": 0.020694088017979253,
+    "diff": -0.010863615690078115,
+    "ci95": [
+     -0.015280109049101365,
+     -0.006504702134650848
+    ],
+    "ci_includes_0": false,
+    "ci_above_0": false,
+    "n_targets": 62
+   },
+   "S7": {
+    "new_support_mass": 0.019443462446112683,
+    "noise_floor": 0.016565360054011196,
+    "diff": 0.0028781023921014815,
+    "ci95": [
+     -0.0025183441417670088,
+     0.008919335482632178
+    ],
+    "ci_includes_0": true,
+    "ci_above_0": false,
+    "n_targets": 62
+   }
+  },
+  "passes": false,
+  "practice_step_above_floor": []
+ }
+}
